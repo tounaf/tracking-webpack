@@ -1,0 +1,9 @@
+fos_user:
+    db_driver: orm
+    user_class: App\Entity\FosUser
+    firewall_name: main
+    from_email:
+        address: 'no-reply@fetra.com'
+        sender_name: 'litige'
+    service:                               # this lines
+        mailer: fos_user.mailer.twig_swift
