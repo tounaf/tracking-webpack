@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!{% endblock %}
+
+{% block body %}
+
+    <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header class="app-header navbar">
+        {% include 'nav-bar.html.twig' %}
+    </header>
+    <div class="app-body">
+        <div class="sidebar">
+            {% include 'side-bar.html.twig' %}
+        </div>
+        <main class="main">
+            <!-- Breadcrumb-->
+            <div class="container-fluid">
+                <div class="animated fadeIn">
+                    <div class="row">
+                        main
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- CoreUI and necessary plugins-->
+    </body>
+
+{% endblock %}
