@@ -5,9 +5,26 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="1" resname="label">
-        <source>label</source>
-        <target>Label</target>
+          <trans-unit id="1" resname="label">
+            <source>label</source>
+            <target>Label</target>
+          </trans-unit>
+
+          <trans-unit id="2" resname="forgot.passeword">
+            <source>forgot.password</source>
+            <target>Mot de passe oublié ?</target>
+          </trans-unit>
+
+          <trans-unit id="3" resname="label.user">
+            <source>label.user</source>
+            <target>Utilisateur</target>
+          </trans-unit>
+
+          <trans-unit id="4" resname="label.admin">
+            <source>label.admin</source>
+            <target>Administration</target>
+          </trans-unit>
+
     </body>
   </file>
 </xliff>

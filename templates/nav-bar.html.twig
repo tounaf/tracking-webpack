@@ -16,7 +16,11 @@
 <ul class="nav navbar-nav ml-auto">
     <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            <img class="img-avatar" src="img/avatars/6.jpg" alt="admin@bootstrapmaster.com">
+            {% if app.user.name is not null %}
+                {{ app.user.name }}
+            {% else %}
+                {{ app.user.email }}
+            {% endif %}
         </a>
         <div class="dropdown-menu dropdown-menu-right">
             <div class="dropdown-header text-center">
@@ -24,7 +28,7 @@
             </div>
             <a class="dropdown-item" href="#">
                 <i class="fa fa-user"></i> Profile </a>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">
                 <i class="fa fa-wrench"></i> Déconnexion </a>
             <div class="dropdown-divider"></div>
         </div>
