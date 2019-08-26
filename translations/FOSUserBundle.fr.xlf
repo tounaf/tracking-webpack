@@ -8,7 +8,6 @@
       <trans-unit id="1" resname="label">
         <source>label</source>
         <target>Label</target>
-      </trans-unit>
     </body>
   </file>
 </xliff>
