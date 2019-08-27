@@ -21,9 +21,11 @@
         "chart.js": "^2.8.0",
         "flag-icon-css": "^3.3.0",
         "font-awesome": "^4.7.0",
+        "fos-routing": "0.0.6",
         "jquery": "^3.4.1",
         "perfect-scrollbar": "^1.4.0",
         "popper.js": "^1.15.0",
-        "simple-line-icons": "^2.4.1"
+        "simple-line-icons": "^2.4.1",
+        "spin.js": "^4.0.0"
     }
 }
