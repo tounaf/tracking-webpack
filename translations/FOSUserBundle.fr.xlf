@@ -25,6 +25,12 @@
             <target>Administration</target>
           </trans-unit>
 
+          <trans-unit id="5" resname="label.email">
+              <source>label.email</source>
+              <target>Email</target>
+            </trans-unit>
+
+
     </body>
   </file>
 </xliff>

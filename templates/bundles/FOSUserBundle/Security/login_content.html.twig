@@ -3,9 +3,11 @@
 {% if error %}
     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
-
+{% if success is defined %}
+    <div class="alert alert-{{ success }}">{{ message }}</div>
+{% endif %}
 <h1 class="text-danger">Connexion</h1>
-<form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
+    <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
     {% if csrf_token %}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     {% endif %}
@@ -20,8 +22,7 @@
     {#<label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>#}
 
     <div class="text-right">
-
-        <button class="btn btn-link text-danger" type="button">{{ 'forgot.passeword'|trans }}</button>
+        <button data-toggle="modal" id="showModalPassword" data-target="" class="btn btn-link text-danger" type="button">{{ 'forgot.passeword'|trans }}</button>
         <input class="btn btn-danger" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
     </div>
 </form>

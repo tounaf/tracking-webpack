@@ -1,0 +1,6 @@
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing-sf4.xml"
+    options:
+        routes_to_expose:
+            - resetting_password_user
+            - fos_user_security_login
