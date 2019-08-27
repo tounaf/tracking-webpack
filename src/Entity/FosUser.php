@@ -66,9 +66,9 @@ class FosUser extends BasUser
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -82,9 +82,9 @@ class FosUser extends BasUser
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLastname(): string
+    public function getLastname()
     {
         return $this->lastname;
     }
@@ -98,9 +98,9 @@ class FosUser extends BasUser
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPhoneNumber(): string
+    public function getPhoneNumber()
     {
         return $this->phoneNumber;
     }

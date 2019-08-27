@@ -56,6 +56,18 @@ class UserController extends Controller
         return $response->setData($data);
     }
 
+    /**
+     * @Route("/list", options={"expose"=true}, name="list_user")
+     */
+    public function listUser()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $listUser = $em->getRepository(FosUser::class)->findAll();
+        return $this->render('user/list_user.html.twig',array(
+            'users' => $listUser
+        ));
+    }
+
     private function sendMail($email, $newPassword, $name)
     {
         $mailer = $this->get('mailer');

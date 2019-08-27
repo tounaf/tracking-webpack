@@ -1,0 +1,53 @@
+{% extends 'dashboard/dashboard.html.twig' %}
+
+{% block wrapper %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+
+                <h1>Fonction index</h1>
+
+                <table id="listUser" class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénoms</th>
+                            <th>Entité</th>
+                            <th>Email</th>
+                            <th>Téléphone</th>
+                            <th>Profil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.lastname }}</td>
+                            <td></td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.phoneNumber }}</td>
+                            <td>
+                                <a class="btn btn-info" href="#">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-danger" href="#">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('user') }}
+{% endblock %}
