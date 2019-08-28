@@ -63,7 +63,10 @@ $('#buttonResetting').click(function (e) {
 })
 
 $(document).ready(function () {
-    var listUser = $('#listUser').dataTable({
+
+    var dataTable = $('#listUser').DataTable({
+        destroy : true,
+        bLengthChange: false,
         info: false,
         language: {
             processing:     "Traitement en cours...",
@@ -88,5 +91,21 @@ $(document).ready(function () {
             }
         },
     });
+    $("#search_box").on('keyup', function() {
+        dataTable.search($(this).val()).draw();
+    });
 })
-console.log($('#list_user').dataTable());
+
+$("#formCreateUser").submit(function (e) {
+    e.preventDefault();
+    var data = $(this).serialize();
+    var url = Routing.generate('create_user');
+    $.post( 
+        url,
+        data,
+        function (response) {
+            console.log(response);
+        }
+    )
+
+})
