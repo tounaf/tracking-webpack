@@ -24,12 +24,15 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
-    .addEntry('user', './assets/js//user/user.js')
-    //.addEntry('page2', './assets/js/page2.js')
+    .addEntry('user', './assets/js/user/user.js')
+    .addEntry('control', './assets/js/user/control-field.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
-
+    .configureSplitChunks(function(splitChunks) {
+         // change the configuration
+         splitChunks.minSize = 0;
+     })
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
