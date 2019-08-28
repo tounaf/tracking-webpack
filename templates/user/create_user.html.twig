@@ -1,5 +1,5 @@
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
-{{ form_start(form, {'method': 'post', 'action': path('create_user'), 'attr': {'id': 'formCreateUser','class': 'form-horizontale fos_user_registration_register'}}) }}
+{{ form_start(form, {'attr': {'id': 'formCreateUser','class': 'form-horizontale fos_user_registration_register'}}) }}
     {{ form_widget(form) }}
     <div class="form-group">
         <input type="submit" data-dismiss="modal" id="saveCreateUser" class="btn btn-dark" value="{{ 'label.cancel'|trans }}" />

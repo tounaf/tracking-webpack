@@ -95,6 +95,53 @@ $(document).ready(function () {
     $("#search_box").on('keyup', function() {
         dataTable.search($(this).val()).draw();
     });
+
+
+    $("#fos_user_email").keyup(function () {
+        var email = $(this).val();
+        var url = Routing.generate('verify_email',{'email': email});
+
+        if (!Fonction.isEmailValidFormat(email)) {
+            $("#emailFormatInvalid").remove();
+            $(this).addClass('border border-danger');
+            $("#fos_user_email").parent().append("<small id='emailFormatInvalid' class='form-text text-danger'>Format email invalid</small>");
+            $('#saveCreateUser').attr('disabled','disabled');
+            return false;
+        } else {
+            $(this).removeClass('border border-danger');
+            $("#emailFormatInvalid").remove();
+            $('#saveCreateUser').attr('disabled',false);
+        }
+        $.get(url,email,
+            function (response) {
+                if (response.status == 200) {
+                    console.log(response);
+                    $('#emailHelp').remove();
+                    $('#saveCreateUser').attr('disabled',false);
+                }
+                if (response.status == 403) {
+                    $('#emailHelp').remove();
+                    $("#fos_user_email").parent().append("<small id='emailHelp' class='form-text text-muted'>Cet addresse email est déja utilisé</small>");
+                    $('#saveCreateUser').attr('disabled','disabled');
+                }
+            })
+    })
+
+    $('#fos_user_phoneNumber').keyup(function () {
+        var phone = $(this).val();
+        if (!Fonction.isPhone(phone)) {
+
+            $("#phoneFormatInvalid").remove();
+            $(this).addClass('border border-danger');
+            $(this).parent().append("<small id='phoneFormatInvalid' class='form-text text-danger'>Numero télephone incorrecte</small>");
+            $('#saveCreateUser').attr('disabled','disabled');
+        } else {
+
+            $(this).removeClass('border border-danger');
+            $("#phoneFormatInvalid").remove();
+            $('#saveCreateUser').attr('disabled',false);
+        }
+    })
 })
 
 $("#formCreateUser").submit(function (e) {
@@ -105,12 +152,11 @@ $("#formCreateUser").submit(function (e) {
         url,
         data,
         function (response) {
-            console.log(response);
             var elt = $('#exampleModalLongTitle');
-            if (data.status == 500) {
+            if (response.status == 500) {
                 elt.removeClass('text-danger').addClass('alert alert-'+data.type).text(data.message);
             }
-            if (data.status == 200) {
+            if (response.status == 200) {
 
                 removeClassStartingWith(elt,'alert')
                 elt.removeClass('text-danger').addClass('alert alert-'+data.type).text(data.message);
@@ -124,48 +170,27 @@ $("#formCreateUser").submit(function (e) {
 
 })
 
-$("#fos_user_email").keyup(function () {
-    var email = $(this).val();
-    var url = Routing.generate('verify_email',{'email': email});
 
-    if (!Fonction.isEmailValidFormat(email)) {
-        $("#emailFormatInvalid").remove();
-        $(this).addClass('border border-danger');
-        $("#fos_user_email").parent().append("<small id='emailFormatInvalid' class='form-text text-danger'>Format email invalid</small>");
-        $('#saveCreateUser').attr('disabled','disabled');
-        return false;
-    } else {
-        $(this).removeClass('border border-danger');
-        $("#emailFormatInvalid").remove();
-        $('#saveCreateUser').attr('disabled',false);
-    }
-    $.get(url,email,
-        function (response) {
-            if (response.status == 200) {
-                console.log(response);
-                $('#emailHelp').remove();
-                $('#saveCreateUser').attr('disabled',false);
-            }
-            if (response.status == 403) {
-                $('#emailHelp').remove();
-                $("#fos_user_email").parent().append("<small id='emailHelp' class='form-text text-muted'>Cet addresse email est déja utilisé</small>");
-                $('#saveCreateUser').attr('disabled','disabled');
-            }
-        })
+$('.btn-edit-user').click(function (e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    var url = Routing.generate('edit_user',{'id':id})
+    $.get(url,function (response) {
+        $('.modal-body').html(response);
+        $('#modalPassword').modal('show');
+    })
 })
 
-$('#fos_user_phoneNumber').keyup(function () {
-    var phone = $(this).val();
-    if (!Fonction.isPhone(phone)) {
+$('#showModalCreateUser').click(function (e) {
+    e.preventDefault();
+    var url = Routing.generate('create_user');
+    $.get(url,function (response) {
+        $('.modal-body').html(response);
+        $('#modalPassword').modal('show');
+    })
+})
 
-        $("#phoneFormatInvalid").remove();
-        $(this).addClass('border border-danger');
-        $(this).parent().append("<small id='phoneFormatInvalid' class='form-text text-danger'>Numero télephone incorrecte</small>");
-        $('#saveCreateUser').attr('disabled','disabled');
-    } else {
-
-        $(this).removeClass('border border-danger');
-        $("#phoneFormatInvalid").remove();
-        $('#saveCreateUser').attr('disabled',false);
-    }
+$('#saveCreateUser').click(function (e) {
+    e.preventDefault();
+    console.log($(this));
 })

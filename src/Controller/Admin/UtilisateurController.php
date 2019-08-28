@@ -41,16 +41,19 @@ class UtilisateurController extends Controller
     }
 
     /**
-     *
      * @param Request $request
-     * @Route("/user/create", name="create_user", methods={"POST"}, options={"expose"=true})
      *
+     * @Route("/user/create", name="create_user", methods={"POST","GET"}, options={"expose"=true})
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Request $request)
+    public function create(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $user = new FosUser();
-        $form = $this->createForm(FosUserType::class, $user)->handleRequest($request);
+        $form = $this->createForm(FosUserType::class, $user, array(
+            'method' => 'POST',
+            'action' => $this->generateUrl('create_user')
+        ))->handleRequest($request);
         $response = new JsonResponse();
         $message = array(
             'status'=>200,
@@ -70,9 +73,33 @@ class UtilisateurController extends Controller
                 $message['status'] = 500;
                 $message['type'] = 'danger';
             }
+            return $response->setData($message);
         }
 
-        return $response->setData($message);
+        return $this->render('user/create_user.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/user/{id}/edit", name="edit_user", options={"expose"=true}, methods={"POST","GET"})
+     * @ParamConverter("user", class="App\Entity\FosUser")
+     */
+    public function editUser(Request $request, FosUser $fosUser)
+    {
+        $id = $request->get('id');
+        if ($fosUser) {
+            $form = $this->createForm(FosUserType::class, $fosUser, array(
+                'method' => 'POST',
+                'action' => $this->generateUrl('edit_user',array('id'=> $id))
+            ))->handleRequest($request);
+            if ($form->isSubmitted()){
+                $this->getDoctrine()->getManager()->flush();
+            }
+            return $this->render('user/create_user.html.twig',array(
+               'form' => $form->createView()
+            ));
+        }
     }
 
     /**
