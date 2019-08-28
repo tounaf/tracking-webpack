@@ -1,0 +1,7 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{{ form_start(form, {'method': 'post', 'action': path('create_user'), 'attr': {'id': 'formCreateUser','class': 'form-horizontale fos_user_registration_register'}}) }}
+    {{ form_widget(form) }}
+<div>
+    <input type="submit" value="{{ 'registration.submit'|trans }}" />
+</div>
+{{ form_end(form) }}
