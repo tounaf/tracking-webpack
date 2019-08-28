@@ -28,6 +28,10 @@
                 <source>label.saisi.email</source>
                 <target>Veuillez saisir votre mail</target>
             </trans-unit>
+             <trans-unit id="13">
+                <source>label.cancel</source>
+                <target>ANNULER</target>
+            </trans-unit>
 
         </body>
     </file>

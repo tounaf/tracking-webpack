@@ -10,6 +10,8 @@ namespace App\Controller\Admin;
 use App\Entity\FosUser;
 use App\Form\FosUserType;
 use App\Utils\Fonctions;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,5 +73,31 @@ class UtilisateurController extends Controller
         }
 
         return $response->setData($message);
+    }
+
+    /**
+     * @param Request $request
+     * @Route("/user/verify-email/{email}", name="verify_email", methods={"GET"}, options={"expose": true})
+     * @return JsonResponse
+     */
+    public function emailIsExist(Request $request)
+    {
+        $email = $request->get('email');
+        $user = $this->getDoctrine()->getManager()->getRepository(FosUser::class)->findBy(array('email'=> $email ));
+        $data = array(
+            'message' => '',
+            'status' => '',
+            'type' => ''
+        );
+        if ($user) {
+          $data['message'] = true;
+          $data['status'] = 403;
+          $data['type'] = 'danger';
+        } else {
+            $data['message'] = false;
+            $data['status'] = 200;
+            $data['type'] = 'success';
+        }
+        return new JsonResponse($data);
     }
 }
