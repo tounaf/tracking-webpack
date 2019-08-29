@@ -68,7 +68,11 @@ class UtilisateurController extends Controller
                 $user->setUsername($user->getEmail());
                 $em->persist($user);
                 $em->flush();
+                $this->get('session')->getFlashBag()->add('success','Creation réussi avec succès !');
+                return $this->redirectToRoute('list_user');
             } catch (\Exception $exception) {
+                $this->get('session')->getFlashBag()->add('danger','Une erreur est survenue lors de la creation !');
+                return $this->redirectToRoute('list_user');
                 $message['message'] = $exception->getMessage();
                 $message['status'] = 500;
                 $message['type'] = 'danger';
@@ -94,7 +98,15 @@ class UtilisateurController extends Controller
                 'action' => $this->generateUrl('edit_user',array('id'=> $id))
             ))->handleRequest($request);
             if ($form->isSubmitted()){
-                $this->getDoctrine()->getManager()->flush();
+                try {
+
+                    $this->getDoctrine()->getManager()->flush();
+                    $this->get('session')->getFlashBag()->add('success','Modification réussie avec succès !');
+                } catch (\Exception $exception) {
+                    $this->get('session')->getFlashBag()->add('danger','Erreur lors de la modification !');
+
+                }
+                return $this->redirectToRoute('list_user');
             }
             return $this->render('user/create_user.html.twig',array(
                'form' => $form->createView()
