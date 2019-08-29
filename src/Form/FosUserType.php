@@ -38,12 +38,33 @@ class FosUserType extends AbstractType
             ))
             ->add('enabled')
         ;
+        if ($options['remove_field']) {
+           $builder
+               ->remove('name',null, array(
+                'required' => true,
+                'label' => $this->trans->trans('Nom')
+            ))
+                ->remove('lastname',null, array(
+                    'required' => true,
+                    'label' => $this->trans->trans('Prénoms')
+                ))
+                ->remove('email', EmailType::class, array(
+                    'label' => $this->trans->trans('label.email'),
+                    'required' => true
+                ))
+                ->remove('phoneNumber', null, array(
+                    'required' => true,
+                    'label' => $this->trans->trans('Téléphone')
+                ))
+                ->remove('enabled');
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => FosUser::class,
+            'remove_field' => false
         ]);
     }
 }

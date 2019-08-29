@@ -32,6 +32,38 @@
                 <source>label.cancel</source>
                 <target>ANNULER</target>
             </trans-unit>
+             <trans-unit id="14">
+                <source>label.edit.success.user</source>
+                <target>Mise à jour avec succès</target>
+            </trans-unit>
+             <trans-unit id="15">
+                <source>label.edit.error.user</source>
+                <target>Erreur lors de la mise à jour</target>
+            </trans-unit>
+             <trans-unit id="16">
+                <source>label.create.error.user</source>
+                <target>Erreur lors de la création</target>
+            </trans-unit>
+             <trans-unit id="17">
+                <source>label.create.success.user</source>
+                <target>Création avec succès</target>
+            </trans-unit>
+             <trans-unit id="18">
+                <source>label.delete.success.user</source>
+                <target>Suppression avec succès</target>
+            </trans-unit>
+             <trans-unit id="19">
+                <source>label.delete.error.user</source>
+                <target>Error lors de la suppression</target>
+            </trans-unit>
+             <trans-unit id="20">
+                <source>label.not.found.user</source>
+                <target>Utilisateur introuvable</target>
+            </trans-unit>
+             <trans-unit id="21">
+                <source>label.delete</source>
+                <target>SUPPRIMER</target>
+            </trans-unit>
 
         </body>
     </file>

@@ -90,10 +90,27 @@ $("#formCreateUser").submit(function (e) {
 $('.btn-edit-user').click(function (e) {
     e.preventDefault();
     var id = $(this).data('id');
-    var url = Routing.generate('edit_user',{'id':id}, true)
+    var url = Routing.generate('edit_user',{'id':id})
     $.get(url,function (response) {
-        $('.modal-body').html(response);
-        $('#modalPassword').modal('show');
+        var elt = $('#exampleModalLongTitle');
+        if (response.status == 403) {
+            $('.modal-body').hide();
+            $('#modalPassword').modal('show');
+            elt.removeClass('text-danger').addClass('alert alert-'+response.type).text(response.message);
+            setTimeout(function(){// wait for 5 secs(2)
+                elt.text("La page va se raffraichir");
+            }, 1000);
+            setTimeout(function(){// wait for 5 secs(2)
+                location.reload(); // then reload the page.(3)
+            }, 3000);
+            return false;
+        } else {
+            removeClassStartingWith(elt, 'alert');
+            $('.modal-body').show();
+            $("#exampleModalLongTitle").addClass('text-danger').text('Ajout/suppression ');
+            $('.modal-body').html(response);
+            $('#modalPassword').modal('show');
+        }
     })
 })
 
@@ -102,9 +119,54 @@ $('.btn-edit-user').click(function (e) {
  */
 $('#showModalCreateUser').click(function (e) {
     e.preventDefault();
-    var url = Routing.generate('create_user',{}, true);
+    var url = Routing.generate('create_user');
     $.get(url,function (response) {
+        var elt = $('#exampleModalLongTitle');
+        removeClassStartingWith(elt, 'alert');
         $('.modal-body').html(response);
+        $("#exampleModalLongTitle").addClass('text-danger').text('Ajout/suppression');
+        $('.modal-body').show();
         $('#modalPassword').modal('show');
     })
 })
+
+$('.btn-remove-user').click(function (e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    var url = Routing.generate('delete_user',{'id':id});
+    $.ajax({
+        url:url,
+        success:function (response) {
+            var elt = $('#exampleModalLongTitle');
+            if (response.status == 403) {
+                $('.modal-body').hide();
+                $('#modalPassword').modal('show');
+                elt.removeClass('text-danger').addClass('alert alert-'+response.type).text(response.message);
+                setTimeout(function(){// wait for 5 secs(2)
+                    elt.text("La page va se raffraichir");
+                }, 1000);
+                setTimeout(function(){// wait for 5 secs(2)
+                    location.reload(); // then reload the page.(3)
+                }, 3000);
+                return false;
+            } else {
+                removeClassStartingWith(elt, 'alert');
+                $('.modal-body').show();
+                $("#exampleModalLongTitle").addClass('text-danger').text('SUPPRESSION UTILISATEUR');
+                $('.modal-body').html(response);
+                $('#modalPassword').modal('show');
+            }
+        }
+    })
+})
+
+/**
+ * supprimer des class
+ * @param node
+ * @param begin
+ */
+function removeClassStartingWith(node, begin) {
+    node.removeClass (function (index, className) {
+        return (className.match ( new RegExp("\\b"+begin+"\\S+", "g") ) || []).join(' ');
+    });
+}

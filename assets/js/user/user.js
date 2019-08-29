@@ -96,4 +96,8 @@ $(document).ready(function () {
         dataTable.search($(this).val()).draw();
     });
 
+    $('.alert_value').click(function () {
+        $(this).css('display','none')
+    })
+
 })
