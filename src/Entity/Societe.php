@@ -31,7 +31,7 @@ class Societe
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isDropped;
+    private $isDropped = false;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\FosUser", mappedBy="societe")

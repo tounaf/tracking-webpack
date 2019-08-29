@@ -133,8 +133,12 @@ $('#showModalCreateUser').click(function (e) {
 
 $('.btn-remove-user').click(function (e) {
     e.preventDefault();
+    var route = $(this).data('route');
     var id = $(this).data('id');
-    var url = Routing.generate('delete_user',{'id':id});
+    console.log(route);
+    console.log(Routing.generate(route,{'id':id}));
+    return false;
+    var url = Routing.generate(route,{'id':id});
     $.ajax({
         url:url,
         success:function (response) {

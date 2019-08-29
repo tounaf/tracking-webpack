@@ -15,12 +15,18 @@ class SocieteType extends AbstractType
             ->add('libele')
             ->add('enable')
         ;
+        if ($options['remove_field']) {
+            $builder
+                ->remove('libele')
+                ->remove('enable');
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Societe::class,
+            'remove_field' => false
         ]);
     }
 }

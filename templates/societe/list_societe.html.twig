@@ -32,8 +32,8 @@
                             <td>{{ societe.libele }}</td>
                             <td>{{ societe.enable }}</td>
                             <td>
-                                <button  data-target="#modalPassword" class="btn btn-link text-danger btn-edit-user" data-id="{{ societe.id }}" type="button"><i class="fa fa-edit"></i></button>
-                                <button  data-target="#modalPassword" class="btn btn-link text-danger btn-remove-user" data-id="{{ societe.id }}" type="button"><i class="fa fa-trash-o"></i></button>
+                                <button  data-target="#modalPassword" data-route="edit_societe" class="btn btn-link text-danger btn-edit-user" data-id="{{ societe.id }}" type="button"><i class="fa fa-edit"></i></button>
+                                <button  data-target="#modalPassword" data-route="delete_societe" class="btn btn-link text-danger btn-remove-user" data-id="{{ societe.id }}" type="button"><i class="fa fa-trash-o"></i></button>
                             </td>
                         </tr>
                     {% else %}
