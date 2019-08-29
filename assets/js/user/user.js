@@ -40,7 +40,7 @@ $('#buttonResetting').click(function (e) {
     e.preventDefault();
     var email = $('#email_user').val();
     $.ajax({
-        url: Routing.generate('resetting_password_user'),
+        url: Routing.generate('resetting_password_user', {}, true),
         type: 'POST',
         data: {
             email: email
