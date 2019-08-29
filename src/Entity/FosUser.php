@@ -50,6 +50,11 @@ class FosUser extends BasUser
     protected $phoneNumber;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Societe", inversedBy="user")
+     */
+    private $societe;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -111,6 +116,25 @@ class FosUser extends BasUser
     public function setPhoneNumber(string $phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
+    }
+
+    /**
+     * @return Societe|null
+     */
+    public function getSociete(): ?Societe
+    {
+        return $this->societe;
+    }
+
+    /**
+     * @param Societe $societe
+     * @return FosUser
+     */
+    public function setSociete(Societe $societe): self
+    {
+        $this->societe = $societe;
+
+        return $this;
     }
 
 }

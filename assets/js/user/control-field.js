@@ -119,12 +119,13 @@ $('.btn-edit-user').click(function (e) {
  */
 $('#showModalCreateUser').click(function (e) {
     e.preventDefault();
-    var url = Routing.generate('create_user');
+    var route = $(this).data('route');
+    var url = Routing.generate(route);
     $.get(url,function (response) {
         var elt = $('#exampleModalLongTitle');
         removeClassStartingWith(elt, 'alert');
         $('.modal-body').html(response);
-        $("#exampleModalLongTitle").addClass('text-danger').text('Ajout/suppression');
+        $("#exampleModalLongTitle").addClass('text-danger').text($(this).data('title'));
         $('.modal-body').show();
         $('#modalPassword').modal('show');
     })
