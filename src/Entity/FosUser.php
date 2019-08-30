@@ -19,6 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="App\Repository\FosUserRepository")
  * @ORM\Table(name="user")
  * @UniqueEntity("email", message="Cet email est déjà utilisé")
+ * @ORM\HasLifecycleCallbacks()
  */
 class FosUser extends BasUser
 {
@@ -53,6 +54,12 @@ class FosUser extends BasUser
      * @ORM\ManyToOne(targetEntity="App\Entity\Societe", inversedBy="user")
      */
     private $societe;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Fonction")
+     * @ORM\JoinColumn(name="fonction_id", referencedColumnName="id")
+     */
+    private $fonction;
 
     /**
      * @return int
@@ -121,7 +128,7 @@ class FosUser extends BasUser
     /**
      * @return Societe|null
      */
-    public function getSociete(): ?Societe
+    public function getSociete()
     {
         return $this->societe;
     }
@@ -135,6 +142,37 @@ class FosUser extends BasUser
         $this->societe = $societe;
 
         return $this;
+    }
+
+    /**
+     * @return Fonction
+     */
+    public function getFonction()
+    {
+        return $this->fonction;
+    }
+
+    /**
+     * @param Fonction $fonction
+     * @return FosUser
+     */
+    public function setFonction(Fonction $fonction): self
+    {
+        $this->fonction = $fonction;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function setRoleUser()
+    {
+        if ($this->fonction){
+            $this->addRole(
+                $this->fonction->getProfil()?$this->fonction->getProfil()->getCode():'');
+        }
     }
 
 }

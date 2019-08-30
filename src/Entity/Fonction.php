@@ -22,7 +22,7 @@ class Fonction
     private $libele;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Profil")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Profil")
      * @ORM\JoinColumn(name="profil_id", referencedColumnName="id")
      */
     private $profil;

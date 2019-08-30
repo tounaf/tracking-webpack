@@ -128,7 +128,7 @@ $('#showModalCreateUser').click(function (e) {
         var elt = $('#exampleModalLongTitle');
         removeClassStartingWith(elt, 'alert');
         $('.modal-body').html(response);
-        $("#exampleModalLongTitle").addClass('text-danger').text($(this).data(title));
+        elt.addClass('text-danger').text(title);
         $('.modal-body').show();
         $('#modalPassword').modal('show');
     })

@@ -10,6 +10,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\FosUser;
 use App\Form\FosUserType;
+use App\Service\MailerService;
 use App\Utils\Fonctions;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -58,24 +59,19 @@ class UtilisateurController extends Controller
 
     /**
      * @param Request $request
-     *
+     * @param MailerService $mailerService
      * @Route("/user/create", name="create_user", methods={"POST","GET"}, options={"expose"=true})
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, MailerService $mailerService)
     {
         $em = $this->getDoctrine()->getManager();
         $user = new FosUser();
+        $subject = $this->translator->trans('label.new.account');
         $form = $this->createForm(FosUserType::class, $user, array(
             'method' => 'POST',
             'action' => $this->generateUrl('create_user')
         ))->handleRequest($request);
-        $response = new JsonResponse();
-        $message = array(
-            'status' => 200,
-            'message' => $this->translator->trans('label.create.success.user'),
-            'type' => 'success'
-        );
         if ($form->isSubmitted()) {
             $newPassword = Fonctions::generatePassword();
             try {
@@ -84,6 +80,7 @@ class UtilisateurController extends Controller
                 $user->setUsername($user->getEmail());
                 $em->persist($user);
                 $em->flush();
+                $mailerService->sendMail($user->getEmail(), $newPassword, $user->getName(), $subject, true);
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success.user'));
                 return $this->redirectToRoute('list_user');
             } catch (\Exception $exception) {

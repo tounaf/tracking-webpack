@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Fonction;
 use App\Entity\FosUser;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -13,6 +14,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 class FosUserType extends AbstractType
 {
     private $trans;
+
     public function __construct(TranslatorInterface $translator)
     {
         $this->trans = $translator;
@@ -21,11 +23,11 @@ class FosUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',null, array(
+            ->add('name', null, array(
                 'required' => true,
                 'label' => $this->trans->trans('Nom')
             ))
-            ->add('lastname',null, array(
+            ->add('lastname', null, array(
                 'required' => true,
                 'label' => $this->trans->trans('Prénoms')
             ))
@@ -44,28 +46,20 @@ class FosUserType extends AbstractType
                 'required' => true,
                 'placeholder' => $this->trans->trans('label.choice.societe')
             ))
-        ;
-        if ($options['remove_field']) {
-           $builder
-               ->remove('name',null, array(
+            ->add('fonction', EntityType::class, array(
+                'class' => Fonction::class,
+                'choice_label' => 'libele',
                 'required' => true,
-                'label' => $this->trans->trans('Nom')
-            ))
-                ->remove('lastname',null, array(
-                    'required' => true,
-                    'label' => $this->trans->trans('Prénoms')
-                ))
-                ->remove('email', EmailType::class, array(
-                    'label' => $this->trans->trans('label.email'),
-                    'required' => true
-                ))
-                ->remove('phoneNumber', null, array(
-                    'required' => true,
-                    'label' => $this->trans->trans('Téléphone')
-                ))
+            ));
+        if ($options['remove_field']) {
+            $builder
+                ->remove('name')
+                ->remove('lastname')
+                ->remove('email')
+                ->remove('phoneNumber')
                 ->remove('enabled')
-               ->remove('societe')
-           ;
+                ->remove('societe')
+                ->remove('fonction');
         }
     }
 

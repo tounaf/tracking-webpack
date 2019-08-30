@@ -84,6 +84,22 @@
                 <source>label.choice.societe</source>
                 <target>Choisir une societé</target>
             </trans-unit>
+             <trans-unit id="27">
+                <source>label.reset.password</source>
+                <target>Réinitialisation mot de passe</target>
+            </trans-unit>
+             <trans-unit id="28">
+                <source>label.new.account</source>
+                <target>Nouveau compte</target>
+            </trans-unit>
+             <trans-unit id="29">
+                <source>label.create.edit.fonction</source>
+                <target>Création/Edition Fonction</target>
+            </trans-unit>
+             <trans-unit id="30">
+                <source>label.delete.fonction</source>
+                <target>SUPPRIMER FONCTION</target>
+            </trans-unit>
 
         </body>
     </file>
