@@ -90,7 +90,9 @@ $("#formCreateUser").submit(function (e) {
 $('.btn-edit-user').click(function (e) {
     e.preventDefault();
     var id = $(this).data('id');
-    var url = Routing.generate('edit_user',{'id':id})
+    var route = $(this).data('route');
+    var title = $(this).data('title');
+    var url = Routing.generate(route,{'id':id})
     $.get(url,function (response) {
         var elt = $('#exampleModalLongTitle');
         if (response.status == 403) {
@@ -107,7 +109,7 @@ $('.btn-edit-user').click(function (e) {
         } else {
             removeClassStartingWith(elt, 'alert');
             $('.modal-body').show();
-            $("#exampleModalLongTitle").addClass('text-danger').text('Ajout/suppression ');
+            $("#exampleModalLongTitle").addClass('text-danger').text(title);
             $('.modal-body').html(response);
             $('#modalPassword').modal('show');
         }
@@ -120,24 +122,26 @@ $('.btn-edit-user').click(function (e) {
 $('#showModalCreateUser').click(function (e) {
     e.preventDefault();
     var route = $(this).data('route');
+    var title = $(this).data('title');
     var url = Routing.generate(route);
     $.get(url,function (response) {
         var elt = $('#exampleModalLongTitle');
         removeClassStartingWith(elt, 'alert');
         $('.modal-body').html(response);
-        $("#exampleModalLongTitle").addClass('text-danger').text($(this).data('title'));
+        $("#exampleModalLongTitle").addClass('text-danger').text($(this).data(title));
         $('.modal-body').show();
         $('#modalPassword').modal('show');
     })
 })
 
+/**
+ * Get form for delete action
+ */
 $('.btn-remove-user').click(function (e) {
     e.preventDefault();
     var route = $(this).data('route');
     var id = $(this).data('id');
-    console.log(route);
-    console.log(Routing.generate(route,{'id':id}));
-    return false;
+    var title = $(this).data('title');
     var url = Routing.generate(route,{'id':id});
     $.ajax({
         url:url,
@@ -157,7 +161,7 @@ $('.btn-remove-user').click(function (e) {
             } else {
                 removeClassStartingWith(elt, 'alert');
                 $('.modal-body').show();
-                $("#exampleModalLongTitle").addClass('text-danger').text('SUPPRESSION UTILISATEUR');
+                $("#exampleModalLongTitle").addClass('text-danger').text(title);
                 $('.modal-body').html(response);
                 $('#modalPassword').modal('show');
             }

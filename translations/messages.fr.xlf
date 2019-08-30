@@ -64,6 +64,22 @@
                 <source>label.delete</source>
                 <target>SUPPRIMER</target>
             </trans-unit>
+             <trans-unit id="22">
+                <source>label.delete.user</source>
+                <target>SUPPRIMER UTILISATEUR</target>
+            </trans-unit>
+             <trans-unit id="23">
+                <source>label.edit.create.user</source>
+                <target>Création/Modification UTILISATEUR</target>
+            </trans-unit>
+             <trans-unit id="24">
+                <source>label.delete.societe</source>
+                <target>SUPPRIMER SOCIETE</target>
+            </trans-unit>
+             <trans-unit id="25">
+                <source>label.edit.create.societe</source>
+                <target>Création/Modification SOCIETE</target>
+            </trans-unit>
 
         </body>
     </file>
