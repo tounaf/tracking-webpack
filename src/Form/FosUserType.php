@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\FosUser;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,6 +38,12 @@ class FosUserType extends AbstractType
                 'label' => $this->trans->trans('Téléphone')
             ))
             ->add('enabled')
+            ->add('societe', EntityType::class, array(
+                'class' => 'App\Entity\Societe',
+                'choice_label' => 'libele',
+                'required' => true,
+                'placeholder' => $this->trans->trans('label.choice.societe')
+            ))
         ;
         if ($options['remove_field']) {
            $builder
@@ -56,7 +63,9 @@ class FosUserType extends AbstractType
                     'required' => true,
                     'label' => $this->trans->trans('Téléphone')
                 ))
-                ->remove('enabled');
+                ->remove('enabled')
+               ->remove('societe')
+           ;
         }
     }
 

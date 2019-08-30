@@ -80,6 +80,10 @@
                 <source>label.edit.create.societe</source>
                 <target>Création/Modification SOCIETE</target>
             </trans-unit>
+             <trans-unit id="26">
+                <source>label.choice.societe</source>
+                <target>Choisir une societé</target>
+            </trans-unit>
 
         </body>
     </file>
