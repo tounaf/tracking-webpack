@@ -6,6 +6,8 @@
  */
 
 // any CSS you require will output into a single css file (app.css in this case)
+import Routing from "./Routing";
+
 require('../css/app.css');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
@@ -23,8 +25,13 @@ require('../css/app.css');
     // import './main'
     // import jQuery from 'jquery';
 
-
-
+/**
+ * get form user edit
+ */
+$('#btn-dismiss').click(function (e) {
+console.log("log");
+$('#flash').fadeToggle("slow");
+})
 
 
 
@@ -41,7 +48,7 @@ require('../css/app.css');
     <!-- Plugins and scripts required by this view-->
     "chart.js/dist/Chart.min.js";
     "@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js";
-    "js/main.js";
+    "js/mainPersMorale.js";
 */
 
 
