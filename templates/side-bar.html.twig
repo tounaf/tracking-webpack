@@ -24,6 +24,10 @@
                     <a class="nav-link {% if isSociete is defined and isSociete == true %} active {% endif %}" href="{{ path('list_societe') }}">
                         <i class="nav-icon icon-puzzle"></i> Gestion des sociétés</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if isFonction is defined and isFonction == true %} active {% endif %}" href="{{ path('list_fonction') }}">
+                        <i class="nav-icon icon-puzzle"></i> Gestion des fonctions</a>
+                </li>
             </ul>
         </li>
     </ul>
