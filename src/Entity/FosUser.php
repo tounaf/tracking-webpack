@@ -19,6 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="App\Repository\FosUserRepository")
  * @ORM\Table(name="user")
  * @UniqueEntity("email", message="Cet email est déjà utilisé")
+ * @ORM\HasLifecycleCallbacks()
  */
 class FosUser extends BasUser
 {
@@ -48,6 +49,17 @@ class FosUser extends BasUser
      * @ORM\Column(name="phone_number",type="string",  nullable=true)
      */
     protected $phoneNumber;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Societe", inversedBy="user")
+     */
+    private $societe;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Fonction")
+     * @ORM\JoinColumn(name="fonction_id", referencedColumnName="id")
+     */
+    private $fonction;
 
     /**
      * @return int
@@ -111,6 +123,56 @@ class FosUser extends BasUser
     public function setPhoneNumber(string $phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
+    }
+
+    /**
+     * @return Societe|null
+     */
+    public function getSociete()
+    {
+        return $this->societe;
+    }
+
+    /**
+     * @param Societe $societe
+     * @return FosUser
+     */
+    public function setSociete(Societe $societe): self
+    {
+        $this->societe = $societe;
+
+        return $this;
+    }
+
+    /**
+     * @return Fonction
+     */
+    public function getFonction()
+    {
+        return $this->fonction;
+    }
+
+    /**
+     * @param Fonction $fonction
+     * @return FosUser
+     */
+    public function setFonction(Fonction $fonction): self
+    {
+        $this->fonction = $fonction;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function setRoleUser()
+    {
+        if ($this->fonction){
+            $this->addRole(
+                $this->fonction->getProfil()?$this->fonction->getProfil()->getCode():'');
+        }
     }
 
 }

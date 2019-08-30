@@ -21,4 +21,15 @@ export default class Fonction {
         var pattern = new RegExp(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/);
         return pattern.test(email);
     }
+
+    /**
+     * supprimer des class
+     * @param node
+     * @param begin
+     */
+    static removeClassStartingWith(node, begin) {
+        node.removeClass (function (index, className) {
+            return (className.match ( new RegExp("\\b"+begin+"\\S+", "g") ) || []).join(' ');
+        });
+    }
 }

@@ -1,18 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nambinina2
- * Date: 27/08/2019
- * Time: 17:52
- */
 
 namespace App\Controller\Admin;
 
-use App\Entity\FosUser;
-use App\Form\FosUserType;
-use App\Service\MailerService;
-use App\Utils\Fonctions;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use App\Entity\Fonction;
+use App\Form\FonctionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,13 +11,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
 
-
 /**
- * Class UtilisateurController
- * @package App\Controller\Admin
+ * Class FonctionController
+ * @package App\Controller
  * @Route("/admin")
  */
-class UtilisateurController extends Controller
+class FonctionController extends Controller
 {
     /**
      * @var TranslatorInterface
@@ -34,7 +24,7 @@ class UtilisateurController extends Controller
     private $translator;
 
     /**
-     * UtilisateurController constructor.
+     * FonctionController constructor.
      * @param TranslatorInterface $translator
      */
     public function __construct(TranslatorInterface $translator)
@@ -43,49 +33,46 @@ class UtilisateurController extends Controller
     }
 
     /**
-     * @Route("/user/list", options={"expose"=true}, name="list_user")
+     * @Route("/fonction/list", name="list_fonction")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listUser()
+    public function liste()
     {
         $em = $this->getDoctrine()->getManager();
-        $user = new FosUser();
-        $formUser = $this->createForm(FosUserType::class, $user);
-        $listUser = $em->getRepository(FosUser::class)->findAll();
-        return $this->render('user/list_user.html.twig', array(
-            'users' => $listUser,
-            'formUser' => $formUser->createView()
+        $entite = new Fonction();
+        $formFonction = $this->createForm(FonctionType::class, $entite);
+        $listFonctions = $em->getRepository(Fonction::class)->findAll();
+        return $this->render('fonction/list_fonction.html.twig', array(
+            'fonctions' => $listFonctions,
+            'formFonction' => $formFonction->createView(),
+            'isFonction' => true
         ));
     }
 
     /**
      * @param Request $request
-     * @param MailerService $mailerService
-     * @Route("/user/create", name="create_user", methods={"POST","GET"}, options={"expose"=true})
+     *
+     * @Route("/fonction/create", name="create_fonction", methods={"POST","GET"}, options={"expose"=true})
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function create(Request $request, MailerService $mailerService)
+    public function create(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = new FosUser();
-        $subject = $this->translator->trans('label.new.account');
-        $form = $this->createForm(FosUserType::class, $user, array(
+        $entite = new Fonction();
+        $form = $this->createForm(FonctionType::class, $entite, array(
             'method' => 'POST',
-            'action' => $this->generateUrl('create_user')
+            'action' => $this->generateUrl('create_fonction')
         ))->handleRequest($request);
         if ($form->isSubmitted()) {
-            $newPassword = Fonctions::generatePassword();
             try {
 
-                $user->setPlainPassword($newPassword);
-                $user->setUsername($user->getEmail());
-                $em->persist($user);
+                $em->persist($entite);
                 $em->flush();
-                $mailerService->sendMail($user->getEmail(), $newPassword, $user->getName(), $subject, true);
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success.user'));
-                return $this->redirectToRoute('list_user');
+                return $this->redirectToRoute('list_fonction');
             } catch (\Exception $exception) {
                 $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.error.create.user'));
-                return $this->redirectToRoute('list_user');
+                return $this->redirectToRoute('list_fonction');
                 $message['message'] = $exception->getMessage();
                 $message['status'] = 500;
                 $message['type'] = 'danger';
@@ -102,19 +89,19 @@ class UtilisateurController extends Controller
     /**
      * @param Request $request
      *
-     * @Route("/user/{id}/edit", name="edit_user", options={"expose"=true}, methods={"POST","GET"})
-     * @ParamConverter("user", class="App\Entity\FosUser")
-     * @param FosUser|null $fosUser
+     * @Route("/fonction/{id}/edit", name="edit_fonction", options={"expose"=true}, methods={"POST","GET"})
+     * @ParamConverter("fonction", class="App\Entity\Fonction")
+     * @param Fonction|null $fonction
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editUser(Request $request, FosUser $user = null)
+    public function editUser(Request $request, Fonction $fonction = null)
     {
         $id = $request->get('id');
         $response = new JsonResponse();
-        if ($user) {
-            $form = $this->createForm(FosUserType::class, $user, array(
+        if ($fonction) {
+            $form = $this->createForm(FonctionType::class, $fonction, array(
                 'method' => 'POST',
-                'action' => $this->generateUrl('edit_user', array('id' => $id))
+                'action' => $this->generateUrl('edit_fonction', array('id' => $id))
             ))->handleRequest($request);
             if ($form->isSubmitted()) {
                 try {
@@ -125,7 +112,7 @@ class UtilisateurController extends Controller
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.edit.error.user'));
 
                 }
-                return $this->redirectToRoute('list_user');
+                return $this->redirectToRoute('list_fonction');
             }
             return $this->render('user/create_user.html.twig', array(
                 'form' => $form->createView()
@@ -142,33 +129,33 @@ class UtilisateurController extends Controller
 
     /**
      *
-     * @Route("/user/{id}/delete", name="delete_user", methods={"DELETE","GET"}, options={"expose"=true})
-     * @ParamConverter("user", class="App\Entity\FosUser")
+     * @Route("/fonction/{id}/delete", name="delete_fonction", methods={"DELETE","GET"}, options={"expose"=true})
+     * @ParamConverter("fonction", class="App\Entity\Fonction")
      * @param Request $request
-     * @param FosUser $user
+     * @param Fonction|null $fonction
      * @return \Symfony\Component\HttpFoundation\Response|JsonResponse
      */
-    public function deleteUser(Request $request, FosUser $user = null)
+    public function deleteUser(Request $request, Fonction $fonction = null)
     {
         $em = $this->getDoctrine()->getManager();
         $id = $request->get('id');
         $response = new JsonResponse();
-        if ($user) {
+        if ($fonction) {
 
-            $form = $this->createForm(FosUserType::class, $user, array(
+            $form = $this->createForm(FonctionType::class, $fonction, array(
                 "remove_field" => true,
                 "method" => "DELETE",
-                "action" => $this->generateUrl('delete_user', array('id' => $id))
+                "action" => $this->generateUrl('delete_fonction', array('id' => $id))
             ))->handleRequest($request);
             if ($form->isSubmitted()) {
                 try {
-                    $em->remove($user);
+                    $em->remove($fonction);
                     $em->flush();
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.success.user'));
                 } catch (\Exception $exception) {
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.error.user'));
                 }
-                return $this->redirectToRoute('list_user');
+                return $this->redirectToRoute('list_fonction');
             }
             return $this->render('user/delete_form_user.html.twig', array(
                 'form_delete' => $form->createView()
@@ -181,31 +168,5 @@ class UtilisateurController extends Controller
             ));
             return $response;
         }
-    }
-
-    /**
-     * @param Request $request
-     * @Route("/user/verify-email/{email}", name="verify_email", methods={"GET"}, options={"expose": true})
-     * @return JsonResponse
-     */
-    public function emailIsExist(Request $request)
-    {
-        $email = $request->get('email');
-        $user = $this->getDoctrine()->getManager()->getRepository(FosUser::class)->findBy(array('email' => $email));
-        $data = array(
-            'message' => '',
-            'status' => '',
-            'type' => ''
-        );
-        if ($user) {
-            $data['message'] = true;
-            $data['status'] = 403;
-            $data['type'] = 'danger';
-        } else {
-            $data['message'] = false;
-            $data['status'] = 200;
-            $data['type'] = 'success';
-        }
-        return new JsonResponse($data);
     }
 }

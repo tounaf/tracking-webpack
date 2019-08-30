@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 use App\Entity\FosUser;
+use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -27,11 +28,12 @@ class UserController extends Controller
     /**
      * @Route("/reset-password", options={"expose"=true}, name="resetting_password_user", methods={"POST"})
      */
-    public function resettingPassword(Request $request, TranslatorInterface $translator)
+    public function resettingPassword(Request $request, TranslatorInterface $translator, MailerService $mailerService)
     {
         $response = new JsonResponse();
         $em = $this->getDoctrine()->getManager();
         $email = $request->get('email');
+        $subject = $translator->trans('label.reset.password');
         $data = array(
             'status' =>'500',
             'message' => 'Une erreur est survenu.Veuillez contacter votre administrateur',
@@ -44,7 +46,7 @@ class UserController extends Controller
             $encoded = $encoder->encodePassword($user, $newPassword);
             $user->setPassword($encoded);
             $this->container->get('fos_user.user_manager')->updateUser($user, true);
-            $this->sendMail($email, $newPassword, $user->getName());
+            $mailerService->sendMail($email, $newPassword, $user->getName(), $subject);
             $data['message'] = $translator->trans('label.resetting.password.success');
             $data['status'] = 200;
             $data['type'] = 'success';
@@ -54,27 +56,5 @@ class UserController extends Controller
             $data['type'] = 'danger';
         }
         return $response->setData($data);
-    }
-
-    /**
-     * @param $email
-     * @param $newPassword
-     * @param $name
-     */
-    private function sendMail($email, $newPassword, $name)
-    {
-        $mailer = $this->get('mailer');
-        $subject = 'Mot de passe oublié !';
-        $fromEmail = $this->getParameter('fos_user.registration.confirmation.from_email');
-        $body = $this->render('user/mailer_resetting_password.html.twig', array('name' => $name, 'newPassword' => $newPassword, 'application_name' => 'LITIGE'));
-        $message = new \Swift_Message('Réinitialisation mot de passe');
-        $message
-            ->setSubject($subject)
-            ->setFrom($fromEmail)
-            ->setBody($body)
-            ->setTo($email)
-            ->setReplyTo($fromEmail);
-        $mailer->send($message);
-
     }
 }

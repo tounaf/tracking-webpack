@@ -1,0 +1,61 @@
+{% extends 'dashboard/dashboard.html.twig' %}
+{% set sectionSociete = true %}
+{% block wrapper %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Gestion des Fonctions</h1>
+
+                {% include '_flash.html.twig' %}
+                <div>
+                    <div class="col-xs-12">
+                        <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
+                            <button id="showModalCreateUser" data-route="create_fonction" data-title="{{ 'label.create.edit.fonction'|trans }}" style="background-color:#3a9d5d; float: right"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
+                        </div>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Button group">
+                        <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
+                    </div>
+                </div>
+
+                <table id="listUser" class="table">
+                    <thead>
+                    <tr>
+                        <th>Libelé</th>
+                        <th>Profil</th>
+                        <th>Actif/Inactif</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for fonction in fonctions %}
+                        <tr>
+                            <td>{{ fonction.libele }}</td>
+                            <td>{{ fonction.profil?fonction.profil.libele:'' }}</td>
+                            <td>{{ fonction.enable }}</td>
+                            <td>
+                                <button  data-target="#modalPassword" data-title="{{ 'label.create.edit.fonction'|trans }}" data-route="edit_fonction" class="btn btn-link text-danger btn-edit-user" data-id="{{ fonction.id }}" type="button"><i class="fa fa-edit"></i></button>
+                                <button  data-target="#modalPassword" data-title="{{ 'label.delete.fonction'|trans }}" data-route="delete_fonction" class="btn btn-link text-danger btn-remove-user" data-id="{{ fonction.id }}" type="button"><i class="fa fa-trash-o"></i></button>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    {% include 'user/popup.html.twig'  with {
+        'sectionUser' : sectionSociete,
+        'form' : formFonction,
+        'title' : 'Ajout/Modification fonction'|trans
+    } %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('user') }}
+{% endblock %}
