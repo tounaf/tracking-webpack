@@ -8,7 +8,7 @@ const $ = require('jquery');
  */
 $("#fos_user_email").keyup(function () {
     var email = $(this).val();
-    var url = Routing.generate('verify_email',{'email': email}, true);
+    var url = Routing.generate('verify_email',{'email': email});
 
     if (!Fonction.isEmailValidFormat(email)) {
         $("#emailFormatInvalid").remove();
@@ -61,7 +61,7 @@ $('#fos_user_phoneNumber').keyup(function () {
 $("#formCreateUser").submit(function (e) {
     e.preventDefault();
     var data = $(this).serialize();
-    var url = Routing.generate('create_user', {}, true);
+    var url = Routing.generate('create_user', {});
     $.post(
         url,
         data,
@@ -90,7 +90,7 @@ $("#formCreateUser").submit(function (e) {
 $('.btn-edit-user').click(function (e) {
     e.preventDefault();
     var id = $(this).data('id');
-    var url = Routing.generate('edit_user',{'id':id}, true)
+    var url = Routing.generate('edit_user',{'id':id})
     $.get(url,function (response) {
         $('.modal-body').html(response);
         $('#modalPassword').modal('show');
@@ -102,7 +102,7 @@ $('.btn-edit-user').click(function (e) {
  */
 $('#showModalCreateUser').click(function (e) {
     e.preventDefault();
-    var url = Routing.generate('create_user',{}, true);
+    var url = Routing.generate('create_user',{});
     $.get(url,function (response) {
         $('.modal-body').html(response);
         $('#modalPassword').modal('show');
