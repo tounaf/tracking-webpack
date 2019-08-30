@@ -31,7 +31,7 @@
                     {% for fonction in fonctions %}
                         <tr>
                             <td>{{ fonction.libele }}</td>
-                            <td>{{ fonction.profil }}</td>
+                            <td>{{ fonction.profil?fonction.profil.libele:'' }}</td>
                             <td>{{ fonction.enable }}</td>
                             <td>
                                 <button  data-target="#modalPassword" data-title="{{ 'label.edit.create.fonction'|trans }}" data-route="edit_fonction" class="btn btn-link text-danger btn-edit-user" data-id="{{ fonction.id }}" type="button"><i class="fa fa-edit"></i></button>

@@ -22,7 +22,8 @@ class Fonction
     private $libele;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToOne(targetEntity="App\Entity\Profil")
+     * @ORM\JoinColumn(name="profil_id", referencedColumnName="id")
      */
     private $profil;
 
@@ -67,10 +68,10 @@ class Fonction
     }
 
     /**
-     * @param string $profil
+     * @param Profil $profil
      * @return Fonction
      */
-    public function setProfil(string $profil): self
+    public function setProfil(Profil $profil): self
     {
         $this->profil = $profil;
 

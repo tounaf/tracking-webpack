@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Fonction;
+use App\Entity\Profil;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,15 +18,11 @@ class FonctionType extends AbstractType
             ->add('libele',null, array(
                 'label' => 'Libellé'
             ))
-            ->add('profil',ChoiceType::class, array(
-                'choices' => [
-                    'Super Administrateur' => 'Super Administrateur',
-                    'Administrateur' => 'Administrateur',
-                    'Juriste' => 'Juriste'
-                ],
+            ->add('profil',EntityType::class, array(
+                'class' => Profil::class,
                 'placeholder' => 'Veuillez choisir un profil',
                 'required' => true,
-                'label' => 'Profil'
+                'choice_label' => 'libele'
             ))
             ->add('enable', null, array(
                 'label' => 'Actif'
