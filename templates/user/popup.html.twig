@@ -1,25 +1,27 @@
- <div class="modal fade" id="modalPassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h5 class="modal-title text-danger" data-id="1" data-title="{{ 'label.password.forgot'|trans }}" id="exampleModalLongTitle">
-                     {% if sectionUser is defined %}
+<div class="modal fade" id="modalPassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" data-id="1" data-title="{{ 'label.password.forgot'|trans }}" id="exampleModalLongTitle">
+                    {% if sectionUser is defined %}
                          {{ title }}
-                     {% else %}
-                         {{ 'label.password.forgot'|trans }}
-                     {% endif %}
-                 </h5>
-                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-                 </button>
-             </div>
-             <div class="modal-body">
-                 {% if sectionUser is defined %}
-                     {% include 'user/create_user.html.twig' %}
-                 {% else %}
-                     {% include 'user/resetting_password.html.twig' %}
-                 {% endif %}
-             </div>
-         </div>
-     </div>
- </div>
+                    {% else %}
+                        {{ 'label.password.forgot'|trans }}
+                    {% endif %}
+                </h5>
+                <!-- erreur -->
+                <p class="msg-error" style="display:none;">Cet email n'existe pas ou a été désactivé</p>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="icon-close-line" aria-hidden="true"></i></button>
+            </div>
+
+            <div class="modal-body">
+                {% if sectionUser is defined %}
+                    {% include 'user/create_user.html.twig' %}
+                {% else %}
+                    {% include 'user/resetting_password.html.twig' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
