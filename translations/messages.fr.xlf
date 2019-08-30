@@ -110,11 +110,15 @@
             </trans-unit>
               <trans-unit id="33">
                  <source>label.title.ajout</source>
-                 <target>Ajout des statuts du personne Morale</target>
+                 <target>Enregistrement</target>
             </trans-unit>
-            <trans-unit id="3">
+            <trans-unit id="34">
                  <source>label.title.modification</source>
-                 <target>Modification des statuts du personne Morale</target>
+                 <target>Modification</target>
+            </trans-unit>
+           <trans-unit id="35">
+                 <source>label.titre.catLitige</source>
+                 <target>Categorie Litige</target>
             </trans-unit>
         </body>
     </file>

@@ -2,9 +2,9 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\StatutsPersMorale;
-use App\Form\StatutsPersMoraleType;
-use App\Repository\StatutsPersMoraleRepository;
+use App\Entity\CategorieLitige;
+use App\Form\CategorieLitigeType;
+use App\Repository\CategorieLitigeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,9 +14,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * @Route("admin/statuts-persmorale")
+ * @Route("/admin/categorie-litige")
  */
-class StatutsPersMoraleController extends Controller
+class CategorieLitigeController extends Controller
 {
     /**
      * @var TranslatorInterface
@@ -33,28 +33,28 @@ class StatutsPersMoraleController extends Controller
     }
 
     /**
-     * @Route("/", name="statuts_pers_morale_index", methods={"GET"}, options={"expose"=true})
+     * @Route("/", name="categorie_litige_index", methods={"GET"}, options={"expose"=true})
      */
-    public function index(StatutsPersMoraleRepository $statutsPersMoraleRepository): Response
+    public function index(CategorieLitigeRepository $categorieLitigeRepository): Response
     {
-        $statutsPersMorale= new StatutsPersMorale();
-        $formPersMorale = $this->createForm(StatutsPersMoraleType::class, $statutsPersMorale);
-        return $this->render('Admin/statuts_pers_morale/index.html.twig', [
-            'statuts_pers_morales' => $statutsPersMoraleRepository->findAll(),
-            'formPersMorale' => $formPersMorale->createView()
+        $catLitige= new CategorieLitige();
+        $form = $this->createForm(CategorieLitigeType::class, $catLitige);
+        return $this->render('Admin/categorie_litige/index.html.twig', [
+            'categorie_litiges' => $categorieLitigeRepository->findAll(),
+            'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/new", name="statuts_pers_morale_new", methods={"GET","POST"}, options={"expose"=true})
+     * @Route("/new", name="categorie_litige_new", methods={"GET","POST"}, options={"expose"=true})
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function new(Request $request)
     {
-        $statutsPersMorale = new StatutsPersMorale();
-        $formPersMorale = $this->createForm(StatutsPersMoraleType::class, $statutsPersMorale, [
+        $categorieLitige = new CategorieLitige();
+        $form = $this->createForm(CategorieLitigeType::class, $categorieLitige, [
             'method' => 'POST',
-            'action' => $this->generateUrl('statuts_pers_morale_new')
+            'action' => $this->generateUrl('categorie_litige_new')
         ])->handleRequest($request);
 
         $response = new JsonResponse();
@@ -64,48 +64,47 @@ class StatutsPersMoraleController extends Controller
             'type' => 'success'
         ];
 
-        if ($formPersMorale->isSubmitted() && $formPersMorale->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             try{
                 $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($statutsPersMorale);
+                $entityManager->persist($categorieLitige);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
-                return $this->redirectToRoute('statuts_pers_morale_index');
+                return $this->redirectToRoute('categorie_litige_index');
             }
             catch (\Exception $exception){
                 $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.error.create'));
-                return $this->redirectToRoute('statuts_pers_morale_index');
+                return $this->redirectToRoute('categorie_litige_index');
                 $message['message'] = $exception->getMessage();
                 $message['status'] = 500;
                 $message['type'] = 'danger';
             }
             return $response->setData($message);
 
-            return $this->redirectToRoute('statuts_pers_morale_index');
+            return $this->redirectToRoute('categorie_litige_index');
         }
 
-        return $this->render('Admin/statuts_pers_morale/_form.html.twig', [
-            'formPersMorale' => $formPersMorale->createView(),
+        return $this->render('Admin/categorie_litige/_form.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
-
     /**
      * @param Request $request
-     * @Route("/{id}/edit", name="statuts_pers_morale_edit", options={"expose"=true}, methods={"GET","POST"})
-     * @ParamConverter("statutsPersMorale", class="App\Entity\StatutsPersMorale")
-     * @param StatutsPersMorale|null $statutsPersMorale
+     * @Route("/{id}/edit", name="categorie_litige_edit", options={"expose"=true}, methods={"GET","POST"})
+     * @ParamConverter("categorieLitige", class="App\Entity\CategorieLitige")
+     * @param CategorieLitige|null $categorieLitige
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Request $request, StatutsPersMorale $statutsPersMorale = null)
+    public function edit(Request $request, CategorieLitige $categorieLitige = null)
     {
         $id = $request->get('id');
         $response = new JsonResponse();
-        if($statutsPersMorale){
+        if($categorieLitige){
 
-            $form = $this->createForm(StatutsPersMoraleType::class, $statutsPersMorale, [
-                    'method' => 'POST',
-                    'action' => $this->generateUrl('statuts_pers_morale_edit', ['id' => $id])
+            $form = $this->createForm(CategorieLitigeType::class, $categorieLitige, [
+                'method' => 'POST',
+                'action' => $this->generateUrl('categorie_litige_edit', ['id' => $id])
             ])->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid())
@@ -117,16 +116,15 @@ class StatutsPersMoraleController extends Controller
                 {
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.edit.error'));
                 }
-                return $this->redirectToRoute('statuts_pers_morale_index');
+                return $this->redirectToRoute('categorie_litige_index');
             }
-            return $this->render('Admin/statuts_pers_morale/_form.html.twig', [
-                'statuts_pers_morale' => $statutsPersMorale,
-                'formPersMorale' => $form->createView(),
+            return $this->render('Admin/categorie_litige/_form.html.twig', [
+                'form' => $form->createView(),
             ]);
         }
         else {
             $response->setData(array(
-                'message' => $this->translator->trans('label.not.found.user'),
+                'message' => $this->translator->trans('label.not.found'),
                 'status' => 403,
                 'type' => 'danger'
             ));
@@ -137,35 +135,34 @@ class StatutsPersMoraleController extends Controller
 
     /**
      *
-     * @Route("/{id}/delete", name="statuts_pers_morale_delete", methods={"DELETE","GET"}, options={"expose"=true})
-     * @ParamConverter("statutsPersMorale", class="App\Entity\StatutsPersMorale")
+     * @Route("/{id}/delete", name="categorie_litige_delete", methods={"DELETE","GET"}, options={"expose"=true})
      * @param Request $request
-     *StatutsPersMorale|null $statutsPersMorale
-     * @return \Symfony\Component\HttpFoundation\Response|JsonResponse
+     * @ParamConverter("categorieLitige", class="App\Entity\CategorieLitige")
+     * @param CategorieLitige|null $categorieLitige
      */
-    public function deletePersMorale(Request $request, StatutsPersMorale $statutsPersMorale = null)
+    public function delete(Request $request, CategorieLitige $categorieLitige = null)
     {
         $em = $this->getDoctrine()->getManager();
         $id = $request->get('id');
         $response = new JsonResponse();
-        if ($statutsPersMorale) {
+        if ($categorieLitige) {
 
-            $form = $this->createForm(StatutsPersMoraleType::class, $statutsPersMorale, array(
+            $form = $this->createForm(CategorieLitigeType::class, $categorieLitige, array(
                 "remove_field" => true,
                 "method" => "DELETE",
-                "action" => $this->generateUrl('statuts_pers_morale_delete', array('id' => $id))
+                "action" => $this->generateUrl('categorie_litige_delete', array('id' => $id))
             ))->handleRequest($request);
             if ($form->isSubmitted()) {
                 try {
-                    $em->remove($statutsPersMorale);
+                    $em->remove($categorieLitige);
                     $em->flush();
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.success'));
                 } catch (\Exception $exception) {
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.error'));
                 }
-                return $this->redirectToRoute('statuts_pers_morale_index');
+                return $this->redirectToRoute('categorie_litige_index');
             }
-            return $this->render('/Admin/statuts_pers_morale/_delete_form.html.twig', array(
+            return $this->render('/Admin/categorie_litige/_delete_form.html.twig', array(
                 'form_delete' => $form->createView()
             ));
         } else {
@@ -177,4 +174,5 @@ class StatutsPersMoraleController extends Controller
             return $response;
         }
     }
+
 }
