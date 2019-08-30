@@ -164,7 +164,7 @@ class SocieteController extends Controller
                 try {
                     $em->remove($societe);
                     $em->flush();
-                    $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.success.user'));
+                    $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.delete.success.user'));
                 } catch (\Exception $exception) {
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.error.user'));
                 }
