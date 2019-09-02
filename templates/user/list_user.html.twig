@@ -1,4 +1,8 @@
 {% extends 'dashboard/dashboard.html.twig' %}
+{% block css_dashboard %}
+    {{ parent() }}
+    {#{{ encore_entry_link_tags('user') }}#}
+{% endblock %}
 {% set sectionUser = true %}
 {% block wrapper %}
     <div class="container-fluid">
@@ -14,9 +18,9 @@
                             <button id="showModalCreateUser" data-title="{{ 'label.edit.create.user'|trans }}" data-route="create_user" style="background-color:#3a9d5d; float: right"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
                         </div>
                     </div>
-                    <div class="btn-group" role="group" aria-label="Button group">
-                        <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
-                    </div>
+                    {#<div class="btn-group" role="group" aria-label="Button group">#}
+                        {#<input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">#}
+                    {#</div>#}
                 </div>
 
                 <table id="listUser" class="table">

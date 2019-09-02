@@ -20,6 +20,7 @@
         "bootstrap": "^4.3.1",
         "chart.js": "^2.8.0",
         "datatables": "^1.10.18",
+        "datatables.net-bs4": "^1.10.19",
         "flag-icon-css": "^3.3.0",
         "font-awesome": "^4.7.0",
         "fos-routing": "0.0.6",

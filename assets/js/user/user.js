@@ -4,7 +4,10 @@ import Routing from './Routing';
 
 import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap.min';
-const dt = require('datatables');
+// const dt = require('datatables');
+require('datatables/media/css/jquery.dataTables.min.css');
+// require('datatables.net-bs4/css/dataTables.bootstrap4.min.css');
+require('datatables.net-bs4');
 require('./control-field');
 
 /**
@@ -93,6 +96,7 @@ $(document).ready(function () {
         },
     });
     $("#search_box").on('keyup', function() {
+        console.log($(this).val());
         dataTable.search($(this).val()).draw();
     });
 

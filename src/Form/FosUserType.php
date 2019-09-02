@@ -37,6 +37,7 @@ class FosUserType extends AbstractType
             ))
             ->add('phoneNumber', null, array(
                 'required' => true,
+                'attr' => array('maxlength' => 10, 'minlength' => 10),
                 'label' => $this->trans->trans('Téléphone')
             ))
             ->add('enabled')
