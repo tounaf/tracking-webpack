@@ -47,7 +47,7 @@ class MailerService
         $message
             ->setSubject($subject)
             ->setFrom($fromEmail)
-            ->setBody($body)
+            ->setBody($body, 'text/html')
             ->setTo($email)
             ->setReplyTo($fromEmail);
       return  $mailer->send($message);
