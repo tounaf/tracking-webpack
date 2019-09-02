@@ -132,6 +132,10 @@
                  <source>label.titre.etapeSuivante</source>
                  <target>Etape suivante</target>
             </trans-unit>
+            <trans-unit id="39">
+                 <source>label.titre.natureDecision</source>
+                 <target>Nature de Décision du Justice</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
