@@ -2648,4 +2648,13 @@ button:focus { outline: none; }
 .modal .modal-header .close { margin: 0; padding: 0; position: absolute; right: 15px; top: 15px; z-index: 1; }
 .modal .btn-group { display: flex; justify-content: center; padding-top: 5px; }
 
+.app-header { background-color: #fff; border: none; height: 100px; padding: 0; }
+.app-header .navbar-brand { background-color: #C80F2D; height: 100%; width: 270px; }
+
+.titre-page { color: #C80F2D; font-size: 24px; font-weight: 700; line-height: 100%; margin: 0; text-transform: uppercase; }
+
+.user-infos { color: #878786; font-size: 14px; margin-bottom: 0; vertical-align: middle; }
+.user-infos a { text-decoration: none; }
+.user-infos i { margin-left: 10px; }
+
 /*# sourceMappingURL=styles.css.map */

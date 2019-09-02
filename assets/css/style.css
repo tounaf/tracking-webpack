@@ -12241,8 +12241,8 @@ canvas {
   align-items: center;
   -ms-flex-pack: center;
   justify-content: center;
-  width: 155px;
-  height: 55px;
+  /*width: 155px;
+  height: 55px;*/
   padding: 0;
   margin-right: 0;
   background-color: transparent;
