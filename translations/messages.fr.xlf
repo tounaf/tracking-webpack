@@ -136,6 +136,10 @@
                  <source>label.titre.natureDecision</source>
                  <target>Nature de Décision du Justice</target>
             </trans-unit>
+            <trans-unit id="40">
+                 <source>label.titre.niveauDecision</source>
+                 <target>Niveaux de la Décision de Justice</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
