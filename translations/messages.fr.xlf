@@ -124,6 +124,10 @@
                  <source>label.titre.typePrestation</source>
                  <target>Categorie Litige</target>
             </trans-unit>
+            <trans-unit id="37">
+                 <source>label.titre.devise</source>
+                 <target>Type de devise</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
