@@ -48,9 +48,11 @@ class UtilisateurController extends Controller
     public function listUser()
     {
         $em = $this->getDoctrine()->getManager();
+        $currentUser = $this->getUser();
+        $isSuperUser = $currentUser->hasRole('ROLE_SUPERADMIN')? true: false;
         $user = new FosUser();
         $formUser = $this->createForm(FosUserType::class, $user);
-        $listUser = $em->getRepository(FosUser::class)->findAll();
+        $listUser = $em->getRepository(FosUser::class)->listUserBySociete($currentUser, $isSuperUser);
         return $this->render('user/list_user.html.twig', array(
             'users' => $listUser,
             'formUser' => $formUser->createView()
