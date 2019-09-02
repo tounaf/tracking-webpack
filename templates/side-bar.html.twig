@@ -28,6 +28,10 @@
                     <a class="nav-link {% if isFonction is defined and isFonction == true %} active {% endif %}" href="{{ path('list_fonction') }}">
                         <i class="nav-icon icon-puzzle"></i> Gestion des fonctions</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if isStatut is defined and isStatut == true %} active {% endif %}" href="{{ path('list_statut') }}">
+                        <i class="nav-icon icon-puzzle"></i> Gestion des statuts</a>
+                </li>
             </ul>
         </li>
     </ul>
