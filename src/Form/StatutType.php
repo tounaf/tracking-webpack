@@ -12,8 +12,12 @@ class StatutType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('libele')
-            ->add('enable')
+            ->add('libele', null, array(
+                'label' => 'libelé'
+            ))
+            ->add('enable', null, array(
+                'label' => 'Acitf'
+            ))
         ;
         if ($options['remove_field']){
             $builder

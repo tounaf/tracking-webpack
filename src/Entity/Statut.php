@@ -24,7 +24,7 @@ class Statut
     /**
      * @ORM\Column(type="boolean")
      */
-    private $enable = false;
+    private $enable = true;
 
     /**
      * @return mixed

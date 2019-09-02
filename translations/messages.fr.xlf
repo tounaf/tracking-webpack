@@ -100,6 +100,14 @@
                 <source>label.delete.fonction</source>
                 <target>SUPPRIMER FONCTION</target>
             </trans-unit>
+             <trans-unit id="31">
+                <source>label.edit.create.statut</source>
+                <target>Création/Modification statut</target>
+            </trans-unit>
+             <trans-unit id="32">
+                <source>label.delete.statut</source>
+                <target>Suppréssion statut</target>
+            </trans-unit>
 
         </body>
     </file>
