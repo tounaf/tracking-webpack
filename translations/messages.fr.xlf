@@ -140,6 +140,10 @@
                  <source>label.titre.niveauDecision</source>
                  <target>Niveaux de la Décision de Justice</target>
             </trans-unit>
+            <trans-unit id="41">
+                 <source>label.titre.informationPj</source>
+                 <target>Information des Pièces Jointes</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
