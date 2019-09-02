@@ -2,964 +2,136 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
-            <trans-unit id="1">
-                <source>label</source>
-                <target>Libellé</target>
-            </trans-unit>
-
-            <trans-unit id="2">
-                <source>label.blacklist</source>
-                <target>Liste noire</target>
-            </trans-unit>
-
-            <trans-unit id="3">
-                <source>label.created.at</source>
-                <target>Créé le</target>
-            </trans-unit>
-
-            <trans-unit id="4">
-                <source>label.role</source>
-                <target>Rôle</target>
-            </trans-unit>
-
-            <trans-unit id="5">
-                <source>label.lastname</source>
-                <target>Nom</target>
-            </trans-unit>
-
-            <trans-unit id="6">
-                <source>label.firstname</source>
-                <target>Prénom</target>
-            </trans-unit>
-
-            <trans-unit id="7">
-                <source>label.phone.number</source>
-                <target>Numéro de téléphone</target>
-            </trans-unit>
-
-            <trans-unit id="8">
-                <source>label.position</source>
-                <target>Fonction</target>
-            </trans-unit>
-
-            <trans-unit id="9">
-                <source>label.sex</source>
-                <target>Sexe</target>
-            </trans-unit>
-
-            <trans-unit id="10">
-                <source>label.date.of.birth</source>
-                <target>Date de naissance</target>
-            </trans-unit>
-
-            <trans-unit id="11">
-                <source>label.nationality</source>
-                <target>Nationalité</target>
-            </trans-unit>
-
-            <trans-unit id="12">
-                <source>label.identity.number</source>
-                <target>Numéro de pièce d'identité</target>
-            </trans-unit>
-
-            <trans-unit id="13">
-                <source>label.identity.attachment</source>
-                <target>Pièce d'identité PJ</target>
-            </trans-unit>
-
-            <trans-unit id="14">
-                <source>label.marital.status</source>
-                <target>Situation familiale</target>
-            </trans-unit>
-
-            <trans-unit id="15">
-                <source>label.occupation</source>
-                <target>Domaine d'Activité</target>
-            </trans-unit>
-
-            <trans-unit id="16">
-                <source>label.phone1</source>
-                <target>Tél. 1</target>
-            </trans-unit>
-
-            <trans-unit id="17">
-                <source>label.phone2</source>
-                <target>Tél. 2</target>
-            </trans-unit>
-
-            <trans-unit id="18">
-                <source>label.phone3</source>
-                <target>Tél. 3</target>
-            </trans-unit>
-
-            <trans-unit id="19">
-                <source>label.photo</source>
-                <target>Photo</target>
-            </trans-unit>
-
-            <trans-unit id="20">
-                <source>label.address.1</source>
-                <target>Adresse 1/2</target>
-            </trans-unit>
-
-            <trans-unit id="21">
-                <source>label.address.2</source>
-                <target>Adresse 2/2</target>
-            </trans-unit>
-
-            <trans-unit id="22">
-                <source>label.twitter.account</source>
-                <target>Compte Twitter</target>
-            </trans-unit>
-
-            <trans-unit id="23">
-                <source>label.facebook.account</source>
-                <target>Compte Facebook</target>
-            </trans-unit>
-
-            <trans-unit id="24">
-                <source>label.linkedin.account</source>
-                <target>Compte Linkedin</target>
-            </trans-unit>
-
-            <trans-unit id="25">
-                <source>label.instagram.account</source>
-                <target>Compte Instagram</target>
-            </trans-unit>
-
-            <trans-unit id="26">
-                <source>label.declare.honor</source>
-                <target>Je déclare sur l'honneur que toutes les informations fournies dans la présente sont sincères et conformes à la réalité.</target>
-            </trans-unit>
-
-            <trans-unit id="27">
-                <source>label.accept.term</source>
-                <target>J'accepte les termes des conditions générales d’utilisation de la</target>
-            </trans-unit>
-
-            <trans-unit id="28">
-                <source>label.newsletter</source>
-                <target>Je désire recevoir la newsletter</target>
-            </trans-unit>
-
-            <trans-unit id="29">
-                <source>label.enabled.disabled</source>
-                <target>Activer / Désactiver</target>
-            </trans-unit>
-
-            <trans-unit id="30">
-                <source>message.email.exist</source>
-                <target>Cette adresse mail existe déjà.</target>
-            </trans-unit>
-
-            <trans-unit id="31">
-                <source>label.payment.type</source>
-                <target>Type de paiement</target>
-            </trans-unit>
-
-            <trans-unit id="32">
-                <source>label.company.name</source>
-                <target>Nom de l'entreprise</target>
-            </trans-unit>
-
-            <trans-unit id="33">
-                <source>label.company.adress1</source>
-                <target>Adresse 1</target>
-            </trans-unit>
-
-            <trans-unit id="34">
-                <source>label.company.nif</source>
-                <target>NIF</target>
-            </trans-unit>
-
-            <trans-unit id="35">
-                <source>label.company.stats.number</source>
-                <target>STAT</target>
-            </trans-unit>
-
-            <trans-unit id="36">
-                <source>label.company.electronic.signature</source>
-                <target>Signature electronique</target>
-            </trans-unit>
-
-            <trans-unit id="37">
-                <source>label.company.website</source>
-                <target>Site web</target>
-            </trans-unit>
-
-            <trans-unit id="38">
-                <source>label.agent.full.name</source>
-                <target>Nom et prénom du représentant légal</target>
-            </trans-unit>
-
-            <trans-unit id="39">
-                <source>label.agent.position</source>
-                <target>Fonction du représentant légal</target>
-            </trans-unit>
-
-             <trans-unit id="40">
-                <source>label.agent.email</source>
-                <target>Adresse mail du représentant légal</target>
-            </trans-unit>
-
-             <trans-unit id="41">
-                <source>label.payment.phone.number</source>
-                <target>Numéro de paiement</target>
-            </trans-unit>
-
-             <trans-unit id="42">
-                <source>label.booking.place</source>
-                <target>Reserver place</target>
-            </trans-unit>
-
-             <trans-unit id="43">
-                <source>label.booking.frequency</source>
-                <target>Reserver frequamment</target>
-            </trans-unit>
-
-             <trans-unit id="44">
-                <source>label.booking.available.slot</source>
-                <target>Reserver emplacement disponible</target>
-            </trans-unit>
-
-             <trans-unit id="45">
-                <source>label.booking.period</source>
-                <target>Periode de reservation</target>
-            </trans-unit>
-
-             <trans-unit id="46">
-                <source>label.company.facebook.account</source>
-                <target>Compte Facebook</target>
-            </trans-unit>
-
-             <trans-unit id="47">
-                <source>label.company.linkedin.account</source>
-                <target>Compte LinkedIn</target>
-            </trans-unit>
-
-             <trans-unit id="48">
-                <source>label.company.instagram.account</source>
-                <target>Compte Instagram</target>
-            </trans-unit>
-
-             <trans-unit id="49">
-                <source>label.payed</source>
-                <target>Payé</target>
-            </trans-unit>
-
-             <trans-unit id="50">
-                <source>label.activity</source>
-                <target>Activité</target>
-            </trans-unit>
-
-            <trans-unit id="51">
-                <source>label.company.province</source>
-                <target>Province</target>
-            </trans-unit>
-
-            <trans-unit id="52">
-                <source>label.company.region</source>
-                <target>Région</target>
-            </trans-unit>
-
-             <trans-unit id="53">
-                <source>tab.account</source>
-                <target>Compte personnel</target>
-            </trans-unit>
-
-            <trans-unit id="54">
-                <source>tab.company.info</source>
-                <target>Information sur l'entreprise</target>
-            </trans-unit>
-
-            <trans-unit id="55">
-                <source>tab.admin.info</source>
-                <target>Informations sur l'administrateur</target>
-            </trans-unit>
-
-            <trans-unit id="56">
-                <source>label.updated.at</source>
-                <target>Dernière modification</target>
-            </trans-unit>
-
-            <trans-unit id="57">
-                <source>label.description</source>
-                <target>Description</target>
-            </trans-unit>
-
-            <trans-unit id="58">
-                <source>label.quantity</source>
-                <target>Quantité</target>
-            </trans-unit>
-
-            <trans-unit id="59">
-                <source>label.booked</source>
-                <target>Reservé</target>
-            </trans-unit>
-
-             <trans-unit id="60">
-                <source>label.min.nb.place</source>
-                <target>Nombre de place minimum</target>
-            </trans-unit>
-
-             <trans-unit id="61">
-                <source>label.max.nb.place</source>
-                <target>Nombre de place maximum</target>
-            </trans-unit>
-
-            <trans-unit id="62">
-                <source>label.product.type</source>
-                <target>Type de produit</target>
-            </trans-unit>
-
-            <trans-unit id="63">
-                <source>label.code</source>
-                <target>Code produit</target>
-            </trans-unit>
-
-             <trans-unit id="64">
-                <source>label.last.connected</source>
-                <target>Dernière connexion</target>
-            </trans-unit>
-
-             <trans-unit id="65">
+             <trans-unit id="7">
                 <source>label.email</source>
                 <target>Email</target>
             </trans-unit>
 
-             <trans-unit id="66">
-                <source>label.particulier</source>
-                <target>Particulier</target>
+             <trans-unit id="8">
+                <source>label.save</source>
+                <target>ENREGISTRER</target>
             </trans-unit>
 
-             <trans-unit id="67">
-                <source>label.company.employee</source>
-                <target>Est-ce qu'un salarié d’une entreprise</target>
+             <trans-unit id="9">
+                <source>label.password.forgot</source>
+                <target>MOT DE PASSE OUBLIÉ</target>
             </trans-unit>
-
-             <trans-unit id="68">
-                <source>label.last.connected</source>
-                <target>Dernière connexion</target>
+             <trans-unit id="10">
+                <source>label.resetting.password.success</source>
+                <target>Réinitialisation mot de passe avec succès.Veuillez consulter votre email</target>
             </trans-unit>
-
-             <trans-unit id="69">
-                <source>label.last.connected</source>
-                <target>Dernière connexion</target>
+             <trans-unit id="11">
+                <source>label.resetting.password.error</source>
+                <target>Cet email n'existe pas ou a été désactivé</target>
             </trans-unit>
-
-             <trans-unit id="70">
-                <source>label.last.connected</source>
-                <target>Dernière connexion</target>
+             <trans-unit id="12">
+                <source>label.saisi.email</source>
+                <target>Veuillez saisir votre mail</target>
             </trans-unit>
-
-             <trans-unit id="71">
-                <source>label.new.product</source>
-                <target>Nouveau Produit</target>
+             <trans-unit id="13">
+                <source>label.cancel</source>
+                <target>ANNULER</target>
             </trans-unit>
-
-             <trans-unit id="72">
-                 <source>label.product.code</source>
-                 <target>Code produit</target>
-             </trans-unit>
-
-             <trans-unit id="73">
-                 <source>label.product.code</source>
-                 <target>Code produit</target>
-             </trans-unit>
-
-             <trans-unit id="74">
-                <source>label.description</source>
-                <target>Description</target>
-             </trans-unit>
-
-             <trans-unit id="75">
-                 <source>label.stock</source>
-                 <target>Stock</target>
-              </trans-unit>
-
-              <trans-unit id="76">
-                <source>label.type.product</source>
-                <target>Type de Produit</target>
-              </trans-unit>
-
-              <trans-unit id="77">
-                 <source>label.annex</source>
-                 <target>Produit annexe</target>
-              </trans-unit>
-
-              <trans-unit id="78">
-                 <source>label.product.start.date</source>
-                 <target>Date de début</target>
-              </trans-unit>
-
-             <trans-unit id="79">
-                <source>label.none.selected</source>
-                <target>Aucun sélectionné</target>
-             </trans-unit>
-
-             <trans-unit id="80">
-                 <source>label.company.logo</source>
-                 <target>Logo d'entreprise</target>
-             </trans-unit>
-
-             <trans-unit id="81">
-                <source>label.company.contract.id</source>
-                <target>Contrat d'entreprise</target>
-             </trans-unit>
-
-              <trans-unit id="82">
-                 <source>label.identity.attachment</source>
-                 <target>Pièce jointe d'identité</target>
-              </trans-unit>
-
-              <trans-unit id="83">
-                  <source>label.create.member</source>
-                  <target>Nouveau membre</target>
-               </trans-unit>
-
-               <trans-unit id="84">
-                  <source>label.bo.user</source>
-                  <target>Administrateur</target>
-               </trans-unit>
-
-               <trans-unit id="85">
-                  <source>label.company</source>
-                  <target>Entreprise</target>
-               </trans-unit>
-
-               <trans-unit id="86">
-                  <source>label.coworker</source>
-                  <target>Particulier</target>
-               </trans-unit>
-
-               <trans-unit id="87">
-                  <source>label.account</source>
-                  <target>Nouveau Compte</target>
-               </trans-unit>
-
-               <trans-unit id="88">
-                  <source>label.price</source>
-                  <target>Prix</target>
-               </trans-unit>
-
-               <trans-unit id="89">
-                  <source>label.product.annexe</source>
-                  <target>Produits annexes</target>
-               </trans-unit>
-
-                <trans-unit id="90">
-                  <source>label.change.profile</source>
-                  <target>Modification rôle</target>
-               </trans-unit>
-
-                <trans-unit id="91">
-                  <source>label.equipment</source>
-                  <target>Equipement</target>
-               </trans-unit>
-
-                <trans-unit id="92">
-                  <source>label.membre</source>
-                  <target>Membre</target>
-               </trans-unit>
-
-                <trans-unit id="93">
-                  <source>label.resource</source>
-                  <target>Ressource</target>
-               </trans-unit>
-
-                <trans-unit id="94">
-                  <source>label.resources</source>
-                  <target>Ressources</target>
-               </trans-unit>
-
-              <trans-unit id="95">
-                 <source>label.annexes</source>
-                 <target>Produits annexes</target>
-              </trans-unit>
-
-              <trans-unit id="96">
-              <source>label.company.email</source>
-              <target>Adresse mail de l'entreprise</target>
-              </trans-unit>
-
-               <trans-unit id="97">
-               <source>label.supporting.documents.join</source>
-               <target>Pièces justificatives à joindre</target>
-               </trans-unit>
-
-              <trans-unit id="98">
-              <source>label.social.networks</source>
-              <target>Réseaux sociaux</target>
-              </trans-unit>
-
-              <trans-unit id="99">
-              <source>label.contact.adresse</source>
-              <target>Contacts et adresses</target>
-              </trans-unit>
-
-                <trans-unit id="100">
-                <source>label.cin.verso</source>
-                <target>Cin verso</target>
-              </trans-unit>
-
-              <trans-unit id="101">
-               <source>label.cin.recto</source>
-               <target>Cin recto</target>
-              </trans-unit>
-
-            <trans-unit id="102">
-             <source>label.passport.page</source>
-               <target>Passeport Page 1</target>
-             </trans-unit>
-
-            <trans-unit id="103">
-                <source>label.legal.representative</source>
-                <target>Représentant légal</target>
+             <trans-unit id="14">
+                <source>label.edit.success</source>
+                <target>Mise à jour avec succès</target>
             </trans-unit>
-
-            <trans-unit id="104">
-                <source>label.publication</source>
-                <target>Publication</target>
+             <trans-unit id="15">
+                <source>label.edit.error</source>
+                <target>Erreur lors de la mise à jour</target>
             </trans-unit>
-
-            <trans-unit id="105">
-                <source>label.payment.mobile.back</source>
-                <target>Mobile Bank</target>
+             <trans-unit id="16">
+                <source>label.create.error</source>
+                <target>Erreur lors de la création</target>
             </trans-unit>
-            <trans-unit id="106">
-                <source>label.lastname.firstname</source>
-                <target>Nom et Prénom</target>
+             <trans-unit id="17">
+                <source>label.create.success</source>
+                <target>Création avec succès</target>
             </trans-unit>
-            <trans-unit id="107">
-                <source>label.company.rcs</source>
-                <target>RCS</target>
+             <trans-unit id="18">
+                <source>label.delete.success</source>
+                <target>Suppression avec succès</target>
             </trans-unit>
-            <trans-unit id="108">
-                <source>label.company.adress2</source>
-                <target>Adresse 2</target>
+             <trans-unit id="19">
+                <source>label.delete.error</source>
+                <target>Error lors de la suppression</target>
             </trans-unit>
-            <trans-unit id="109">
-                <source>label.phone.number.fixe</source>
-                <target> Téléphone Fixe</target>
+             <trans-unit id="20">
+                <source>label.not.found</source>
+                <target>Utilisateur introuvable</target>
             </trans-unit>
-             <trans-unit id="110">
-                <source>label.phone.number.mobile</source>
-                <target> Téléphone Mobile</target>
+             <trans-unit id="21">
+                <source>label.delete</source>
+                <target>SUPPRIMER</target>
             </trans-unit>
-             <trans-unit id="111">
-                <source>label.legal.status</source>
-                <target>Statut juridique</target>
+             <trans-unit id="22">
+                <source>label.delete.user</source>
+                <target>SUPPRIMER UTILISATEUR</target>
             </trans-unit>
-            <trans-unit id="112">
-                <source>label.mark</source>
-                <target>Vos marques</target>
+             <trans-unit id="23">
+                <source>label.edit.create</source>
+                <target>Création/Modification UTILISATEUR</target>
             </trans-unit>
-            <trans-unit id="113">
-                <source>label.product</source>
-                <target>Vos Produits</target>
+             <trans-unit id="24">
+                <source>label.deletee</source>
+                <target>SUPPRIMER SOCIETE</target>
             </trans-unit>
-            <trans-unit id="114">
-                <source>label.join.file</source>
-                <target>Pieces à  joindre</target>
+             <trans-unit id="25">
+                <source>label.edit.create.societe</source>
+                <target>Création/Modification SOCIETE</target>
             </trans-unit>
-              <trans-unit id="115">
-                <source>label.wallet.credit</source>
-                <target>Crédit </target>
+            <trans-unit id="26">
+                 <source>label.enregistrement.vide</source>
+                 <target>cette table est vide</target>
             </trans-unit>
-             <trans-unit id="116">
-                <source>label.wallet.debit</source>
-                <target>Débit</target>
+           <trans-unit id="27">
+                 <source>label.titre.persMorale</source>
+                 <target>Statuts des Personnes Morale</target>
             </trans-unit>
-            <trans-unit id="117">
-                <source>label.wallet.systematic</source>
-                <target>Portefeuille systématique</target>
+            <trans-unit id="28">
+                <source>label.titre.delete</source>
+                <target>Confirmation</target>
             </trans-unit>
-            <trans-unit id="118">
-            <source>label.wallet.validation</source>
-                <target>Validation de portefeuille</target>
-                </trans-unit>
-            <trans-unit id="119">
-                <source>label.wallet.created.at</source>
-                <target>portefeuille créé à</target>
-                 </trans-unit>
-                 <trans-unit id="120">
-                <source>label.wallet.updated.at</source>
-                <target>Portefeuille mis à jour à</target>
-                 </trans-unit>
-                 <trans-unit id="121">
-                  <source>label.wallet.histories</source>
-                  <target>Historique des portefeuilles</target>
-                  </trans-unit>
-                   <trans-unit id="122">
-                  <source>icon</source>
-                  <target>Icone</target>
-                  </trans-unit>
-               <trans-unit id="123">
-              <source>label.subscription.start.date</source>
-               <target>Date de début</target>
-              </trans-unit>
-              <trans-unit id="124">
-              <source>label.employee.embership.price</source>
-               <target>Prix d'adhésion d 'employé</target>
-              </trans-unit>
-              <trans-unit id="125">
-              <source>label.employee.membership</source>
-               <target>Adhésion Employé</target>
-              </trans-unit>
-              <trans-unit id="126">
-              <source>label.company.membership.price</source>
-               <target>Prix d'adhésion Entreprise</target>
-              </trans-unit>
-              <trans-unit id="127">
-              <source>label.company.membership</source>
-               <target>Adhésion Entreprise</target>
-              </trans-unit>
-              <trans-unit id="128">
-              <source>label.special.membership.price</source>
-               <target>Prix d'adhésion Particulier</target>
-              </trans-unit>
-              <trans-unit id="129">
-              <source>label.special.membership</source>
-               <target>Adhésion Particulier</target>
-              </trans-unit>
-              <trans-unit id="130">
-              <source>label.updated.on</source>
-               <target>Mise à jour le</target>
-              </trans-unit>
-              <trans-unit id="131">
-              <source>label.amphitheatre</source>
-               <target>Amphithéâtre</target>
-              </trans-unit>
-              <trans-unit id="132">
-              <source>label.workstation</source>
-               <target>Poste de travail</target>
-              </trans-unit>
-              <trans-unit id="133">
-              <source>label.meeting.room</source>
-               <target>Salle de réunion</target>
-              </trans-unit>
-              <trans-unit id="134">
-               <source>label.wallet</source>
-               <target>Portefeuille</target>
-               </trans-unit>
-               <trans-unit id="135">
-               <source>label.holiday</source>
-               <target>Jour férié</target>
-               </trans-unit>
-               <trans-unit id="136">
-               <source>label.code</source>
-               <target>Code</target>
-              </trans-unit>
-              <trans-unit id="137">
-               <source>label.country</source>
-               <target>Pays</target>
-              </trans-unit>
-              <trans-unit id="138">
-               <source>label.employee</source>
-               <target>Employé</target>
-              </trans-unit>
-              <trans-unit id="139">
-               <source>label.pack</source>
-               <target>Pack</target>
-              </trans-unit>
-              <trans-unit id="140">
-               <source>label.pack</source>
-               <target>Pack</target>
-              </trans-unit>
-              <trans-unit id="141">
-               <source>label.start.date</source>
-               <target>Date de début</target>
-              </trans-unit>
-              <trans-unit id="142">
-               <source>label.end.date</source>
-               <target>Date de fin</target>
-              </trans-unit>
-              <trans-unit id="143">
-              <source>label.company.mark</source>
-              <target>Société marque</target>
-              </trans-unit>
-              <trans-unit id="144">
-              <source>label.company.product</source>
-              <target>Produit de l'entreprise</target>
-              </trans-unit>
-              <trans-unit id="145">
-              <source>label.equipements</source>
-              <target>Equipements</target>
-              </trans-unit>
-              <trans-unit id="146">
-            <source>label.equipements</source>
-            <target>Equipements</target>
+             <trans-unit id="29">
+                <source>label.confirmation.delete</source>
+                <target>Etes vous sur de vouloir supprimer ce données?</target>
             </trans-unit>
-            <trans-unit id="147">
-                <source>label.brands.and.products</source>
-                <target>Marques et Produits</target>
+             <trans-unit id="30">
+                <source>label.annuler</source>
+                <target>Annuler</target>
             </trans-unit>
-            <trans-unit id="148">
-                <source>reservation.au.nom.de</source>
-                <target>Réservation au nom de </target>
+            <trans-unit id="31">
+                 <source>label.delete.ok</source>
+                 <target>Supprimer</target>
             </trans-unit>
-            <trans-unit id="149">
-                <source>label.status</source>
-                <target>Statut</target>
+           <trans-unit id="32">
+                 <source>label.titre.persMorale</source>
+                 <target>Statuts des Personnes Morale</target>
             </trans-unit>
-            <trans-unit id="150">
-                <source>label.status</source>
-                <target>Statut</target>
+              <trans-unit id="33">
+                 <source>label.title.ajout</source>
+                 <target>Enregistrement</target>
             </trans-unit>
-            <trans-unit id="151">
-                <source>label.total</source>
-                <target>Total </target>
+            <trans-unit id="34">
+                 <source>label.title.modification</source>
+                 <target>Modification</target>
             </trans-unit>
-             <trans-unit id="152">
-             <source>label.date</source>
-             <target>Date</target>
-             </trans-unit>
-              <trans-unit id="153">
-              <source>label.number</source>
-              <target>Nombre</target>
-              </trans-unit>
-
-             <trans-unit id="154">
-                 <source>label.type.paiement</source>
-                 <target>Type de paiement</target>
-             </trans-unit>
-             <trans-unit id="155">
-                   <source>label.timeSlot</source>
-                   <target>Tranche</target>
-              </trans-unit>
-               <trans-unit id="156">
-                     <source>label.detailBooking</source>
-                     <target>Détail de la commande</target>
-                </trans-unit>
-               <trans-unit id="157">
-                     <source>label.paiementBooking</source>
-                     <target>Paiement de la commande</target>
-                </trans-unit>
-               <trans-unit id="158">
-                     <source>label.title</source>
-                     <target>Titre</target>
-                </trans-unit>
-                <trans-unit id="159">
-                     <source>label.forfait.title</source>
-                     <target>Forfait</target>
-                </trans-unit>
-                <trans-unit id="160">
-                    <source>label.forfait.detail</source>
-                    <target>Détail du forfait</target>
-                </trans-unit>
-                <trans-unit id="161">
-                    <source>label.forfait.product</source>
-                    <target>Produit</target>
-                </trans-unit>
-                <trans-unit id="162">
-                    <source>label.forfait.listedetail</source>
-                    <target>Les produits du forfait</target>
-                </trans-unit>
-                <trans-unit id="163">
-                    <source>label.icon.active</source>
-                    <target>Icone active</target>
-                </trans-unit>
-                <trans-unit id="164">
-                    <source>label.forfait.productType</source>
-                    <target>Type de Produit</target>
-                </trans-unit>
-                <trans-unit id="165">
-                    <source>label.forfait.entreprise</source>
-                    <target>Forfait de l'entreprise</target>
-                </trans-unit>
-                <trans-unit id="166">
-                    <source>label.forfait.status</source>
-                    <target>Statut</target>
-                </trans-unit>
-                <trans-unit id="167">
-                    <source>label.forfait.active</source>
-                    <target>Activé</target>
-                </trans-unit>
-                <trans-unit id="168">
-                    <source>label.forfait.consommation</source>
-                    <target>Consommation</target>
-                </trans-unit>
-                <trans-unit id="169">
-                    <source>label.forfait.consommationText</source>
-                    <target>Les consommations éffectués avec le forfait</target>
-                </trans-unit>
-                <trans-unit id="170">
-                <source>label.transport</source>
-                 <target>Transport</target>
-                </trans-unit>
-               <trans-unit id="171">
-                 <source>label.nb.place</source>
-                 <target>Nombre de places</target>
-               </trans-unit>
-               <trans-unit id="172">
-                  <source>label.transport.pointRamassage</source>
-                  <target>Point de ramassage</target>
-               </trans-unit>
-               <trans-unit id="173">
-                  <source>label.transport.heurePassage</source>
-                  <target>Heure de passage</target>
-               </trans-unit>
-               <trans-unit id="174">
-                  <source>label.transport.type</source>
-                  <target>Type de transport</target>
-               </trans-unit>
-              <trans-unit id="175">
-                 <source>label.pack.produit</source>
-                 <target>Produit</target>
-              </trans-unit>
-              <trans-unit id="176">
-                 <source>label.pack.category</source>
-                 <target>Catégorie</target>
-              </trans-unit>
-                <trans-unit id="177">
-                   <source>label.pack.categoryprice</source>
-                   <target>Prix par catégorie</target>
-                </trans-unit>
-                <trans-unit id="178">
-                    <source>label.type.event</source>
-                     <target>Type d'évènement</target>
-                </trans-unit>
-                <trans-unit id="179">
-                    <source>label.event</source>
-                     <target>Evènement</target>
-                </trans-unit>
-                <trans-unit id="180">
-                    <source>label.event.detail</source>
-                     <target>Détail de l'évènement</target>
-                </trans-unit>
-                <trans-unit id="181">
-                    <source>label.event.hourStart</source>
-                     <target>Heure début</target>
-                </trans-unit>
-                <trans-unit id="182">
-                    <source>label.event.hourEnd</source>
-                     <target>Heure fin</target>
-                </trans-unit>
-                <trans-unit id="183">
-                    <source>label.banner</source>
-                     <target>Bannière</target>
-                </trans-unit>
-                <trans-unit id="184">
-                    <source>label.image</source>
-                     <target>Image</target>
-                </trans-unit>
-                <trans-unit id="185">
-                    <source>label.formation</source>
-                     <target>Formation</target>
-                </trans-unit>
-                <trans-unit id="186">
-                    <source>label.formation.detail</source>
-                     <target>Détail de la formation</target>
-                </trans-unit>
-                <trans-unit id="187">
-                    <source>label.former</source>
-                     <target>Formateur</target>
-                </trans-unit>
-                <trans-unit id="188">
-                    <source>label.forfait.regulationType</source>
-                    <target>Type de règlement</target>
-                </trans-unit>
-                <trans-unit id="189">
-                    <source>label.forfait.payment</source>
-                    <target>Paiement</target>
-                </trans-unit>
-                <trans-unit id="190">
-                    <source>label.forfait.payment.amount</source>
-                    <target>Montant</target>
-                </trans-unit>
-                <trans-unit id="191">
-                    <source>label.forfait.payment.motif</source>
-                    <target>Motif</target>
-                </trans-unit>
-                <trans-unit id="192">
-                    <source>label.forfait.payment.banktransfer</source>
-                    <target>Virement bancaire</target>
-                </trans-unit>
-                <trans-unit id="193">
-                    <source>label.forfait.payment.bank</source>
-                    <target>Banque</target>
-                </trans-unit>
-                <trans-unit id="194">
-                    <source>label.forfait.payment.banktransferOriginator</source>
-                    <target>Donneur d'ordre</target>
-                </trans-unit>
-                <trans-unit id="195">
-                    <source>label.forfait.payment.banktransferRefBill</source>
-                    <target>Réf. Facture</target>
-                </trans-unit>
-                <trans-unit id="196">
-                    <source>label.forfait.payment.banktransferRefTransfer</source>
-                    <target>Réf. Virement</target>
-                </trans-unit>
-                <trans-unit id="197">
-                    <source>label.forfait.payment.banktransferAccountNumber</source>
-                    <target>No Compte</target>
-                </trans-unit>
-                <trans-unit id="198">
-                    <source>label.forfait.payment.banktransferBordereau</source>
-                    <target>Bordereau</target>
-                </trans-unit>
-                <trans-unit id="199">
-                    <source>label.forfait.payment.check</source>
-                    <target>Chèque</target>
-                </trans-unit>
-                <trans-unit id="200">
-                    <source>label.forfait.payment.checkNumber</source>
-                    <target>N° Chèque</target>
-                </trans-unit>
-                <trans-unit id="201">
-                    <source>label.forfait.payment.checkImage</source>
-                    <target>Copie du chèque</target>
-                </trans-unit>
-                <trans-unit id="202">
-                    <source>label.enabled</source>
-                    <target>Activé</target>
-                </trans-unit>
-              <trans-unit id="203">
-                 <source>label.pack.duration</source>
-                 <target>Durée</target>
-              </trans-unit>
-              <trans-unit id="204">
-                   <source>label.phone.number.tel</source>
-                   <target>Numéro de téléphone</target>
-              </trans-unit>
-              <trans-unit id="205">
-                 <source>label.phone.number.mob</source>
-                 <target>Téléphone mobile</target>
-              </trans-unit>
-              <trans-unit id="206">
-                 <source>label.pack.duree</source>
-                 <target>Durée</target>
-              </trans-unit>
-              <trans-unit id="207">
-                <source>label.contact.adresse.company</source>
-                <target>Contacts et adresses de l'entreprise</target>
-              </trans-unit>
-
-              <trans-unit id="208">
-                <source>label.new.password</source>
-                <target>Nouveau mot de passe</target>
-              </trans-unit>
-               <trans-unit id="209">
-                   <source>label.confirm.password</source>
-                   <target>Confirmer nouveau mot de passe</target>
-                </trans-unit>
-                <trans-unit id="210">
-                   <source>label.liste.arret</source>
-                   <target>Liste des arrêts</target>
-                </trans-unit>
-                <trans-unit id="211">
-                   <source>icon</source>
-                   <target>Icone</target>
-                </trans-unit>
-                <trans-unit id="212">
-                   <source>pixel.icon</source>
-                   <target>(PNG, 122 x 92, Transparent )</target>
-                </trans-unit>
-                <trans-unit id="213">
-                   <source>label.fonction</source>
-                   <target>Fonction</target>
-                </trans-unit>
+           <trans-unit id="35">
+                 <source>label.titre.catLitige</source>
+                 <target>Categorie Litige</target>
+            </trans-unit>
+            <trans-unit id="36">
+                 <source>label.titre.typePrestation</source>
+                 <target>Categorie Litige</target>
+            </trans-unit>
+            <trans-unit id="37">
+                 <source>label.titre.devise</source>
+                 <target>Type de devise</target>
+            </trans-unit>
+            <trans-unit id="38">
+                 <source>label.titre.etapeSuivante</source>
+                 <target>Etape suivante</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
