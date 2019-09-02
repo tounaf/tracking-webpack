@@ -1,0 +1,59 @@
+{% extends 'dashboard/dashboard.html.twig' %}
+{% set sectionDecisionCloture = true %}
+{% block wrapper %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Gestion des Société</h1>
+
+                {% include '_flash.html.twig' %}
+                <div>
+                    <div class="col-xs-12">
+                        <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
+                            <button id="showModalCreateUser" data-route="create_decision_cloture" data-title="Creation/Edition de décision pour la cloture" style="background-color:#3a9d5d; float: right"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
+                        </div>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Button group">
+                        <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
+                    </div>
+                </div>
+
+                <table id="listUser" class="table">
+                    <thead>
+                    <tr>
+                        <th>Libelé</th>
+                        <th>Actif/Inactif</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for dCloture in decisionClotures %}
+                        <tr>
+                            <td>{{ dCloture.libele }}</td>
+                            <td>{{ dCloture.enable }}</td>
+                            <td>
+                                <button  data-target="#modalPassword" data-title="{{ 'label.edit.create.decision_cloture'|trans }}" data-route="edit_decision_cloture" class="btn btn-link text-danger btn-edit-user" data-id="{{ dCloture.id }}" type="button"><i class="fa fa-edit"></i></button>
+                                <button  data-target="#modalPassword" data-title="{{ 'label.delete.decision_cloture'|trans }}" data-route="delete_decision_cloture" class="btn btn-link text-danger btn-remove-user" data-id="{{ dCloture.id }}" type="button"><i class="fa fa-trash-o"></i></button>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    {% include 'user/popup.html.twig'  with {
+        'sectionDecisionCloture' : sectionDecisionCloture,
+        'form' : formDecisionCloture,
+        'title' : 'Ajout/Modification pour la décision de cloture'|trans
+    } %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('user') }}
+{% endblock %}

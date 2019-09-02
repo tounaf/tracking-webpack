@@ -16,11 +16,6 @@
                         <i class="nav-icon icon-puzzle"></i> Gestion des utilisateurs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="base/cards.html">
-                        <i class="nav-icon icon-puzzle"></i> Gestion des intervenants</a>
-                </li>
-
-                <li class="nav-item">
                     <a class="nav-link {% if isSociete is defined and isSociete == true %} active {% endif %}" href="{{ path('list_societe') }}">
                         <i class="nav-icon icon-puzzle"></i> Gestion des sociétés</a>
                 </li>
@@ -31,6 +26,10 @@
                 <li class="nav-item">
                     <a class="nav-link {% if isStatut is defined and isStatut == true %} active {% endif %}" href="{{ path('list_statut') }}">
                         <i class="nav-icon icon-puzzle"></i> Gestion des statuts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if isDecisionCloture is defined and isDecisionCloture == true %} active {% endif %}" href="{{ path('list_decision_cloture') }}">
+                        <i class="nav-icon icon-puzzle"></i> Gestion de décision pour la cloture d'un litige</a>
                 </li>
             </ul>
         </li>

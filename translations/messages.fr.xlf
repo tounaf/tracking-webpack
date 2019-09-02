@@ -108,6 +108,14 @@
                 <source>label.delete.statut</source>
                 <target>Suppréssion statut</target>
             </trans-unit>
+             <trans-unit id="33">
+                <source>label.edit.create.decision_cloture</source>
+                <target>Création/Modification de décision pour la cloture</target>
+            </trans-unit>
+             <trans-unit id="34">
+                <source>label.delete.decision_cloture</source>
+                <target>Suppression de décision pour la cloture</target>
+            </trans-unit>
 
         </body>
     </file>
