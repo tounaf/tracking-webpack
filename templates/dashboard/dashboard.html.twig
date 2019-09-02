@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello DashboardController!{% endblock %}
+{% block stylesheets %}
+    {% block child_css %}
+    {% endblock %}
+{% endblock %}
 
 {% block body %}
 
@@ -9,15 +13,19 @@
         {% include 'nav-bar.html.twig' %}
     </header>
     <div class="app-body">
-        <div class="sidebar">
+        <div class="sidebar" style="background-color: darkred!important;">
             {% include 'side-bar.html.twig' %}
         </div>
         <main class="main">
             <!-- Breadcrumb-->
             <div class="container-fluid">
-                <div class="animated fadeIn">
-                    <div class="row">
-                        main
+                <div id="ui-view">
+                    <div class="animated fadeIn">
+                        <div class="card">
+                            {% block wrapper %}
+
+                            {% endblock %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -25,5 +33,10 @@
     </div>
     <!-- CoreUI and necessary plugins-->
     </body>
+
+{% endblock %}
+{% block javascripts %}
+    {% block child_js %}
+    {% endblock %}
 
 {% endblock %}
