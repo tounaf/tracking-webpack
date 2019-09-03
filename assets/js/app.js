@@ -23,7 +23,7 @@ require('../css/app.css');
     // import './main'
     // import jQuery from 'jquery';
 
-
+    require('./jquery.ajaxloader');
 
 
 

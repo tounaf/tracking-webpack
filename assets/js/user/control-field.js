@@ -2,7 +2,10 @@ import Fonction from "../Fonction";
 import Routing from "./Routing";
 
 const $ = require('jquery');
+require('../jquery.ajaxloader');
 
+
+var main = $('.main');
 /**
  * control format email
  */
@@ -60,6 +63,7 @@ $('#fos_user_phoneNumber').keyup(function () {
  */
 $("#formCreateUser").submit(function (e) {
     e.preventDefault();
+    $('#listUser').ajaxloader('show');
     var data = $(this).serialize();
     var url = Routing.generate('create_user', {}, true);
     $.post(
@@ -89,6 +93,8 @@ $("#formCreateUser").submit(function (e) {
  */
 $('.btn-edit-user').click(function (e) {
     e.preventDefault();
+
+    main.ajaxloader('show');
     var id = $(this).data('id');
     var route = $(this).data('route');
     var title = $(this).data('title');
@@ -105,6 +111,7 @@ $('.btn-edit-user').click(function (e) {
             setTimeout(function(){// wait for 5 secs(2)
                 location.reload(); // then reload the page.(3)
             }, 3000);
+            main.ajaxloader('hide');
             return false;
         } else {
             removeClassStartingWith(elt, 'alert');
@@ -112,6 +119,7 @@ $('.btn-edit-user').click(function (e) {
             $("#exampleModalLongTitle").addClass('text-danger').text(title);
             $('.modal-body').html(response);
             $('#modalPassword').modal('show');
+            main.ajaxloader('hide');
         }
     })
 })
@@ -121,6 +129,8 @@ $('.btn-edit-user').click(function (e) {
  */
 $('#showModalCreateUser').click(function (e) {
     e.preventDefault();
+
+    main.ajaxloader('show');
     var route = $(this).data('route');
     var title = $(this).data('title');
     var url = Routing.generate(route);
@@ -131,6 +141,7 @@ $('#showModalCreateUser').click(function (e) {
         elt.addClass('text-danger').text(title);
         $('.modal-body').show();
         $('#modalPassword').modal('show');
+        main.ajaxloader('hide');
     })
 })
 
@@ -139,6 +150,7 @@ $('#showModalCreateUser').click(function (e) {
  */
 $('.btn-remove-user').click(function (e) {
     e.preventDefault();
+    main.ajaxloader('show');
     var route = $(this).data('route');
     var id = $(this).data('id');
     var title = $(this).data('title');
@@ -157,6 +169,7 @@ $('.btn-remove-user').click(function (e) {
                 setTimeout(function(){// wait for 5 secs(2)
                     location.reload(); // then reload the page.(3)
                 }, 3000);
+                main.ajaxloader('hide');
                 return false;
             } else {
                 removeClassStartingWith(elt, 'alert');
@@ -164,6 +177,7 @@ $('.btn-remove-user').click(function (e) {
                 $("#exampleModalLongTitle").addClass('text-danger').text(title);
                 $('.modal-body').html(response);
                 $('#modalPassword').modal('show');
+                main.ajaxloader('hide');
             }
         }
     })
