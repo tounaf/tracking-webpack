@@ -9,23 +9,31 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class FonctionType extends AbstractType
 {
+    private $trans;
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->trans = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('libele',null, array(
-                'label' => 'Libellé'
+                'label' => $this->trans->trans('label')
             ))
             ->add('profil',EntityType::class, array(
                 'class' => Profil::class,
-                'placeholder' => 'Veuillez choisir un profil',
+                'placeholder' => $this->trans->trans('label.choose.profil'),
                 'required' => true,
                 'choice_label' => 'libele'
             ))
             ->add('enable', null, array(
-                'label' => 'Actif'
+                'label' => $this->trans->trans('label.enable'),
+                'data' => true
             ))
         ;
         if ($options['remove_field']) {

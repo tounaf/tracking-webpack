@@ -10,7 +10,7 @@
                 <div>
                     <div class="col-xs-12">
                         <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
-                            <button id="showModalCreate" data-title="{{ 'label.edit.create.user'|trans }}" data-route="create_user" style="background-color:#3a9d5d; float: right"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
+                            <button id="showModalCreate" data-title="{{ 'label.edit.create'|trans }}" data-route="create_user" style="background-color:#3a9d5d; float: right"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
                         </div>
                     </div>
 
@@ -40,7 +40,7 @@
                             <td>{{ user.phoneNumber }}</td>
                             <td>
 
-                                <button  data-target="#modalPassword" data-title="{{ 'label.edit.create.user'|trans }}" data-route="edit_user" class="btn btn-link text-danger btn-edit" data-id="{{ user.id }}" type="button"><i class="fa fa-edit"></i></button>
+                                <button  data-target="#modalPassword" data-title="{{ 'label.edit.create'|trans }}" data-route="edit_user" class="btn btn-link text-danger btn-edit" data-id="{{ user.id }}" type="button"><i class="fa fa-edit"></i></button>
                                 <button  data-target="#modalPassword" data-title="{{ 'label.delete.user'|trans }}" data-route="delete_user" class="btn btn-link text-danger btn-remove" data-id="{{ user.id }}" type="button"><i class="fa fa-trash-o"></i></button>
                             </td>
                         </tr>

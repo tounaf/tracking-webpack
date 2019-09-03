@@ -221,6 +221,25 @@
                 <source>label.choice.societe</source>
                 <target>Choisir une societé</target>
             </trans-unit>
+
+            <trans-unit id="51">
+                <source>label.enable</source>
+                <target>Actif</target>
+            </trans-unit>
+
+            <trans-unit id="52">
+                <source>label.choose.fonction</source>
+                <target>Veuillez choisir une fonction</target>
+            </trans-unit>
+
+            <trans-unit id="53">
+                <source>label</source>
+                <target>Libellé</target>
+            </trans-unit>
+            <trans-unit id="54">
+                <source>label.choose.profil</source>
+                <target>Veuillez choisir un profil</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

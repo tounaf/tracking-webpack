@@ -40,7 +40,11 @@ class FosUserType extends AbstractType
                 'attr' => array('maxlength' => 10, 'minlength' => 10),
                 'label' => $this->trans->trans('Téléphone')
             ))
-            ->add('enabled')
+            ->add('enabled', null, array(
+                'required' => true,
+                'label' => $this->trans->trans('label.enable'),
+                'data' => true
+            ))
             ->add('societe', EntityType::class, array(
                 'class' => 'App\Entity\Societe',
                 'choice_label' => 'libele',
@@ -51,6 +55,7 @@ class FosUserType extends AbstractType
                 'class' => Fonction::class,
                 'choice_label' => 'libele',
                 'required' => true,
+                'placeholder' => $this->trans->trans('label.choose.fonction')
             ));
         if ($options['remove_field']) {
             $builder

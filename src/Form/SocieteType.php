@@ -6,14 +6,28 @@ use App\Entity\Societe;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class SocieteType extends AbstractType
 {
+    private $trans;
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->trans = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('libele')
-            ->add('enable')
+            ->add('libele', null, array(
+                'label' => $this->trans->trans('label'),
+                'required' => true
+            ))
+            ->add('enable', null, array(
+                'label' => $this->trans->trans('label.enable'),
+                //activer par defaut
+                'data' => true
+            ))
         ;
         if ($options['remove_field']) {
             $builder
