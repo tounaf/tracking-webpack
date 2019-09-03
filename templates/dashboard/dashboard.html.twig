@@ -18,10 +18,13 @@
         <main class="main">
             <!-- Breadcrumb-->
             <div class="container-fluid">
-                <div class="animated fadeIn">
-                    <div class="row">
-                        {% block wrapper %}
-                        {% endblock %}
+                <div id="ui-view">
+                    <div class="animated fadeIn">
+                        <div class="card">
+                            {% block wrapper %}
+
+                            {% endblock %}
+                        </div>
                     </div>
                 </div>
             </div>

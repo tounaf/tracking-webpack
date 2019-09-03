@@ -1,6 +1,6 @@
 const $ = require('jquery');
 
-import Routing from './Routing';
+import Routing from '../Routing';
 
 require('datatables.net-bs4/css/dataTables.bootstrap4.min.css');
 require('datatables.net-bs4');
@@ -65,22 +65,54 @@ $('#buttonResetting').click(function (e) {
     })
 })
 
-$(document).ready(function () {
+var dataTable = $('#listAdmin').DataTable({
+    destroy : true,
+    bLengthChange: false,
 
-    var dataTable = $('#listUser').DataTable({
+    info: false,
+    language: {
+        processing:     "Traitement en cours...",
+        search:         "Rechercher&nbsp;:",
+        lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
+        info:           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+        infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+        infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+        infoPostFix:    "",
+        loadingRecords: "Chargement en cours...",
+        zeroRecords:     "Aucun &eacute;l&eacute;ment trouv&eacute;",
+        emptyTable:     "Aucune donnée disponible dans le tableau",
+        paginate: {
+            first:      "Premier",
+            previous:   "Pr&eacute;c&eacute;dent",
+            next:       "Suivant",
+            last:       "Dernier"
+        },
+        aria: {
+            sortAscending:  ": activer pour trier la colonne par ordre croissant",
+            sortDescending: ": activer pour trier la colonne par ordre décroissant"
+        }
+    },
+});
+
+$("#search_box").on('keyup', function() {
+    dataTable.search( this.value ).draw();
+});
+$(document).ready(function () {
+    $('#listAdmin').DataTable({
+        searching : false,
         destroy : true,
         bLengthChange: false,
         info: false,
         language: {
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
-            lengthMenu:     "Afficher MENU &eacute;l&eacute;ments",
-            info:           "Affichage de l'&eacute;lement START &agrave; END sur TOTAL &eacute;l&eacute;ments",
+            lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
+            info:           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
             infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
-            infoFiltered:   "(filtr&eacute; de MAX &eacute;l&eacute;ments au total)",
+            infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
             infoPostFix:    "",
             loadingRecords: "Chargement en cours...",
-            zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+            zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; trouv&eacute;",
             emptyTable:     "Aucune donnée disponible dans le tableau",
             paginate: {
                 first:      "Premier",
@@ -93,15 +125,10 @@ $(document).ready(function () {
                 sortDescending: ": activer pour trier la colonne par ordre décroissant"
             }
         },
-        bPaginate: true
-    });
-    $("#search_box").on('keyup', function() {
-        console.log($(this).val());
-        dataTable.search($(this).val()).draw();
+
     });
 
     $('.alert_value').click(function () {
         $(this).css('display','none')
     })
-
-})
+});

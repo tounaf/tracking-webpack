@@ -16,107 +16,211 @@
                 <source>label.password.forgot</source>
                 <target>MOT DE PASSE OUBLIÉ</target>
             </trans-unit>
+
              <trans-unit id="10">
                 <source>label.resetting.password.success</source>
                 <target>Réinitialisation mot de passe avec succès.Veuillez consulter votre email</target>
             </trans-unit>
+
              <trans-unit id="11">
                 <source>label.resetting.password.error</source>
                 <target>Cet email n'existe pas ou a été désactivé</target>
             </trans-unit>
+
              <trans-unit id="12">
                 <source>label.saisi.email</source>
                 <target>Veuillez saisir votre mail</target>
             </trans-unit>
+
              <trans-unit id="13">
                 <source>label.cancel</source>
                 <target>ANNULER</target>
             </trans-unit>
+
              <trans-unit id="14">
-                <source>label.edit.success.user</source>
+                <source>label.edit.success</source>
                 <target>Mise à jour avec succès</target>
             </trans-unit>
+
              <trans-unit id="15">
-                <source>label.edit.error.user</source>
+                <source>label.edit.error</source>
                 <target>Erreur lors de la mise à jour</target>
             </trans-unit>
+
              <trans-unit id="16">
-                <source>label.create.error.user</source>
+                <source>label.create.error</source>
                 <target>Erreur lors de la création</target>
             </trans-unit>
+
              <trans-unit id="17">
-                <source>label.create.success.user</source>
+                <source>label.create.success</source>
                 <target>Création avec succès</target>
             </trans-unit>
+
              <trans-unit id="18">
-                <source>label.delete.success.user</source>
+                <source>label.delete.success</source>
                 <target>Suppression avec succès</target>
             </trans-unit>
+
              <trans-unit id="19">
-                <source>label.delete.error.user</source>
+                <source>label.delete.error</source>
                 <target>Error lors de la suppression</target>
             </trans-unit>
+
              <trans-unit id="20">
-                <source>label.not.found.user</source>
+                <source>label.not.found</source>
                 <target>Utilisateur introuvable</target>
             </trans-unit>
+
              <trans-unit id="21">
                 <source>label.delete</source>
                 <target>SUPPRIMER</target>
             </trans-unit>
+
              <trans-unit id="22">
                 <source>label.delete.user</source>
                 <target>SUPPRIMER UTILISATEUR</target>
             </trans-unit>
+
              <trans-unit id="23">
-                <source>label.edit.create.user</source>
+                <source>label.edit.create</source>
                 <target>Création/Modification UTILISATEUR</target>
             </trans-unit>
+
              <trans-unit id="24">
-                <source>label.delete.societe</source>
+                <source>label.deletee</source>
                 <target>SUPPRIMER SOCIETE</target>
             </trans-unit>
+
              <trans-unit id="25">
                 <source>label.edit.create.societe</source>
                 <target>Création/Modification SOCIETE</target>
             </trans-unit>
-             <trans-unit id="26">
-                <source>label.choice.societe</source>
-                <target>Choisir une societé</target>
+
+            <trans-unit id="26">
+                 <source>label.enregistrement.vide</source>
+                 <target>cette table est vide</target>
             </trans-unit>
-             <trans-unit id="27">
+
+           <trans-unit id="27">
+                 <source>label.titre.persMorale</source>
+                 <target>Statuts des Personnes Morale</target>
+             </trans-unit>
+
+             <trans-unit id="28">
                 <source>label.reset.password</source>
                 <target>Réinitialisation mot de passe</target>
             </trans-unit>
-             <trans-unit id="28">
+
+            <trans-unit id="29">
+                <source>label.titre.delete</source>
+                <target>Confirmation</target>
+            </trans-unit>
+
+             <trans-unit id="30">
                 <source>label.new.account</source>
                 <target>Nouveau compte</target>
+
             </trans-unit>
-             <trans-unit id="29">
+
+             <trans-unit id="31">
+                <source>label.confirmation.delete</source>
+                <target>Etes vous sur de vouloir supprimer ce données?</target>
+            </trans-unit>
+
+             <trans-unit id="32">
                 <source>label.create.edit.fonction</source>
                 <target>Création/Edition Fonction</target>
             </trans-unit>
-             <trans-unit id="30">
+
+             <trans-unit id="33">
                 <source>label.delete.fonction</source>
                 <target>SUPPRIMER FONCTION</target>
             </trans-unit>
-             <trans-unit id="31">
+
+             <trans-unit id="34">
+                <source>label.annuler</source>
+                <target>Annuler</target>
+            </trans-unit>
+
+            <trans-unit id="35">
+                 <source>label.delete.ok</source>
+                 <target>Supprimer</target>
+             </trans-unit>
+
+             <trans-unit id="36">
                 <source>label.edit.create.statut</source>
                 <target>Création/Modification statut</target>
             </trans-unit>
-             <trans-unit id="32">
+
+           <trans-unit id="37">
+                 <source>label.titre.persMorale</source>
+                 <target>Statuts des Personnes Morale</target>
+             </trans-unit>
+
+             <trans-unit id="38">
                 <source>label.delete.statut</source>
                 <target>Suppréssion statut</target>
             </trans-unit>
-             <trans-unit id="33">
+
+              <trans-unit id="39">
+                 <source>label.title.ajout</source>
+                 <target>Enregistrement</target>
+             </trans-unit>
+
+             <trans-unit id="40">
                 <source>label.edit.create.decision_cloture</source>
                 <target>Création/Modification de décision pour la cloture</target>
             </trans-unit>
-             <trans-unit id="34">
+
+            <trans-unit id="41">
+                 <source>label.title.modification</source>
+                 <target>Modification</target>
+             </trans-unit>
+
+             <trans-unit id="42">
                 <source>label.delete.decision_cloture</source>
                 <target>Suppression de décision pour la cloture</target>
             </trans-unit>
 
+           <trans-unit id="43">
+                 <source>label.titre.catLitige</source>
+                 <target>Categorie Litige</target>
+            </trans-unit>
+
+            <trans-unit id="44">
+                 <source>label.titre.typePrestation</source>
+                 <target>Categorie Litige</target>
+            </trans-unit>
+
+            <trans-unit id="45">
+                 <source>label.titre.devise</source>
+                 <target>Type de devise</target>
+            </trans-unit>
+
+            <trans-unit id="46">
+                 <source>label.titre.etapeSuivante</source>
+                 <target>Etape suivante</target>
+            </trans-unit>
+
+            <trans-unit id="47">
+                 <source>label.titre.natureDecision</source>
+                 <target>Nature de Décision du Justice</target>
+            </trans-unit>
+
+            <trans-unit id="48">
+                 <source>label.titre.niveauDecision</source>
+                 <target>Niveaux de la Décision de Justice</target>
+            </trans-unit>
+
+            <trans-unit id="49">
+                 <source>label.titre.informationPj</source>
+                 <target>Information des Pièces Jointes</target>
+            </trans-unit>
+            <trans-unit id="50">
+                <source>label.choice.societe</source>
+                <target>Choisir une societé</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

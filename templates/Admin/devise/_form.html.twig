@@ -1,0 +1,10 @@
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{{ form_start(form, {'attr': {'id': 'formCreateUser','class': 'form-horizontale'}}) }}
+    {{ form_widget(form) }}
+<div class="form-group">
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'label.annuler'|trans }}</button>
+        <input type="submit" id="saveCreateUser" class="btn btn-danger" value="{{ 'label.save'|trans }}" />
+    </div>
+</div>

@@ -68,10 +68,10 @@ class DecisionClotureController extends Controller
 
                 $em->persist($entite);
                 $em->flush();
-                $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success.user'));
+                $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
                 return $this->redirectToRoute('list_decision_cloture');
             } catch (\Exception $exception) {
-                $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.error.create.user'));
+                $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.create.error'));
                 return $this->redirectToRoute('list_decision_cloture');
                 $message['message'] = $exception->getMessage();
                 $message['status'] = 500;
@@ -107,9 +107,9 @@ class DecisionClotureController extends Controller
                 try {
 
                     $this->getDoctrine()->getManager()->flush();
-                    $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success.user'));
+                    $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success'));
                 } catch (\Exception $exception) {
-                    $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.edit.error.user'));
+                    $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.edit.error'));
 
                 }
                 return $this->redirectToRoute('list_decision_cloture');
@@ -151,9 +151,9 @@ class DecisionClotureController extends Controller
                 try {
                     $em->remove($dCloture);
                     $em->flush();
-                    $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.delete.success.user'));
+                    $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.delete.success'));
                 } catch (\Exception $exception) {
-                    $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.error.user'));
+                    $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.error'));
                 }
                 return $this->redirectToRoute('list_decision_cloture');
             }

@@ -10,15 +10,15 @@
                 <div>
                     <div class="col-xs-12">
                         <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
-                            <button id="showModalCreateUser" data-route="create_decision_cloture" data-title="Creation/Edition de décision pour la cloture" style="background-color:#3a9d5d; float: right"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
+                            <button id="showModalCreate" data-route="create_decision_cloture" data-title="Creation/Edition de décision pour la cloture" style="background-color:#3a9d5d; float: right"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
                         </div>
                     </div>
-                    {#<div class="btn-group" role="group" aria-label="Button group">#}
-                        {#<input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">#}
-                    {#</div>#}
+                    <div class="btn-group" role="group" aria-label="Button group">
+                        <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
+                    </div>
                 </div>
 
-                <table id="listUser" class="table">
+                <table id="listAdmin" class="table">
                     <thead>
                     <tr>
                         <th>Libelé</th>
@@ -32,13 +32,9 @@
                             <td>{{ dCloture.libele }}</td>
                             <td>{{ dCloture.enable?'OUI':'NON' }}</td>
                             <td>
-                                <button  data-target="#modalPassword" data-title="{{ 'label.edit.create.decision_cloture'|trans }}" data-route="edit_decision_cloture" class="btn btn-link text-danger btn-edit-user" data-id="{{ dCloture.id }}" type="button"><i class="fa fa-edit"></i></button>
-                                <button  data-target="#modalPassword" data-title="{{ 'label.delete.decision_cloture'|trans }}" data-route="delete_decision_cloture" class="btn btn-link text-danger btn-remove-user" data-id="{{ dCloture.id }}" type="button"><i class="fa fa-trash-o"></i></button>
+                                <button  data-target="#modalPassword" data-title="{{ 'label.edit.create.decision_cloture'|trans }}" data-route="edit_decision_cloture" class="btn btn-link text-danger btn-edit" data-id="{{ dCloture.id }}" type="button"><i class="fa fa-edit"></i></button>
+                                <button  data-target="#modalPassword" data-title="{{ 'label.delete.decision_cloture'|trans }}" data-route="delete_decision_cloture" class="btn btn-link text-danger btn-remove" data-id="{{ dCloture.id }}" type="button"><i class="fa fa-trash-o"></i></button>
                             </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="4">no records found</td>
                         </tr>
                     {% endfor %}
                     </tbody>

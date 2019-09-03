@@ -1,0 +1,42 @@
+{% extends 'dashboard/dashboard.html.twig' %}
+
+{% block title %}{{ parent() }} | Etape suivante {% endblock %}
+{% block wrapper %}
+
+    <div class="card-header">{{ 'label.titre.etapeSuivante'|trans }}</div>
+    {% include '_flash.html.twig' %}
+    <br>
+    <div>
+        <div class="col-xs-12">
+            <div class="btn btn-ps pull-right adjust">
+                <button id="showModalCreate" data-route="etape_suivante_new" data-title="{{ 'label.title.ajout'|trans }}" style="background-color:#3a9d5d; float: right"> <i class="text-light fa fa-plus-circle">Ajouter</i></button>
+            </div>
+        </div>
+        <div class="btn-group" role="group" aria-label="Button group">
+            <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
+        </div>
+    </div>
+    <table id="listAdmin" class="table " >
+        <thead style="background-color: darkred;" class="text-light">
+        <tr>
+            <th>Libelle</th>
+            <th>Actif</th>
+            <th style="text-align: center; width:15%; padding-right: 8px !important;">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for etape_suivante in etape_suivantes %}
+            <tr>
+                <td {{etape_suivante.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }}>{{  etape_suivante.libelle }}</td>
+                <td {{etape_suivante.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }}>{{  etape_suivante.isActif ? 'OUI' : 'NON' }} </td>
+                <td {{etape_suivante.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }} style="width:15%; text-align: center; padding-right: 8px !important;">
+                    <button data-route="etape_suivante_edit" data-title="{{ 'label.title.modification'|trans }}" class="btn btn-link text-danger btn-edit" data-id="{{ etape_suivante.id }}" type="button"><i class="fa fa-edit"></i></button>
+                    <button data-route="etape_suivante_delete" data-title="{{ 'label.titre.delete'|trans }}" class="btn btn-link text-danger btn-remove" data-id="{{ etape_suivante.id }}" type="button"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% include '/Admin/Popup/modal.html.twig' %}
+
+{% endblock %}

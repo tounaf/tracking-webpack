@@ -1,0 +1,41 @@
+{% extends 'dashboard/dashboard.html.twig' %}
+
+{% block title %}{{ parent() }} | Nature de décision {% endblock %}
+{% block wrapper %}
+
+    <div class="card-header">{{ 'label.titre.natureDecision'|trans }}</div>
+    {% include '_flash.html.twig' %}
+    <br>
+    <div>
+        <div class="col-xs-12">
+            <div class="btn btn-ps pull-right adjust">
+                <button id="showModalCreate" data-route="nature_decision_new" data-title="{{ 'label.title.ajout'|trans }}" style="background-color:#3a9d5d; float: right"> <i class="text-light fa fa-plus-circle">Ajouter</i></button>
+            </div>
+        </div>
+        <div class="btn-group" role="group" aria-label="Button group">
+            <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
+        </div>
+    </div>
+    <table id="listAdmin" class="table " >
+        <thead style="background-color: darkred;" class="text-light">
+        <tr>
+            <th>Libelle</th>
+            <th>Actif</th>
+            <th style="text-align: center; width:15%; padding-right: 8px !important;">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for nature_decision in nature_decisions %}
+            <tr>
+                <td {{nature_decision.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }}>{{  nature_decision.libelle }}</td>
+                <td {{nature_decision.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }}>{{  nature_decision.isActif ? 'OUI' : 'NON' }} </td>
+                <td {{nature_decision.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }} style="width:15%; text-align: center; padding-right: 8px !important;">
+                    <button data-route="nature_decision_edit" data-title="{{ 'label.title.modification'|trans }}" class="btn btn-link text-danger btn-edit" data-id="{{ nature_decision.id }}" type="button"><i class="fa fa-edit"></i></button>
+                    <button data-route="nature_decision_delete" data-title="{{ 'label.titre.delete'|trans }}" class="btn btn-link text-danger btn-remove" data-id="{{ nature_decision.id }}" type="button"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% include '/Admin/Popup/modal.html.twig' %}
+{% endblock %}

@@ -1,5 +1,5 @@
 import Fonction from "../Fonction";
-import Routing from "./Routing";
+import Routing from "../user/Routing";
 
 const $ = require('jquery');
 require('../jquery.ajaxloader');
@@ -91,7 +91,7 @@ $("#formCreateUser").submit(function (e) {
 /**
  * get form user edit
  */
-$('.btn-edit-user').click(function (e) {
+$('.btn-edit').click(function (e) {
     e.preventDefault();
 
     main.ajaxloader('show');
@@ -127,7 +127,7 @@ $('.btn-edit-user').click(function (e) {
 /**
  * get form on create
  */
-$('#showModalCreateUser').click(function (e) {
+$('#showModalCreate').click(function (e) {
     e.preventDefault();
 
     main.ajaxloader('show');
@@ -148,7 +148,7 @@ $('#showModalCreateUser').click(function (e) {
 /**
  * Get form for delete action
  */
-$('.btn-remove-user').click(function (e) {
+$('.btn-remove').click(function (e) {
     e.preventDefault();
     main.ajaxloader('show');
     var route = $(this).data('route');
