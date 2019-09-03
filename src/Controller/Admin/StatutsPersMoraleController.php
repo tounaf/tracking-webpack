@@ -121,7 +121,7 @@ class StatutsPersMoraleController extends Controller
             }
             return $this->render('Admin/_create_user.html.twig', [
                 'statuts_pers_morale' => $statutsPersMorale,
-                'formPersMorale' => $form->createView(),
+                'form' => $form->createView(),
             ]);
         }
         else {

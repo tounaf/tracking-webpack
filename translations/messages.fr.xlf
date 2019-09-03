@@ -240,6 +240,22 @@
                 <source>label.choose.profil</source>
                 <target>Veuillez choisir un profil</target>
             </trans-unit>
+            <trans-unit id="55">
+                <source>label.nom</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="56">
+                <source>label.prenom</source>
+                <target>Prénom</target>
+            </trans-unit>
+            <trans-unit id="57">
+                <source>label.tel</source>
+                <target>Téléphone</target>
+            </trans-unit>
+            <trans-unit id="58">
+                <source>label.gestion.user</source>
+                <target>Gestion des utilisateurs</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

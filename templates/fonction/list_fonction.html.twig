@@ -1,10 +1,8 @@
 {% extends 'dashboard/dashboard.html.twig' %}
 {% set sectionSociete = true %}
 {% block wrapper %}
-    <div class="card-header">{{ 'Gestion des Fonctions'|trans }}</div>
-    <br>
-        <div class="row">
-            <div class="col-md-12">
+            <div class="card-header">{{ 'Gestion des Fonctions'|trans }}</div>
+            <br>
 
                 {% include '_flash.html.twig' %}
                 <div>
@@ -41,9 +39,6 @@
                     {% endfor %}
                     </tbody>
                 </table>
-            </div>
-
-        </div>
     {% include 'user/popup.html.twig'  with {
         'sectionUser' : sectionSociete,
         'form' : formFonction,

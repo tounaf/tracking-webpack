@@ -19,7 +19,7 @@
         </div>
     </div>
     <table id="listAdmin" class="table " >
-        <thead style="background-color: darkred;" class="text-light">
+        <thead>
         <tr>
             <th>Libelle</th>
             <th>Actif</th>
@@ -29,9 +29,9 @@
         <tbody>
         {% for categorie_litige in categorie_litiges %}
             <tr>
-                <td {{categorie_litige.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }}>{{  categorie_litige.libelle }}</td>
-                <td {{categorie_litige.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }}>{{  categorie_litige.isActif ? 'OUI' : 'NON' }} </td>
-                <td {{categorie_litige.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }} style="width:15%; text-align: center; padding-right: 8px !important;">
+                <td>{{  categorie_litige.libelle }}</td>
+                <td>{{  categorie_litige.isActif ? 'OUI' : 'NON' }} </td>
+                <td style="width:15%; text-align: center; padding-right: 8px !important;">
                     {#<a href="{{ path('societe_edit', {'id': societe.id}) }}"><button class="btn btn-dribbble" data-toggle="modal" data-target="#exampleModal" data-whatever="@do"><i class="fa fa-edit"></i></button></a>#}
                     <button data-route="categorie_litige_edit" data-title="{{ 'label.title.modification'|trans }}" class="btn btn-link text-danger btn-edit" data-id="{{ categorie_litige.id }}" type="button"><i class="fa fa-edit"></i></button>
                     <button data-route="categorie_litige_delete" data-title="{{ 'label.titre.delete'|trans }}" class="btn btn-link text-danger btn-remove" data-id="{{ categorie_litige.id }}" type="button"><i class="fa fa-trash-o"></i></button>

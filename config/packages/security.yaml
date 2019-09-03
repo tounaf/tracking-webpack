@@ -16,7 +16,6 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
             pattern: ^/
             context: user
             form_login:

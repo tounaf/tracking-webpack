@@ -5,3 +5,7 @@
 @import "style.css";
 @import "pace.min.css";
 @import "jquery.ajaxloader.css";
+
+#search_box{
+    display: none;
+}

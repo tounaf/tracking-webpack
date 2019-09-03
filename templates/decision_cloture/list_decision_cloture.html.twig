@@ -1,10 +1,8 @@
 {% extends 'dashboard/dashboard.html.twig' %}
 {% set sectionDecisionCloture = true %}
 {% block wrapper %}
-        <div class="card-header">{{ 'Gestion de décision de cloture '|trans }}</div>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
+            <div class="card-header">{{ 'Gestion de décision de cloture '|trans }}</div>
+            <br>
 
                 {% include '_flash.html.twig' %}
                 <div>
@@ -39,9 +37,6 @@
                     {% endfor %}
                     </tbody>
                 </table>
-            </div>
-
-        </div>
     {% include 'user/popup.html.twig'  with {
         'sectionDecisionCloture' : sectionDecisionCloture,
         'form' : formDecisionCloture,

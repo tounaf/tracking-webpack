@@ -1,11 +1,8 @@
 {% extends 'dashboard/dashboard.html.twig' %}
 {% set sectionStatut = true %}
 {% block wrapper %}
-        <div class="card-header">{{ 'Gestion des Statuts'|trans }}</div>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
-
+            <div class="card-header">{{ 'Gestion des Statuts'|trans }}</div>
+            <br>
                 {% include '_flash.html.twig' %}
                 <div>
                     <div class="col-xs-12">
@@ -39,9 +36,6 @@
                     {% endfor %}
                     </tbody>
                 </table>
-            </div>
-
-        </div>
     {% include 'user/popup.html.twig'  with {
         'sectionSociete' : sectionStatut,
         'form' : formStatut,

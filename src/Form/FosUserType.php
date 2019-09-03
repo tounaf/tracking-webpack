@@ -25,11 +25,11 @@ class FosUserType extends AbstractType
         $builder
             ->add('name', null, array(
                 'required' => true,
-                'label' => $this->trans->trans('Nom')
+                'label' => $this->trans->trans('label.nom')
             ))
             ->add('lastname', null, array(
                 'required' => true,
-                'label' => $this->trans->trans('Prénoms')
+                'label' => $this->trans->trans('label.prenom')
             ))
             ->add('email', EmailType::class, array(
                 'label' => $this->trans->trans('label.email'),
@@ -38,7 +38,7 @@ class FosUserType extends AbstractType
             ->add('phoneNumber', null, array(
                 'required' => true,
                 'attr' => array('maxlength' => 10, 'minlength' => 10),
-                'label' => $this->trans->trans('Téléphone')
+                'label' => $this->trans->trans('label.tel')
             ))
             ->add('enabled', null, array(
                 'required' => true,

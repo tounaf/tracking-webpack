@@ -17,7 +17,7 @@
         </div>
     </div>
     <table id="listAdmin" class="table " >
-        <thead style="background-color: darkred;" class="text-light">
+        <thead>
         <tr>
             <th>Libelle</th>
             <th>Actif</th>
@@ -27,9 +27,9 @@
         <tbody>
         {% for type_prestation in type_prestations %}
             <tr>
-                <td {{type_prestation.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }}>{{  type_prestation.libelle }}</td>
-                <td {{type_prestation.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }}>{{  type_prestation.isActif ? 'OUI' : 'NON' }} </td>
-                <td {{type_prestation.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }} style="width:15%; text-align: center; padding-right: 8px !important;">
+                <td>{{  type_prestation.libelle }}</td>
+                <td>{{  type_prestation.isActif ? 'OUI' : 'NON' }} </td>
+                <td style="width:15%; text-align: center; padding-right: 8px !important;">
                     {#<a href="{{ path('societe_edit', {'id': societe.id}) }}"><button class="btn btn-dribbble" data-toggle="modal" data-target="#exampleModal" data-whatever="@do"><i class="fa fa-edit"></i></button></a>#}
                     <button data-route="type_prestation_edit" data-title="{{ 'label.title.modification'|trans }}" class="btn btn-link text-danger btn-edit" data-id="{{ type_prestation.id }}" type="button"><i class="fa fa-edit"></i></button>
                     <button data-route="type_prestation_delete" data-title="{{ 'label.titre.delete'|trans }}" class="btn btn-link text-danger btn-remove" data-id="{{ type_prestation.id }}" type="button"><i class="fa fa-trash-o"></i></button>
