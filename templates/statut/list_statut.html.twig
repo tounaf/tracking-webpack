@@ -30,7 +30,7 @@
                     {% for statut in statuts %}
                         <tr>
                             <td>{{ statut.libele }}</td>
-                            <td>{{ statut.enable }}</td>
+                            <td>{{ statut.enable?'OUI':'NON'  }}</td>
                             <td>
                                 <button  data-target="#modalPassword" data-title="{{ 'label.edit.create.statut'|trans }}" data-route="edit_statut" class="btn btn-link text-danger btn-edit-user" data-id="{{ statut.id }}" type="button"><i class="fa fa-edit"></i></button>
                                 <button  data-target="#modalPassword" data-title="{{ 'label.delete.statut'|trans }}" data-route="delete_statut" class="btn btn-link text-danger btn-remove-user" data-id="{{ statut.id }}" type="button"><i class="fa fa-trash-o"></i></button>

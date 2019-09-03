@@ -30,7 +30,7 @@
                     {% for dCloture in decisionClotures %}
                         <tr>
                             <td>{{ dCloture.libele }}</td>
-                            <td>{{ dCloture.enable }}</td>
+                            <td>{{ dCloture.enable?'OUI':'NON' }}</td>
                             <td>
                                 <button  data-target="#modalPassword" data-title="{{ 'label.edit.create.decision_cloture'|trans }}" data-route="edit_decision_cloture" class="btn btn-link text-danger btn-edit-user" data-id="{{ dCloture.id }}" type="button"><i class="fa fa-edit"></i></button>
                                 <button  data-target="#modalPassword" data-title="{{ 'label.delete.decision_cloture'|trans }}" data-route="delete_decision_cloture" class="btn btn-link text-danger btn-remove-user" data-id="{{ dCloture.id }}" type="button"><i class="fa fa-trash-o"></i></button>

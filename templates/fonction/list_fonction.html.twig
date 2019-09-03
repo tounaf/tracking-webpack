@@ -32,7 +32,7 @@
                         <tr>
                             <td>{{ fonction.libele }}</td>
                             <td>{{ fonction.profil?fonction.profil.libele:'' }}</td>
-                            <td>{{ fonction.enable }}</td>
+                            <td>{{ fonction.enable?'OUI':'NON' }}</td>
                             <td>
                                 <button  data-target="#modalPassword" data-title="{{ 'label.create.edit.fonction'|trans }}" data-route="edit_fonction" class="btn btn-link text-danger btn-edit-user" data-id="{{ fonction.id }}" type="button"><i class="fa fa-edit"></i></button>
                                 <button  data-target="#modalPassword" data-title="{{ 'label.delete.fonction'|trans }}" data-route="delete_fonction" class="btn btn-link text-danger btn-remove-user" data-id="{{ fonction.id }}" type="button"><i class="fa fa-trash-o"></i></button>

@@ -2,8 +2,6 @@ const $ = require('jquery');
 
 import Routing from './Routing';
 
-import 'bootstrap';
-import 'bootstrap/dist/js/bootstrap.min';
 require('datatables.net-bs4/css/dataTables.bootstrap4.min.css');
 require('datatables.net-bs4');
 require('./control-field');
