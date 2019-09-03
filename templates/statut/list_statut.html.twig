@@ -36,12 +36,6 @@
                                 <button  data-target="#modalPassword" data-title="{{ 'label.delete.statut'|trans }}" data-route="delete_statut" class="btn btn-link text-danger btn-remove-user" data-id="{{ statut.id }}" type="button"><i class="fa fa-trash-o"></i></button>
                             </td>
                         </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="4">no records found</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>

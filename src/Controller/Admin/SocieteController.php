@@ -70,21 +70,15 @@ class SocieteController extends Controller
             'method' => 'POST',
             'action' => $this->generateUrl('create_societe')
         ))->handleRequest($request);
-        $response = new JsonResponse();
-        $message = array(
-            'status' => 200,
-            'message' => $this->translator->trans('label.create.success.user'),
-            'type' => 'success'
-        );
         if ($form->isSubmitted()) {
             try {
 
                 $em->persist($entite);
                 $em->flush();
-                $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success.user'));
+                $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
                 return $this->redirectToRoute('list_societe');
             } catch (\Exception $exception) {
-                $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.error.create.user'));
+                $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.create.error'));
                 return $this->redirectToRoute('list_societe');
                 $message['message'] = $exception->getMessage();
                 $message['status'] = 500;
@@ -120,9 +114,9 @@ class SocieteController extends Controller
                 try {
 
                     $this->getDoctrine()->getManager()->flush();
-                    $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success.user'));
+                    $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success'));
                 } catch (\Exception $exception) {
-                    $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.edit.error.user'));
+                    $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.edit.error'));
 
                 }
                 return $this->redirectToRoute('list_societe');
@@ -164,9 +158,9 @@ class SocieteController extends Controller
                 try {
                     $em->remove($societe);
                     $em->flush();
-                    $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.delete.success.user'));
+                    $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.delete.success'));
                 } catch (\Exception $exception) {
-                    $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.error.user'));
+                    $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.error'));
                 }
                 return $this->redirectToRoute('list_societe');
             }

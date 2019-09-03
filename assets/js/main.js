@@ -6,7 +6,7 @@
 
 /**
  * --------------------------------------------------------------------------
- * CoreUI Free Boostrap Admin Template (v2.1.15): main.js
+ * CoreUI Free Boostrap Admin Template (v2.1.15): mainPersMorale.js
  * Licensed under MIT (https://coreui.io/license)
  * --------------------------------------------------------------------------
  */
@@ -344,4 +344,4 @@ var brandBoxChart4 = new Chart($('#social-box-chart-4'), {
   },
   options: brandBoxChartOptions
 });
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=mainPersMorale.js.map

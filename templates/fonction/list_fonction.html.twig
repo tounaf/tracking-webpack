@@ -38,10 +38,6 @@
                                 <button  data-target="#modalPassword" data-title="{{ 'label.delete.fonction'|trans }}" data-route="delete_fonction" class="btn btn-link text-danger btn-remove-user" data-id="{{ fonction.id }}" type="button"><i class="fa fa-trash-o"></i></button>
                             </td>
                         </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="4">no records found</td>
-                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>
