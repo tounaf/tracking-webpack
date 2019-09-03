@@ -6,17 +6,26 @@ use App\Entity\Statut;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class StatutType extends AbstractType
 {
+    private $trans;
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->trans = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('libele', null, array(
-                'label' => 'libelé'
+                'label' => $this->trans->trans('label'),
+                'required' => true
             ))
             ->add('enable', null, array(
-                'label' => 'Acitf'
+                'label' => $this->trans->trans('label.enable'),
+                'data' => true
             ))
         ;
         if ($options['remove_field']){

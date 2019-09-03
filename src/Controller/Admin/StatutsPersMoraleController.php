@@ -85,7 +85,7 @@ class StatutsPersMoraleController extends Controller
         }
 
         return $this->render('Admin/_create_user.html.twig', [
-            'formPersMorale' => $formPersMorale->createView(),
+            'form' => $formPersMorale->createView(),
         ]);
     }
 
