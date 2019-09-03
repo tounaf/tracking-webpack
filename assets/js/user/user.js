@@ -39,6 +39,8 @@ $('#showModalPassword').click(function () {
  */
 $('#buttonResetting').click(function (e) {
     e.preventDefault();
+    var main = $('.modal-content');
+    main.ajaxloader('show');
     var email = $('#email_user').val();
     $.ajax({
         url: Routing.generate('resetting_password_user'),
@@ -60,6 +62,7 @@ $('#buttonResetting').click(function (e) {
             }
             $('.modal-body').attr('display','none');
             $('.modal-body').prop('display','none');
+            main.ajaxloader('hide');
         }
     })
 })
