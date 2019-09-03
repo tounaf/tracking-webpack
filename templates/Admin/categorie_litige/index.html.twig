@@ -2,9 +2,7 @@
 {% extends 'dashboard/dashboard.html.twig' %}
 
 {% block title %}{{ parent() }} | categorie litige{% endblock %}
-{% block child_css %}
-    {{ encore_entry_link_tags('mainPersMorale') }}
-{% endblock %}
+
 {% block wrapper %}
 
     <div class="card-header">{{ 'label.titre.catLitige'|trans }}</div>
@@ -13,14 +11,14 @@
     <div>
         <div class="col-xs-12">
             <div class="btn btn-ps pull-right adjust">
-                <button id="showModal" data-route="categorie_litige_new" data-title="{{ 'label.title.ajout'|trans }}" style="background-color:#3a9d5d; float: right"> <i class="text-light fa fa-plus-circle">Ajouter</i></button>
+                <button id="showModalCreate" data-route="categorie_litige_new" data-title="{{ 'label.title.ajout'|trans }}" style="background-color:#3a9d5d; float: right"> <i class="text-light fa fa-plus-circle">Ajouter</i></button>
             </div>
         </div>
         <div class="btn-group" role="group" aria-label="Button group">
             <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
         </div>
     </div>
-    <table id="persMorale_table" class="table " >
+    <table id="listAdmin" class="table " >
         <thead style="background-color: darkred;" class="text-light">
         <tr>
             <th>Libelle</th>
@@ -35,7 +33,7 @@
                 <td {{categorie_litige.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }}>{{  categorie_litige.isActif ? 'OUI' : 'NON' }} </td>
                 <td {{categorie_litige.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }} style="width:15%; text-align: center; padding-right: 8px !important;">
                     {#<a href="{{ path('societe_edit', {'id': societe.id}) }}"><button class="btn btn-dribbble" data-toggle="modal" data-target="#exampleModal" data-whatever="@do"><i class="fa fa-edit"></i></button></a>#}
-                    <button data-route="categorie_litige_edit" data-title="{{ 'label.title.modification'|trans }}" class="btn btn-link text-danger btn-edit-persMorale" data-id="{{ categorie_litige.id }}" type="button"><i class="fa fa-edit"></i></button>
+                    <button data-route="categorie_litige_edit" data-title="{{ 'label.title.modification'|trans }}" class="btn btn-link text-danger btn-edit" data-id="{{ categorie_litige.id }}" type="button"><i class="fa fa-edit"></i></button>
                     <button data-route="categorie_litige_delete" data-title="{{ 'label.titre.delete'|trans }}" class="btn btn-link text-danger btn-remove" data-id="{{ categorie_litige.id }}" type="button"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
@@ -43,8 +41,5 @@
         </tbody>
     </table>
     {% include '/Admin/Popup/modal.html.twig' %}
-    {% block child_js %}
-        {{ encore_entry_script_tags('mainPersMorale') }}
-    {% endblock %}
 
 {% endblock %}

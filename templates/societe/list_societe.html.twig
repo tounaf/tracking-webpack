@@ -10,15 +10,15 @@
                 <div>
                     <div class="col-xs-12">
                         <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
-                            <button id="showModalCreateUser" data-route="create_societe" data-title="Creation/Edition Societe" style="background-color:#3a9d5d; float: right"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
+                            <button id="showModalCreate" data-route="create_societe" data-title="Creation/Edition Societe" style="background-color:#3a9d5d; float: right"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
                         </div>
                     </div>
-                    {#<div class="btn-group" role="group" aria-label="Button group">#}
-                        {#<input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">#}
-                    {#</div>#}
+                    <div class="btn-group" role="group" aria-label="Button group">
+                        <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
+                    </div>
                 </div>
 
-                <table id="listUser" class="table">
+                <table id="listAdmin" class="table">
                     <thead>
                         <tr>
                             <th>Libelé</th>
@@ -32,8 +32,8 @@
                             <td>{{ societe.libele }}</td>
                             <td>{{ societe.enable?'OUI':'NON' }}</td>
                             <td>
-                                <button  data-target="#modalPassword" data-title="{{ 'label.edit.create.societe'|trans }}" data-route="edit_societe" class="btn btn-link text-danger btn-edit-user" data-id="{{ societe.id }}" type="button"><i class="fa fa-edit"></i></button>
-                                <button  data-target="#modalPassword" data-title="{{ 'label.delete.societe'|trans }}" data-route="delete_societe" class="btn btn-link text-danger btn-remove-user" data-id="{{ societe.id }}" type="button"><i class="fa fa-trash-o"></i></button>
+                                <button  data-target="#modalPassword" data-title="{{ 'label.edit.create.societe'|trans }}" data-route="edit_societe" class="btn btn-link text-danger btn-edit" data-id="{{ societe.id }}" type="button"><i class="fa fa-edit"></i></button>
+                                <button  data-target="#modalPassword" data-title="{{ 'label.delete.societe'|trans }}" data-route="delete_societe" class="btn btn-link text-danger btn-remove" data-id="{{ societe.id }}" type="button"><i class="fa fa-trash-o"></i></button>
                             </td>
                         </tr>
                     {% endfor %}
