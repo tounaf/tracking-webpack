@@ -1,10 +1,11 @@
 {% extends 'dashboard/dashboard.html.twig' %}
 {% set sectionSociete = true %}
 {% block wrapper %}
-    <div class="container-fluid">
+        <div class="card-header">{{ 'Gestion des Sociétés'|trans }}</div>
+        <br>
         <div class="row">
-            <div class="col-md-12">
-                <h1>Gestion des Société</h1>
+            <div class="col-md-12"
+                <h1>Gestion des </h1>
 
                 {% include '_flash.html.twig' %}
                 <div>
@@ -42,7 +43,6 @@
             </div>
 
         </div>
-    </div>
     {% include 'user/popup.html.twig'  with {
         'sectionSociete' : sectionSociete,
         'form' : formSociete,

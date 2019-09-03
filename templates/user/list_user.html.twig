@@ -2,12 +2,10 @@
 
 {% set sectionUser = true %}
 {% block wrapper %}
-    <div class="container-fluid">
-        <div class="row">
+    <div class="card-header">{{ 'Gestion des utilisateurs'|trans }}</div>
+    <br>
+    <div class="row">
             <div class="col-md-12">
-
-                <h1>Gestion des utilisateurs</h1>
-
                 {% include '_flash.html.twig' %}
                 <div>
                     <div class="col-xs-12">
@@ -52,7 +50,6 @@
             </div>
 
         </div>
-    </div>
     {% include 'user/popup.html.twig'  with {
         'sectionUser' : sectionUser,
         'form' : formUser,

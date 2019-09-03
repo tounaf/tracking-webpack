@@ -190,7 +190,7 @@
 
             <trans-unit id="44">
                  <source>label.titre.typePrestation</source>
-                 <target>Categorie Litige</target>
+                 <target>Type de préstation</target>
             </trans-unit>
 
             <trans-unit id="45">
