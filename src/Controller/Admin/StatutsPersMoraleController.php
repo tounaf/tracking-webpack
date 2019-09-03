@@ -84,7 +84,7 @@ class StatutsPersMoraleController extends Controller
             return $this->redirectToRoute('statuts_pers_morale_index');
         }
 
-        return $this->render('Admin/statuts_pers_morale/_form.html.twig', [
+        return $this->render('Admin/_create_user.html.twig', [
             'formPersMorale' => $formPersMorale->createView(),
         ]);
     }
@@ -119,7 +119,7 @@ class StatutsPersMoraleController extends Controller
                 }
                 return $this->redirectToRoute('statuts_pers_morale_index');
             }
-            return $this->render('Admin/statuts_pers_morale/_form.html.twig', [
+            return $this->render('Admin/_create_user.html.twig', [
                 'statuts_pers_morale' => $statutsPersMorale,
                 'formPersMorale' => $form->createView(),
             ]);
@@ -165,7 +165,7 @@ class StatutsPersMoraleController extends Controller
                 }
                 return $this->redirectToRoute('statuts_pers_morale_index');
             }
-            return $this->render('/Admin/statuts_pers_morale/_delete_form.html.twig', array(
+            return $this->render('Admin/_delete_form_user.html.twig', array(
                 'form_delete' => $form->createView()
             ));
         } else {

@@ -84,7 +84,7 @@ class TypePrestationController extends Controller
             return $this->redirectToRoute('type_prestation_index');
         }
 
-        return $this->render('Admin/type_prestation/_form.html.twig', [
+        return $this->render('Admin/_create_user.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -118,7 +118,7 @@ class TypePrestationController extends Controller
                 }
                 return $this->redirectToRoute('type_prestation_index');
             }
-            return $this->render('Admin/type_prestation/_form.html.twig', [
+            return $this->render('Admin/_create_user.html.twig', [
                 'form' => $form->createView(),
             ]);
         }
@@ -163,7 +163,7 @@ class TypePrestationController extends Controller
                 }
                 return $this->redirectToRoute('type_prestation_index');
             }
-            return $this->render('/Admin/type_prestation/_delete_form.html.twig', array(
+            return $this->render('Admin/_delete_form_user.html.twig', array(
                 'form_delete' => $form->createView()
             ));
         } else {

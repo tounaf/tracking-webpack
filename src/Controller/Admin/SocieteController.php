@@ -87,7 +87,7 @@ class SocieteController extends Controller
             return $response->setData($message);
         }
 
-        return $this->render('user/create_user.html.twig', array(
+        return $this->render('Admin/_create_user.html.twig', array(
             'form' => $form->createView(),
             'title' => 'fetra'
         ));
@@ -121,7 +121,7 @@ class SocieteController extends Controller
                 }
                 return $this->redirectToRoute('list_societe');
             }
-            return $this->render('user/create_user.html.twig', array(
+            return $this->render('Admin/_create_user.html.twig', array(
                 'form' => $form->createView()
             ));
         } else {
@@ -164,7 +164,7 @@ class SocieteController extends Controller
                 }
                 return $this->redirectToRoute('list_societe');
             }
-            return $this->render('user/delete_form_user.html.twig', array(
+            return $this->render('Admin/_delete_form_user.html.twig', array(
                 'form_delete' => $form->createView()
             ));
         } else {

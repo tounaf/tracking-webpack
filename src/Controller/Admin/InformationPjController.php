@@ -84,7 +84,7 @@ class InformationPjController extends Controller
             return $this->redirectToRoute('information_pj_index');
         }
 
-        return $this->render('Admin/information_pj/_form.html.twig', [
+        return $this->render('Admin/_create_user.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -118,7 +118,7 @@ class InformationPjController extends Controller
                 }
                 return $this->redirectToRoute('information_pj_index');
             }
-            return $this->render('Admin/information_pj/_form.html.twig', [
+            return $this->render('Admin/_create_user.html.twig', [
                 'form' => $form->createView(),
             ]);
         }
@@ -161,7 +161,7 @@ class InformationPjController extends Controller
                 }
                 return $this->redirectToRoute('information_pj_index');
             }
-            return $this->render('/Admin/information_pj/_delete_form.html.twig', array(
+            return $this->render('Admin/_delete_form_user.html.twig', array(
                 'form_delete' => $form->createView()
             ));
         } else {

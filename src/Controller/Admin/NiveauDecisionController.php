@@ -85,7 +85,7 @@ class NiveauDecisionController extends Controller
             return $this->redirectToRoute('niveau_decision_index');
         }
 
-        return $this->render('Admin/niveau_decision/_form.html.twig', [
+        return $this->render('Admin/_create_user.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -119,7 +119,7 @@ class NiveauDecisionController extends Controller
                 }
                 return $this->redirectToRoute('niveau_decision_index');
             }
-            return $this->render('Admin/niveau_decision/_form.html.twig', [
+            return $this->render('Admin/_create_user.html.twig', [
                 'form' => $form->createView(),
             ]);
         }
@@ -162,7 +162,7 @@ class NiveauDecisionController extends Controller
                 }
                 return $this->redirectToRoute('niveau_decision_index');
             }
-            return $this->render('/Admin/niveau_decision/_delete_form.html.twig', array(
+            return $this->render('Admin/_delete_form_user.html.twig', array(
                 'form_delete' => $form->createView()
             ));
         } else {

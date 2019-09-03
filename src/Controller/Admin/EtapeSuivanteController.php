@@ -85,7 +85,7 @@ class EtapeSuivanteController extends Controller
             return $this->redirectToRoute('etape_suivante_index');
         }
 
-        return $this->render('Admin/etape_suivante/_form.html.twig', [
+        return $this->render('Admin/_create_user.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -119,7 +119,7 @@ class EtapeSuivanteController extends Controller
                 }
                 return $this->redirectToRoute('etape_suivante_index');
             }
-            return $this->render('Admin/etape_suivante/_form.html.twig', [
+            return $this->render('Admin/_create_user.html.twig', [
                 'form' => $form->createView(),
             ]);
         }
@@ -162,7 +162,7 @@ class EtapeSuivanteController extends Controller
                 }
                 return $this->redirectToRoute('etape_suivante_index');
             }
-            return $this->render('/Admin/etape_suivante/_delete_form.html.twig', array(
+            return $this->render('Admin/_delete_form_user.html.twig', array(
                 'form_delete' => $form->createView()
             ));
         } else {

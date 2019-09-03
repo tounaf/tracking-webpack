@@ -84,7 +84,7 @@ class CategorieLitigeController extends Controller
             return $this->redirectToRoute('categorie_litige_index');
         }
 
-        return $this->render('Admin/categorie_litige/_form.html.twig', [
+        return $this->render('Admin/_create_user.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -118,7 +118,7 @@ class CategorieLitigeController extends Controller
                 }
                 return $this->redirectToRoute('categorie_litige_index');
             }
-            return $this->render('Admin/categorie_litige/_form.html.twig', [
+            return $this->render('Admin/_create_user.html.twig', [
                 'form' => $form->createView(),
             ]);
         }
@@ -162,7 +162,7 @@ class CategorieLitigeController extends Controller
                 }
                 return $this->redirectToRoute('categorie_litige_index');
             }
-            return $this->render('/Admin/categorie_litige/_delete_form.html.twig', array(
+            return $this->render('Admin/_delete_form_user.html.twig', array(
                 'form_delete' => $form->createView()
             ));
         } else {
