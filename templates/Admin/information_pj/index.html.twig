@@ -17,7 +17,7 @@
         </div>
     </div>
     <table id="listAdmin" class="table " >
-        <thead style="background-color: darkred;" class="text-light">
+        <thead>
         <tr>
             <th>Libelle</th>
             <th>Actif</th>
@@ -27,9 +27,9 @@
         <tbody>
         {% for information_pj in information_pjs %}
             <tr>
-                <td {{information_pj.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }}>{{  information_pj.libelle }}</td>
-                <td {{information_pj.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }}>{{  information_pj.isActif ? 'OUI' : 'NON' }} </td>
-                <td {{information_pj.isActif ? 'class=""'  : ' style="background-color: gainsboro"' }} style="width:15%; text-align: center; padding-right: 8px !important;">
+                <td>{{  information_pj.libelle }}</td>
+                <td>{{  information_pj.isActif ? 'OUI' : 'NON' }} </td>
+                <td style="width:15%; text-align: center; padding-right: 8px !important;">
                     <button data-route="information_pj_edit" data-title="{{ 'label.title.modification'|trans }}" class="btn btn-link text-danger btn-edit" data-id="{{ information_pj.id }}" type="button"><i class="fa fa-edit"></i></button>
                     <button data-route="information_pj_delete" data-title="{{ 'label.titre.delete'|trans }}" class="btn btn-link text-danger btn-remove" data-id="{{ information_pj.id }}" type="button"><i class="fa fa-trash-o"></i></button>
                 </td>
