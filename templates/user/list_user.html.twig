@@ -1,8 +1,5 @@
 {% extends 'dashboard/dashboard.html.twig' %}
-{% block css_dashboard %}
-    {{ parent() }}
-    {#{{ encore_entry_link_tags('user') }}#}
-{% endblock %}
+
 {% set sectionUser = true %}
 {% block wrapper %}
     <div class="container-fluid">
@@ -64,8 +61,4 @@
         'form' : formUser,
         'title' : 'ajout/modification utilisateur'|trans
     } %}
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('user') }}
 {% endblock %}

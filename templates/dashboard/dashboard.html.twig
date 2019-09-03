@@ -2,6 +2,8 @@
 
 {% block title %}Hello DashboardController!{% endblock %}
 {% block css_dashboard %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('user') }}
 {% endblock %}
 {% block body %}
 
@@ -29,3 +31,7 @@
     </body>
 
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('user') }}
+{% endblock%}
