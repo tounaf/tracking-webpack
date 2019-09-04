@@ -39,7 +39,7 @@ $("body").on('blur','#fos_user_email',function () {
             }
             if (response.status == 403) {
                 $('#emailHelp').remove();
-                $("#fos_user_email").parent().append("<small id='emailHelp' class='form-text text-muted'>Cet addresse email est déja utilisé</small>");
+                $("#fos_user_email").parent().append("<small id='emailHelp' class='form-text text-danger'>Cet addresse email est déja utilisé</small>");
                 $('#saveCreateUser').attr('disabled','disabled');
                 $("#fos_user_email").addClass('invalid');
             }
