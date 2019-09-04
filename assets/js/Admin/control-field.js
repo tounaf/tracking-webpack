@@ -6,28 +6,34 @@ require('../jquery.ajaxloader');
 
 
 var main = $('.main');
+
 /**
  * control format email
  */
-$("#fos_user_email").keyup(function () {
+$("body").on('blur','#fos_user_email',function () {
     var email = $(this).val();
-    var url = Routing.generate('verify_email',{'email': email}, true);
-
+    var url = Routing.generate('verify_email',{'email': email});
+    var isValid = false;
     if (!Fonction.isEmailValidFormat(email)) {
+
+        $('#emailHelp').remove();
         $("#emailFormatInvalid").remove();
-        $(this).addClass('border border-danger');
+        $(this).addClass('border border-danger invalid');
         $("#fos_user_email").parent().append("<small id='emailFormatInvalid' class='form-text text-danger'>Format email invalid</small>");
-        $('#saveCreateUser').attr('disabled','disabled');
-        return false;
+
     } else {
-        $(this).removeClass('border border-danger');
+
+        $('#emailHelp').remove();
+        $(this).removeClass('border border-danger invalid');
         $("#emailFormatInvalid").remove();
-        $('#saveCreateUser').attr('disabled',false);
+        isValid = true;
+    }
+    if (!isValid) {
+        return false;
     }
     $.get(url,email,
         function (response) {
             if (response.status == 200) {
-                console.log(response);
                 $('#emailHelp').remove();
                 $('#saveCreateUser').attr('disabled',false);
             }
@@ -35,6 +41,7 @@ $("#fos_user_email").keyup(function () {
                 $('#emailHelp').remove();
                 $("#fos_user_email").parent().append("<small id='emailHelp' class='form-text text-muted'>Cet addresse email est déja utilisé</small>");
                 $('#saveCreateUser').attr('disabled','disabled');
+                $("#fos_user_email").addClass('invalid');
             }
         })
 })
@@ -42,19 +49,30 @@ $("#fos_user_email").keyup(function () {
 /**
  * control foramt phone
  */
-$('#fos_user_phoneNumber').keyup(function () {
+$('body').on('blur','#fos_user_phoneNumber',function () {
     var phone = $(this).val();
     if (!Fonction.isPhone(phone)) {
 
         $("#phoneFormatInvalid").remove();
-        $(this).addClass('border border-danger');
+        $(this).addClass('border border-danger invalid');
         $(this).parent().append("<small id='phoneFormatInvalid' class='form-text text-danger'>Numero télephone incorrecte</small>");
-        $('#saveCreateUser').attr('disabled','disabled');
     } else {
 
-        $(this).removeClass('border border-danger');
+        $(this).removeClass('border border-danger invalid');
         $("#phoneFormatInvalid").remove();
-        $('#saveCreateUser').attr('disabled',false);
+    }
+})
+
+/**
+ * Desactiver bouton submit si il existe input.invalid
+ */
+$('body').on(' keyup','input',function(){
+
+    var boutonSave = $('#saveCreateUser');
+    if ($('input.invalid').length) {
+        boutonSave.attr("disabled","disabled");
+    } else {
+        boutonSave.attr("disabled",false);
     }
 })
 
