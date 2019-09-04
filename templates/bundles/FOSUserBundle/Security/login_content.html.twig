@@ -1,28 +1,47 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% if error %}
-    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+
+
 {% if success is defined %}
     <div class="alert alert-{{ success }}">{{ message }}</div>
 {% endif %}
-<h1 class="text-danger">Connexion</h1>
-    <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
-    {% if csrf_token %}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-    {% endif %}
+<div class="login-container">
+    <div class="row no-gutters">
+        <div class="col-md-6 d-none d-md-block">
+            <!-- image decoration page -->
+            <figure class="bgdeco" style="background-image: url('{{ asset("build/images/photo-deco.png") }}')"></figure>
+        </div>
+        <div class="col-md-6">
+            <section class="login-content">
+                <div class="inner-login-content">
+                    <h1 class="titre-page-login">Connexion</h1>
+                    <div class="form-bloc login-form floating-form">
+                        {% if error %}
+                        <p class="msg-error alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                        {% endif %}
+                        <form class="form-horizontal" autocomplete="off" action="{{ path("fos_user_security_check") }}" method="post">
+                            {% if csrf_token %}
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                            {% endif %}
 
-    {#<label for="username">{{ 'security.login.username'|trans }}</label>#}
-    <input class="form-control" type="email" id="username" name="_username" placeholder="{{ 'label.user'|trans }}" required="required" autocomplete="username" />
+                            <div class="form-group">
+                                <input class="form-control" type="email" id="username" name="_username" placeholder="" required="required" />
+                                <label class="form-label form-control-placeholder" for="username">{{ 'security.login.username'|trans }}</label>
+                            </div>
 
-    {#<label for="password">{{ 'security.login.password'|trans }}</label>#}
-    <input class="form-control" type="password" id="password" name="_password" required="required" placeholder="{{ 'security.login.password'|trans }}" autocomplete="current-password" />
-
-    {#<input type="checkbox" id="remember_me" name="_remember_me" value="on" />#}
-    {#<label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>#}
-
-    <div class="text-right">
-        <button data-toggle="modal" id="showModalPassword" data-target="" class="btn btn-link text-danger" type="button">{{ 'forgot.passeword'|trans }}</button>
-        <input class="btn btn-danger" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+                            <div class="form-group">
+                                <input class="form-control" type="password" id="password" name="_password" required="required" placeholder=""  autocomplete="new-password" />
+                                <label class="form-label form-control-placeholder" for="password">{{ 'security.login.password'|trans }}</label>
+                            </div>
+                        
+                            <div class="btn-group" role="group">
+                                <a href="javascript:;" title="{{ 'forgot.passeword'|trans }}" data-toggle="modal" class="link-mdpo" id="showModalPassword" data-target="">{{ 'forgot.passeword'|trans }}</a>
+                                <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
-</form>
+</div>

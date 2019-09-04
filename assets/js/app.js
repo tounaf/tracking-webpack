@@ -24,6 +24,7 @@ require('../css/app.css');
     // require('main');
     // import './main'
     // import jQuery from 'jquery';
+    require ('../img/photo-deco.png');
 
     require('./jquery.ajaxloader');
 

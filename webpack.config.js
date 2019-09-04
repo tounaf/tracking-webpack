@@ -74,6 +74,12 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
+
+    //copyfiles the file image to the public build
+    .copyFiles({
+        from:'./assets/img',
+        to:'images/[path][name].[hash:8].[ext]'
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();

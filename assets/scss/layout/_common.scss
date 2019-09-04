@@ -1,0 +1,212 @@
+.container {
+    @include min(576px) {
+        max-width: 576px;
+    }
+    @include min(768px) {
+        max-width: 768px;
+    }
+    @include min(992px) {
+        max-width: 992px;
+    }
+    @include min(1200px) {
+        max-width: 1200px;
+    }
+}
+
+a {
+    color: $red;
+    text-decoration: underline;
+    &:focus {
+        outline: none;
+    }
+    &:hover {
+        color: $redDark;
+    }
+}
+button {
+    &:focus {
+        outline: none;
+    }
+}
+
+.form-bloc {
+    .form-group {
+        margin-bottom: 25px;
+        position: relative;
+    }
+    .form-label {
+        font-style: normal;
+        font-size: 14px;
+        line-height: 100%;
+        margin-bottom: 0;
+    }
+    .form-control {
+        border-radius: 0;
+        color: $grey;
+        font-size: 14px;
+        font-style: italic;
+        &:focus {
+            border-color: $greyC;
+            box-shadow: none;
+        }
+    }
+    // auto fill in chrome
+    input:-webkit-autofill, input:-webkit-autofill:hover,  input:-webkit-autofill:focus,
+    textarea:-webkit-autofill, textarea:-webkit-autofill:hover, textarea:-webkit-autofill:focus,
+    select:-webkit-autofill, select:-webkit-autofill:hover, select:-webkit-autofill:focus {
+        -webkit-text-fill-color: $grey;
+        -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+        font-style: italic;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+    // gestion erreur
+    .msg-error {
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 15px;
+    }
+}
+.standard-form {
+    .form-label {
+        color: $red;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+    .form-control {
+        border: none;
+        border-bottom: 1px solid $greyF;
+        height: 30px;
+        padding: 0 0 3px;
+    }
+
+
+}
+
+.floating-form {
+    .form-control-placeholder {
+        position: absolute;
+        top: 0; left: 10px;
+        padding: 12px 10px;
+        transition: all 200ms;
+    }
+    .form-label {
+        color: $grey;
+        
+    }
+    .form-control {
+        height: 40px;
+        padding: 10px;
+        &:focus, &:valid {
+            + .form-control-placeholder {
+                background-color: #fff;
+                font-size: 75%;
+                padding: 0 10px;
+                transform: translate3d(0, -50%, 0);
+            }
+        }
+    }
+    .btn-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        padding-top: 5px;
+    }
+
+    // auto fill in chrome
+    input:-webkit-autofill, input:-webkit-autofill:hover,  input:-webkit-autofill:focus,
+    textarea:-webkit-autofill, textarea:-webkit-autofill:hover, textarea:-webkit-autofill:focus,
+    select:-webkit-autofill, select:-webkit-autofill:hover, select:-webkit-autofill:focus {
+        border: 1px solid $greyC;
+    }
+    input:-webkit-autofill {
+        &:focus, &:valid {
+            + .form-control-placeholder {
+                background-color: #fff;
+                font-size: 75%;
+                padding: 0 10px;
+                transform: translate3d(0, -50%, 0);
+            }
+        }
+    }
+}
+
+.login-container {
+    min-height: inherit;
+    height: 100%;
+
+    .row,
+    [class*="col-"] {
+        min-height: inherit;
+    }
+
+    .bgdeco {
+        min-height: inherit;
+        margin-bottom: 0;
+    }
+}
+
+.login-content {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+    margin: 0 auto;
+    .inner-login-content {
+        width: 375px;
+    }
+
+    .titre-page-login {
+        color: $red;
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 100%;
+        margin: 0;
+        margin-bottom: 20px;
+        text-align: center;
+        @include min(768px) {
+            margin-bottom: 34px;
+            text-align: left;
+        }
+    }
+    .link-mdpo {
+        font-size: 14px;
+    }
+}
+
+/* modal */
+.modal  {
+    .modal-dialog {
+
+    }
+    .modal-header {
+        align-items: flex-start;
+        justify-content: center;
+        border: none;
+        padding: 15px;
+        position: relative;
+        .modal-title {
+            color: $red;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 100%;
+            padding: 0 30px;
+            text-align: center;
+        }
+        .close {
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 1;
+        }
+    }
+    .modal-body {}
+    .btn-group {
+        display: flex;
+        justify-content: center;
+        padding-top: 5px;
+    }
+}
+
