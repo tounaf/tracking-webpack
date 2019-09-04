@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('user') }}
+{% endblock %}
+{% block body %}
+
+    <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header class="app-header navbar">
+        {% include 'nav-bar.html.twig' %}
+    </header>
+    <div class="app-body">
+        <div class="sidebar">
+        </div>
+        <main class="main">
+            <!-- Breadcrumb-->
+            <div class="container-fluid">
+                <div id="ui-view">
+                    <div class="animated fadeIn">
+                        <br><br>
+                        <div class="card">
+                            {% block error %}
+
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- CoreUI and necessary plugins-->
+    </body>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('user') }}
+{% endblock%}
+
+
