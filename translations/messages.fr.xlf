@@ -256,6 +256,11 @@
                 <source>label.gestion.user</source>
                 <target>Gestion des utilisateurs</target>
             </trans-unit>
+
+            <trans-unit id="59">
+                <source>label.delete.societe</source>
+                <target>SUPPRIMER SOCIETE</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
