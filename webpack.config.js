@@ -10,7 +10,7 @@ Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
-    .setPublicPath('/build')
+    .setPublicPath('/ass-litige/public/build')
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
 
@@ -74,6 +74,12 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
+
+    //copyfiles the file image to the public build
+    .copyFiles({
+        from:'./assets/img',
+        to:'images/[path][name].[hash:8].[ext]'
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();
