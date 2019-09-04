@@ -1,3 +1,5 @@
+import Fonction from "../Fonction";
+
 const $ = require('jquery');
 
 import Routing from '../Routing';
@@ -5,6 +7,7 @@ import Routing from '../Routing';
 require('datatables.net-bs4/css/dataTables.bootstrap4.min.css');
 require('datatables.net-bs4');
 require('./control-field');
+require('../Fonction');
 
 /**
  * supprimer des class
@@ -26,10 +29,33 @@ $('#showModalPassword').click(function () {
     var titleModal = $("#exampleModalLongTitle").data('title');
     var elt = $("#exampleModalLongTitle");
     removeClassStartingWith(elt,'alert')
+    //remove help block si existe
+    $("#emailFormatInvalid").remove();
+    //toujours activer bouton quand on show modal change pwd
+    $('#buttonResetting').attr('disabled',false);
     $("#exampleModalLongTitle").addClass('text-danger').text(titleModal);
-    $('#email_user').val('');
+    $('#email_user').removeClass('border border-danger').val('');
     $('.modal-body').show();
     $('.modal-footer').show();
+})
+
+/**
+ * control format email
+ */
+$("#email_user").keyup(function () {
+    var email = $(this).val();
+
+    if (!Fonction.isEmailValidFormat(email)) {
+        $("#emailFormatInvalid").remove();
+        $(this).addClass('border border-danger');
+        $(this).parent().append("<small id='emailFormatInvalid' style='height: 32px;' class='form-text text-danger'>Format email invalid</small>");
+        $('#buttonResetting').attr('disabled','disabled');
+        return false;
+    } else {
+        $(this).removeClass('border border-danger');
+        $("#emailFormatInvalid").remove();
+        $('#buttonResetting').attr('disabled',false);
+    }
 })
 
 /**
@@ -38,8 +64,13 @@ $('#showModalPassword').click(function () {
 $('#buttonResetting').click(function (e) {
     e.preventDefault();
     var main = $('.modal-content');
-    main.ajaxloader('show');
     var email = $('#email_user').val();
+    if (email == ''){
+        $('#email_user').parent().append("<small id='emailFormatInvalid' style='height: 32px;' class='form-text text-danger'>Veuillez saisir un email invalid</small>");
+        $(this).attr('disabled','disabled');
+        return false;
+    }
+    main.ajaxloader('show');
     $.ajax({
         url: Routing.generate('resetting_password_user'),
         type: 'POST',
