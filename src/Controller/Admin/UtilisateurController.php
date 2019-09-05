@@ -193,13 +193,21 @@ class UtilisateurController extends Controller
     public function emailIsExist(Request $request)
     {
         $email = $request->get('email');
+        //utiliser pour edit
+        $oldEmail = $request->query->get('oldEmail');
+
+
         $user = $this->getDoctrine()->getManager()->getRepository(FosUser::class)->findBy(array('email' => $email));
         $data = array(
             'message' => '',
             'status' => '',
             'type' => ''
         );
-        if ($user) {
+        if ($oldEmail == $email) {
+            $data['message'] = false;
+            $data['status'] = 200;
+            $data['type'] = 'success';
+        } elseif ($user) {
             $data['message'] = true;
             $data['status'] = 403;
             $data['type'] = 'danger';

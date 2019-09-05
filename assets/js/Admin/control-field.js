@@ -12,6 +12,7 @@ var main = $('.main');
  */
 $("body").on('blur','#fos_user_email',function () {
     var email = $(this).val();
+    var oldEmail  = this.defaultValue;
     var url = Routing.generate('verify_email',{'email': email});
     var isValid = false;
     if (!Fonction.isEmailValidFormat(email)) {
@@ -31,7 +32,7 @@ $("body").on('blur','#fos_user_email',function () {
     if (!isValid) {
         return false;
     }
-    $.get(url,email,
+    $.get(url,{email: email, oldEmail: oldEmail},
         function (response) {
             if (response.status == 200) {
                 $('#emailHelp').remove();
