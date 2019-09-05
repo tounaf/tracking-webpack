@@ -45,7 +45,8 @@ class DecisionClotureController extends Controller
         return $this->render('decision_cloture/list_decision_cloture.html.twig', array(
             'decisionClotures' => $listDecisionCloture,
             'formDecisionCloture' => $formDecisionCloture->createView(),
-            'isDecisionCloture' => true
+            'isDecisionCloture' => true,
+            'title'  => 'Gestion des décisions de clôture d’un litige',
         ));
     }
 

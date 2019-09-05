@@ -42,7 +42,8 @@ class NatureDecisionController extends Controller
         $form = $this->createForm(NatureDecisionType::class, $nature_decision);
         return $this->render('Admin/nature_decision/index.html.twig', [
             'nature_decisions' => $NatureDecisionRepository->findAll(),
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'title' => 'Gestion de la nature de décision de justice',
         ]);
     }
 

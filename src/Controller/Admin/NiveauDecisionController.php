@@ -42,7 +42,8 @@ class NiveauDecisionController extends Controller
         $form = $this->createForm(NiveauDecisionType::class, $niveau_decision);
         return $this->render('Admin/niveau_decision/index.html.twig', [
             'niveau_decisions' => $NiveauDecisionRepository->findAll(),
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'title' => 'Gestion de niveaux de la décision de justice',
         ]);
     }
 

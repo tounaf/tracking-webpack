@@ -12677,7 +12677,7 @@ canvas {
   flex-direction: column;
   padding: 0;
   color: #fff;
-  background: #2f353a;
+  background:#e30930;
 }
 
 .sidebar .sidebar-close {
@@ -12816,7 +12816,7 @@ canvas {
 
 .sidebar .nav-link.active {
   color: #fff;
-  background: #3a4248;
+  background: #e30930;
 }
 
 .sidebar .nav-link.active .nav-icon {
@@ -16393,4 +16393,22 @@ body {
 .was-validated .form-control:invalid, .form-control.is-invalid {
   background-position: right calc(0.375em + 0.1875rem) center;
 }
+
+.app-header {
+  background-color: #fff;
+  border: none;
+  height: 100px;
+  padding: 0;
+}
+.app-header .navbar-brand {
+  background-color:red;
+  height: 100%;
+  width: 200px!important;
+}
+#listAdmin th {
+  background-color:  #C80F2D;
+  color: #fff;
+  text-align: center;
+}
+
 /*# sourceMappingURL=style.css.map */

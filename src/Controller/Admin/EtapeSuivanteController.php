@@ -42,7 +42,8 @@ class EtapeSuivanteController extends Controller
         $form = $this->createForm(EtapeSuivanteType::class, $etape_suivante);
         return $this->render('Admin/etape_suivante/index.html.twig', [
             'etape_suivantes' => $etapeSuivanteRepository->findAll(),
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'title' =>  'Gestion des étapes suivantes',
         ]);
     }
 

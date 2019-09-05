@@ -41,7 +41,8 @@ class InformationPjController extends Controller
         $form = $this->createForm(InformationPjType::class, $information_pj);
         return $this->render('Admin/information_pj/index.html.twig', [
             'information_pjs' => $InformationPjRepository->findAll(),
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'title' => 'Gestion des informations pièces jointes'
         ]);
     }
 

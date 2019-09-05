@@ -55,7 +55,8 @@ class UtilisateurController extends Controller
         $listUser = $em->getRepository(FosUser::class)->listUserBySociete($currentUser, $isSuperUser);
         return $this->render('user/list_user.html.twig', array(
             'users' => $listUser,
-            'formUser' => $formUser->createView()
+            'formUser' => $formUser->createView(),
+            'title' => 'Gestion des utilisateurs'
         ));
     }
 
