@@ -52,7 +52,8 @@ class SocieteController extends Controller
         return $this->render('societe/list_societe.html.twig', array(
             'societes' => $listSociete,
             'formSociete' => $formSociete->createView(),
-            'isSociete' => true
+            'isSociete' => true,
+            'title' => 'Gestion de sociétés/entités',
         ));
     }
 

@@ -45,7 +45,8 @@ class FonctionController extends Controller
         return $this->render('fonction/list_fonction.html.twig', array(
             'fonctions' => $listFonctions,
             'formFonction' => $formFonction->createView(),
-            'isFonction' => true
+            'isFonction' => true,
+            'title' => 'Fonctions',
         ));
     }
 

@@ -41,7 +41,8 @@ class StatutsPersMoraleController extends Controller
         $formPersMorale = $this->createForm(StatutsPersMoraleType::class, $statutsPersMorale);
         return $this->render('Admin/statuts_pers_morale/index.html.twig', [
             'statuts_pers_morales' => $statutsPersMoraleRepository->findAll(),
-            'formPersMorale' => $formPersMorale->createView()
+            'formPersMorale' => $formPersMorale->createView(),
+            'title' =>'Gestion des statuts des personnes morales',
         ]);
     }
 

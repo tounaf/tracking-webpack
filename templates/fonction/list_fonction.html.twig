@@ -8,8 +8,9 @@
                 <div>
                     <div class="col-xs-12">
                         <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
-                            <button id="showModalCreate" data-route="create_fonction" data-title="{{ 'label.create.edit.fonction'|trans }}" style="background-color:#3a9d5d; float: right"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
+                            <button id="showModalCreate" class="btn badge-success" data-route="create_fonction" data-title="{{ 'label.create.edit.fonction'|trans }}"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
                         </div>
+                        <br>
                     </div>
                     <div class="btn-group" role="group" aria-label="Button group">
                         <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
@@ -31,7 +32,7 @@
                             <td>{{ fonction.libele }}</td>
                             <td>{{ fonction.profil?fonction.profil.libele:'' }}</td>
                             <td>{{ fonction.enable?'OUI':'NON' }}</td>
-                            <td>
+                            <td  style="width:15%; text-align: center; padding-right: 8px !important;">
                                 <button  data-target="#modalPassword" data-title="{{ 'label.create.edit.fonction'|trans }}" data-route="edit_fonction" class="btn btn-link text-danger btn-edit" data-id="{{ fonction.id }}" type="button"><i class="fa fa-edit"></i></button>
                                 <button  data-target="#modalPassword" data-title="{{ 'label.delete.fonction'|trans }}" data-route="delete_fonction" class="btn btn-link text-danger btn-remove" data-id="{{ fonction.id }}" type="button"><i class="fa fa-trash-o"></i></button>
                             </td>

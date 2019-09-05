@@ -40,7 +40,8 @@ class DeviseController extends Controller
         $form = $this->createForm(DeviseType::class, $devise);
         return $this->render('Admin/devise/index.html.twig', [
             'devises' => $deviseRepository->findAll(),
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'title' =>'Gestion des devises',
         ]);
     }
 

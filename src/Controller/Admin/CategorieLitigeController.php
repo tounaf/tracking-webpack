@@ -41,7 +41,8 @@ class CategorieLitigeController extends Controller
         $form = $this->createForm(CategorieLitigeType::class, $catLitige);
         return $this->render('Admin/categorie_litige/index.html.twig', [
             'categorie_litiges' => $categorieLitigeRepository->findAll(),
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'title' => 'Gestion des catégories litige'
         ]);
     }
 

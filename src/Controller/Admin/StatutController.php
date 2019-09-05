@@ -52,7 +52,8 @@ class StatutController extends Controller
         return $this->render('statut/list_statut.html.twig', array(
             'statuts' => $listStatut,
             'formStatut' => $formStatut->createView(),
-            'isStatut' => true
+            'isStatut' => true,
+            'title' => 'Gestion des statuts des dossiers',
         ));
     }
 

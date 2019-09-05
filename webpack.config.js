@@ -10,7 +10,7 @@ Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
-    .setPublicPath('/ass-litige/public/build')
+    .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
 
@@ -77,7 +77,7 @@ Encore
 
     //copyfiles the file image to the public build
     .copyFiles({
-        from:'./assets/img',
+        from:'./assets/images/brand/',
         to:'images/[path][name].[hash:8].[ext]'
     })
 ;

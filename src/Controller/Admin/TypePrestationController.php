@@ -41,7 +41,8 @@ class TypePrestationController extends Controller
         $form = $this->createForm(TypePrestationType::class, $typePrestation);
         return $this->render('Admin/type_prestation/index.html.twig', [
             'type_prestations' => $typePrestationRepository->findAll(),
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'title' => 'Gestion des types de prestation'
         ]);
     }
 
