@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\FosUser;
 use App\Entity\Societe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -19,6 +20,27 @@ class SocieteRepository extends ServiceEntityRepository
         parent::__construct($registry, Societe::class);
     }
 
+    /**
+     * @param FosUser $user
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getSocieteByRole(FosUser $user) {
+        $query = $this->createQueryBuilder('s');
+        $query->andWhere('s.enable = true');
+        if ($user->hasRole('ROLE_SUPERADMIN')){
+            return $query;
+        } elseif($user->hasRole('ROLE_ADMIN')) {
+            $query
+                ->andWhere('s.id = :id');
+        }
+        elseif ($user->hasRole('ROLE_JURISTE')) {
+            $query
+                ->andWhere('s.id = :id')
+                ;
+        }
+        $query->setParameter('id',$user->getSociete()->getId());
+        return $query;
+    }
     // /**
     //  * @return Societe[] Returns an array of Societe objects
     //  */

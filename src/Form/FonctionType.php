@@ -32,8 +32,7 @@ class FonctionType extends AbstractType
                 'choice_label' => 'libele'
             ))
             ->add('enable', null, array(
-                'label' => $this->trans->trans('label.enable'),
-                'data' => true
+                'label' => $this->trans->trans('label.enable')
             ))
         ;
         if ($options['remove_field']) {

@@ -4,20 +4,26 @@ namespace App\Form;
 
 use App\Entity\Fonction;
 use App\Entity\FosUser;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class FosUserType extends AbstractType
 {
     private $trans;
-
-    public function __construct(TranslatorInterface $translator)
+    private $auth;
+    private $user;
+    public function __construct(TranslatorInterface $translator, AuthorizationCheckerInterface $checker, Security $security)
     {
         $this->trans = $translator;
+        $this->auth = $checker;
+        $this->user = $security->getUser();
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -49,13 +55,19 @@ class FosUserType extends AbstractType
                 'class' => 'App\Entity\Societe',
                 'choice_label' => 'libele',
                 'required' => true,
-                'placeholder' => $this->trans->trans('label.choice.societe')
+                'placeholder' => $this->trans->trans('label.choice.societe'),
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->getSocieteByRole($this->user);
+                }
             ))
             ->add('fonction', EntityType::class, array(
                 'class' => Fonction::class,
                 'choice_label' => 'libele',
                 'required' => true,
-                'placeholder' => $this->trans->trans('label.choose.fonction')
+                'placeholder' => $this->trans->trans('label.choose.fonction'),
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->getProfileByAdmin($this->auth->isGranted(('ROLE_SUPERADMIN')),$this->auth->isGranted(('ROLE_ADMIN')),$this->auth->isGranted(('ROLE_JURISTE')));
+                }
             ));
         if ($options['remove_field']) {
             $builder

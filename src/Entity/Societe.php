@@ -26,7 +26,7 @@ class Societe
     /**
      * @ORM\Column(type="boolean")
      */
-    private $enable;
+    private $enable = true;
 
     /**
      * @ORM\Column(type="boolean")
