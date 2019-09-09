@@ -13,7 +13,7 @@ var main = $('.main');
 $("body").on('blur','#fos_user_email',function () {
     var email = $(this).val();
     var oldEmail  = this.defaultValue;
-    var url = Routing.generate('verify_email',{'email': email});
+    var url = Routing.generate('verify_email',{'email': email}, true);
     var isValid = false;
     if (!Fonction.isEmailValidFormat(email)) {
 
@@ -117,7 +117,7 @@ $('.btn-edit').click(function (e) {
     var id = $(this).data('id');
     var route = $(this).data('route');
     var title = $(this).data('title');
-    var url = Routing.generate(route,{'id':id})
+    var url = Routing.generate(route,{'id':id}, true)
     $.get(url,function (response) {
         var elt = $('#exampleModalLongTitle');
         if (response.status == 403) {
@@ -152,7 +152,7 @@ $('#showModalCreate').click(function (e) {
     main.ajaxloader('show');
     var route = $(this).data('route');
     var title = $(this).data('title');
-    var url = Routing.generate(route);
+    var url = Routing.generate(route, {}, true);
     $.get(url,function (response) {
         var elt = $('#exampleModalLongTitle');
         removeClassStartingWith(elt, 'alert');
@@ -173,7 +173,7 @@ $('.btn-remove').click(function (e) {
     var route = $(this).data('route');
     var id = $(this).data('id');
     var title = $(this).data('title');
-    var url = Routing.generate(route,{'id':id});
+    var url = Routing.generate(route,{'id':id}, true);
     $.ajax({
         url:url,
         success:function (response) {

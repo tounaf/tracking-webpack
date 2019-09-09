@@ -72,7 +72,7 @@ $('#buttonResetting').click(function (e) {
     }
     main.ajaxloader('show');
     $.ajax({
-        url: Routing.generate('resetting_password_user'),
+        url: Routing.generate('resetting_password_user',{}, true),
         type: 'POST',
         data: {
             email: email
