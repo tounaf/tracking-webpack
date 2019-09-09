@@ -47,7 +47,6 @@ class FosUserType extends AbstractType
                 'label' => $this->trans->trans('label.tel')
             ))
             ->add('enabled', null, array(
-                'required' => true,
                 'label' => $this->trans->trans('label.enable'),
                 'data' => true
             ))

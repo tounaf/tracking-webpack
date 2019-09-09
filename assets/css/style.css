@@ -16404,6 +16404,8 @@ body {
   background-color:red;
   height: 100%;
   width: 200px!important;
+  background-image: url("../images/brand/logo-axian-color.svg");
+  background-repeat: no-repeat;
 }
 #listAdmin th {
   background-color:  #C80F2D;
@@ -16415,3 +16417,7 @@ body {
   margin-right: 31px;
 }
 /*# sourceMappingURL=style.css.map */
+
+.bgdeco {
+  background-image: url("../img/photo-deco.png");
+}
