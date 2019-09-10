@@ -5,6 +5,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     sender_name: 'LITIGE'
+    router.request_context.host: '%env(string:HOST)%'
+    router.request_context.scheme: '%env(string:SCHEME)%'
+
 services:
     # default configuration for services in *this* file
     _defaults:
