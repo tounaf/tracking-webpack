@@ -62,6 +62,12 @@ class FosUser extends BasUser
     private $fonction;
 
     /**
+     * @var bool
+     * @ORM\Column(name="actif",type="boolean",  nullable=true)
+     */
+    private $actif = true;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -173,6 +179,32 @@ class FosUser extends BasUser
             $this->addRole(
                 $this->fonction->getProfil()?$this->fonction->getProfil()->getCode():'');
         }
+        
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActif(): bool
+    {
+        return $this->actif;
+    }
+
+    /**
+     * @param bool $actif
+     */
+    public function setActif(bool $actif)
+    {
+        $this->actif = $actif;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function setEnable()
+    {
+        $this->enabled = $this->actif;
     }
 
 }
