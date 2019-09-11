@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -68,6 +69,7 @@ class UtilisateurController extends Controller
      */
     public function create(Request $request, MailerService $mailerService)
     {
+
         $em = $this->getDoctrine()->getManager();
         $user = new FosUser();
         $subject = $this->translator->trans('label.new.account');
@@ -75,7 +77,7 @@ class UtilisateurController extends Controller
             'method' => 'POST',
             'action' => $this->generateUrl('create_user')
         ))->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $request->isXmlHttpRequest()) {
             $newPassword = Fonctions::generatePassword();
             try {
 
@@ -95,11 +97,15 @@ class UtilisateurController extends Controller
             }
             return $response->setData($message);
         }
-
+        if($request->isXmlHttpRequest()){
         return $this->render('Admin/_create_user.html.twig', array(
             'form' => $form->createView(),
             'title' => 'fetra'
         ));
+        }else{
+           // return new JsonResponse(array('status' => 'Error'),400);
+           throw new NotFoundHttpException();
+        }
     }
 
     /**

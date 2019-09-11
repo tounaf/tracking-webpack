@@ -73,18 +73,18 @@
             </trans-unit>
 
              <trans-unit id="21">
-                <source>label.delete</source>
+                <source>button.delete</source>
                 <target>SUPPRIMER</target>
             </trans-unit>
 
              <trans-unit id="22">
-                <source>label.delete.user</source>
-                <target>SUPPRIMER UTILISATEUR</target>
+                <source>label.delete</source>
+                <target>SUPPRESSION</target>
             </trans-unit>
 
              <trans-unit id="23">
                 <source>label.edit.create</source>
-                <target>Création/Modification UTILISATEUR</target>
+                <target>AJOUT/MODIFICATION</target>
             </trans-unit>
 
              <trans-unit id="24">
@@ -114,7 +114,7 @@
 
             <trans-unit id="29">
                 <source>label.titre.delete</source>
-                <target>Confirmation</target>
+                <target>SUPPRESSION</target>
             </trans-unit>
 
              <trans-unit id="30">
@@ -165,7 +165,7 @@
 
               <trans-unit id="39">
                  <source>label.title.ajout</source>
-                 <target>Enregistrement</target>
+                 <target>AJOUT/MODIFICATION</target>
              </trans-unit>
 
              <trans-unit id="40">
@@ -175,7 +175,7 @@
 
             <trans-unit id="41">
                  <source>label.title.modification</source>
-                 <target>Modification</target>
+                 <target>AJOUT/MODIFICATION</target>
              </trans-unit>
 
              <trans-unit id="42">
@@ -219,7 +219,7 @@
             </trans-unit>
             <trans-unit id="50">
                 <source>label.choice.societe</source>
-                <target>Choisir une societé</target>
+                <target>Choisir une société</target>
             </trans-unit>
 
             <trans-unit id="51">
@@ -260,6 +260,18 @@
             <trans-unit id="59">
                 <source>label.delete.societe</source>
                 <target>SUPPRIMER SOCIETE</target>
+            </trans-unit>
+            <trans-unit id="60">
+                <source>column.libelle</source>
+                <target>Libellé</target>
+            </trans-unit>
+            <trans-unit id="61">
+                <source>column.actif</source>
+                <target>Actif</target>
+            </trans-unit>
+            <trans-unit id="62">
+                <source>column.actions</source>
+                <target>Actions</target>
             </trans-unit>
         </body>
     </file>

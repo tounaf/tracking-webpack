@@ -51,6 +51,7 @@ class FosUserType extends AbstractType
             ))
             ->add('societe', EntityType::class, array(
                 'class' => 'App\Entity\Societe',
+                'label' => 'Société',
                 'choice_label' => 'libele',
                 'required' => true,
                 'placeholder' => $this->trans->trans('label.choice.societe'),
