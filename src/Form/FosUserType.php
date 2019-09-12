@@ -46,12 +46,12 @@ class FosUserType extends AbstractType
                 'attr' => array('maxlength' => 10, 'minlength' => 10),
                 'label' => $this->trans->trans('label.tel')
             ))
-            ->add('enabled', null, array(
-                'label' => $this->trans->trans('label.enable'),
-                'data' => true
+            ->add('actif', null, array(
+                'label' => $this->trans->trans('label.enable')
             ))
             ->add('societe', EntityType::class, array(
                 'class' => 'App\Entity\Societe',
+                'label' => 'Société',
                 'choice_label' => 'libele',
                 'required' => true,
                 'placeholder' => $this->trans->trans('label.choice.societe'),
@@ -74,7 +74,7 @@ class FosUserType extends AbstractType
                 ->remove('lastname')
                 ->remove('email')
                 ->remove('phoneNumber')
-                ->remove('enabled')
+                ->remove('actif')
                 ->remove('societe')
                 ->remove('fonction');
         }
