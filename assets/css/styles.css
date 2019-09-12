@@ -2630,7 +2630,7 @@ button:focus { outline: none; }
 .floating-form .form-control:focus + .form-control-placeholder, .floating-form .form-control:valid + .form-control-placeholder { background-color: #fff; font-size: 75%; padding: 0 10px; transform: translate3d(0, -50%, 0); }
 .floating-form .btn-group { display: flex; align-items: center; justify-content: space-between; flex-wrap: nowrap; padding-top: 5px; }
 .floating-form input:-webkit-autofill, .floating-form input:-webkit-autofill:hover, .floating-form input:-webkit-autofill:focus, .floating-form textarea:-webkit-autofill, .floating-form textarea:-webkit-autofill:hover, .floating-form textarea:-webkit-autofill:focus, .floating-form select:-webkit-autofill, .floating-form select:-webkit-autofill:hover, .floating-form select:-webkit-autofill:focus { border: 1px solid #ccc; }
-.floating-form input:-webkit-autofill:focus + .form-control-placeholder, .floating-form input:-webkit-autofill:valid + .form-control-placeholder { background-color: #fff; font-size: 75%; padding: 0 10px; transform: translate3d(0, -50%, 0); }
+.floating-form input:-webkit-autofill + .form-control-placeholder, .floating-form input:-webkit-autofill:hover + .form-control-placeholder, .floating-form input:-webkit-autofill:focus + .form-control-placeholder, .floating-form input:-webkit-autofill:valid + .form-control-placeholder { background-color: #fff; font-size: 75%; padding: 0 10px; transform: translate3d(0, -50%, 0); }
 
 .login-container { min-height: inherit; height: 100%; }
 .login-container .row, .login-container [class*="col-"] { min-height: inherit; }

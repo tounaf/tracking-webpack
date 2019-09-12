@@ -119,15 +119,13 @@ button {
     select:-webkit-autofill, select:-webkit-autofill:hover, select:-webkit-autofill:focus {
         border: 1px solid $greyC;
     }
-    input:-webkit-autofill {
-        &:focus, &:valid {
+    input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:valid {
             + .form-control-placeholder {
                 background-color: #fff;
                 font-size: 75%;
                 padding: 0 10px;
                 transform: translate3d(0, -50%, 0);
             }
-        }
     }
 }
 
