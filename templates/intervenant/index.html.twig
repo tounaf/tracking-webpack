@@ -9,32 +9,10 @@
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('intervenant') }}
-    {#   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
-    <script>
-
-    /* $(function() {
-            $('#avocat-list').DataTable({
-                "processing": true,
-                "serverSide": true,
-                "ajax": "{{ path('liste_avocat') }}",
-                "sAjaxDataProp": "data",
-                "pageLength": 10,
-                "columns":[
-                    {"data": "user"},
-                    {"data": "convenu"},
-                    {"data": "payer"},
-                    {"data": "reste_payer"},
-                    {"data": "devise"},
-                    {"data": "prestation"},
-                    {"data": "statuts"},
-                ]
-            });
-        });*/
-    </script>#}
 {% endblock %}
 
 {% block body %}
+    {% include '_flash.html.twig' %}
 <div class="example-wrapper">
     <table id="avocat-list" class="table">
         <thead>
@@ -54,4 +32,5 @@
         </tbody>
     </table>
 </div>
+    {% include '/Admin/Popup/modal.html.twig' %}
 {% endblock %}

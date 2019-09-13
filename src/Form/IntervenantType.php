@@ -20,12 +20,23 @@ class IntervenantType extends AbstractType
             ->add('user')
             ->add('prestation')
         ;
+        if ($options['remove_field']) {
+            $builder
+                ->remove('convenu')
+                ->remove('payer')
+                ->remove('restePayer')
+                ->remove('statutIntervenant')
+                ->remove('devise')
+                ->remove('prestation')
+                ->remove('user');
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Intervenant::class,
+            'remove_field' => false
         ]);
     }
 }
