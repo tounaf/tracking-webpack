@@ -101,7 +101,9 @@ class DossierController extends Controller
             return $this->redirectToRoute('render_edit_dossier', array('id' =>$dossier->getId()));
         }
 
-       return $this->redirectToRoute('render_create_dossier');
+        return $this->render('dossier/form.html.twig', array(
+            'form' => $form->createView()
+        ));
 
     }
 
