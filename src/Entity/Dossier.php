@@ -121,6 +121,11 @@ class Dossier
      */
     private $piecesJointes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Devise")
+     */
+    private $devise;
+
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
@@ -531,6 +536,25 @@ class Dossier
         if ($this->piecesJointes->contains($piecesJointe)) {
             $this->piecesJointes->removeElement($piecesJointe);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDevise()
+    {
+        return $this->devise;
+    }
+
+    /**
+     * @param Devise|null $devise
+     * @return Dossier
+     */
+    public function setDevise(?Devise $devise): self
+    {
+        $this->devise = $devise;
 
         return $this;
     }

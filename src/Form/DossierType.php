@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\CategorieLitige;
+use App\Entity\Devise;
 use App\Entity\Dossier;
 use App\Entity\EtapeSuivante;
 use App\Entity\InformationPj;
@@ -95,6 +96,11 @@ class DossierType extends AbstractType
             ))
             ->add('montant', null, array(
                 'label' => $this->trans->trans('label.montant')
+            ))
+            ->add('devise', EntityType::class, array(
+                'class' => Devise::class,
+                'label' => $this->trans->trans('label.devise'),
+                'choice_label' => 'code'
             ))
             ->add('etapeSuivante', EntityType::class, array(
                 'class' => EtapeSuivante::class,
