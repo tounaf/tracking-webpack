@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DossierRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Dossier
 {
@@ -39,7 +40,7 @@ class Dossier
     private $montant;
 
     /**
-     * @ORM\Column(type="string",columnDefinition="enum('demandeur','défendeur', 'tires')", nullable=true)
+     * @ORM\Column(type="string")
      */
     private $situation;
 
@@ -54,7 +55,7 @@ class Dossier
     private $dateLitige;
 
     /**
-     * @ORM\Column(type="string", columnDefinition="enum('positif','négatif')")
+     * @ORM\Column(type="string")
      */
     private $sensLitige;
 
@@ -94,9 +95,6 @@ class Dossier
     private $etapeSuivante;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\InformationPj")
-     */
-    private $piecesJointes;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\PartiAdverse")
@@ -109,7 +107,7 @@ class Dossier
     private $nomPartieAdverse;
 
     /**
-     * @ORM\Column(type="string", columnDefinition="enum('Personne physique','Personne morale')")
+     * @ORM\Column(type="string")
      */
     private $statutPartiAdverse;
 
@@ -118,21 +116,38 @@ class Dossier
      */
     private $formePartieAdverse;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\InformationPj", inversedBy="dossiers")
+     */
+    private $piecesJointes;
+
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
     }
 
+
+
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return mixed
+     */
     public function getNumeroDossier()
     {
         return $this->numeroDossier;
     }
 
+    /**
+     * @param $numeroDossier
+     * @return Dossier
+     */
     public function setNumeroDossier($numeroDossier): self
     {
         $this->numeroDossier = $numeroDossier;
@@ -140,11 +155,18 @@ class Dossier
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getLibelle()
     {
         return $this->libelle;
     }
 
+    /**
+     * @param $libelle
+     * @return Dossier
+     */
     public function setLibelle($libelle): self
     {
         $this->libelle = $libelle;
@@ -152,11 +174,18 @@ class Dossier
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getNomDossier()
     {
         return $this->nomDossier;
     }
 
+    /**
+     * @param $nomDossier
+     * @return Dossier
+     */
     public function setNomDossier($nomDossier): self
     {
         $this->nomDossier = $nomDossier;
@@ -164,11 +193,19 @@ class Dossier
         return $this;
     }
 
+
+    /**
+     * @return mixed
+     */
     public function getMontant()
     {
         return $this->montant;
     }
 
+    /**
+     * @param $montant
+     * @return Dossier
+     */
     public function setMontant($montant): self
     {
         $this->montant = $montant;
@@ -176,11 +213,18 @@ class Dossier
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getSituation()
     {
         return $this->situation;
     }
 
+    /**
+     * @param $situation
+     * @return Dossier
+     */
     public function setSituation($situation): self
     {
         $this->situation = $situation;
@@ -188,11 +232,19 @@ class Dossier
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getResumeFait()
     {
         return $this->resumeFait;
     }
 
+
+    /**
+     * @param $resumeFait
+     * @return Dossier
+     */
     public function setResumeFait($resumeFait): self
     {
         $this->resumeFait = $resumeFait;
@@ -200,23 +252,37 @@ class Dossier
         return $this;
     }
 
-    public function getDateLitige(): ?\DateTimeInterface
+    /**
+     * @return \DateTime|null
+     */
+    public function getDateLitige()
     {
         return $this->dateLitige;
     }
 
-    public function setDateLitige(\DateTimeInterface $dateLitige): self
+    /**
+     * @param \DateTime $dateLitige
+     * @return Dossier
+     */
+    public function setDateLitige(\DateTime $dateLitige): self
     {
         $this->dateLitige = $dateLitige;
 
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getSensLitige()
     {
         return $this->sensLitige;
     }
 
+    /**
+     * @param string $sensLitige
+     * @return Dossier
+     */
     public function setSensLitige(string $sensLitige): self
     {
         $this->sensLitige = $sensLitige;
@@ -224,35 +290,56 @@ class Dossier
         return $this;
     }
 
-    public function getEcheance(): ?\DateTimeInterface
+    /**
+     * @return \DateTime|null
+     */
+    public function getEcheance()
     {
         return $this->echeance;
     }
 
-    public function setEcheance(\DateTimeInterface $echeance): self
+    /**
+     * @param \DateTime $echeance
+     * @return Dossier
+     */
+    public function setEcheance(\DateTime $echeance): self
     {
         $this->echeance = $echeance;
 
         return $this;
     }
 
-    public function getAlerteDate(): ?\DateTimeInterface
+    /**
+     * @return \DateTime|null
+     */
+    public function getAlerteDate()
     {
         return $this->alerteDate;
     }
 
-    public function setAlerteDate(\DateTimeInterface $alerteDate): self
+    /**
+     * @param \DateTime $alerteDate
+     * @return Dossier
+     */
+    public function setAlerteDate(\DateTime $alerteDate): self
     {
         $this->alerteDate = $alerteDate;
 
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getUserEnCharge()
     {
         return $this->userEnCharge;
     }
 
+    /**
+     * @param FosUser|null $userEnCharge
+     * @return Dossier
+     */
     public function setUserEnCharge(?FosUser $userEnCharge): self
     {
         $this->userEnCharge = $userEnCharge;
@@ -260,11 +347,18 @@ class Dossier
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getRaisonSocial()
     {
         return $this->raisonSocial;
     }
 
+    /**
+     * @param Societe|null $raisonSocial
+     * @return Dossier
+     */
     public function setRaisonSocial(?Societe $raisonSocial): self
     {
         $this->raisonSocial = $raisonSocial;
@@ -272,11 +366,18 @@ class Dossier
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getStatut()
     {
         return $this->statut;
     }
 
+    /**
+     * @param Statut|null $statut
+     * @return Dossier
+     */
     public function setStatut(?Statut $statut): self
     {
         $this->statut = $statut;
@@ -284,11 +385,18 @@ class Dossier
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getCategorie()
     {
         return $this->categorie;
     }
 
+    /**
+     * @param CategorieLitige|null $categorie
+     * @return Dossier
+     */
     public function setCategorie(?CategorieLitige $categorie): self
     {
         $this->categorie = $categorie;
@@ -296,16 +404,109 @@ class Dossier
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getEtapeSuivante()
     {
         return $this->etapeSuivante;
     }
 
+    /**
+     * @param EtapeSuivante|null $etapeSuivante
+     * @return Dossier
+     */
     public function setEtapeSuivante(?EtapeSuivante $etapeSuivante): self
     {
         $this->etapeSuivante = $etapeSuivante;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPartieAdverse()
+    {
+        return $this->partieAdverse;
+    }
+
+    /**
+     * @param PartiAdverse|null $partieAdverse
+     * @return Dossier
+     */
+    public function setPartieAdverse(?PartiAdverse $partieAdverse): self
+    {
+        $this->partieAdverse = $partieAdverse;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNomPartieAdverse()
+    {
+        return $this->nomPartieAdverse;
+    }
+
+    /**
+     * @param string $nomPartieAdverse
+     * @return Dossier
+     */
+    public function setNomPartieAdverse(string $nomPartieAdverse): self
+    {
+        $this->nomPartieAdverse = $nomPartieAdverse;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatutPartiAdverse()
+    {
+        return $this->statutPartiAdverse;
+    }
+
+    /**
+     * @param string $statutPartiAdverse
+     * @return Dossier
+     */
+    public function setStatutPartiAdverse(string $statutPartiAdverse): self
+    {
+        $this->statutPartiAdverse = $statutPartiAdverse;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFormePartieAdverse()
+    {
+        return $this->formePartieAdverse;
+    }
+
+    /**
+     * @param StatutsPersMorale|null $formePartieAdverse
+     * @return Dossier
+     */
+    public function setFormePartieAdverse(?StatutsPersMorale $formePartieAdverse): self
+    {
+        $this->formePartieAdverse = $formePartieAdverse;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function setNumerDosseier()
+    {
+        $this->numeroDossier = $this->nomDossier.'-'.$this->id;
+        $this->libelle = $this->nomDossier;
+
     }
 
     /**
@@ -330,54 +531,6 @@ class Dossier
         if ($this->piecesJointes->contains($piecesJointe)) {
             $this->piecesJointes->removeElement($piecesJointe);
         }
-
-        return $this;
-    }
-
-    public function getPartieAdverse()
-    {
-        return $this->partieAdverse;
-    }
-
-    public function setPartieAdverse(?PartiAdverse $partieAdverse): self
-    {
-        $this->partieAdverse = $partieAdverse;
-
-        return $this;
-    }
-
-    public function getNomPartieAdverse()
-    {
-        return $this->nomPartieAdverse;
-    }
-
-    public function setNomPartieAdverse(string $nomPartieAdverse): self
-    {
-        $this->nomPartieAdverse = $nomPartieAdverse;
-
-        return $this;
-    }
-
-    public function getStatutPartiAdverse()
-    {
-        return $this->statutPartiAdverse;
-    }
-
-    public function setStatutPartiAdverse(string $statutPartiAdverse): self
-    {
-        $this->statutPartiAdverse = $statutPartiAdverse;
-
-        return $this;
-    }
-
-    public function getFormePartieAdverse()
-    {
-        return $this->formePartieAdverse;
-    }
-
-    public function setFormePartieAdverse(?StatutsPersMorale $formePartieAdverse): self
-    {
-        $this->formePartieAdverse = $formePartieAdverse;
 
         return $this;
     }

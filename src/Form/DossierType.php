@@ -5,13 +5,14 @@ namespace App\Form;
 use App\Entity\CategorieLitige;
 use App\Entity\Dossier;
 use App\Entity\EtapeSuivante;
+use App\Entity\InformationPj;
 use App\Entity\Societe;
 use App\Entity\Statut;
 use App\Entity\StatutsPersMorale;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,9 +29,10 @@ class DossierType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //societe
+//            societe
             ->add('userEnCharge',null, array(
-                'label' => $this->trans->trans('label.personne.en.charge')
+                'label' => $this->trans->trans('label.personne.en.charge'),
+                'required' => true
             ))
             ->add('raisonSocial', EntityType::class, array(
                 'label' => $this->trans->trans('label.raison.social'),
@@ -42,18 +44,22 @@ class DossierType extends AbstractType
                 'label' => $this->trans->trans('label.nom'),
 
             ))
-            ->add('statutPartiAdverse', null, array(
-                'label' => $this->trans->trans('label.statut')
+            ->add('statutPartiAdverse', ChoiceType::class, array(
+                'label' => $this->trans->trans('label.statut'),
+                'placeholder' => 'Veuillez selectionnner',
+                'choices' => [
+                    'Persone physique' => 'Personne physique',
+                    'Personne morale' => 'Personne morale'
+                ]
             ))
             ->add('formePartieAdverse', EntityType::class, array(
                 'label' => $this->trans->trans('label.form'),
                 'class' => StatutsPersMorale::class,
                 'choice_label' => 'libelle'
             ))
-            ->add('partieAdverse', CollectionType::class, array(
-                'entry_type' => PartiAdverseType::class,
-                'entry_options' => ['label' => false]
-            ))
+//            ->add('partieAdverse', PartiAdverseType::class, array(
+//                'label' => 'partiadverse'
+//            ))
 
             //resume fait
             ->add('resumeFait', TextareaType::class, array(
@@ -65,15 +71,16 @@ class DossierType extends AbstractType
                 'class' => CategorieLitige::class,
                 'choice_label' => 'libelle'
             ))
-            ->add('dateLitige', DateType::class, array(
-                'label' => $this->trans->trans('label.date.litige'),
+
+            ->add('dateLitige', DateTimeType::class, array(
                 'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'model_timezone' => 'UTC',
+                'view_timezone' => 'UTC',
+                'required' => true,
 
-                // prevents rendering it as type="date", to avoid HTML5 date pickers
-                'html5' => false,
-
-                // adds a class that can be selected in JavaScript
-                'attr' => ['class' => 'js-datepicker'],
+                'label' => $this->trans->trans('label.date.litige'),
+                'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
             ))
             ->add('nomDossier', null, array(
                 'label' => $this->trans->trans('label.nom.dossier')
@@ -93,27 +100,41 @@ class DossierType extends AbstractType
                 'class' => EtapeSuivante::class,
                 'choice_label' => 'libelle'
             ))
-            ->add('echeance', DateType::class, array(
-                'label' => $this->trans->trans('label.echeance'),
-                'html5' => false,
+            ->add('echeance', DateTimeType::class, array(
                 'widget' => 'single_text',
-                'attr' => ['class' => 'js-datepicker']
+                'format' => 'dd/MM/yyyy',
+                'model_timezone' => 'UTC',
+                'view_timezone' => 'UTC',
+                'required' => true,
+
+                'label' => $this->trans->trans('label.echeance'),
+                'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
 
             ))
             ->add('situation', null, array(
                 'label' => $this->trans->trans('label.situation')
             ))
-            ->add('alerteDate', DateType::class, array(
-                'label' => $this->trans->trans('label.alerte'),
-                'html5' => false,
+            ->add('alerteDate', DateTimeType::class, array(
                 'widget' => 'single_text',
-                'attr' => ['class' => 'js-datepicker']
+                'format' => 'dd/MM/yyyy',
+                'model_timezone' => 'UTC',
+                'view_timezone' => 'UTC',
+                'required' => true,
+
+                'label' => $this->trans->trans('label.alerte'),
+                'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
             ))
             //
 //            ->add('numeroDossier')
 //            ->add('libelle')
 //            //PJ
-//            ->add('piecesJointes')
+
+            ->add('piecesJointes', EntityType::class, array(
+                'class' => InformationPj::class,
+                'choice_label' => 'libelle',
+//                'data_class' =>
+                'mapped' => false
+            ))
         ;
     }
 

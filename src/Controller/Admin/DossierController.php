@@ -28,8 +28,15 @@ class DossierController extends Controller
         $em = $this->getDoctrine()->getManager();
         $dossier = new Dossier();
 
-        $form = $this->createForm(DossierType::class, $dossier)->handleRequest($request);
+        $form = $this->createForm(DossierType::class, $dossier, array(
+            'action' => $this->generateUrl('create_dossier')
+        ))->handleRequest($request);
         if ($form->isSubmitted()) {
+            $dateLitige = $request->get('dossier')['dateLitige'];
+            $echeance = $request->get('dossier')['echeance'];
+            $alert = $request->get('dossier')['alerteDate'];
+            $dossier->setAlerteDate(new \DateTime($alert))->setDateLitige(new \DateTime($dateLitige))->setEcheance(new \DateTime($echeance));
+//            dump($dossier);die;
             $em->persist($dossier);
             $em->flush();
         }

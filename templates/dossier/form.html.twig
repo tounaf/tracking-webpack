@@ -1,3 +1,106 @@
 {{ form_start(form)  }}
+    <div class="row">
 
+        <div class="col-md-6">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="col-md-6">
+                        {{ form_row(form.userEnCharge) }}
+                        {{ form_row(form.raisonSocial) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            {{ form_row(form.nomPartieAdverse) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.statutPartiAdverse) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.formePartieAdverse) }}
+                            {#{{ form_row(form.partieAdverse.statut) }}#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            {{ form_row(form.categorie) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.dateLitige) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.nomDossier) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.statut) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.sensLitige) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.montant) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.etapeSuivante) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.echeance) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.situation) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.alerteDate) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(form.resumeFait) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.piecesJointes) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pull-right adjust text-right offset-10">
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+        </div>
+
+    </div>
 {{ form_end(form) }}

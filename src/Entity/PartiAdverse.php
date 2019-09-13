@@ -22,7 +22,7 @@ class PartiAdverse
     private $nom;
 
     /**
-     * @ORM\Column(type="string", columnDefinition="enum('Personne physique','Personne morale')")
+     * @ORM\Column(type="string")
      */
     private $statut;
 

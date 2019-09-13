@@ -261,18 +261,90 @@
                 <source>label.delete.societe</source>
                 <target>SUPPRIMER SOCIETE</target>
             </trans-unit>
+
             <trans-unit id="60">
                 <source>column.libelle</source>
                 <target>Libellé</target>
             </trans-unit>
+
             <trans-unit id="61">
                 <source>column.actif</source>
                 <target>Actif</target>
             </trans-unit>
+
             <trans-unit id="62">
                 <source>column.actions</source>
                 <target>Actions</target>
             </trans-unit>
+
+            <trans-unit id="67">
+                <source>label.personne.en.charge</source>
+                <target>PERSONNE EN CHARGE DU DOSSIER</target>
+            </trans-unit>
+
+            <trans-unit id="68">
+                <source>label.raison.social</source>
+                <target>RAISON SOCIALE</target>
+            </trans-unit>
+
+
+            <trans-unit id="69">
+                <source>label.statut</source>
+                <target>STATUT</target>
+            </trans-unit>
+
+
+            <trans-unit id="70">
+                <source>label.form</source>
+                <target>FORME</target>
+            </trans-unit>
+
+            <trans-unit id="71">
+                <source>label.date.litige</source>
+                <target>DATE LITIGE</target>
+            </trans-unit>
+
+            <trans-unit id="72">
+                <source>label.nom.dossier</source>
+                <target>NOM DOSSIER</target>
+            </trans-unit>
+
+            <trans-unit id="73">
+                <source>label.sens.litige</source>
+                <target>SENS DU LITIGE</target>
+            </trans-unit>
+
+            <trans-unit id="74">
+                <source>label.montant</source>
+                <target>MONTANT</target>
+            </trans-unit>
+
+            <trans-unit id="75">
+                    <source>label.devise</source>
+                <target>DEVISE</target>
+            </trans-unit>
+
+            <trans-unit id="76">
+                    <source>label.echeance</source>
+                <target>ECHEANCE</target>
+            </trans-unit>
+
+            <trans-unit id="77">
+                    <source>label.situation</source>
+                <target>SITUATION</target>
+            </trans-unit>
+
+            <trans-unit id="78">
+                    <source>label.alert</source>
+                <target>ALERTE</target>
+            </trans-unit>
+
+            <trans-unit id="79">
+                    <source>label.resume.fait</source>
+                <target>RESUME DES FAITS</target>
+            </trans-unit>
+
+
         </body>
     </file>
 </xliff>
