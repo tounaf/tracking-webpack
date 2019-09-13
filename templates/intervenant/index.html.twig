@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IntervenantAvocatController!{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('intervenant') }}
+   {#<link rel="stylesheet" href="https://cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css" />#}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('intervenant') }}
+    {#   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script>
+
+    /* $(function() {
+            $('#avocat-list').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "{{ path('liste_avocat') }}",
+                "sAjaxDataProp": "data",
+                "pageLength": 10,
+                "columns":[
+                    {"data": "user"},
+                    {"data": "convenu"},
+                    {"data": "payer"},
+                    {"data": "reste_payer"},
+                    {"data": "devise"},
+                    {"data": "prestation"},
+                    {"data": "statuts"},
+                ]
+            });
+        });*/
+    </script>#}
+{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <table id="avocat-list" class="table">
+        <thead>
+        <tr>
+            <th>{{ 'column.nameUser'|trans }}</th>
+            <th>{{ 'column.nameConvenu'|trans }}</th>
+            <th>{{ 'column.namePayer'|trans }}</th>
+            <th>{{ 'column.nameReste'|trans }}</th>
+            <th>{{ 'column.nameDevise'|trans }}</th>
+            <th>{{ 'column.namePrestation'|trans }}</th>
+            <th>{{ 'column.nameStatIntervenant'|trans }}</th>
+            <th>{{ 'column.actions'|trans }}</th>
+            {#<th>{{ 'column.actions'|trans }}</th>#}
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

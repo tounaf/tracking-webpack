@@ -10,7 +10,7 @@ Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
-    .setPublicPath('/public/build')
+    .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
 
@@ -27,6 +27,7 @@ Encore
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
     .addEntry('user', './assets/js/Admin/user.js')
+    .addEntry('intervenant', './assets/js/dossier/intervenant.js')
     .addEntry('control', './assets/js/Admin/control-field.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

@@ -9,6 +9,8 @@
 namespace App\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BasUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -66,6 +68,17 @@ class FosUser extends BasUser
      * @ORM\Column(name="actif",type="boolean",  nullable=true)
      */
     private $actif = true;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Intervenant", mappedBy="User")
+     */
+    private $intervenants;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->intervenants = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -207,4 +220,38 @@ class FosUser extends BasUser
         $this->enabled = $this->actif;
     }
 
+    /**
+     * @return Collection|Intervenant[]
+     */
+    public function getIntervenants(): Collection
+    {
+        return $this->intervenants;
+    }
+
+    public function addIntervenant(Intervenant $intervenant): self
+    {
+        if (!$this->intervenants->contains($intervenant)) {
+            $this->intervenants[] = $intervenant;
+            $intervenant->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntervenant(Intervenant $intervenant): self
+    {
+        if ($this->intervenants->contains($intervenant)) {
+            $this->intervenants->removeElement($intervenant);
+            // set the owning side to null (unless already changed)
+            if ($intervenant->getUser() === $this) {
+                $intervenant->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
