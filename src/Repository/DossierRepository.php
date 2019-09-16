@@ -43,7 +43,7 @@ class DossierRepository extends ServiceEntityRepository
         if ($data) {
             $sqlWhere = [];
             if ($data->getNom() != '') {
-                $sql .= " WHERE d.`nom_dossier` LIKE '%".addslashes($data->getNom())."%'";
+                $sqlWhere[] = " d.`nom_dossier` LIKE '%".addslashes($data->getNom())."%'";
             }
             if ($data->getReference() != '') {
                 $sqlWhere[] = " d.`libelle` LIKE '%".addslashes($data->getReference())."%'";
@@ -57,9 +57,8 @@ class DossierRepository extends ServiceEntityRepository
             if ($data->getStatut() != '') {
                 $sqlWhere[] = " s.`libele` LIKE '%".addslashes($data->getStatut())."%'";
             }
-
             if (count($sqlWhere)> 0) {
-                $sql .= 'WHERE '. implode(' AND ', $sqlWhere);
+                $sql .= ' WHERE '. implode(' AND ', $sqlWhere);
             }
         }
         if (!$count) {
