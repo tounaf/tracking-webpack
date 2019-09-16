@@ -152,7 +152,8 @@ class DossierController extends Controller
         $dossier = $em->getRepository(Dossier::class)->findAll();
         return $this->render('dossier/liste_dossier.html.twig', array(
             'dosser' => $dossier,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'title' => 'Dossier'
         ));
     }
 

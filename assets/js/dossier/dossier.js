@@ -42,7 +42,7 @@ $(document).ready(function () {
         bLengthChange: false,
         info: false,
         language: {
-            processing:     "Traitement en cours...",
+            processing:     "Chargement en cours...",
             search:         "Rechercher&nbsp;:",
             lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
             info:           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
