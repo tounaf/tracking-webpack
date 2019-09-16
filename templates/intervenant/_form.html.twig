@@ -1,0 +1,48 @@
+{{ form_start(form)  }}
+<div class="row">
+
+    <div class="col-md-6">
+
+        <div class="card">
+            <div class="card-body">
+
+                <div class="col-md-6">
+                    {{ form_row(form.user) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            HONORAIRES
+        </div>
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-md-6">
+                    {{ form_row(form.prestation) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.convenu) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.devise) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.payer) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.restePayer) }}
+                </div>
+                <div class="col-md-6" hidden>
+                    {{ form_row(form.statutIntervenant) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <input type="button" data-dismiss="modal" id="cancel" class="btn btn-dark" value="{{ 'label.cancel'|trans }}" />
+    <input type="submit" id="saveCreateUser" class="btn btn-danger" value="{{ 'label.save'|trans }}" />
+</div>
+{{ form_end(form) }}

@@ -3,10 +3,25 @@
     <ul class="nav">
         <li class="nav-item">
             <a class="nav-link" href="#">
-                <i class="nav-icon icon-speedometer"></i> Tableau de bord
-                {#<span class="badge badge-primary">NEW</span>#}
+                <i class="nav-icon icon-speedometer"></i>
+                <span class="badge badge-primary"></span>
             </a>
         </li>
+        <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#">
+                <i class="fa fa-archive"></i> Dossiers</a>
+            <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fa fa-list"></i> Listes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('core_litige') }}">
+                        <i class="fa fa-edit"></i> Création</a>
+                </li>
+            </ul>
+        </li>
+
         <li class="nav-item nav-dropdown">
             <a class="nav-link nav-dropdown-toggle" href="#">
                 <i class="fa fa-user-md"></i> Administration</a>
