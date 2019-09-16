@@ -1,6 +1,6 @@
 const $ = require('jquery');
 import Routing from '../Routing';
-
+import 'jquery.cookie';
 require('datatables.net-bs4/css/dataTables.bootstrap4.min.css');
 require('datatables.net-bs4');
 require('../jquery.ajaxloader');
@@ -86,7 +86,7 @@ $('body').on('click', '.btn-remove', function (e) {
     var route = $(this).data('route');
     var id = $(this).data('id');
     var title = $(this).data('title');
-   var url = Routing.generate(route,{'id':id}, true);
+   var url = Routing.generate(route,{'id':id});
     $.ajax({
          url:url,
          success:function (response) {
@@ -125,3 +125,21 @@ function removeClassStartingWith(node, begin) {
         return (className.match ( new RegExp("\\b"+begin+"\\S+", "g") ) || []).join(' ');
     });
 }
+/*
+$(function() {
+    $('a[data-toggle="tab"]').on('shown', function(e){
+        e.preventDefault();
+        //save the latest tab using a cookie:
+        $.cookie('last_tab', $(e.target).attr('href'));
+    });
+
+    //activate latest tab, if it exists:
+    var lastTab = $.cookie('last_tab');
+    console.log(lastTab);
+    if (lastTab) {
+        $('ul.nav-tabs').children().removeClass('active');
+        $('a[href='+ lastTab +']').parents('li:first').addClass('active');
+        $('div.tab-content').children().removeClass('active');
+        $(lastTab).addClass('active');
+    }
+});*/
