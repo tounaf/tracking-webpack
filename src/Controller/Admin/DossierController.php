@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Dossier;
+use App\Entity\DossierSearch;
+use App\Form\DossierSearchType;
 use App\Form\DossierType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -140,23 +142,27 @@ class DossierController extends Controller
      * @Route("/dossier/list", name="dossier_list")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listeDossier()
+    public function listeDossier(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $dossier = new DossierSearch();
+
+        $form = $this->createForm(DossierSearchType::class, $dossier);
+
         $dossier = $em->getRepository(Dossier::class)->findAll();
         return $this->render('dossier/liste_dossier.html.twig', array(
-            'dosser' => $dossier
+            'dosser' => $dossier,
+            'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route("/dossier/ajax/list", name="ajax_list_dossier", options={"expose"=true})
+     * @Route("/dossier/ajax/list", name="ajax_list_dossier", options={"expose"=true}, methods={"POST", "GET"})
      * @param Request $request
      * @return Response
      */
     public function ajaxLoadListeDossier(Request $request)
     {
-
         $response = new JsonResponse();
         $draw = $request->get('draw');
         $length = $request->get('length');
@@ -175,9 +181,18 @@ class DossierController extends Controller
             'orderBy' => $orderBy,
             'order' => $order,
         );
-        $listDossier = $this->getDoctrine()->getRepository(Dossier::class)->ajaxlistDossier($extraParams);
-        $nbrRecords = $this->getDoctrine()->getRepository(Dossier::class)->ajaxlistDossier($extraParams, true);
+        if ($this->get('session')->has('dossierSearch')) {
+            $dossier = $this->get('serializer')->deserialize(
+                $this->get('session')->get('dossierSearch'),
+                DossierSearch::class,
+                'json'
+            );
+        } else {
 
+            $dossier = new DossierSearch();
+        }
+        $listDossier = $this->getDoctrine()->getRepository(Dossier::class)->ajaxlistDossier($dossier, $extraParams,false, true);
+        $nbrRecords = $this->getDoctrine()->getRepository(Dossier::class)->ajaxlistDossier($dossier, $extraParams, true);
         $response->setData(array(
             'draw' => (int)$draw,
             'recordsTotal' => (int)$nbrRecords[0]['record'],
@@ -185,5 +200,21 @@ class DossierController extends Controller
             'data' => $listDossier,
         ));
         return $response;
+    }
+
+    /**
+     * @Route("/dossier/search", name="search_dossier", options={"expose"=true}, methods={"POST", "GET"})
+     */
+    public function searchDossier(Request $request)
+    {
+        $dossier = new DossierSearch();
+        $formSearch = $this->createForm(DossierSearchType::class, $dossier);
+        $formSearch->handleRequest($request);
+        if ($formSearch->isSubmitted() && $request->isXmlHttpRequest()) {
+            $this->get('session')->set('dossierSearch', $this->get('serializer')->serialize($dossier, 'json'));
+        }
+        return new JsonResponse(array(
+            'message' => 'Recherche en cours ...'
+        ));
     }
 }

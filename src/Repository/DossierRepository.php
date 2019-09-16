@@ -26,7 +26,7 @@ class DossierRepository extends ServiceEntityRepository
         parent::__construct($registry, Dossier::class);
     }
 
-    public function ajaxlistDossier($extraParams, $count = false)
+    public function ajaxlistDossier($data, $extraParams, $count = false)
     {
         $sql = $count?' SELECT COUNT(d.`id`) AS record ' : 'SELECT 
                     d.`id`,
@@ -40,11 +40,37 @@ class DossierRepository extends ServiceEntityRepository
         $sql .=' INNER JOIN `categorie_litige` AS c ON c.`id` = d.`categorie_id` ';
         $sql .=' INNER JOIN societe r ON r.`id` = d.`raison_social_id` ';
         $sql .=' INNER JOIN statut s ON s.`id` = d.`statut_id` ';
+        if ($data) {
+            $sqlWhere = [];
+            if ($data->getNom() != '') {
+                $sql .= " WHERE d.`nom_dossier` LIKE '%".addslashes($data->getNom())."%'";
+            }
+            if ($data->getReference() != '') {
+                $sqlWhere[] = " d.`libelle` LIKE '%".addslashes($data->getReference())."%'";
+            }
+            if ($data->getCategorie() != '') {
+                $sqlWhere[] = " c.`libelle` LIKE '%".addslashes($data->getCategorie())."%'";
+            }
+            if ($data->getEntite() != '') {
+                $sqlWhere[] = " r.`libele` LIKE '%".addslashes($data->getEntite())."%'";
+            }
+            if ($data->getStatut() != '') {
+                $sqlWhere[] = " s.`libele` LIKE '%".addslashes($data->getStatut())."%'";
+            }
+
+            if (count($sqlWhere)> 0) {
+                $sql .= 'WHERE '. implode(' AND ', $sqlWhere);
+            }
+        }
         if (!$count) {
+            if (isset($this->column[$extraParams['orderBy']]) && isset($extraParams['order'])) {
 
-            $sql .= ' ORDER BY '.$this->column[$extraParams['orderBy']] .' '. $extraParams['order'];
+                $sql .= ' ORDER BY '.$this->column[$extraParams['orderBy']] .' '. $extraParams['order'];
+            }
+            if (isset($extraParams['start']) && isset($extraParams['length'])) {
 
-            $sql .= ' LIMIT '.$extraParams['start'].','. $extraParams['length'];
+                $sql .= ' LIMIT '.$extraParams['start'].','. $extraParams['length'];
+            }
         }
 
         $qb = $this->getEntityManager()->getConnection()->prepare($sql);

@@ -4,8 +4,8 @@
 {% block wrapper %}
     <div class="card-header">{{ 'label.gestion.user'|trans }}</div>
     <br>
+    {{ include('dossier/form_search.html.twig') }}
     {% include '_flash.html.twig' %}
-
     <table id="listDossier" class="table">
         <thead>
         <tr>

@@ -78,4 +78,21 @@ $(document).ready(function () {
           return data;
       }*/
 
+    /**
+     * recherche
+     */
+    $("#formSearchDossier").on('submit', function (e) {
+        e.preventDefault();
+        console.log($(this));
+        $(this).ajaxloader('show');
+        var data = $(this).serialize();
+        var url = Routing.generate('search_dossier')
+        $.post(url, data,function (data) {
+                console.log(data);
+            $('#listDossier').DataTable().ajax.reload()
+            $("#formSearchDossier").ajaxloader('hide');
+            }
+        )
+    })
+
 });
