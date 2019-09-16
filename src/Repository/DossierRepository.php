@@ -14,37 +14,43 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class DossierRepository extends ServiceEntityRepository
 {
+    private $column = array(
+        'reference',
+        'nom',
+        'categorie',
+        'entite',
+        'statut'
+    );
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Dossier::class);
     }
 
-    // /**
-    //  * @return Dossier[] Returns an array of Dossier objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function ajaxlistDossier($extraParams, $count = false)
     {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $sql = $count?' SELECT COUNT(d.`id`) AS record ' : 'SELECT 
+                    d.`id`,
+                    d.`libelle` AS reference,
+                    d.`nom_dossier` AS nom ,
+                    c.`libelle` AS categorie,
+                    r.`libele` AS entite,
+                    s.`libele` AS statut
+               ';
+        $sql .= '  FROM dossier d ';
+        $sql .=' INNER JOIN `categorie_litige` AS c ON c.`id` = d.`categorie_id` ';
+        $sql .=' INNER JOIN societe r ON r.`id` = d.`raison_social_id` ';
+        $sql .=' INNER JOIN statut s ON s.`id` = d.`statut_id` ';
+        if (!$count) {
 
-    /*
-    public function findOneBySomeField($value): ?Dossier
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            $sql .= ' ORDER BY '.$this->column[$extraParams['orderBy']] .' '. $extraParams['order'];
+
+            $sql .= ' LIMIT '.$extraParams['start'].','. $extraParams['length'];
+        }
+
+        $qb = $this->getEntityManager()->getConnection()->prepare($sql);
+        $qb->execute();
+        $result = $qb->fetchAll();
+        return $result;
+
     }
-    */
 }

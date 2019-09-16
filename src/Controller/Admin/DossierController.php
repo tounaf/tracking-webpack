@@ -135,4 +135,55 @@ class DossierController extends Controller
         }
         return $this->redirectToRoute('render_edit_dossier', array('id' => $id));
     }
+
+    /**
+     * @Route("/dossier/list", name="dossier_list")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function listeDossier()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $dossier = $em->getRepository(Dossier::class)->findAll();
+        return $this->render('dossier/liste_dossier.html.twig', array(
+            'dosser' => $dossier
+        ));
+    }
+
+    /**
+     * @Route("/dossier/ajax/list", name="ajax_list_dossier", options={"expose"=true})
+     * @param Request $request
+     * @return Response
+     */
+    public function ajaxLoadListeDossier(Request $request)
+    {
+
+        $response = new JsonResponse();
+        $draw = $request->get('draw');
+        $length = $request->get('length');
+        $start = $request->get('start');
+        $search = $request->get('search');
+        $filters = [
+            'query' => $search['value'],
+        ];
+        $vOrder = $request->get('order');
+        $orderBy = $vOrder[0]['column'];
+        $order = $vOrder[0]['dir'];
+        $extraParams = array(
+            'filters' => $filters,
+            'start' => $start,
+            'length' => $length,
+            'orderBy' => $orderBy,
+            'order' => $order,
+        );
+        $listDossier = $this->getDoctrine()->getRepository(Dossier::class)->ajaxlistDossier($extraParams);
+        $nbrRecords = $this->getDoctrine()->getRepository(Dossier::class)->ajaxlistDossier($extraParams, true);
+
+        $response->setData(array(
+            'draw' => (int)$draw,
+            'recordsTotal' => (int)$nbrRecords[0]['record'],
+            'recordsFiltered' => (int)$nbrRecords[0]['record'],
+            'data' => $listDossier,
+        ));
+        return $response;
+    }
 }
