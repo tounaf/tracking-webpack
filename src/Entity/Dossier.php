@@ -144,18 +144,18 @@ class Dossier
     /**
      * @return mixed
      */
-    public function getNumeroDossier()
+    public function getReferenceDossier()
     {
-        return $this->numeroDossier;
+        return $this->referenceDossier;
     }
 
     /**
-     * @param $numeroDossier
+     * @param $referenceDossier
      * @return Dossier
      */
-    public function setNumeroDossier($numeroDossier): self
+    public function setReferenceDossier($referenceDossier): self
     {
-        $this->numeroDossier = $numeroDossier;
+        $this->referenceDossier = $referenceDossier;
 
         return $this;
     }
