@@ -79,12 +79,18 @@ class FosUser extends BasUser
         parent::__construct();
         $this->intervenants = new ArrayCollection();
         $this->dossiers = new ArrayCollection();
+        $this->auxiliaires = new ArrayCollection();
     }
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Dossier", mappedBy="userEnCharge")
      */
     private $dossiers;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Auxiliaires", mappedBy="user")
+     */
+    private $auxiliaires;
     /**
      * @return int
      */
@@ -289,5 +295,36 @@ class FosUser extends BasUser
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|Auxiliaires[]
+     */
+    public function getAuxiliaires(): Collection
+    {
+        return $this->auxiliaires;
+    }
+
+    public function addAuxiliaire(Auxiliaires $auxiliaire): self
+    {
+        if (!$this->auxiliaires->contains($auxiliaire)) {
+            $this->auxiliaires[] = $auxiliaire;
+            $auxiliaire->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAuxiliaire(Auxiliaires $auxiliaire): self
+    {
+        if ($this->auxiliaires->contains($auxiliaire)) {
+            $this->auxiliaires->removeElement($auxiliaire);
+            // set the owning side to null (unless already changed)
+            if ($auxiliaire->getUser() === $this) {
+                $auxiliaire->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

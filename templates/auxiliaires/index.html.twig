@@ -1,15 +1,12 @@
 
-{% include '_flash.html.twig' %}
-<div class="card">
-    <div class="card-header">
-        Les intervenants
-    </div>
-    {%  include "/intervenant/_current-form.html.twig" %}
+    <br>
+    {% include '_flash.html.twig' %}
+    <div class="card">
     <div class="">
         <div>
             <div class="row card-header">
                 <div class="col-md-8">
-                    LES AVOCATS INTERVENUS SUR L'AFFAIRE
+                    AUXILIAIRES INTERVENUS SUR L'AFFAIRE
                 </div>
                 <div class="col-md-4">
                     <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
@@ -25,7 +22,7 @@
             </div>
 
             <div class="example-wrapper">
-                <table id="avocat-list" class="table">
+                <table id="auxiliaires-list" class="table">
                     <thead>
                     <tr>
                         <th>{{ 'column.nameUser'|trans }}</th>

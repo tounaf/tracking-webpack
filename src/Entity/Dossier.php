@@ -121,9 +121,15 @@ class Dossier
      */
     private $piecesJointes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Auxiliaires", mappedBy="dossier")
+     */
+    private $auxiliaires;
+
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
+        $this->auxiliaires = new ArrayCollection();
     }
 
 
@@ -530,6 +536,37 @@ class Dossier
     {
         if ($this->piecesJointes->contains($piecesJointe)) {
             $this->piecesJointes->removeElement($piecesJointe);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Auxiliaires[]
+     */
+    public function getAuxiliaires(): Collection
+    {
+        return $this->auxiliaires;
+    }
+
+    public function addAuxiliaire(Auxiliaires $auxiliaire): self
+    {
+        if (!$this->auxiliaires->contains($auxiliaire)) {
+            $this->auxiliaires[] = $auxiliaire;
+            $auxiliaire->setDossier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAuxiliaire(Auxiliaires $auxiliaire): self
+    {
+        if ($this->auxiliaires->contains($auxiliaire)) {
+            $this->auxiliaires->removeElement($auxiliaire);
+            // set the owning side to null (unless already changed)
+            if ($auxiliaire->getDossier() === $this) {
+                $auxiliaire->setDossier(null);
+            }
         }
 
         return $this;
