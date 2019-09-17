@@ -97,6 +97,7 @@ body {
 .btn {
     border: none;
     @include browserCss('border-radius', 3px);
+    cursor: pointer;
     font-size: 14px;
     font-weight: 500;
     height: 40px;
@@ -109,6 +110,10 @@ body {
     }
     &:hover {
         @include browserCss('box-shadow', none);
+        text-decoration: none;
+        span {
+            text-decoration: none;
+        }
     }
     &:focus {
         @include browserCss('box-shadow', none);
@@ -121,10 +126,16 @@ body {
             @include browserCss('box-shadow', none);
         }
     }
+    i {
+        font-size: 16px;
+        margin-right: 5px;
+        vertical-align: middle;
+    }
 }
 .btn-primary {
     background-color: $red;
     min-width: 180px;
+    
     &:hover {
         background-color: $redDark;
     }
@@ -136,13 +147,18 @@ body {
         }
     }
 }
+.btn-group {
+    .btn-primary {
+        flex: 0 1 auto;    
+    }
+}
 .btn-default {
     
 }
 .btn-success {
-    
+    background-color: #5cb85c;
     &:not(:disabled):not(.disabled):active, &:hover {
-    
+        background-color: #26872f;
     }
 }
 
