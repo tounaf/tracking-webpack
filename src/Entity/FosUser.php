@@ -78,8 +78,13 @@ class FosUser extends BasUser
     {
         parent::__construct();
         $this->intervenants = new ArrayCollection();
+        $this->dossiers = new ArrayCollection();
     }
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Dossier", mappedBy="userEnCharge")
+     */
+    private $dossiers;
     /**
      * @return int
      */
@@ -218,6 +223,37 @@ class FosUser extends BasUser
     public function setEnable()
     {
         $this->enabled = $this->actif;
+    }
+
+    /**
+     * @return Collection|Dossier[]|null
+     */
+    public function getDossiers()
+    {
+        return $this->dossiers;
+    }
+
+    public function addDossier(Dossier $dossier): self
+    {
+        if (!$this->dossiers->contains($dossier)) {
+            $this->dossiers[] = $dossier;
+            $dossier->setUserEnCharge($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRaisonSocial(Dossier $dossier): self
+    {
+        if ($this->dossiers->contains($dossier)) {
+            $this->dossiers->removeElement($dossier);
+            // set the owning side to null (unless already changed)
+            if ($dossier->getUserEnCharge() === $this) {
+                $dossier->setUserEnCharge(null);
+            }
+        }
+
+        return $this;
     }
 
     /**
