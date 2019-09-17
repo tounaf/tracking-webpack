@@ -14,18 +14,18 @@ class Dossier
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $numeroDossier;
+    private $referenceDossier;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $libelle;
 
@@ -506,12 +506,15 @@ class Dossier
 
     /**
      * @ORM\PrePersist()
+     * @ORM\PreFlush()
+     * @ORM\PostPersist()
      */
     public function setNumerDosseier()
     {
-        $this->numeroDossier = $this->nomDossier.'-'.$this->id;
-        $this->libelle = $this->nomDossier;
-
+//        dump($this->getId());
+//        dump($this->id);
+//        dump(str_pad($this->id,4,'0',STR_PAD_LEFT ));die;
+        $this->referenceDossier = $this->raisonSocial?$this->raisonSocial->getLibele().'-'.str_pad($this->id,4,'0',STR_PAD_LEFT ):str_pad($this->id,4,'0',STR_PAD_LEFT );
     }
 
     /**
