@@ -5,21 +5,19 @@
 
 {% block wrapper %}
 
-    <div class="card-header">{{ 'label.titre.catLitige'|trans }}</div>
+    <div class="card-header"><h2>{{ 'label.titre.catLitige'|trans }}</h2></div>
     {% include '_flash.html.twig' %}
-    <br>
     <div>
         <div class="col-xs-12">
             <div class="btn btn-ps pull-right adjust">
                 <button id="showModalCreate" class="btn badge-success"  data-route="categorie_litige_new" data-title="{{ 'label.title.ajout'|trans }}"> <i class="text-light fa fa-plus-circle">Ajouter</i></button>
             </div>
-            <br>
         </div>
         <div class="btn-group" role="group" aria-label="Button group">
             <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
         </div>
     </div>
-    <table id="listAdmin" class="table " >
+    <table id="listAdmin" class="table" >
         <thead>
         <tr>
             <th>{{ 'column.libelle'|trans }}</th>
