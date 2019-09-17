@@ -156,6 +156,14 @@ $(document).ready(function () {
                 sortDescending: ": activer pour trier la colonne par ordre décroissant"
             }
         },
+        "autoWidth": false,
+        responsive: true,
+        columnDefs: [
+          { "width": "20%", "targets": 0, orderable: true },
+          { "width": "20%", "targets": 1, orderable: true},
+          { "width": "5%", "targets": 6, orderable: false}
+        ]
+       
 
     });
 
