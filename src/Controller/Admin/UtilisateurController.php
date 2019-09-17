@@ -77,7 +77,7 @@ class UtilisateurController extends Controller
             'method' => 'POST',
             'action' => $this->generateUrl('create_user')
         ))->handleRequest($request);
-        if ($form->isSubmitted() && $request->isXmlHttpRequest()) {
+        if ($form->isSubmitted()) {
             $newPassword = Fonctions::generatePassword();
             try {
 

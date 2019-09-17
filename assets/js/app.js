@@ -27,6 +27,7 @@ require('../css/app.css');
     require ('../img/photo-deco.png');
 
     require('./jquery.ajaxloader');
+    require('./bootstrap.datepicker.1.6.min');
 
 /**
  * get form user edit
@@ -35,6 +36,8 @@ $('#btn-dismiss').click(function (e) {
 console.log("log");
 $('#flash').fadeToggle("slow");
 })
+
+$('.js-datepicker').datepicker();
 
 
 
