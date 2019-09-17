@@ -30,7 +30,7 @@ class DossierRepository extends ServiceEntityRepository
     {
         $sql = $count?' SELECT COUNT(d.`id`) AS record ' : 'SELECT 
                     d.`id`,
-                    d.`libelle` AS reference,
+                    d.`reference_dossier` AS reference,
                     d.`nom_dossier` AS nom ,
                     c.`libelle` AS categorie,
                     r.`libele` AS entite,
