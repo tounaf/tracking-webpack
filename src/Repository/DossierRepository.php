@@ -46,7 +46,7 @@ class DossierRepository extends ServiceEntityRepository
                 $sqlWhere[] = " d.`nom_dossier` LIKE '%".addslashes($data->getNom())."%'";
             }
             if ($data->getReference() != '') {
-                $sqlWhere[] = " d.`libelle` LIKE '%".addslashes($data->getReference())."%'";
+                $sqlWhere[] = " d.`reference_dossier` LIKE '%".addslashes($data->getReference())."%'";
             }
             if ($data->getCategorie() != '') {
                 $sqlWhere[] = " c.`libelle` LIKE '%".addslashes($data->getCategorie())."%'";
