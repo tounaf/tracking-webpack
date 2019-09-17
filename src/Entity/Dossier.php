@@ -511,9 +511,6 @@ class Dossier
      */
     public function setNumerDosseier()
     {
-//        dump($this->getId());
-//        dump($this->id);
-//        dump(str_pad($this->id,4,'0',STR_PAD_LEFT ));die;
         $this->referenceDossier = $this->raisonSocial?$this->raisonSocial->getLibele().'-'.str_pad($this->id,4,'0',STR_PAD_LEFT ):str_pad($this->id,4,'0',STR_PAD_LEFT );
     }
 
