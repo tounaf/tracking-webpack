@@ -160,7 +160,7 @@ $('body').on('click', '#modalCreateIntervenant', function (e) {
  //   main.ajaxloader('show');
     var route = $(this).data('route');
     var title = $(this).data('title');
-    var url = Routing.generate(route, {}, true);
+    var url = Routing.generate(route);
    // var convenu = $('#intervenant_convenu').val();
     //console.log(convenu);
     $.get(url,function (response) {
@@ -184,6 +184,38 @@ $('body').on('keyup', '#intervenant_restePayer', function(e){
            $("#intervenant_statutIntervenant").val("Soldé");
        }
     });
+/*
+$('body').on('change', '#intervenant_devise', function(e){
+        e.preventDefault();
+        console.log("devise");
+       var devise = $("#intervenant_devise").text();
+       console.log(devise);
+           $("#devise2").val(devise);
+
+           $("#devise1").val(devise);
+
+    }); */
+//after change on select devise, displaying devise on another devise
+$('body').on('change', '#intervenant_devise', function(e){
+        var str = "";
+        $( "#intervenant_devise option:selected" ).each(function() {
+            str += $( this ).text() + " ";
+        });
+        $( "#devise2" ).val( str );
+        $( "#devise1" ).val( str );
+    }).trigger("change");
+
+//after loading modal, chargement du devise selon le type par defaut
+$("#modalPassword").on('shown.bs.modal', function(){
+    console.log("afterloading modal");
+    var str = "";
+    $( "#intervenant_devise option:selected" ).each(function() {
+        str += $( this ).text() + " ";
+    });
+    $( "#devise2" ).val( str );
+    $( "#devise1" ).val( str );
+});
+
     /*$("input").keyup(function(){
         $("input").css("background-color", "pink");
     });*/
@@ -193,11 +225,13 @@ $('body').on('keyup', '#intervenant_restePayer', function(e){
  */
 $('body').on('click', '.btn-edit', function (e) {
     e.preventDefault();
+
    // main.ajaxloader('show');
     var id = $(this).data('id');
+    console.log("edit"+id);
     var route = $(this).data('route');
     var title = $(this).data('title');
-    var url = Routing.generate(route,{'id':id}, true)
+    var url = Routing.generate(route,{'id':id})
     $.get(url,function (response) {
         var elt = $('#exampleModalLongTitle');
         if (response.status == 403) {

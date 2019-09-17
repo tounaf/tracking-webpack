@@ -162,6 +162,7 @@ class IntervenantController extends Controller
                 $message['status'] = 500;
                 $message['type'] = 'danger';
             }
+            return $this->redirectToRoute('core_litige');
             return $response->setData($message);
         }
 

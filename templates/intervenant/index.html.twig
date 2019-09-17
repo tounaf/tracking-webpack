@@ -4,7 +4,7 @@
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('intervenant') }}
-   {#<link rel="stylesheet" href="https://cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css" />#}
+    {#<link rel="stylesheet" href="https://cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css" />#}
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
@@ -12,38 +12,52 @@
 {% endblock %}
 
 {% block body %}
-    <br>
-    {% include '_flash.html.twig' %}
-    <div>
-        <div class="col-xs-12">
-            <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
-                <button id="modalCreateIntervenant" class="btn badge-success" data-route="intervenant_new" data-title="{{ 'label.edit.create'|trans }}"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
+<br>
+{% include '_flash.html.twig' %}
+<div class="card">
+    <div class="card-header">
+        Les intervenants
+    </div>
+    {%  include "/intervenant/_current-form.html.twig" %}
+    <div class="">
+        <div>
+            <div class="row card-header">
+                <div class="col-md-8">
+                    LES AVOCATS INTERVENUS SUR L'AFFAIRE
+                </div>
+                <div class="col-md-4">
+                    <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
+                        <button id="modalCreateIntervenant" class="btn badge-success" data-route="intervenant_new"
+                                data-title="{{ 'label.edit.create'|trans }}"><a class="text-light fa fa-plus-circle"
+                                                                                href="#">Ajouter</a></button>
+                    </div>
+                </div>
+                <div class="btn-group" role="group" aria-label="Button group">
+                    <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
+                </div>
+
             </div>
-            <br>
-        </div>
-        <div class="btn-group" role="group" aria-label="Button group">
-            <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
+
+            <div class="example-wrapper">
+                <table id="avocat-list" class="table">
+                    <thead>
+                    <tr>
+                        <th>{{ 'column.nameUser'|trans }}</th>
+                        <th>{{ 'column.nameConvenu'|trans }}</th>
+                        <th>{{ 'column.namePayer'|trans }}</th>
+                        <th>{{ 'column.nameReste'|trans }}</th>
+                        <th>{{ 'column.nameDevise'|trans }}</th>
+                        <th>{{ 'column.namePrestation'|trans }}</th>
+                        <th>{{ 'column.nameStatIntervenant'|trans }}</th>
+                        <th>{{ 'column.actions'|trans }}</th>
+                        {#<th>{{ 'column.actions'|trans }}</th>#}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
-    <div class="example-wrapper">
-    <table id="avocat-list" class="table">
-        <thead>
-        <tr>
-            <th>{{ 'column.nameUser'|trans }}</th>
-            <th>{{ 'column.nameConvenu'|trans }}</th>
-            <th>{{ 'column.namePayer'|trans }}</th>
-            <th>{{ 'column.nameReste'|trans }}</th>
-            <th>{{ 'column.nameDevise'|trans }}</th>
-            <th>{{ 'column.namePrestation'|trans }}</th>
-            <th>{{ 'column.nameStatIntervenant'|trans }}</th>
-            <th>{{ 'column.actions'|trans }}</th>
-            {#<th>{{ 'column.actions'|trans }}</th>#}
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-</div>
     {% include '/Admin/Popup/modal.html.twig' %}
-{% endblock %}
+    {% endblock %}

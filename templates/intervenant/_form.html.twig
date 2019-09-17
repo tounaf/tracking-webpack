@@ -1,13 +1,27 @@
-{{ form_start(form)  }}
+{{ form_start(form) }}
 <div class="row">
-
-    <div class="col-md-6">
-
-        <div class="card">
-            <div class="card-body">
-
-                <div class="col-md-6">
-                    {{ form_row(form.user) }}
+    <div class="card">
+        <div class="card-header">
+            AVOCAT EN CHARGE DE L'AFFAIRE
+        </div>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.user)}}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="adresse">ADRESSE</label>
+                    <input type="text" class="form-control" id="adresse" placeholder="adresse">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="email">EMAIL</label>
+                    <input type="text" class="form-control" id="email" placeholder="adresse">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="telephone">TELEPHONE</label>
+                    <input type="text" class="form-control" id="telephone" placeholder="adresse">
                 </div>
             </div>
         </div>
@@ -17,23 +31,35 @@
             HONORAIRES
         </div>
         <div class="card-body">
-            <div class="row">
 
-                <div class="col-md-6">
+            <div class="form-row">
+                <div class="form-group col-md-4">
                     {{ form_row(form.prestation) }}
                 </div>
-                <div class="col-md-6">
+                <div class="form-group col-md-4">
                     {{ form_row(form.convenu) }}
                 </div>
-                <div class="col-md-6">
+                <div class="form-group col-md-3">
                     {{ form_row(form.devise) }}
                 </div>
-                <div class="col-md-6">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
                     {{ form_row(form.payer) }}
                 </div>
-                <div class="col-md-6">
+                <div class="form-group col-md-2">
+                    <label for="devise">Devise</label>
+                    <input type="text"  class="form-control" id="devise1">
+                </div>
+                <div class="form-group col-md-3">
                     {{ form_row(form.restePayer) }}
                 </div>
+                <div class="form-group col-md-2">
+                    <label for="devise">Devise</label>
+                    <input type="text" class="form-control" id="devise2">
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6" hidden>
                     {{ form_row(form.statutIntervenant) }}
                 </div>
@@ -42,7 +68,7 @@
     </div>
 </div>
 <div class="modal-footer">
-    <input type="button" data-dismiss="modal" id="cancel" class="btn btn-dark" value="{{ 'label.cancel'|trans }}" />
-    <input type="submit" id="saveCreateUser" class="btn btn-danger" value="{{ 'label.save'|trans }}" />
+    <input type="button" data-dismiss="modal" id="cancel" class="btn btn-dark" value="{{ 'label.cancel'|trans }}"/>
+    <input type="submit" id="saveCreateUser" class="btn btn-danger" value="{{ 'label.save'|trans }}"/>
 </div>
 {{ form_end(form) }}
