@@ -126,9 +126,15 @@ class Dossier
      */
     private $devise;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SubDossier", mappedBy="dossier", cascade={"persist","remove","refresh"})
+     */
+    private $subDossiers;
+
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
+        $this->subDossiers = new ArrayCollection();
     }
 
 
@@ -555,6 +561,37 @@ class Dossier
     public function setDevise(?Devise $devise): self
     {
         $this->devise = $devise;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SubDossier[]
+     */
+    public function getSubDossiers(): Collection
+    {
+        return $this->subDossiers;
+    }
+
+    public function addSubDossier(SubDossier $subDossier): self
+    {
+        if (!$this->subDossiers->contains($subDossier)) {
+            $this->subDossiers[] = $subDossier;
+            $subDossier->setDossier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubDossier(SubDossier $subDossier): self
+    {
+        if ($this->subDossiers->contains($subDossier)) {
+            $this->subDossiers->removeElement($subDossier);
+            // set the owning side to null (unless already changed)
+            if ($subDossier->getDossier() === $this) {
+                $subDossier->setDossier(null);
+            }
+        }
 
         return $this;
     }

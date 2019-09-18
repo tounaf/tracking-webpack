@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Dossier;
 use App\Entity\DossierSearch;
+use App\Entity\SubDossier;
 use App\Form\DossierSearchType;
 use App\Form\DossierType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -69,7 +70,37 @@ class DossierController extends Controller
             ));
         }
         return $this->render('dossier/dossier.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'dossier' => $dossier
+        ));
+    }
+
+    private function createDeleteForm($subDossier)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('delete_sub_dossier', array('id' => $subDossier->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+            ;
+    }
+
+    /**
+     * @Route("/sub-dossier/delete/{id}", name="delete_sub_dossier", options={"expose"=true})
+     * @param Request $request
+     * @param SubDossier|null $subDossier
+     */
+    public function deleteSubDossier(Request $request, SubDossier $subDossier = null)
+    {
+        $form = $this->createDeleteForm($subDossier);
+        $form->handleRequest($request);
+
+        if ($subDossier) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($subDossier);
+            $em->flush();
+        }
+        return new JsonResponse(array(
+            'message' => "suppression ok"
         ));
     }
     /**
@@ -94,6 +125,10 @@ class DossierController extends Controller
             $dossier->setAlerteDate(new \DateTime($alert))->setDateLitige(new \DateTime($dateLitige))->setEcheance(new \DateTime($echeance));
             try {
                 $em->persist($dossier);
+                foreach ($dossier->getSubDossiers() as $subDossier){
+                    $subDossier->setDossier($dossier);
+                    $em->persist($subDossier);
+                }
                 $em->flush();
                 $this->session->getFlashBag()->add('success',$this->trans->trans('label.create.success'));
             } catch (\Exception $exception) {
@@ -127,6 +162,10 @@ class DossierController extends Controller
             if ($form->isSubmitted()) {
                 try {
 
+                    foreach ($dossier->getSubDossiers() as $subDossier){
+                        $subDossier->setDossier($dossier);
+                        $this->getDoctrine()->getManager()->persist($subDossier);
+                    }
                     $this->getDoctrine()->getManager()->flush();
                     $this->session->getFlashBag()->add('success', $this->trans->trans('label.edit.success'));
 
@@ -135,7 +174,7 @@ class DossierController extends Controller
                 }
             }
         }
-        return $this->redirectToRoute('render_edit_dossier', array('id' => $id));
+        return $this->redirectToRoute('render_edit_dossier', array('id' => $id, 'dossier' => $dossier));
     }
 
     /**

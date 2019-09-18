@@ -93,6 +93,62 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
+                        {#<div class="col-md-12">#}
+                            {#{{ form_widget(form.subDossiers.vars.prototype.libelle) }}#}
+                        {#</div>#}
+                        <div class="col-md-12">
+                            <div class="well">
+                                <a href="#" id="add_category" class="btn btn-success pull-right">Ajouter</a>
+                                {{ form_row(form.subDossiers) }}
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-responsive-sm">
+                                <thead>
+                                <th>
+                                    Numéro dossier
+                                </th>
+                                <th>
+                                    Libellé
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                                </thead>
+                                <tbody>
+
+                                {% if dossier is defined %}
+                                    {% for subDossier in dossier.subDossiers %}
+                                        <tr>
+                                            <td>
+                                                {{ subDossier.numeroSubDossier }}
+                                            </td>
+                                            <td>
+
+                                                {{ subDossier.libelle }}
+                                            </td>
+                                            <td style="width:15%; text-align: center; padding-right: 8px !important;">
+
+                                                <button  data-target="#modalPassword" data-title="{{ 'label.edit.create'|trans }}" data-route="edit_user" class="btn btn-link text-danger btn-edit" data-id="{{ subDossier.id }}" type="button"><i class="fa fa-edit"></i></button>
+                                                <button  data-target="#modalPassword" data-title="{{ 'label.delete'|trans }}" data-route="delete_sub_dossier" class="btn btn-link text-danger btn-remove" data-id="{{ subDossier.id }}" type="button"><i class="fa fa-trash-o"></i></button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
                         <div class="col-md-6">
                             {{ form_row(form.piecesJointes) }}
                         </div>
