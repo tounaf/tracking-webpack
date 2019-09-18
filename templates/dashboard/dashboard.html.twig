@@ -4,6 +4,7 @@
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('user') }}
+    
 {% endblock %}
 {% block body %}
 
@@ -37,4 +38,5 @@
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('user') }}
+    {{ encore_entry_script_tags('listingtable') }}
 {% endblock%}

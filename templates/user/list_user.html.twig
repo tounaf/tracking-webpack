@@ -7,26 +7,12 @@
     </div>
     <div class="card-body">
         {% include '_flash.html.twig' %}
-        <div class="userList-bloc">
-            <!-- <div class="search-bloc search-user-bloc">
-                <div class="form-bloc standard-form">
-                    <form action="#">
-                        <div class="form-group" role="group">
-                            <label class="form-label" for="search_box">Rechercher :</label>
-                            <input type="text" class="form-control" placeholder="Recherche utilisateur" id="search_box">
-                        </div>
-                        <span class="fxFlex"></span>
-                        <div class="btn-group" role="group">
-                            <button id="showModalCreate" class="btn btn-success" data-title="{**{ 'label.edit.create'|trans }}" data-route="create_user"> <i class="icon-plus-circle"></i><span>Ajouter</span></button>
-                        </div>
-                    </form>
-                </div>
-            </div> -->
+        <div class="listing-bloc relative-bloc">
             <div class="btn-group wrap-btn">
-                <button id="showModalCreate" class="btn btn-success" data-title="{**{ 'label.edit.create'|trans }}" data-route="create_user"> <i class="icon-plus-circle"></i><span>Ajouter</span></button>
+                <button id="showModalCreate" class="btn btn-success" data-title="{{ 'label.edit.create'|trans }}" data-route="create_user"> <i class="icon-plus-circle"></i><span>Ajouter</span></button>
             </div>
             <div class="table-responsive">
-                <table id="listAdmin" class="table">
+                <table id="listUser" class="table table-striped">
                     <thead>
                         <tr>
                             <th><span>Nom</span></th>
@@ -47,9 +33,9 @@
                             <td>{{ user.email }}</td>
                             <td>{{ user.phoneNumber }}</td>
                             <td>{{ user.fonction }}</td>
-                            <td style="width:15%; text-align: center; padding-right: 8px !important;">
-                                <button  data-target="#modalPassword" data-title="{{ 'label.edit.create'|trans }}" data-route="edit_user" class="btn btn-link text-danger btn-edit" data-id="{{ user.id }}" type="button"><i class="fa fa-edit"></i></button>
-                                <button  data-target="#modalPassword" data-title="{{ 'label.delete'|trans }}" data-route="delete_user" class="btn btn-link text-danger btn-remove" data-id="{{ user.id }}" type="button"><i class="fa fa-trash-o"></i></button>
+                            <td class="actions">
+                                <button  data-target="#modalPassword" data-title="{{ 'label.edit.create'|trans }}" data-route="edit_user" class="btn-edit" data-id="{{ user.id }}" type="button"><i class="icon-edit"></i></button>
+                                <button  data-target="#modalPassword" data-title="{{ 'label.delete'|trans }}" data-route="delete_user" class="btn-remove" data-id="{{ user.id }}" type="button"><i class="icon-trash"></i></button>
                             </td>
                         </tr>
                     {% endfor %}

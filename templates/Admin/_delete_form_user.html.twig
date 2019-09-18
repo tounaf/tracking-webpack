@@ -1,10 +1,10 @@
 {#{% form_theme form_delete 'bootstrap_4_layout.html.twig' %}#}
 {{ form_start(form_delete, {'attr': {'id': 'formCreateUser','class': 'form-horizontale fos_user_registration_register'}}) }}
     <div class="modal-body">
-        {{ 'label.confirmation.delete'|trans }}
+        <p class="text-center">{{ 'label.confirmation.delete'|trans }}</p>
     </div>
-    <div class="modal-footer">
-        <input type="submit" data-dismiss="modal" id="cancel" class="btn btn-dark" value="{{ 'label.cancel'|trans }}" />
-        <input type="submit" id="deleteUser" class="btn btn-danger" value="{{ 'button.delete'|trans }}" />
+    <div class="btns-group justify-content-center">
+        <input type="submit" data-dismiss="modal" id="cancel" class="btn btn-default" value="{{ 'label.cancel'|trans }}" />
+        <input type="submit" id="deleteUser" class="btn btn-primary" value="{{ 'button.delete'|trans }}" />
     </div>
 {{ form_end(form_delete) }}
