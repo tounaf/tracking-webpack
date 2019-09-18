@@ -66,6 +66,10 @@
 	vertical-align: middle;
 	a {
 		text-decoration: none;
+		&:hover, &:focus {
+			outline: none;
+			text-decoration: none;
+		}
 	}
 	i {
 		font-size: 14px;

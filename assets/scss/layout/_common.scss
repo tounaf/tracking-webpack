@@ -38,6 +38,76 @@ button {
     .form-group {
         margin-bottom: 25px;
         position: relative;
+        .error-text {
+            color: #f00;
+            font-size: 11px;
+            font-style: italic;
+            line-height: 100%;
+        }
+        select {
+            background:transparent url('../img/arrow-down.svg') left top no-repeat;
+            background-size: auto 6px;
+            background-position: calc(100% - 10px) 12px;
+            padding: 0 30px 3px 0;
+        }
+        .form-check {
+            overflow: hidden;
+            padding: 0;
+            label {
+                color: $grey;
+                line-height: 125%;
+                padding-left: 25px;
+                text-transform: none;
+            }
+            .form-check-input {
+                position: absolute;
+                left: -9999px;
+                line-height: 0;
+                opacity: 0;
+                width: 0; height: 0;
+                &:not(:checked), &:checked {
+                    + label {
+                        position: relative;
+                        padding-left: 1.95em;
+                        cursor: pointer;
+                        &:before {
+                            background: #fff;
+                            border: 1px solid $grey;
+                            content: '';
+                            position: absolute;
+                            left: 0; top: 0;
+                            width: 16px; height: 16px;
+                            z-index: 1;
+                        }
+                        &:after {
+                            background-color: $grey;
+                            content: '';
+                            position: absolute;
+                            top: 4px; left: 4px;
+                            transition: all .2s;
+                            width: 8px; height: 8px;
+                            z-index: 1;
+                        }
+                    }
+                }
+                &:not(:checked) {
+                    + label {
+                        &:after {
+                            opacity: 0;
+                            transform: scale(0);
+                        }
+                    }
+                }
+                &:checked {
+                    + label {
+                        &:after {
+                            opacity: 1;
+                            transform: scale(1);
+                        }
+                    }
+                }
+            }
+        }
     }
     .form-label {
         font-style: normal;
@@ -50,11 +120,19 @@ button {
         color: $grey;
         font-size: 14px;
         font-style: italic;
+        height: 31px;
         &:focus {
             border-color: $greyC;
             box-shadow: none;
         }
+        &.error-input  {
+            border-color: #f00;
+        }
     }
+    
+
+ 
+
     // auto fill in chrome
     input:-webkit-autofill, input:-webkit-autofill:hover,  input:-webkit-autofill:focus,
     textarea:-webkit-autofill, textarea:-webkit-autofill:hover, textarea:-webkit-autofill:focus,
@@ -77,11 +155,23 @@ button {
         font-size: 14px;
         text-transform: uppercase;
     }
+    .form-group {
+        font-size: 0;
+        label {
+            color: $red;
+            font-size: 14px;
+            line-height: 100%;
+            margin-bottom: 0;
+            text-transform: uppercase;
+        }
+    }
     .form-control {
         border: none;
         border-bottom: 1px solid $greyF;
-        height: 30px;
         padding: 0 0 3px;
+        &:focus {
+            border-color: $greyF;
+        }
     }
 }
 
@@ -178,7 +268,9 @@ button {
 /* modal */
 .modal  {
     .modal-dialog {
-
+        @include min(576px) {
+            max-width: 640px;
+        }
     }
     .modal-header {
         align-items: flex-start;
@@ -195,19 +287,41 @@ button {
             text-align: center;
         }
         .close {
+            font-size: 16px;
+            line-height: 16px;
             margin: 0;
             padding: 0;
             position: absolute;
             right: 15px;
             top: 15px;
             z-index: 1;
+            i {
+                vertical-align: middle;
+            }
         }
     }
-    .modal-body {}
-    .btn-group {
+    .modal-content {
+        border-color: $greyF;   
+    }
+    .modal-body {
+        padding: 15px;
+    }
+    .btns-group {
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         padding-top: 5px;
+        .btn {
+            margin: 0 15px;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+    .form-group {
+        margin-bottom: 25px;
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 }
 
@@ -256,9 +370,7 @@ button {
     align-items: flex-end;
     justify-content: space-between;
 }
-.userList-bloc {
-    position: relative;
-    z-index: 0;
+.listing-bloc {
     .wrap-btn {
         position: absolute;
         top: 6px;
@@ -303,14 +415,17 @@ button {
     }
 }
 
-.table-responsive {}
+
+.table-responsive {
+    .table {
+        min-width: 768px;
+    }
+}
 .dataTable {
     thead {
         th {
             background-color: $red;
             border-bottom: none;
-            color: #fff;
-            font-size: 14px;
         }
         .sorting_asc {
             &:before, &:after {
@@ -319,9 +434,22 @@ button {
             }
         }
     }
+    
     th, td {
-        padding: 9px 15px;
+        border-top: none;
         font-weight: 400;
+    }
+    th {
+        color: #fff;    
+        font-size: 14px;
+        padding: 10px 10px 9px;
+        vertical-align: middle;
+    }
+    td {
+        color: $grey;
+        font-size: 12px;
+        padding: 9px 10px;
+        vertical-align: middle;
     }
     .sorting, .sorting_asc, .sorting_desc {
         span {
@@ -364,6 +492,30 @@ button {
             }
         }
     }
+    .actions {
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+    button {
+        background: none;
+        border: none;
+        line-height: 100%;
+        padding: 2px 5px;
+        i {
+            font-size: 16px;
+        }
+    }
+    .btn-edit {
+        i {
+            color: $green;
+        }
+    }
+    .btn-remove {
+        i {
+            color: $red;
+        }
+    }
 }
 table {
     &.dataTable {
@@ -393,4 +545,40 @@ table {
         }
     }
 }
+div.dataTables_wrapper {
+    div.dataTables_paginate {
+        margin-top: 15px;
+        ul.pagination {
+            margin: 0;
+        }
+    }
+}
+.dataTables_paginate {
+    .pagination {
+
+    }
+    .page-link {
+        border-color: $greyC;
+        font-size: 12px;
+        text-decoration: none;
+        &:focus {
+            box-shadow: none;
+            outline: none;
+        }
+    }
+    .page-item {
+        &:first-child, &:last-child {
+            .page-link {
+                border-radius: 0;
+            }
+        }
+        &.active {
+            .page-link {
+                background-color: $red;
+                border-color: $red;
+            }
+        }
+    }   
+}
+
 

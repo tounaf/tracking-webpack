@@ -94,9 +94,18 @@ body {
     flex: 1 1 0%;
 }
 // btns
+.btns-group {
+    .btn {
+        flex: 0 1 auto;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
 .btn {
     border: none;
     @include browserCss('border-radius', 3px);
+    color: #fff;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
@@ -107,9 +116,11 @@ body {
     white-space: normal;
     @include min(640px) {
         white-space: nowrap;
+        min-width: 180px;
     }
     &:hover {
         @include browserCss('box-shadow', none);
+        color: #fff;
         text-decoration: none;
         span {
             text-decoration: none;
@@ -130,12 +141,10 @@ body {
         font-size: 16px;
         margin-right: 5px;
         vertical-align: middle;
-    }
+    }  
 }
 .btn-primary {
     background-color: $red;
-    min-width: 180px;
-    
     &:hover {
         background-color: $redDark;
     }
@@ -146,14 +155,17 @@ body {
             @include browserCss('box-shadow', none);
         }
     }
-}
-.btn-group {
-    .btn-primary {
-        flex: 0 1 auto;    
+    &.disabled, &:disabled {
+        background-color: $greyC;
     }
 }
+
 .btn-default {
-    
+    background-color: $grey;
+    &:hover {
+        background-color: $greyF;
+    }
+
 }
 .btn-success {
     background-color: #5cb85c;
@@ -162,8 +174,12 @@ body {
     }
 }
 
-// alert
+.relative-bloc {
+    position: relative;
+    z-index: 0;
+}
 
+// alert
 .alert {
     border-radius: 0;
     font-size: 14px;
