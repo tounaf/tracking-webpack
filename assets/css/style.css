@@ -5687,10 +5687,10 @@ a.close.disabled {
   }
 }
 
-.modal.show .modal-dialog {
+/*.modal.show .modal-dialog {
   -webkit-transform: none;
   transform: none;
-}
+}*/
 
 .modal-dialog-scrollable {
   display: -ms-flexbox;
@@ -5772,10 +5772,10 @@ a.close.disabled {
   opacity: 0;
 }
 
-.modal-backdrop.show {
+/*.modal-backdrop.show {
   opacity: 0.5;
 }
-
+*/
 .modal-header {
   display: -ms-flexbox;
   display: flex;
