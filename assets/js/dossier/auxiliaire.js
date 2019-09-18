@@ -72,17 +72,14 @@ $(document).ready(function () {
     });
     function editRow(data, type, row) {
         data = ' <button  data-target="#modalPassword" data-title="AJOUT/MODIFICATION" data-route="auxiliaire_edit" class="btn btn-link text-danger btn-edit" data-id="'+row.id+'" type="button"><i class="fa fa-edit"></i></button>\n' +
-            '  <button  data-target="#modalPassword" data-title="SUPPRESSION" data-route="auxiliare_delete" class="btn btn-link text-danger btn-remove" data-id="'+row.id+'" type="button"><i class="fa fa-trash-o"></i></button>';
-
+            '  <button  data-target="#modalPassword" data-title="SUPPRESSION" data-route="auxiliaires_delete" class="btn btn-link text-danger btn-removeAuxi" data-id="'+row.id+'" type="button"><i class="fa fa-trash-o"></i></button>';
         return data;
     }
 
     // var data  = '<div class="btn-perso" data-toggle="tooltip" data-original-title="Supprimer" data-title="'+row.thematic+'" data-id="'+row.id+'" onclick="deleteRow(this)"><i class="fa fa-remove text-red"></i></div>';
 });
-$('body').on('click', '.btn-remove', function (e) {
-    //    var id = table.row(this).id();
+$('body').on('click', '.btn-removeAuxi', function (e) {
     e.preventDefault();
-    var id = $(this).attr('id');
     //   main.ajaxloader('show');
     var route = $(this).data('route');
     var id = $(this).data('id');

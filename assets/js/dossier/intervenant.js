@@ -82,7 +82,6 @@ $(document).ready(function () {
 $('body').on('click', '.btn-remove', function (e) {
     //    var id = table.row(this).id();
     e.preventDefault();
-    var id = $(this).attr('id');
  //   main.ajaxloader('show');
     var route = $(this).data('route');
     var id = $(this).data('id');
