@@ -123,4 +123,102 @@ class AuxiliairesController extends Controller
     }
 
 
+    /**
+     * @Route("/new_auxiliaires", name="auxiliaires_new", methods={"GET","POST"}, options={"expose"=true})
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function new(Request $request)
+    {
+        $auxiliaires = new Auxiliaires();
+        $form = $this->createForm(AuxiliairesType::class, $auxiliaires, [
+            'method' => 'POST',
+            'action' => $this->generateUrl('auxiliaires_new')
+        ])->handleRequest($request);
+
+        $response = new JsonResponse();
+        $message = [
+            'status' => 200,
+            'message' => $this->translator->trans('label.create.success'),
+            'type' => 'success'
+        ];
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try{
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($auxiliaires);
+                $entityManager->flush();
+                $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
+                return $this->redirectToRoute('core_litige');
+            }
+            catch (\Exception $exception){
+                $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.error.create'));
+                return $this->redirectToRoute('core_litige');
+                $message['message'] = $exception->getMessage();
+                $message['status'] = 500;
+                $message['type'] = 'danger';
+            }
+            return $this->redirectToRoute('core_litige');
+            return $response->setData($message);
+        }
+
+        if($request->isXmlHttpRequest()){
+            return $this->render('auxiliaires/_form.html.twig', array(
+                'formAuxi' => $form->createView(),
+            ));
+        }else{
+            // return new JsonResponse(array('status' => 'Error'),400);
+            throw new NotFoundHttpException();
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @Route("/{id}/edit", name="auxiliaires_edit", options={"expose"=true}, methods={"GET","POST"})
+     * @ParamConverter("auxiliaires", class="App\Entity\Auxiliaires")
+     * @param Auxiliaires|null $auxiliaires
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function edit(Request $request, Auxiliaires $auxiliaires = null)
+    {
+        $id = $request->get('id');
+        $response = new JsonResponse();
+        if($auxiliaires){
+
+            $form = $this->createForm(AuxiliairesType::class, $auxiliaires, [
+                'method' => 'POST',
+                'action' => $this->generateUrl('auxiliaires_edit', ['id' => $id])
+            ])->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                try{
+                    $this->getDoctrine()->getManager()->flush();
+                    $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success'));
+                    return $this->redirectToRoute('core_litige');
+                }catch (\Exception $exception)
+                {
+                    $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.edit.error'));
+                    return $this->redirectToRoute('core_litige');
+                }
+            }
+            if($request->isXmlHttpRequest()){
+                return $this->render('auxiliaires/_form.html.twig', array(
+                    'formAuxi' => $form->createView(),
+                ));
+            }else{
+                // return new JsonResponse(array('status' => 'Error'),400);
+                throw new NotFoundHttpException();
+            }
+        }
+        else {
+            $response->setData(array(
+                'message' => $this->translator->trans('label.not.found'),
+                'status' => 403,
+                'type' => 'danger'
+            ));
+            return $response;
+        }
+    }
+
+
 }

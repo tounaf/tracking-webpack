@@ -68,7 +68,7 @@ class AuxiliairesType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Auxiliaires::class,
-            'remove_field' => true,
+            'remove_field' => false,
         ]);
     }
 }

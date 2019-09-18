@@ -71,7 +71,7 @@ $(document).ready(function () {
         },
     });
     function editRow(data, type, row) {
-        data = ' <button  data-target="#modalPassword" data-title="AJOUT/MODIFICATION" data-route="auxiliaire_edit" class="btn btn-link text-danger btn-edit" data-id="'+row.id+'" type="button"><i class="fa fa-edit"></i></button>\n' +
+        data = ' <button  data-target="#modalPassword" data-title="AJOUT/MODIFICATION" data-route="auxiliaires_edit" class="btn btn-link text-danger btn-editAuxi" data-id="'+row.id+'" type="button"><i class="fa fa-edit"></i></button>\n' +
             '  <button  data-target="#modalPassword" data-title="SUPPRESSION" data-route="auxiliaires_delete" class="btn btn-link text-danger btn-removeAuxi" data-id="'+row.id+'" type="button"><i class="fa fa-trash-o"></i></button>';
         return data;
     }
@@ -145,15 +145,13 @@ $(function() {
 /**
  * get form on create
  */
-$('body').on('click', '#modalCreateAuxiliare', function (e) {
+$('body').on('click', '#modalCreateAuxi', function (e) {
     e.preventDefault();
-    console.log("create Intervention");
+    console.log("create Auxiliaire");
     //   main.ajaxloader('show');
     var route = $(this).data('route');
     var title = $(this).data('title');
     var url = Routing.generate(route);
-    // var convenu = $('#intervenant_convenu').val();
-    //console.log(convenu);
     $.get(url,function (response) {
         var elt = $('#exampleModalLongTitle');
         removeClassStartingWith(elt, 'alert');
@@ -164,15 +162,16 @@ $('body').on('click', '#modalCreateAuxiliare', function (e) {
         //main.ajaxloader('hide');
     })
 });
+
 $('body').on('keyup', '#auxiliaires_restePayer', function(e){
     e.preventDefault();
     console.log("reste");
-    var convenu = $("input#auxilaires_restePayer").val();
+    var convenu = $("input#auxiliaires_restePayer").val();
     console.log(convenu);
-    if (convenu > 0) {
+    if (convenu > 0){
         $("#auxiliaires_statutIntervenant").val("A Payer");
     } else {
-        $("#auxiliares_statutIntervenant").val("Soldé");
+        $("#auxiliaires_statutIntervenant").val("Soldé");
     }
 });
 /*
@@ -189,11 +188,11 @@ $('body').on('change', '#intervenant_devise', function(e){
 //after change on select devise, displaying devise on another devise
 $('body').on('change', '#auxiliaires_devise', function(e){
     var str = "";
-    $( "#auxilaires_devise option:selected" ).each(function() {
+    $( "#auxiliaires_devise option:selected" ).each(function() {
         str += $( this ).text() + " ";
     });
-    $( "#dvise2" ).val( str );
-    $( "#dvise1" ).val( str );
+    $( "#devise2Auxi" ).val( str );
+    $( "#devise1Auxi" ).val( str );
 }).trigger("change");
 
 //after loading modal, chargement du devise selon le type par defaut
@@ -203,8 +202,8 @@ $("#modalPassword").on('shown.bs.modal', function(){
     $( "#auxiliaires_devise option:selected" ).each(function() {
         str += $( this ).text() + " ";
     });
-    $( "#dvise2" ).val( str );
-    $( "#dvise1" ).val( str );
+    $( "#devise2Auxi" ).val( str );
+    $( "#devise1Auxi" ).val( str );
 });
 
 /*$("input").keyup(function(){
@@ -214,7 +213,7 @@ $("#modalPassword").on('shown.bs.modal', function(){
 /**
  * get form edit
  */
-$('body').on('click', '.btn-edit', function (e) {
+$('body').on('click', '.btn-editAuxi', function (e) {
     e.preventDefault();
 
     // main.ajaxloader('show');
