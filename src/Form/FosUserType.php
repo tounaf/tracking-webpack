@@ -53,6 +53,7 @@ class FosUserType extends AbstractType
                 'class' => 'App\Entity\Societe',
                 'label' => 'Société',
                 'choice_label' => 'libele',
+                'attr' => array('class' => 'custom-select'),
                 'required' => true,
                 'placeholder' => $this->trans->trans('label.choice.societe'),
                 'query_builder' => function(EntityRepository $repository) {
@@ -62,6 +63,7 @@ class FosUserType extends AbstractType
             ->add('fonction', EntityType::class, array(
                 'class' => Fonction::class,
                 'choice_label' => 'libele',
+                'attr' => array('class' => 'custom-select'),
                 'required' => true,
                 'placeholder' => $this->trans->trans('label.choose.fonction'),
                 'query_builder' => function(EntityRepository $repository) {
