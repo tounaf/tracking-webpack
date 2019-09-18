@@ -16,8 +16,11 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class DossierType extends AbstractType
 {
@@ -130,15 +133,21 @@ class DossierType extends AbstractType
                 'label' => $this->trans->trans('label.alerte'),
                 'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
             ))
-            //
-//            ->add('numeroDossier')
-//            ->add('libelle')
-//            //PJ
+//            //PJ Field to add file in pj
+            ->add('File', FileType::class,[
+                'label' => 'File',
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+                // make it optional so you don't have to re-upload the PDF file
+                // everytime you edit the Product details
+                'required' => false,
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+            ])
 
             ->add('piecesJointes', EntityType::class, array(
                 'class' => InformationPj::class,
                 'choice_label' => 'libelle',
-//                'data_class' =>
                 'mapped' => false
             ))
         ;

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -125,6 +125,12 @@ class Dossier
      * @ORM\ManyToOne(targetEntity="App\Entity\Devise")
      */
     private $devise;
+
+    protected $file;
+
+    private $directory;
+
+    private $pathUpload = '/public/pieces_jointes/litige';
 
     public function __construct()
     {
@@ -558,4 +564,33 @@ class Dossier
 
         return $this;
     }
-}
+
+    public function getFile(){
+        return $this->file;
+    }
+
+    public function setFile(UploadedFile $file = null){
+        $this->file = $file;
+    }
+
+    public function upload(){
+        // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
+        if (null === $this->file) {
+            return;
+        }
+
+    }
+
+    public function setDirectory($directory){
+        $this->directory = $directory;
+    }
+
+    public function getDirectory(){
+        return $this->directory;
+    }
+
+    public function getPathUpload(){
+        return $this->pathUpload;
+    }
+
+    }

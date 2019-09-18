@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class DossierController
@@ -126,7 +127,12 @@ class DossierController extends Controller
             $response = new JsonResponse();
             if ($form->isSubmitted()) {
                 try {
-
+                    $file = $form['File']->getData();
+                    $dossier->setDirectory($dossier->getPathUpload());
+                    $directory = $this->get('kernel')->getProjectDir() . $dossier->getPathUpload();
+                     if ($file instanceof UploadedFile && is_dir($directory)){
+                         $file->move($directory, $file->getClientOriginalName());
+                     }
                     $this->getDoctrine()->getManager()->flush();
                     $this->session->getFlashBag()->add('success', $this->trans->trans('label.edit.success'));
 
