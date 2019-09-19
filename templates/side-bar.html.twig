@@ -14,10 +14,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('list_user') }}">&nbsp;<i class="fa fa-users"></i> Gestion des utilisateurs</a>
                 </li>
+                {% if app.user.hasRole('ROLE_SUPERADMIN') %}
                 <li class="nav-item">
                     <a class="nav-link {% if isSociete is defined and isSociete == true %} active {% endif %}" href="{{ path('list_societe') }}">
                         &nbsp;<i class="fa fa-building-o"></i> Gestion des sociétés</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link {% if isFonction is defined and isFonction == true %} active {% endif %}" href="{{ path('list_fonction') }}">
                        &nbsp;<i class="fa fa-money"></i> Gestion des fonctions</a>
