@@ -558,7 +558,8 @@ div.dataTables_wrapper {
 
     }
     .page-link {
-        border-color: $greyC;
+        border-color: $grey;
+        color: $grey;
         font-size: 12px;
         text-decoration: none;
         &:focus {
@@ -576,6 +577,11 @@ div.dataTables_wrapper {
             .page-link {
                 background-color: $red;
                 border-color: $red;
+            }
+        }
+        &.disabled {
+            .page-link {
+                color: rgba(135, 135, 134, 0.5);
             }
         }
     }   

@@ -94,7 +94,7 @@ body {
     flex: 1 1 0%;
 }
 // btns
-.btns-group {
+.btn-group, .btns-group {
     .btn {
         flex: 0 1 auto;
         &:last-child {
