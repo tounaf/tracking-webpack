@@ -160,7 +160,6 @@ class DossierController extends Controller
             ))->handleRequest($request)
             ;
             $response = new JsonResponse();
-            dump("eto ks");die;
             if ($form->isSubmitted()) {
                 try {
 

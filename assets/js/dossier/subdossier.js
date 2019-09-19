@@ -116,7 +116,7 @@ $(document).ready(function () {
     // La fonction qui ajoute un lien de suppression d'une catégorie
     function addDeleteLink($prototype) {
         // Création du lien
-        var $deleteLink = $('<button href="#" class="btn btn-danger"><i class="fa fa-trash-o"></i>Supprimer</button>');
+        var $deleteLink = $('<button href="#" class="btn btn-danger remove-fild-sub-dossier"><i class="fa fa-trash-o"></i>Supprimer</button>');
 
         // Ajout du lien
         $prototype.append($deleteLink);
@@ -145,7 +145,9 @@ $(document).ready(function () {
         )
     })
     $('input[id^="dossier_subDossiers"]').parent().remove();
+    $('.remove-fild-sub-dossier').remove();
     $('input[id^="dossier_subDossiers"]').parent().children(0).hide();
     $('input[id^="dossier_subDossiers"]').hide();
+
 
 })
