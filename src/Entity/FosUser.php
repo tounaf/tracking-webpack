@@ -9,6 +9,8 @@
 namespace App\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BasUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -66,6 +68,17 @@ class FosUser extends BasUser
      * @ORM\Column(name="actif",type="boolean",  nullable=true)
      */
     private $actif = true;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Dossier", mappedBy="userEnCharge")
+     */
+    private $dossiers;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->dossiers = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -205,6 +218,37 @@ class FosUser extends BasUser
     public function setEnable()
     {
         $this->enabled = $this->actif;
+    }
+
+    /**
+     * @return Collection|Dossier[]|null
+     */
+    public function getDossiers()
+    {
+        return $this->dossiers;
+    }
+
+    public function addDossier(Dossier $dossier): self
+    {
+        if (!$this->dossiers->contains($dossier)) {
+            $this->dossiers[] = $dossier;
+            $dossier->setUserEnCharge($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRaisonSocial(Dossier $dossier): self
+    {
+        if ($this->dossiers->contains($dossier)) {
+            $this->dossiers->removeElement($dossier);
+            // set the owning side to null (unless already changed)
+            if ($dossier->getUserEnCharge() === $this) {
+                $dossier->setUserEnCharge(null);
+            }
+        }
+
+        return $this;
     }
 
 }

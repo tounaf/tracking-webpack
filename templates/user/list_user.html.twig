@@ -27,7 +27,7 @@
                             <th>Email</th>
                             <th>Téléphone</th>
                             <th>Profil</th>
-                            <th>Action</th>
+                            <th>{{ 'column.actions'|trans }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,7 +42,7 @@
                             <td style="width:15%; text-align: center; padding-right: 8px !important;">
 
                                 <button  data-target="#modalPassword" data-title="{{ 'label.edit.create'|trans }}" data-route="edit_user" class="btn btn-link text-danger btn-edit" data-id="{{ user.id }}" type="button"><i class="fa fa-edit"></i></button>
-                                <button  data-target="#modalPassword" data-title="{{ 'label.delete.user'|trans }}" data-route="delete_user" class="btn btn-link text-danger btn-remove" data-id="{{ user.id }}" type="button"><i class="fa fa-trash-o"></i></button>
+                                <button  data-target="#modalPassword" data-title="{{ 'label.delete'|trans }}" data-route="delete_user" class="btn btn-link text-danger btn-remove" data-id="{{ user.id }}" type="button"><i class="fa fa-trash-o"></i></button>
                             </td>
                         </tr>
                     {% endfor %}

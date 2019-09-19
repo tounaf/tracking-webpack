@@ -13,3 +13,12 @@
 #search_box{
     display: none;
 }
+#listDossier th {
+    background-color:  #C80F2D;
+    color: #fff;
+    text-align: center;
+}
+
+.col-form-label {
+    display: none;
+}
