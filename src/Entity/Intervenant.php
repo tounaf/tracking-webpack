@@ -20,12 +20,6 @@ class Intervenant
      * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="intervenants")
      */
     private $devise;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\FosUser", inversedBy="intervenants")
-     */
-    private $user;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TypePrestation", inversedBy="intervenants")
      */
@@ -51,6 +45,26 @@ class Intervenant
      */
     private $statutIntervenant;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $nomPrenom;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $adresse;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $telephone;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -64,18 +78,6 @@ class Intervenant
     public function setDevise(?Devise $devise): self
     {
         $this->devise = $devise;
-
-        return $this;
-    }
-
-    public function getUser(): ?FosUser
-    {
-        return $this->user;
-    }
-
-    public function setUser(?FosUser $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }
@@ -136,6 +138,54 @@ class Intervenant
     public function setStatutIntervenant(string $statutIntervenant): self
     {
         $this->statutIntervenant = $statutIntervenant;
+
+        return $this;
+    }
+
+    public function getNomPrenom(): ?string
+    {
+        return $this->nomPrenom;
+    }
+
+    public function setNomPrenom(string $nomPrenom): self
+    {
+        $this->nomPrenom = $nomPrenom;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?int
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(int $telephone): self
+    {
+        $this->telephone = $telephone;
 
         return $this;
     }

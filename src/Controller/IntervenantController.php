@@ -68,10 +68,7 @@ class IntervenantController extends Controller
         foreach ($avocats as $avocat) {
             $output['data'][] = [
                 'id'=>$avocat->getId(),
-                'user' =>$avocat->getUser()?
-                    $avocat->getUser()->getLastname().' '.
-                    $avocat->getUser()->getName():''
-                ,
+                'nomPrenom' =>$avocat->getNomPrenom(),
                 'convenu' => $avocat->getConvenu(),
                 'payer' => $avocat->getPayer(),
                 'reste_payer' => $avocat->getRestePayer(),

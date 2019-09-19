@@ -69,17 +69,11 @@ class FosUser extends BasUser
      */
     private $actif = true;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Intervenant", mappedBy="User")
-     */
-    private $intervenants;
 
     public function __construct()
     {
         parent::__construct();
-        $this->intervenants = new ArrayCollection();
         $this->dossiers = new ArrayCollection();
-        $this->auxiliaires = new ArrayCollection();
     }
 
     /**
@@ -87,10 +81,6 @@ class FosUser extends BasUser
      */
     private $dossiers;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Auxiliaires", mappedBy="user")
-     */
-    private $auxiliaires;
     /**
      * @return int
      */
@@ -262,69 +252,8 @@ class FosUser extends BasUser
         return $this;
     }
 
-    /**
-     * @return Collection|Intervenant[]
-     */
-    public function getIntervenants(): Collection
-    {
-        return $this->intervenants;
-    }
-
-    public function addIntervenant(Intervenant $intervenant): self
-    {
-        if (!$this->intervenants->contains($intervenant)) {
-            $this->intervenants[] = $intervenant;
-            $intervenant->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIntervenant(Intervenant $intervenant): self
-    {
-        if ($this->intervenants->contains($intervenant)) {
-            $this->intervenants->removeElement($intervenant);
-            // set the owning side to null (unless already changed)
-            if ($intervenant->getUser() === $this) {
-                $intervenant->setUser(null);
-            }
-        }
-
-        return $this;
-    }
     public function __toString()
     {
         return $this->name;
-    }
-
-    /**
-     * @return Collection|Auxiliaires[]
-     */
-    public function getAuxiliaires(): Collection
-    {
-        return $this->auxiliaires;
-    }
-
-    public function addAuxiliaire(Auxiliaires $auxiliaire): self
-    {
-        if (!$this->auxiliaires->contains($auxiliaire)) {
-            $this->auxiliaires[] = $auxiliaire;
-            $auxiliaire->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAuxiliaire(Auxiliaires $auxiliaire): self
-    {
-        if ($this->auxiliaires->contains($auxiliaire)) {
-            $this->auxiliaires->removeElement($auxiliaire);
-            // set the owning side to null (unless already changed)
-            if ($auxiliaire->getUser() === $this) {
-                $auxiliaire->setUser(null);
-            }
-        }
-
-        return $this;
     }
 }

@@ -8,6 +8,7 @@ use App\Entity\Intervenant;
 use App\Entity\TypePrestation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -42,14 +43,21 @@ class IntervenantType extends AbstractType
                 'label'=> $this->trans->trans('column.nameDevise'),
                 'class' => Devise::class,
             ])
-            ->add('user', EntityType::class, [
-                'label'=> $this->trans->trans('column.nameUser'),
-                'class' => FosUser::class,
-            ])
             ->add('prestation',EntityType::class, array(
                 'label' => $this->trans->trans('label.titre.typePrestation'),
                 'class' => TypePrestation::class,
                 'choice_label' => 'libelle'))
+            ->add('nomPrenom')
+            ->add('adresse')
+            ->add('telephone', null, array(
+                'required' => true,
+                'attr' => array('maxlength' => 10, 'minlength' => 10),
+                'label' => $this->trans->trans('label.tel')
+            ))
+            ->add('email', EmailType::class, array(
+                'label' => $this->trans->trans('label.email'),
+                'required' => true
+            ))
         ;
         if ($options['remove_field']) {
             $builder
@@ -59,7 +67,10 @@ class IntervenantType extends AbstractType
                 ->remove('statutIntervenant')
                 ->remove('devise')
                 ->remove('prestation')
-                ->remove('user');
+                ->remove('nomPrenom')
+                ->remove('adresse')
+                ->remove('email')
+                ->remove('telephone');
         }
     }
 

@@ -21,7 +21,7 @@ $(document).ready(function () {
         "pageLength": 10,
         "orderable": true,
         "columns": [
-            {"data": "user"},
+            {"data": "nomPrenom"},
             {"data": "convenu"},
             {"data": "payer"},
             {"data": "reste_payer"},
