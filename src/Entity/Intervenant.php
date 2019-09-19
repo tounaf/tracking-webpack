@@ -65,6 +65,11 @@ class Intervenant
      */
     private $telephone;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Dossier", inversedBy="intervenants")
+     */
+    private $dossier;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -186,6 +191,18 @@ class Intervenant
     public function setTelephone(int $telephone): self
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getDossier(): ?Dossier
+    {
+        return $this->dossier;
+    }
+
+    public function setDossier(?Dossier $dossier): self
+    {
+        $this->dossier = $dossier;
 
         return $this;
     }

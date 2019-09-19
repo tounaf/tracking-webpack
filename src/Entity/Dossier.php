@@ -131,11 +131,17 @@ class Dossier
      */
     private $clotures;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Intervenant", mappedBy="dossier")
+     */
+    private $intervenants;
+
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
         $this->auxiliaires = new ArrayCollection();
         $this->clotures = new ArrayCollection();
+        $this->intervenants = new ArrayCollection();
     }
 
 
@@ -611,5 +617,36 @@ class Dossier
     public function __toString()
     {
         return $this->numeroDossier;
+    }
+
+    /**
+     * @return Collection|Intervenant[]
+     */
+    public function getIntervenants(): Collection
+    {
+        return $this->intervenants;
+    }
+
+    public function addIntervenant(Intervenant $intervenant): self
+    {
+        if (!$this->intervenants->contains($intervenant)) {
+            $this->intervenants[] = $intervenant;
+            $intervenant->setDossier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntervenant(Intervenant $intervenant): self
+    {
+        if ($this->intervenants->contains($intervenant)) {
+            $this->intervenants->removeElement($intervenant);
+            // set the owning side to null (unless already changed)
+            if ($intervenant->getDossier() === $this) {
+                $intervenant->setDossier(null);
+            }
+        }
+
+        return $this;
     }
 }
