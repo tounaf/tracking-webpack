@@ -80,6 +80,7 @@ class FosUser extends BasUser
         $this->dossiers = new ArrayCollection();
     }
 
+
     /**
      * @return int
      */
@@ -251,4 +252,8 @@ class FosUser extends BasUser
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

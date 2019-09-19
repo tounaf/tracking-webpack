@@ -20,7 +20,7 @@ $(document).ready(function () {
         "pageLength": 10,
         "orderable": true,
         "columns": [
-            {"data": "user"},
+            {"data": "nomPrenom"},
             {"data": "convenu"},
             {"data": "payer"},
             {"data": "reste_payer"},
@@ -150,7 +150,7 @@ $('body').on('click', '#modalCreateAuxi', function (e) {
     //   main.ajaxloader('show');
     var route = $(this).data('route');
     var title = $(this).data('title');
-    var url = Routing.generate(route);
+    var url = Routing.generate(route,{},true);
     $.get(url,function (response) {
         var elt = $('#exampleModalLongTitle');
         removeClassStartingWith(elt, 'alert');
@@ -245,3 +245,5 @@ $('body').on('click', '.btn-editAuxi', function (e) {
         }
     })
 })
+
+

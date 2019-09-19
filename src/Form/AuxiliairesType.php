@@ -8,6 +8,7 @@ use App\Entity\FosUser;
 use App\Entity\TypePrestation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -38,13 +39,20 @@ class AuxiliairesType extends AbstractType
             ))
             ->add('statutIntervenant')
             ->add('fonction')
+            ->add('nomPrenom')
+            ->add('adresse')
+            ->add('telephone', null, array(
+                'required' => true,
+                'attr' => array('maxlength' => 10, 'minlength' => 10),
+                'label' => $this->trans->trans('label.tel')
+            ))
+            ->add('email', EmailType::class, array(
+                'label' => $this->trans->trans('label.email'),
+                'required' => true
+            ))
             ->add('devise', EntityType::class, [
                 'label'=> $this->trans->trans('column.nameDevise'),
                 'class' => Devise::class,
-            ])
-            ->add('user', EntityType::class, [
-                'label'=> $this->trans->trans('column.nameUser'),
-                'class' => FosUser::class,
             ])
             ->add('prestation',EntityType::class, array(
                 'label' => $this->trans->trans('label.titre.typePrestation'),
@@ -60,7 +68,10 @@ class AuxiliairesType extends AbstractType
                 ->remove('devise')
                 ->remove('prestation')
                 ->remove('fonction')
-                ->remove('user');
+                ->remove('nomPrenom')
+                ->remove('adresse')
+                ->remove('email')
+                ->remove('telephone');
         }
     }
 

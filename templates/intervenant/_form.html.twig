@@ -7,21 +7,18 @@
         <div class="card-body">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    {{ form_row(form.user)}}
+                    {{ form_row(form.nomPrenom)}}
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="adresse">ADRESSE</label>
-                    <input type="text" class="form-control" id="adresse" placeholder="adresse">
+                    {{ form_row(form.adresse)}}
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="email">EMAIL</label>
-                    <input type="text" class="form-control" id="email" placeholder="adresse">
+                    {{ form_row(form.email)}}
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="telephone">TELEPHONE</label>
-                    <input type="text" class="form-control" id="telephone" placeholder="adresse">
+                    {{ form_row(form.telephone)}}
                 </div>
             </div>
         </div>

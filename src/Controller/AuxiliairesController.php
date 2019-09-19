@@ -64,10 +64,7 @@ class AuxiliairesController extends Controller
         foreach ($auxis as $auxi) {
             $output['data'][] = [
                 'id'=>$auxi->getId(),
-                'user' =>$auxi->getUser()?
-                    $auxi->getUser()->getLastname().' '.
-                    $auxi->getUser()->getName():''
-                ,
+                'nomPrenom' =>$auxi->getNomPrenom(),
                 'convenu' => $auxi->getConvenu(),
                 'payer' => $auxi->getPayer(),
                 'reste_payer' => $auxi->getRestePayer(),

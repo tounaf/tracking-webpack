@@ -13,34 +13,31 @@ require('../css/app.css');
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // const $ = require('jquery');
 
-    import $ from 'jquery';
-    import 'popper.js';
-    import 'bootstrap';
-    import 'bootstrap/dist/js/bootstrap.min';
-    import 'perfect-scrollbar';
-    import 'perfect-scrollbar/dist/perfect-scrollbar.min';
-    import '@coreui/coreui/dist/js/coreui.min';
-    import '@coreui/coreui-plugin-chartjs-custom-tooltips/js/custom-tooltips';
-    // require('main');
-    // import './main'
-    // import jQuery from 'jquery';
-    require ('../img/photo-deco.png');
+import $ from 'jquery';
+import 'popper.js';
+import 'bootstrap';
+import 'bootstrap/dist/js/bootstrap.min';
+import 'perfect-scrollbar';
+import 'perfect-scrollbar/dist/perfect-scrollbar.min';
+import '@coreui/coreui/dist/js/coreui.min';
+import '@coreui/coreui-plugin-chartjs-custom-tooltips/js/custom-tooltips';
+// require('main');
+// import './main'
+// import jQuery from 'jquery';
+require('../img/photo-deco.png');
 
-    require('./jquery.ajaxloader');
-    require('./bootstrap.datepicker.1.6.min');
+require('./jquery.ajaxloader');
+require('./bootstrap.datepicker.1.6.min');
 
 /**
  * get form user edit
  */
 $('#btn-dismiss').click(function (e) {
-console.log("log");
-$('#flash').fadeToggle("slow");
+    console.log("log");
+    $('#flash').fadeToggle("slow");
 })
 
 $('.js-datepicker').datepicker();
-
-
-
 
 
 /*
@@ -56,7 +53,6 @@ $('.js-datepicker').datepicker();
     "@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js";
     "js/mainPersMorale.js";
 */
-
 
 
 console.log($('.example-wrapper').text())

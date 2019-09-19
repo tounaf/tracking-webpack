@@ -1,4 +1,4 @@
-{{ form_start(formAuxi) }}
+{{ form_start(formAuxi)}}}
 {% if formAuxi is defined %}
     <div class="row">
         <div class="card">
@@ -8,21 +8,18 @@
             <div class="card-body">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        {{ form_row(formAuxi.user) }}
+                        {{ form_row(formAuxi.nomPrenom) }}
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="adresseAuxi">ADRESSE</label>
-                        <input type="text" class="form-control" id="adresseAuxi" placeholder="adresse">
+                        {{ form_row(formAuxi.adresse) }}
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="emailAuxi">EMAIL</label>
-                        <input type="text" class="form-control" id="emailAuxi" placeholder="adresse">
+                        {{ form_row(formAuxi.email) }}
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="telephoneAuxi">TELEPHONE</label>
-                        <input type="text" class="form-control" id="telephoneAuxi" placeholder="adresse">
+                        {{ form_row(formAuxi.telephone) }}
                     </div>
                 </div>
                 <div class="form-row">

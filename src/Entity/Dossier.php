@@ -135,12 +135,24 @@ class Dossier
      */
     private $auxiliaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cloture", mappedBy="dossier")
+     */
+    private $clotures;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Intervenant", mappedBy="dossier")
+     */
+    private $intervenants;
+
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
         $this->subDossiers = new ArrayCollection();
 
         $this->auxiliaires = new ArrayCollection();
+        $this->clotures = new ArrayCollection();
+        $this->intervenants = new ArrayCollection();
     }
 
 
@@ -624,6 +636,72 @@ class Dossier
             // set the owning side to null (unless already changed)
             if ($subDossier->getDossier() === $this) {
                 $subDossier->setDossier(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cloture[]
+     */
+    public function getClotures(): Collection
+    {
+        return $this->clotures;
+    }
+
+    public function addCloture(Cloture $cloture): self
+    {
+        if (!$this->clotures->contains($cloture)) {
+            $this->clotures[] = $cloture;
+            $cloture->setDossier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCloture(Cloture $cloture): self
+    {
+        if ($this->clotures->contains($cloture)) {
+            $this->clotures->removeElement($cloture);
+            // set the owning side to null (unless already changed)
+            if ($cloture->getDossier() === $this) {
+                $cloture->setDossier(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->numeroDossier;
+    }
+
+    /**
+     * @return Collection|Intervenant[]
+     */
+    public function getIntervenants(): Collection
+    {
+        return $this->intervenants;
+    }
+
+    public function addIntervenant(Intervenant $intervenant): self
+    {
+        if (!$this->intervenants->contains($intervenant)) {
+            $this->intervenants[] = $intervenant;
+            $intervenant->setDossier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntervenant(Intervenant $intervenant): self
+    {
+        if ($this->intervenants->contains($intervenant)) {
+            $this->intervenants->removeElement($intervenant);
+            // set the owning side to null (unless already changed)
+            if ($intervenant->getDossier() === $this) {
+                $intervenant->setDossier(null);
             }
         }
 
