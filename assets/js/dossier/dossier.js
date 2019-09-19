@@ -92,4 +92,29 @@ $(document).ready(function () {
         )
     })
 
+    /**
+     * SUBMITTION EDIT FORM SUB DOSSIER
+     */
+    $(document).on('click','#createSubDossier', function (e) {
+        e.preventDefault();
+        var main = $('#modalPassword');
+        main.ajaxloader('show');
+        var id = $('#idSubDossier').val();
+        var numeroDossier = $('#sub_dossier_numeroSubDossier').val();
+        var libelle = $('#sub_dossier_libelle').val();
+        var url = Routing.generate('edit_sub_dossier',{id: id}, true)
+        $.post(url,{numero: numeroDossier, libelle: libelle, id: id},function (response) {
+            var elt = $('#exampleModalLongTitle');
+            $('.modal-body').hide();
+            elt.removeClass('text-danger').addClass(' text-success alert alert-'+response.type).text(response.message);
+            $('#modalPassword').modal('show');
+            setTimeout(function(){// wait for 5 secs(2)
+                elt.text("La page va se raffraichir");
+                location.reload();
+            }, 5000);
+            main.ajaxloader('hide');
+            return false;
+        })
+    })
+
 });

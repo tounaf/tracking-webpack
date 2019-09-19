@@ -174,8 +174,6 @@ $('.btn-remove').click(function (e) {
     var id = $(this).data('id');
     var title = $(this).data('title');
     var url = Routing.generate(route,{'id':id}, true);
-    console.log(url);
-    console.log(id);//return false;
     $.ajax({
         url:url,
         success:function (response) {

@@ -311,22 +311,32 @@ class DossierController extends Controller
         $id =$request->get('id');
 
         $response = new JsonResponse();
-        if ($dossier instanceof SubDossier) {
+        if ($dossier instanceof SubDossier && $request->isXmlHttpRequest()) {
             $form = $this->createForm(SubDossierType::class, $dossier, array(
                 'method' => 'POST',
                 'action' => $this->generateUrl('edit_sub_dossier', array('id' => $dossier->getId()))
             ))->handleRequest($request)
             ;
-            if ($form->isSubmitted()) {
+            if ($request->getMethod() == 'POST' && $request->isXmlHttpRequest()) {
                 try {
-                    $this->getDoctrine()->getManager()->flush();
+                    $libelle = $request->get('libelle');
+                    $numeroSubDossier = $request->get('numero');
+                    $em = $this->getDoctrine()->getManager();
+                    $subDossier = $em->getRepository(SubDossier::class)->find($request->get('id'));
+                    $subDossier->setNumeroSubDossier($numeroSubDossier)->setLibelle($libelle);
+                    $em->persist($subDossier);
+                    $em->flush();
                     $this->session->getFlashBag()->add('success', $this->trans->trans('label.edit.success'));
 
                 } catch (\Exception $exception) {
                     $this->session->getFlashBag()->add('danger', $this->trans->trans('label.edit.error'));
                 }
-
-                return $this->redirectToRoute('render_edit_dossier', array('id' => $id, 'dossier' => $dossier->getDossier()->getId()));
+                return new JsonResponse(array(
+                    'message' => $this->trans->trans('label.edit.success'),
+                    'type' => 'success',
+                    'statut' => '200'
+                )) ;
+//                return $this->redirectToRoute('render_edit_dossier', array('id' => $id, 'dossier' => $dossier->getDossier()->getId()));
             }
             return $this->render('dossier/sub_dossier/form_sub_dossier.html.twig', array(
                 'form_subdossier' => $form->createView(),

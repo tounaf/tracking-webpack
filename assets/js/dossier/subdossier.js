@@ -134,7 +134,6 @@ $(document).ready(function () {
         e.preventDefault();
         $(this).ajaxloader('show');
         var id = $("#idSubDossier").val();
-        console.log(id);return false
         var data = $(this).serialize();
         var url = Routing.generate('search_dossier',{id: id}, true)
         $.post(url, data,function (data) {
