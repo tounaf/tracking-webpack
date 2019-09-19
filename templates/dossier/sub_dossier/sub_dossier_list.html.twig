@@ -1,0 +1,34 @@
+<table id="listSubdossier" class="table table-responsive-sm">
+    <thead>
+    <th>
+        Numéro dossier
+    </th>
+    <th>
+        Libellé
+    </th>
+    <th>
+        Action
+    </th>
+    </thead>
+    <tbody>
+
+    {% if dossier is defined %}
+        {% for subDossier in dossier.subDossiers %}
+            <tr>
+                <td>
+                    {{ subDossier.numeroSubDossier }}
+                </td>
+                <td>
+
+                    {{ subDossier.libelle }}
+                </td>
+                <td style="width:15%; text-align: center; padding-right: 8px !important;">
+
+                    <button  data-target="#modalPassword" data-title="{{ 'label.edit.create'|trans }}" data-route="edit_sub_dossier" class="btn btn-link text-danger btn-edit" data-id="{{ subDossier.id }}" type="button"><i class="fa fa-edit"></i></button>
+                    <button  data-target="#modalPassword" data-title="{{ 'label.delete'|trans }}" data-route="delete_sub_dossier" class="btn btn-link text-danger btn-remove" data-id="{{ subDossier.id }}" type="button"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+    </tbody>
+</table>

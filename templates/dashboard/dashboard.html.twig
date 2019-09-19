@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DashboardController!{% endblock %}
+{% block title %}Litige{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('user') }}
@@ -37,4 +37,7 @@
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('user') }}
+    {{ encore_entry_script_tags('dossier') }}
+    {{ encore_entry_script_tags('auxiliaire') }}
+    {{ encore_entry_script_tags('intervenant') }}
 {% endblock%}

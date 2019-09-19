@@ -1,0 +1,70 @@
+<div>
+    <div class="row">
+        <div class="col-sm-6">
+            AVOCAT EN CHARGE DE L'AFFAIRE
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="nom">{{ 'label.nom'|trans }} {{ 'label.prenom'|trans }} </label>
+                            <input type="text" class="form-control" id="nom"
+                                   placeholder="{{ 'label.nom'|trans }} {{ 'label.prenom'|trans }}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="prestation">{{ 'label.titre.typePrestation'|trans }}</label>
+                            <input type="text" class="form-control" id="prestation"
+                                   placeholder="{{ 'column.namePrestation'|trans }}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="email">EMAIL</label>
+                            <input type="text" class="form-control" id="email" placeholder="adresse">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="telephone">TELEPHONE</label>
+                            <input type="text" class="form-control" id="telephone" placeholder="adresse">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            HONORAIRES
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="convenu">{{ 'label.convenu'| trans }}</label>
+                            <input type="text" class="form-control" id="convenu" placeholder="convenu">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="devis2">{{ 'label.devise'| trans }}</label>
+                            <input type="text" class="form-control" id="devis2">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="paye">{{ 'label.payer'| trans }}</label>
+                            <input type="text" class="form-control" id="paye" placeholder="payer">
+
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="devis2">{{ 'label.devise'| trans }}</label>
+                            <input type="text" class="form-control" id="devis2">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="restP">{{ 'label.restePayer'| trans }}</label>
+                            <input type="text" class="form-control" id=" restP" placeholder=" reste payer"> 
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="devi1">{{ 'label.devise'| trans }}</label>
+                            <input type="text" class="form-control" id="devi1" placeholder="devise">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,16 @@ class DecisionCloture
      * @ORM\Column(type="boolean")
      */
     private $enable = true;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cloture", mappedBy="decisionLitige")
+     */
+    private $clotures;
+
+    public function __construct()
+    {
+        $this->clotures = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -70,5 +82,40 @@ class DecisionCloture
         $this->enable = $enable;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Cloture[]
+     */
+    public function getClotures(): Collection
+    {
+        return $this->clotures;
+    }
+
+    public function addCloture(Cloture $cloture): self
+    {
+        if (!$this->clotures->contains($cloture)) {
+            $this->clotures[] = $cloture;
+            $cloture->setDecisionLitige($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCloture(Cloture $cloture): self
+    {
+        if ($this->clotures->contains($cloture)) {
+            $this->clotures->removeElement($cloture);
+            // set the owning side to null (unless already changed)
+            if ($cloture->getDecisionLitige() === $this) {
+                $cloture->setDecisionLitige(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->libele;
     }
 }
