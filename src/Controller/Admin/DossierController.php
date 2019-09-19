@@ -59,9 +59,11 @@ class DossierController extends Controller
      * @Route("/dossier/render/edit/{id}", name="render_edit_dossier")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function renderEditDossier(Dossier $dossier = null, Request $request)
+    public function renderEditDossier(Dossier $dossier = null,InformationPj $informationPj = null, Request $request)
     {
         $id = $request->get('id');
+        $directory = $this->get('kernel')->getProjectDir();
+
         if ($dossier) {
 
             $form = $this->createForm(DossierType::class, $dossier, array(
@@ -74,7 +76,9 @@ class DossierController extends Controller
 
         return $this->render('dossier/dossier.html.twig', array(
             'form' => $form->createView(),
-            'dossier' => $dossier
+            'dossier' => $dossier,
+            'infoPj' => $informationPj,
+            'directory' => $directory
         ));
     }
     /**
