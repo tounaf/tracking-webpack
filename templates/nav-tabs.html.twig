@@ -18,19 +18,20 @@
         <li class="nav-item">
             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Historique</a>
         </li>
-    </ul></div>
-<div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        {% if form is defined and form is not null %}
-            {{ include('dossier/form.html.twig') }}
-        {% else %}
-        {{ render(controller('App\\Controller\\Admin\\DossierController::createDossier')) }}
-        {% endif %}
-    </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            {% if form is defined and form is not null %}
+                {{ include('dossier/form.html.twig') }}
+            {% else %}
+            {{ render(controller('App\\Controller\\Admin\\DossierController::createDossier')) }}
+            {% endif %}
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
-    </div>
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+        </div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 
+        </div>
     </div>
 </div>
