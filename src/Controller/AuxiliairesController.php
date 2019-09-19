@@ -30,12 +30,13 @@ class AuxiliairesController extends Controller
     }
 
     /**
+     *
      * @Route("/auxiliaires", name="auxiliaires")
+     * @return Response
      */
     public function index()
     {
-        return $this->render('auxiliaires/index.html.twig', [
-        ]);
+        return $this->render('auxiliaires/index.html.twig');
     }
     /**
      * @Route("/getListAuxiliaire", name="liste_auxiliaire",  options={"expose"=true})

@@ -35,6 +35,7 @@ class IntervenantController extends Controller
 
     /**
      * @Route("/", name="intervenant_index", methods={"GET"})
+     * @return Response
      */
     public function index()
     {
