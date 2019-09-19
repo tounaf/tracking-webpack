@@ -261,22 +261,34 @@
                 <source>label.delete.societe</source>
                 <target>SUPPRIMER SOCIETE</target>
             </trans-unit>
-
             <trans-unit id="60">
                 <source>column.libelle</source>
                 <target>Libellé</target>
             </trans-unit>
-
             <trans-unit id="61">
                 <source>column.actif</source>
                 <target>Actif</target>
             </trans-unit>
-
             <trans-unit id="62">
                 <source>column.actions</source>
                 <target>Actions</target>
             </trans-unit>
-
+            <trans-unit id="63">
+                <source>column.nameUser</source>
+                <target>Nom et Prénom</target>
+            </trans-unit>
+            <trans-unit id="64">
+                <source>column.nameConvenu</source>
+                <target>Honoraires convenues</target>
+            </trans-unit>
+            <trans-unit id="65">
+                <source>column.namePayer</source>
+                <target>Honoraires payés</target>
+            </trans-unit>
+            <trans-unit id="66">
+                <source>column.nameReste</source>
+                <target>Reste à Payer</target>
+            </trans-unit>
             <trans-unit id="67">
                 <source>label.personne.en.charge</source>
                 <target>PERSONNE EN CHARGE DU DOSSIER</target>
@@ -344,7 +356,20 @@
                 <target>RESUME DES FAITS</target>
             </trans-unit>
 
+            <trans-unit id="80">
+                <source>column.namePrestation</source>
+                <target>Type de prestation</target>
+            </trans-unit>
 
+            <trans-unit id="81">
+                <source>column.nameDevise</source>
+                <target>Devise</target>
+            </trans-unit>
+
+            <trans-unit id="82">
+                <source>column.nameStatIntervenant</source>
+                <target>Statut intervenant</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

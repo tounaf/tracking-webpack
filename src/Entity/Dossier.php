@@ -130,11 +130,17 @@ class Dossier
      * @ORM\OneToMany(targetEntity="App\Entity\SubDossier", mappedBy="dossier", cascade={"persist","remove","refresh"})
      */
     private $subDossiers;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Auxiliaires", mappedBy="dossier")
+     */
+    private $auxiliaires;
 
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
         $this->subDossiers = new ArrayCollection();
+
+        $this->auxiliaires = new ArrayCollection();
     }
 
 
@@ -579,10 +585,38 @@ class Dossier
             $this->subDossiers[] = $subDossier;
             $subDossier->setDossier($this);
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection|Auxiliaires[]
+     */
+    public function getAuxiliaires(): Collection
+    {
+        return $this->auxiliaires;
+    }
+
+    public function addAuxiliaire(Auxiliaires $auxiliaire): self
+    {
+        if (!$this->auxiliaires->contains($auxiliaire)) {
+            $this->auxiliaires[] = $auxiliaire;
+            $auxiliaire->setDossier($this);
+        }
 
         return $this;
     }
 
+    public function removeAuxiliaire(Auxiliaires $auxiliaire): self
+    {
+        if ($this->auxiliaires->contains($auxiliaire)) {
+            $this->auxiliaires->removeElement($auxiliaire);
+            // set the owning side to null (unless already changed)
+            if ($auxiliaire->getDossier() === $this) {
+                $auxiliaire->setDossier(null);
+            }
+        }
+        return $this;
+    }
     public function removeSubDossier(SubDossier $subDossier): self
     {
         if ($this->subDossiers->contains($subDossier)) {
