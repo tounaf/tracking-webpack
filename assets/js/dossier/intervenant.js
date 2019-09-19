@@ -1,6 +1,5 @@
 const $ = require('jquery');
 import Routing from '../Routing';
-import 'jquery.cookie';
 require('datatables.net-bs4/css/dataTables.bootstrap4.min.css');
 require('datatables.net-bs4');
 require('../jquery.ajaxloader');
@@ -159,7 +158,8 @@ $('body').on('click', '#modalCreateIntervenant', function (e) {
  //   main.ajaxloader('show');
     var route = $(this).data('route');
     var title = $(this).data('title');
-    var url = Routing.generate(route);
+    var dossierId = $(this).data('dossier');
+    var url = Routing.generate(route, {id: dossierId});
    // var convenu = $('#intervenant_convenu').val();
     //console.log(convenu);
     $.get(url,function (response) {

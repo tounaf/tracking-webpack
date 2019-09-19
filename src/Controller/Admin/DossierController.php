@@ -67,7 +67,8 @@ class DossierController extends Controller
             ));
         }
         return $this->render('dossier/dossier.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'dossier' => $dossier
         ));
     }
     /**

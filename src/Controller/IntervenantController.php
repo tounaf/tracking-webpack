@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Dossier;
 use App\Entity\Intervenant;
 use App\Form\IntervenantType;
 use App\Repository\IntervenantRepository;
@@ -34,11 +35,17 @@ class IntervenantController extends Controller
     }
 
     /**
-     * @Route("/", name="intervenant_index", methods={"GET"})
+     * @Route("/{id}", name="intervenant_index", methods={"GET"})
      */
-    public function index()
+    public function index(Request $request, Dossier $dossier = null)
     {
+        $intervenantLatest = $this->getDoctrine()->getRepository(Intervenant::class)->findLatestIntervenant($dossier->getId());
+        $intervenant = $this->getDoctrine()->getRepository(Intervenant::class)->find($intervenantLatest[0]['id']);
+        $form = $this->createForm(IntervenantType::class, $intervenant);
         return $this->render('intervenant/index.html.twig', [
+            'intervenant' => $intervenant,
+            'form_intervenant' => $form->createView(),
+            'dossier' => $dossier
         ]);
     }
 
@@ -126,15 +133,17 @@ class IntervenantController extends Controller
 
 
     /**
-     * @Route("/new_intervenant", name="intervenant_new", methods={"GET","POST"}, options={"expose"=true})
+     * @Route("/new_intervenant/{id}", name="intervenant_new", methods={"GET","POST"}, options={"expose"=true})
+     *
+     * @Route("/new_intervenant/{id}", name="intervenant_post_new", methods={"POST"})
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function new(Request $request)
+    public function new(Request $request, Dossier $dossier = null)
     {
         $intervenant = new Intervenant();
         $form = $this->createForm(IntervenantType::class, $intervenant, [
             'method' => 'POST',
-            'action' => $this->generateUrl('intervenant_new')
+            'action' => $this->generateUrl('intervenant_post_new', array('id' => $request->get('id')))
         ])->handleRequest($request);
 
         $response = new JsonResponse();
@@ -147,6 +156,7 @@ class IntervenantController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             try{
                 $entityManager = $this->getDoctrine()->getManager();
+                $intervenant->setDossier($dossier);
                 $entityManager->persist($intervenant);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));

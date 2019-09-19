@@ -19,6 +19,11 @@ class IntervenantRepository extends ServiceEntityRepository
         parent::__construct($registry, Intervenant::class);
     }
 
+    public function findLatestIntervenant($dossierId)
+    {
+        $query = "SELECT * FROM Intervenant AS i where i.dossier_id = $dossierId ORDER by id desc  LIMIT 1";
+        return $this->getEntityManager()->getConnection()->executeQuery($query)->fetchAll();
+    }
     public function search($data, $page = 0, $max = NULL, $getResult = true)
     {
         $qb = $this->_em->createQueryBuilder();
