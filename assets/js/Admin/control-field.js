@@ -174,6 +174,8 @@ $('.btn-remove').click(function (e) {
     var id = $(this).data('id');
     var title = $(this).data('title');
     var url = Routing.generate(route,{'id':id}, true);
+    console.log(url);
+    console.log(id);//return false;
     $.ajax({
         url:url,
         success:function (response) {
@@ -190,7 +192,19 @@ $('.btn-remove').click(function (e) {
                 }, 3000);
                 main.ajaxloader('hide');
                 return false;
-            } else {
+            }
+            else if (response.status == 201) {
+                $('.modal-body').hide();
+                $('#modalPassword').modal('show');
+                elt.removeClass('text-danger').addClass(' text-success alert alert-'+response.type).text(response.message);
+                setTimeout(function(){// wait for 5 secs(2)
+                    elt.text("La page va se raffraichir");
+                    location.reload();
+                }, 1000);
+                main.ajaxloader('hide');
+                return false;
+            }
+            else {
                 removeClassStartingWith(elt, 'alert');
                 $('.modal-body').show();
                 $("#exampleModalLongTitle").addClass('text-danger').text(title);

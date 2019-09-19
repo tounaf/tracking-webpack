@@ -94,15 +94,20 @@ class DossierController extends Controller
     {
         $form = $this->createDeleteForm($subDossier);
         $form->handleRequest($request);
-
+        $response = new JsonResponse();
         if ($subDossier) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($subDossier);
             $em->flush();
+            $response->setData(['message' => 'suppression ok','status' => 201, 'type' => 'sucess']);
+            return $response;
         }
-        return new JsonResponse(array(
-            'message' => "suppression ok"
+        $response->setData(array(
+            'message' => $this->translator->trans('label.not.found.user'),
+            'status' => 403,
+            'type' => 'danger'
         ));
+        return $response;
     }
     /**
      *
