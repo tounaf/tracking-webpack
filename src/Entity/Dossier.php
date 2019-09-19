@@ -126,10 +126,16 @@ class Dossier
      */
     private $auxiliaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cloture", mappedBy="dossier")
+     */
+    private $clotures;
+
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
         $this->auxiliaires = new ArrayCollection();
+        $this->clotures = new ArrayCollection();
     }
 
 
@@ -570,5 +576,40 @@ class Dossier
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Cloture[]
+     */
+    public function getClotures(): Collection
+    {
+        return $this->clotures;
+    }
+
+    public function addCloture(Cloture $cloture): self
+    {
+        if (!$this->clotures->contains($cloture)) {
+            $this->clotures[] = $cloture;
+            $cloture->setDossier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCloture(Cloture $cloture): self
+    {
+        if ($this->clotures->contains($cloture)) {
+            $this->clotures->removeElement($cloture);
+            // set the owning side to null (unless already changed)
+            if ($cloture->getDossier() === $this) {
+                $cloture->setDossier(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->numeroDossier;
     }
 }

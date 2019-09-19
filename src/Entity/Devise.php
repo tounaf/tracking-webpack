@@ -43,10 +43,16 @@ class Devise
      */
     private $auxiliaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cloture", mappedBy="devise")
+     */
+    private $clotures;
+
     public function __construct()
     {
         $this->intervenants = new ArrayCollection();
         $this->auxiliaires = new ArrayCollection();
+        $this->clotures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,6 +156,37 @@ class Devise
             // set the owning side to null (unless already changed)
             if ($auxiliaire->getDevise() === $this) {
                 $auxiliaire->setDevise(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cloture[]
+     */
+    public function getClotures(): Collection
+    {
+        return $this->clotures;
+    }
+
+    public function addCloture(Cloture $cloture): self
+    {
+        if (!$this->clotures->contains($cloture)) {
+            $this->clotures[] = $cloture;
+            $cloture->setDevise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCloture(Cloture $cloture): self
+    {
+        if ($this->clotures->contains($cloture)) {
+            $this->clotures->removeElement($cloture);
+            // set the owning side to null (unless already changed)
+            if ($cloture->getDevise() === $this) {
+                $cloture->setDevise(null);
             }
         }
 

@@ -1,19 +1,27 @@
-{#<div class="">
+{#{% if dossier is defined %}
+    {{ dossier.referenceDossier }}
+{% endif %}
+<div class="">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Déclaration</a>
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+               aria-selected="true">Déclaration</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="intervenant-tab" data-toggle="tab" href="#intervenant" role="tab" aria-controls="profile" aria-selected="false">Intervenants</a>
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+               aria-selected="false">Intervenants</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="auxiliaires-tab" data-toggle="tab" href="#auxiliaires" role="tab" aria-controls="auxiliaires" aria-selected="false">Autres auxiliaires</a>
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+               aria-selected="false">Autres auxiliaires</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="cloture-tab" data-toggle="tab" href="#cloture" role="tab" aria-controls="cloture" aria-selected="false">Clôture</a>
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+               aria-selected="false">Clôture</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="historique-tab" data-toggle="tab" href="#historique" role="tab" aria-controls="historique" aria-selected="false">Historique</a>
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+               aria-selected="false">Historique</a>
         </li>
     </ul>
 </div>
@@ -22,38 +30,53 @@
         {% if form is defined and form is not null %}
             {{ include('dossier/form.html.twig') }}
         {% else %}
-        {{ render(controller('App\\Controller\\Admin\\DossierController::createDossier')) }}
+            {{ render(controller('App\\Controller\\Admin\\DossierController::createDossier')) }}
         {% endif %}
     </div>
-    <div class="tab-pane fade" id="intervenant" role="tabpanel" aria-labelledby="intervenant-tab">
- {% include 'intervenant/index.html.twig' %}
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        {% include 'intervenant/index.html.twig' %}
     </div>
-    <div class="tab-pane fade" id="auxiliaires" role="tabpanel" aria-labelledby="auxiliaires-tab">
- {% include 'auxiliaires/index.html.twig' %}
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+        {{ render(controller('App\\Controller\\AuxiliairesController::index')) }}
     </div>
-    <div class="tab-pane fade" id="cloture" role="tabpanel" aria-labelledby="cloture-tab">cloture</div>
-    <div class="tab-pane fade" id="historique" role="tabpanel" aria-labelledby="historique-tab">cloture</div>
 </div>#}
+
 <div class="">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Déclaration</a>
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+               aria-selected="true">Déclaration</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Intervenants</a>
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+               aria-selected="false">Intervenants</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Autres auxiliaires</a>
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+               aria-selected="false">Autres auxiliaires</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="cloture-tab" data-toggle="tab" href="#cloture" role="tab" aria-controls="cloture"
+               aria-selected="false">Clôture</a>
         </li>
         </li>
-    </ul></div>
+    </ul>
+</div>
 <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">    {% if form is defined and form is not null %}
+    <div class="tab-pane fade show active" id="home" role="tabpanel"
+         aria-labelledby="home-tab">    {% if form is defined and form is not null %}
             {{ include('dossier/form.html.twig') }}
         {% else %}
             {{ render(controller('App\\Controller\\Admin\\DossierController::createDossier')) }}
         {% endif %}
     </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"> {#{% include 'intervenant/index.html.twig' %}#}</div>
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"> {{ render(controller('App\\Controller\\AuxiliairesController::index')) }}</div>
+    <div class="tab-pane fade" id="profile" role="tabpanel"
+         aria-labelledby="profile-tab"> {#{% include 'intervenant/index.html.twig' %} #}</div>
+    <div class="tab-pane fade" id="contact" role="tabpanel"
+         aria-labelledby="contact-tab"> {#{ render(controller('App\\Controller\\AuxiliairesController::index')) }#}
+    </div>
+    <div class="tab-pane fade" id="cloture" role="tabpanel"
+         aria-labelledby="cloture-tab"> {{ render(controller('App\\Controller\\ClotureController::new')) }}
+    </div>
 </div>
