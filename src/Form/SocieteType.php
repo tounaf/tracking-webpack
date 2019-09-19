@@ -35,6 +35,7 @@ class SocieteType extends AbstractType
         if ($options['remove_field']) {
             $builder
                 ->remove('libele')
+                ->remove('trigramme')
                 ->remove('enable');
         }
     }
