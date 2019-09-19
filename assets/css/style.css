@@ -12181,12 +12181,12 @@ canvas {
   margin: 0 auto;
 }
 
-.app-header .nav-item .nav-link {
+/*.app-header .nav-item .nav-link {
   padding-top: 0;
   padding-bottom: 0;
   background: 0;
   border: 0;
-}
+}*/
 
 .app-header .nav-item .nav-link .badge {
   position: absolute;

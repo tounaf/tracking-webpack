@@ -334,11 +334,24 @@ button {
     flex-direction: row;
     flex-grow: 1;
     overflow-x: hidden;
+    position: relative;
+    z-index: 1;
     .main {
         background-color: #f6f6f6;
         flex: 1;
         min-width: 0;
         padding: 30px 0;
+    }
+}
+
+.header-fixed {
+    .app-body {
+        &.body-dossier {
+            z-index: 1020;    
+        }
+        .main {
+            //padding-top: 0;
+        }
     }
 }
 
