@@ -7,6 +7,7 @@ use App\Entity\DossierSearch;
 use App\Entity\SubDossier;
 use App\Form\DossierSearchType;
 use App\Form\DossierType;
+use App\Form\SubDossierType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -159,6 +160,7 @@ class DossierController extends Controller
             ))->handleRequest($request)
             ;
             $response = new JsonResponse();
+            dump("eto ks");die;
             if ($form->isSubmitted()) {
                 try {
 
@@ -256,5 +258,83 @@ class DossierController extends Controller
         return new JsonResponse(array(
             'message' => 'Recherche en cours ...'
         ));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @Route("/dossier/sub-dossier/create", name="create_subdossier", methods={"POST","GET"}, options={"expose"=true})
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function createSubDossier(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entite = new SubDossier();
+        $form = $this->createForm(SubDossierType::class, $entite, array(
+            'method' => 'POST',
+            'action' => $this->generateUrl('create_subdossier')
+        ))->handleRequest($request);
+        if ($form->isSubmitted()) {
+            try {
+
+                $em->persist($entite);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
+                return $this->redirectToRoute('list_fonction');
+            } catch (\Exception $exception) {
+                $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.create.error'));
+                return $this->redirectToRoute('list_fonction');
+                $message['message'] = $exception->getMessage();
+                $message['status'] = 500;
+                $message['type'] = 'danger';
+            }
+            return $response->setData($message);
+        }
+
+        return $this->render('dossier/sub_dossier/form_sub_dossier.html.twig', array(
+            'form_subdossier' => $form->createView(),
+            'title' => 'fetra'
+        ));
+    }
+
+    /**
+     * @Route("/dossier/sub-dossier/edit/{id}", name="edit_sub_dossier", methods={"GET", "POST"}, options={"expose"=true})
+     * @param Dossier $dossier
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editSubDossier(SubDossier $dossier = null, Request $request)
+    {
+        $id =$request->get('id');
+
+        $response = new JsonResponse();
+        if ($dossier instanceof SubDossier) {
+            $form = $this->createForm(SubDossierType::class, $dossier, array(
+                'method' => 'POST',
+                'action' => $this->generateUrl('edit_sub_dossier', array('id' => $dossier->getId()))
+            ))->handleRequest($request)
+            ;
+            if ($form->isSubmitted()) {
+                try {
+                    $this->getDoctrine()->getManager()->flush();
+                    $this->session->getFlashBag()->add('success', $this->trans->trans('label.edit.success'));
+
+                } catch (\Exception $exception) {
+                    $this->session->getFlashBag()->add('danger', $this->trans->trans('label.edit.error'));
+                }
+
+                return $this->redirectToRoute('render_edit_dossier', array('id' => $id, 'dossier' => $dossier->getDossier()->getId()));
+            }
+            return $this->render('dossier/sub_dossier/form_sub_dossier.html.twig', array(
+                'form_subdossier' => $form->createView(),
+                'title' => 'fetra',
+                'idSubDossier' => $dossier->getId()
+            ));
+        }
+        $response->setData(array(
+            'message' => $this->trans->trans('label.not.found'),
+            'status' => 403,
+            'type' => 'danger'
+        ));
+        return $response;
     }
 }
