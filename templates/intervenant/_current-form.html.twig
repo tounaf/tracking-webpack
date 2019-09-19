@@ -1,29 +1,25 @@
+{{ form_start(form_intervenant) }}
 <div>
     <div class="row">
+
         <div class="col-sm-6">
             AVOCAT EN CHARGE DE L'AFFAIRE
             <div class="card">
                 <div class="card-body">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="nom">{{ 'label.nom'|trans }} {{ 'label.prenom'|trans }} </label>
-                            <input type="text" class="form-control" id="nom"
-                                   placeholder="{{ 'label.nom'|trans }} {{ 'label.prenom'|trans }}">
+                            {{ form_row(form_intervenant.nomPrenom) }}
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="prestation">{{ 'label.titre.typePrestation'|trans }}</label>
-                            <input type="text" class="form-control" id="prestation"
-                                   placeholder="{{ 'column.namePrestation'|trans }}">
+                            {{ form_row(form_intervenant.adresse) }}
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="email">EMAIL</label>
-                            <input type="text" class="form-control" id="email" placeholder="adresse">
+                            {{ form_row(form_intervenant.email) }}
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="telephone">TELEPHONE</label>
-                            <input type="text" class="form-control" id="telephone" placeholder="adresse">
+                            {{ form_row(form_intervenant.telephone) }}
                         </div>
                     </div>
                 </div>
@@ -34,33 +30,32 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-row">
+                        <div class="form-group col-md-6">
+                            {{ form_row(form_intervenant.prestation) }}
+                        </div>
                         <div class="form-group col-md-4">
-                            <label for="convenu">{{ 'label.convenu'| trans }}</label>
-                            <input type="text" class="form-control" id="convenu" placeholder="convenu">
+                            {{ form_row(form_intervenant.convenu) }}
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="devis2">{{ 'label.devise'| trans }}</label>
-                            <input type="text" class="form-control" id="devis2">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="paye">{{ 'label.payer'| trans }}</label>
-                            <input type="text" class="form-control" id="paye" placeholder="payer">
+                            {{ form_row(form_intervenant.devise) }}
 
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="devis2">{{ 'label.devise'| trans }}</label>
-                            <input type="text" class="form-control" id="devis2">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="restP">{{ 'label.restePayer'| trans }}</label>
-                            <input type="text" class="form-control" id=" restP" placeholder=" reste payer"> 
+                            {{ form_row(form_intervenant.payer) }}
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="devi1">{{ 'label.devise'| trans }}</label>
-                            <input type="text" class="form-control" id="devi1" placeholder="devise">
+                        <div class="form-group col-md-2">
+                            <label for="devi">{{ 'label.devise'| trans }}</label>
+                            <input type="text" class="form-control" id="devi">
+                        </div>
+                        <div class="form-group col-md-4">
+                            {{ form_row(form_intervenant.restePayer) }}
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="">{{ 'label.devise'| trans }}</label>
+                            <input type="text" class="form-control" id="">
                         </div>
                     </div>
                 </div>
@@ -68,3 +63,4 @@
         </div>
     </div>
 </div>
+{{ form_end(form_intervenant, {'render_rest': false})  }}

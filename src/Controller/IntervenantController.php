@@ -160,16 +160,14 @@ class IntervenantController extends Controller
                 $entityManager->persist($intervenant);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
-                return $this->redirectToRoute('core_litige');
             }
             catch (\Exception $exception){
                 $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.error.create'));
-                return $this->redirectToRoute('core_litige');
                 $message['message'] = $exception->getMessage();
                 $message['status'] = 500;
                 $message['type'] = 'danger';
             }
-            return $this->redirectToRoute('core_litige');
+            return $this->redirectToRoute('render_edit_dossier');
             return $response->setData($message);
         }
 
