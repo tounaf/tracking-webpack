@@ -20,7 +20,7 @@ class InformationPjType extends AbstractType
                 'required' => true,
                 'attr' => ['requiredMessage' => 'Veuillez renseigner ce champs s\'il vous plait', 'name'=>'libelle'],
             ])
-            ->add('file', FileType::class)
+//            ->add('file', FileType::class)
             ->add('isActif', CheckboxType::class, [
                 'required' => false,
                 'label' => 'Actif',

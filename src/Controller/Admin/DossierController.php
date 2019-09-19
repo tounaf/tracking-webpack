@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Dossier;
 use App\Entity\DossierSearch;
+use App\Entity\InformationPj;
 use App\Form\DossierSearchType;
 use App\Form\DossierType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -62,6 +63,7 @@ class DossierController extends Controller
     {
         $id = $request->get('id');
         if ($dossier) {
+
             $form = $this->createForm(DossierType::class, $dossier, array(
                 'method' => 'POST',
                 'action' => $this->generateUrl('edit_dossier', array(
@@ -69,8 +71,10 @@ class DossierController extends Controller
                 ))
             ));
         }
+
         return $this->render('dossier/dossier.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'dossier' => $dossier
         ));
     }
     /**
@@ -89,6 +93,24 @@ class DossierController extends Controller
             'action' => $this->generateUrl('create_dossier')
         ))->handleRequest($request);
         if ($form->isSubmitted()) {
+            $file = $form['File']->getData();
+            $objInfoPj = new InformationPj();
+            $dossier->setDirectory($dossier->getPathUpload());
+            $directory = $this->get('kernel')->getProjectDir() . $dossier->getPathUpload();
+            if ($file instanceof UploadedFile && is_dir($directory)){
+                $file->move($directory, $file->getClientOriginalName());
+                if($file->getClientOriginalName()  ){
+                    $withoutExt = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
+                    $objInfoPj->setFilename($file->getClientOriginalName());
+                    $objInfoPj->setLibelle($withoutExt);
+                    $objInfoPj->setIsActif(true);
+                    $objInfoPj->addDossier($dossier);
+                    if(is_object($objInfoPj)){
+                        $dossier->addPiecesJointe($objInfoPj);
+                    }
+                    $em->persist($objInfoPj);
+                }
+            }
             $dateLitige = $request->get('dossier')['dateLitige'];
             $echeance = $request->get('dossier')['echeance'];
             $alert = $request->get('dossier')['alerteDate'];
@@ -100,7 +122,6 @@ class DossierController extends Controller
             } catch (\Exception $exception) {
                 $this->session->getFlashBag()->add('danger',$this->trans->trans('label.create.error'));
             }
-
             return $this->redirectToRoute('render_edit_dossier', array('id' =>$dossier->getId()));
         }
 
