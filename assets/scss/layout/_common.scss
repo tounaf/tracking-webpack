@@ -334,8 +334,6 @@ button {
     flex-direction: row;
     flex-grow: 1;
     overflow-x: hidden;
-    position: relative;
-    z-index: 1;
     .main {
         background-color: #f6f6f6;
         flex: 1;
@@ -373,7 +371,23 @@ button {
         padding: 15px;
     }
 }
-
+.card-custom-2 {
+    border: none;
+    border-radius: 0;
+    .card-header {
+        background-color: transparent;
+        padding: 0;
+        h2 {
+            color: $grey;
+            font-size: 14px;
+            line-height: 130%;
+            text-transform: uppercase;
+        }
+    }
+    .card-body {
+        border: 1px solid $greyC2;
+    }
+}
 
 .app-footer {
     flex: 0 0 50px;
@@ -608,5 +622,12 @@ div.dataTables_wrapper {
 .card {
     &.card-custom {
         
+    }
+}
+
+.tab-content {
+    border: none;
+    .tab-pane {
+        padding: 0;
     }
 }

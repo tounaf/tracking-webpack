@@ -1,134 +1,142 @@
-{{ form_start(form)  }}
-    <div class="row">
-
-        <div class="col-md-6">
-
-            <div class="card">
-                <div class="card-body">
+<div class="card custom-card">
+    <div class="card-header">
+       <h2>Enregistrement d'un litige</h2>
+    </div>
+    <div class="card-body">
+        <div class="form-bloc standard-form form-declaration-litige">
+            {{ form_start(form)  }}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                
+                            </div>
+                            <div class="card-body">
+                                <div class="col-md-6">
+                                    {{ form_row(form.userEnCharge) }}
+                                    {{ form_row(form.raisonSocial) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="col-md-6">
-                        {{ form_row(form.userEnCharge) }}
-                        {{ form_row(form.raisonSocial) }}
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
 
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-
-                        <div class="col-md-6">
-                            {{ form_row(form.nomPartieAdverse) }}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form_row(form.statutPartiAdverse) }}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form_row(form.formePartieAdverse) }}
-                            {#{{ form_row(form.partieAdverse.statut) }}#}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-
-                        <div class="col-md-6">
-                            {{ form_row(form.categorie) }}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form_row(form.dateLitige) }}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form_row(form.nomDossier) }}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form_row(form.statut) }}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form_row(form.sensLitige) }}
-                        </div>
-                        <div class="col-md-4">
-                            {{ form_row(form.montant) }}
-                        </div>
-                        <div class="col-md-2">
-                            {{ form_row(form.devise) }}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form_row(form.etapeSuivante) }}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form_row(form.echeance) }}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form_row(form.situation) }}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form_row(form.alerteDate) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            {{ form_row(form.resumeFait) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        {#<div class="col-md-12">#}
-                            {#{{ form_widget(form.subDossiers.vars.prototype.libelle) }}#}
-                        {#</div>#}
-                        <div class="col-md-12">
-                            <div class="well">
-                                {#<button href="#" id="showModalCreate" class="btn btn-success pull-right">Ajouter</button>#}
-                                <button id="addSubDossier" class="btn btn-success pull-right" data-title="{{ 'label.edit.create'|trans }}" data-route="create_subdossier"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
-                                {{ form_row(form.subDossiers) }}
+                                    <div class="col-md-6">
+                                        {{ form_row(form.nomPartieAdverse) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form.statutPartiAdverse) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form.formePartieAdverse) }}
+                                        {#{{ form_row(form.partieAdverse.statut) }}#}
+                                    </div>
+                                </div>
                             </div>
-
-
-                        </div>
-                        <div class="col-md-12">
-                            {{ include('dossier/modal_add_sub_dossier.html.twig') }}
-                            {{ include('dossier/sub_dossier/sub_dossier_list.html.twig') }}
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            {{ form_row(form.piecesJointes) }}
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        {{ form_row(form.categorie) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form.dateLitige) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form.nomDossier) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form.statut) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form.sensLitige) }}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ form_row(form.montant) }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{ form_row(form.devise) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form.etapeSuivante) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form.echeance) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form.situation) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form.alerteDate) }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form_row(form.resumeFait) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    {#<div class="col-md-12">#}
+                                        {#{{ form_widget(form.subDossiers.vars.prototype.libelle) }}#}
+                                    {#</div>#}
+                                    <div class="col-md-12">
+                                        <div class="well">
+                                            {#<button href="#" id="showModalCreate" class="btn btn-success pull-right">Ajouter</button>#}
+                                            <button id="addSubDossier" class="btn btn-success pull-right" data-title="{{ 'label.edit.create'|trans }}" data-route="create_subdossier"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
+                                            {{ form_row(form.subDossiers) }}
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-md-12">
+                                        {{ include('dossier/modal_add_sub_dossier.html.twig') }}
+                                        {{ include('dossier/sub_dossier/sub_dossier_list.html.twig') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form_row(form.piecesJointes) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pull-right adjust text-right offset-10">
+                        <button type="submit" class="btn btn-success">Enregistrer</button>
+                    </div>
                 </div>
-            </div>
+            {{ form_end(form) }}
         </div>
-
-        <div class="pull-right adjust text-right offset-10">
-            <button type="submit" class="btn btn-success">Enregistrer</button>
-        </div>
-
     </div>
-{{ form_end(form) }}
+</div>
