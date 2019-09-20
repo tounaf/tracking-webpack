@@ -88,29 +88,32 @@ $(document).ready(function () {
         // Dans le contenu de l'attribut « data-prototype », on remplace :
         // - le texte "__name__label__" qu'il contient par le label du champ
         // - le texte "__name__" qu'il contient par le numéro du champ
-        var template = $container.attr('data-prototype')
-            .replace(/__name__label__/g, 'Catégorie n°' + (index+1))
-            .replace(/__name__/g,        index)
-        ;
-        // console.log($('.col-form-label'));
-        //
-        // console.log($(template).children(0).remove());
-        // $(template).children(0).remove();
-        // $('.col-form-label').remove();
+        if ($container.length) {
+            var template = $container.attr('data-prototype')
+                .replace(/__name__label__/g, 'Catégorie n°' + (index+1))
+                .replace(/__name__/g,        index)
+            ;
+            // console.log($('.col-form-label'));
+            //
+            // console.log($(template).children(0).remove());
+            // $(template).children(0).remove();
+            // $('.col-form-label').remove();
 
-        // On crée un objet jquery qui contient ce template
-        var $prototype = $(template);
+            // On crée un objet jquery qui contient ce template
+            var $prototype = $(template);
 
-        // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
-        addDeleteLink($prototype);
+            // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+            addDeleteLink($prototype);
 
-        // On ajoute le prototype modifié à la fin de la balise <div>
+            // On ajoute le prototype modifié à la fin de la balise <div>
 
-        // $('.modal-body').html($container.append($prototype));
-        $container.append($prototype);
+            // $('.modal-body').html($container.append($prototype));
+            $container.append($prototype);
 
-        // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-        index++;
+            // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+            index++;
+        }
+
     }
 
     // La fonction qui ajoute un lien de suppression d'une catégorie

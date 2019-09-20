@@ -8,7 +8,6 @@ require('../jquery.ajaxloader');
 var main = $('#auxiliaires-list');
 
 $(document).ready(function () {
-    console.log('auxi');
     var table = $('#auxiliaires-list').DataTable({
         "processing": true,
         "serverSide": true,
@@ -75,11 +74,9 @@ $(document).ready(function () {
         return data;
     }
 
-    // var data  = '<div class="btn-perso" data-toggle="tooltip" data-original-title="Supprimer" data-title="'+row.thematic+'" data-id="'+row.id+'" onclick="deleteRow(this)"><i class="fa fa-remove text-red"></i></div>';
 });
 $('body').on('click', '.btn-removeAuxi', function (e) {
     e.preventDefault();
-    //   main.ajaxloader('show');
     var route = $(this).data('route');
     var id = $(this).data('id');
     var title = $(this).data('title');
@@ -122,24 +119,6 @@ function removeClassStartingWith(node, begin) {
         return (className.match ( new RegExp("\\b"+begin+"\\S+", "g") ) || []).join(' ');
     });
 }
-/*
-$(function() {
-    $('a[data-toggle="tab"]').on('shown', function(e){
-        e.preventDefault();
-        //save the latest tab using a cookie:
-        $.cookie('last_tab', $(e.target).attr('href'));
-    });
-
-    //activate latest tab, if it exists:
-    var lastTab = $.cookie('last_tab');
-    console.log(lastTab);
-    if (lastTab) {
-        $('ul.nav-tabs').children().removeClass('active');
-        $('a[href='+ lastTab +']').parents('li:first').addClass('active');
-        $('div.tab-content').children().removeClass('active');
-        $(lastTab).addClass('active');
-    }
-});*/
 
 /**
  * get form on create
@@ -173,18 +152,10 @@ $('body').on('keyup', '#auxiliaires_restePayer', function(e){
         $("#auxiliaires_statutIntervenant").val("Soldé");
     }
 });
-/*
-$('body').on('change', '#intervenant_devise', function(e){
-        e.preventDefault();
-        console.log("devise");
-       var devise = $("#intervenant_devise").text();
-       console.log(devise);
-           $("#devise2").val(devise);
 
-           $("#devise1").val(devise);
-
-    }); */
-//after change on select devise, displaying devise on another devise
+/**
+ *  after change on select devise, displaying devise on another devie
+ */
 $('body').on('change', '#auxiliaires_devise', function(e){
     var str = "";
     $( "#auxiliaires_devise option:selected" ).each(function() {
@@ -205,9 +176,6 @@ $("#modalPassword").on('shown.bs.modal', function(){
     $( "#devise1Auxi" ).val( str );
 });
 
-/*$("input").keyup(function(){
-    $("input").css("background-color", "pink");
-});*/
 
 /**
  * get form edit
@@ -215,7 +183,6 @@ $("#modalPassword").on('shown.bs.modal', function(){
 $('body').on('click', '.btn-editAuxi', function (e) {
     e.preventDefault();
 
-    // main.ajaxloader('show');
     var id = $(this).data('id');
     console.log("edit"+id);
     var route = $(this).data('route');
