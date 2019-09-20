@@ -2881,6 +2881,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination { margin: 0; }
 .dataTables_paginate .page-item.active .page-link { background-color: #C80F2D; border-color: #C80F2D; }
 .dataTables_paginate .page-item.disabled .page-link { color: rgba(135, 135, 134, 0.5); }
 
+/* card custom */
 .app-header { background-color: #fff; border: none; border-bottom: 1px solid #BFBFBF; flex: 0 0 55px; height: 100px; padding: 0; z-index: 0; }
 .app-header .header-content { align-items: stretch; flex-wrap: nowrap; height: inherit; padding: 0; width: 100%; }
 .app-header .navbar-brand { background-color: #C80F2D; border-bottom: 1px solid rgba(255, 255, 255, 0.3); align-items: center; display: inline-flex; flex-basis: 270px; justify-content: center; height: 100%; margin-right: 0; min-width: 270px; padding: 0; }
@@ -2926,5 +2927,12 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination { margin: 0; }
 
 .dossier-tabs .nav-tabs { border-bottom: none; }
 .dossier-tabs .nav-tabs .nav-link { text-decoration: none; }
+
+.filterForm-list h2 { color: #878786; font-size: 14px; line-height: 100%; margin: 0; text-transform: uppercase; }
+.filterForm-list ul { display: flex; align-items: center; justify-content: space-between; margin: 0 -15px; padding: 0; }
+.filterForm-list li { list-style: none; padding: 0 15px; width: 20%; }
+.filterForm-list .form-group { width: 100%; }
+
+.form-search-dossier .btn-group { justify-content: flex-end; width: 100%; }
 
 /*# sourceMappingURL=styles.css.map */

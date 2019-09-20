@@ -7,3 +7,35 @@
 		}
 	}
 }
+
+.filterForm-list {
+	h2 {
+		color: $grey;
+		font-size: 14px;
+		line-height: 100%;
+		margin: 0;
+		text-transform: uppercase;
+	}
+	ul {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin: 0 -15px;
+		padding: 0;
+	}
+	li {
+		list-style: none;
+		padding: 0 15px;
+		width: 20%;
+	}
+	.form-group {
+		width: 100%;
+	}
+}
+
+.form-search-dossier {
+	.btn-group {
+		justify-content: flex-end;
+		width: 100%;
+	}
+}
