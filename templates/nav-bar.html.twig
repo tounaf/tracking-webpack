@@ -1,38 +1,30 @@
-{#
-<button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show"><span class="navbar-toggler-icon"></span></button>
-<!-- <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show"><span class="navbar-toggler-icon"></span></button> -->
-<!-- Logo -->
-<a class="navbar-brand" href="javascript:;">
-    <img class="navbar-brand-full" src="{{ asset('build/images/brand/logo-axian-color.svg') }}" width="175" alt="Axian Logo">
-</a>
-<!-- /Logo -->
 
-<button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show"><i class="icofont-thin-left"></i></button>
+<!-- <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show"><span class="navbar-toggler-icon"></span></button> -->
+<!-- <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show"><span class="navbar-toggler-icon"></span></button> -->
+
+<!-- <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show"><i class="icofont-thin-left"></i></button> -->
 <!-- <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show"><span class="navbar-toggler-icon"></span></button> -->
 
-<!-- Titre Page -->
-<h1 class="titre-page">Gestion</h1>
-<!-- Titre Page -->
 
-<!-- user connecté -->
-<p class="user-infos">
-    <a href="{{ path('fos_user_security_logout') }}" title="Déconnexion"><span class="user">{% if app.user.name is not null %} {{ app.user.name }} {% else %} {{ app.user.email }}{% endif %}</span><i class="icon-signout"></i></a>
-</p>
-#}
+<div class="header-content navbar">
+    <!-- Logo -->
+    <a class="navbar-brand" href="javascript:;" title="Axian Logo">
+        <span class="logo" style="background-image: url( {{ asset('build/images/logo-axian-color.svg') }} )"></span>
+        <!-- <img class="navbar-brand-full" src="{**{ asset('build/images/logo-axian-color.svg') }}" alt="Axian Logo"> -->
+    </a>
+    <!-- /Logo -->
+    <section class="header-right">
+        <div class="header-right-content">
+            <!-- Titre Page -->
+            <h1 class="titre-page">{% if title is defined  %}{{ title }} {% else %}Gestion{% endif %}</h1>
+            <!-- Titre Page -->
 
-
-
-<a class="navbar-brand" href="javascript:;">
-    {#<img class="navbar-brand-full" src="{{ asset('build/images/logo-axian-color.svg') }}" alt="Axian Logo">#}
-</a>
-<ul class="nav navbar-nav d-md-down-none">
-    <li class="nav-item px-3">
-       <h2 class="titre-page">{% if title is defined  %}{{ title }} {% else %} OUTILS DE SUIVI LITIGE {% endif %}</h2>
-    </li>
-</ul>
-<ul class="nav navbar-nav ml-auto">
-    <p class="user-infos">
-        <a href="#" title="Profil"><span class="user">{% if app.user.name is not null %} {{ app.user.name }} {% else %} {{ app.user.email }}{% endif %}</span></a><a
-                href="{{ path('fos_user_security_logout') }}" title="Déconnexion"><i class="icon-signout"></i></a>
-    </p>
-</ul>
+            <!-- user connecté -->
+            <p class="user-infos">
+                <span class="user">{% if app.user.name is not null %} {{ app.user.name }} {% else %} {{ app.user.email }}{% endif %}</span>
+                <a href="{{ path('fos_user_security_logout') }}" title="Déconnexion"><i class="icon-signout"></i></a>
+            </p>
+            <!-- /user connecté -->
+        </div>
+    </section>
+</div>
