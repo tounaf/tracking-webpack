@@ -23,13 +23,13 @@ $(document).ready(function () {
             {"data": "categorie"},
             {"data": "entite"},
             {"data": "statut"},
-            { "targets": -1,
+            /*{ "targets": -1,
                 "data": "edit",
                 "orderable": false,
                 "defaultContent": "",
                 "className": 'text-center',
                 "render": editRow
-            },
+            },*/
             /* { "targets": -1,
                  "data": "delete",
                  "orderable": false,
@@ -62,14 +62,16 @@ $(document).ready(function () {
                 sortDescending: ": activer pour trier la colonne par ordre décroissant"
             }
         },
+        "autoWidth": false,
+        responsive: true,
+        columnDefs: [
+          { "width": "12.5%", "targets": 0, orderable: true },
+          { "width": "50%", "targets": 1, orderable: true},
+          { "width": "12.5%", "targets": 2, orderable: true},
+          { "width": "12.5%", "targets": 3, orderable: true},
+          { "width": "10%", "targets": 4, orderable: true},
+        ]
     });
-
-    function editRow(data, type, row) {
-        data = '                                <button  data-target="#modalPassword" data-title="{{ \'label.edit.create\'|trans }}" data-route="edit_societe" class="btn btn-link text-danger btn-edit" data-id="{{ societe.id }}" type="button"><i class="fa fa-edit"></i></button>\n' +
-            '                                <button  data-target="#modalPassword" data-title="{{ \'label.delete\'|trans }}" data-route="delete_societe" class="btn btn-link text-danger btn-remove" data-id="{{ societe.id }}" type="button"><i class="fa fa-trash-o"></i></button>';
-
-        return data;
-    }
 
     /*  function deleteRender(data, type, row) {
           var data  = '<div class="btn-perso" data-toggle="tooltip" data-original-title="Supprimer" data-title=""><i class="fa fa-remove text-red"></i></div>';

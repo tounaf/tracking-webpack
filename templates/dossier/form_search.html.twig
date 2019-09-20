@@ -1,61 +1,27 @@
 {#{{ form_start(form)  }}#}
-
-{{ form_start(form, {'attr': {'id': 'formSearchDossier','class': 'form-horizontale'}}) }}
-{#<form id="formSearchDossier" name="form_search_dossier">#}
-
-<div class="col-md-12">
-
-    <p>Recherce par:</p>
-    <div class="card">
-        <div class="card-body">
-            <div class="container-fluid">
-
-                <div class="row">
-
-
-                    <div class="col">
-                        <div class="form-group">
-
-                            {{ form_row(form.reference) }}
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="form-group">
-
-                            {{ form_row(form.nom) }}
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-
-                            {{ form_row(form.categorie) }}
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-
-                            {{ form_row(form.entite) }}
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="form-group">
-
-                            {{ form_row(form.statut) }}
-                        </div>
-                    </div>
-
-                </div>
-
-                <button class="btn btn-danger pull-right" id="searchButtonDossier" type="submit">Rechercher</button>
+<div class="form-bloc standard-form form-search-dossier">
+    {{ form_start(form, {'attr': {'id': 'formSearchDossier','class': 'form-horizontale'}}) }}
+        <div class="card card-custom-2">
+            <div class="card-header">
+                <h2>Recherche par :</h2>
             </div>
-
+            <div class="card-body">
+                <nav class="filterForm-list">
+                    <ul class="">
+                        <li class="list-item">{{ form_row(form.reference) }}</li>
+                        <li class="list-item">{{ form_row(form.nom) }}</li>
+                        <li class="list-item">{{ form_row(form.categorie) }}</li>
+                        <li class="list-item">{{ form_row(form.entite) }}</li>
+                        <li class="list-item">{{ form_row(form.statut) }}</li>
+                    </ul>
+                </nav>
+                <div class="btn-group wrap-btn">
+                    <button class="btn btn-danger pull-right" id="searchButtonDossier" type="submit">Rechercher</button>
+                </div>
+            </div>
         </div>
-    </div>
+    {{ form_end(form) }}
 </div>
-</form>
-{{ form_end(form) }}
 
 
 
