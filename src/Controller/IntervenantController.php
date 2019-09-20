@@ -11,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -24,14 +26,17 @@ class IntervenantController extends Controller
      * @var TranslatorInterface
      */
     private $translator;
-
+    private $session;
+    private $id ;
     /**
      * UtilisateurController constructor.
      * @param TranslatorInterface $translator
      */
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, SessionInterface $session)
     {
         $this->translator = $translator;
+        $this->session = $session;
+        $this->id = $this->session->get('id');
     }
 
     /**
@@ -39,8 +44,14 @@ class IntervenantController extends Controller
      */
     public function index(Request $request, Dossier $dossier = null)
     {
+//        $idDossier = $this->get('session')->get('id');
         $intervenantLatest = $this->getDoctrine()->getRepository(Intervenant::class)->findLatestIntervenant($dossier->getId());
-        $intervenant = $this->getDoctrine()->getRepository(Intervenant::class)->find($intervenantLatest[0]['id']);
+        if (count($intervenantLatest) > 0) {
+            $intervenant = $this->getDoctrine()->getRepository(Intervenant::class)->find($intervenantLatest[0]['id']);
+            //dump($intervenant);die();
+        } else {
+            $intervenant = new Intervenant();
+        }
         $form = $this->createForm(IntervenantType::class, $intervenant);
         return $this->render('intervenant/index.html.twig', [
             'intervenant' => $intervenant,
@@ -50,43 +61,43 @@ class IntervenantController extends Controller
     }
 
     /**
+     *
      * @Route("/getListAvocat", name="liste_avocat",  options={"expose"=true})
+     * @param Request $request
+     * @return JsonResponse
+     * @throws
      */
-    public function paginateAction(Request $request)
+    public function ajaxLoadListe(Request $request)
     {
+        $response = new JsonResponse();
+        $draw = $request->get('draw');
         $length = $request->get('length');
-        $length = $length && ($length!=-1)?$length:0;
-
         $start = $request->get('start');
-        $start = $length?($start && ($start!=-1)?$start:0)/$length:0;
-
         $search = $request->get('search');
         $filters = [
-            'query' => @$search['value']
+            'query' => $search['value'],
         ];
-        $avocats = $this->getDoctrine()->getRepository('App:Intervenant')->search(
-            $filters, $start, $length
+        $vOrder = $request->get('order');
+        $orderBy = $vOrder[0]['column'];
+        $order = $vOrder[0]['dir'];
+        $extraParams = array(
+            'filters' => $filters,
+            'start' => $start,
+            'length' => $length,
+            'orderBy' => $orderBy,
+            'order' => $order,
         );
-        $output = array(
-            'data' => array(),
-            'recordsFiltered' => count($this->getDoctrine()->getRepository('App:Intervenant')->search($filters, 0, false)),
-            'recordsTotal' => count($this->getDoctrine()->getRepository('App:Intervenant')->search(array(), 0, false))
-        );
-        foreach ($avocats as $avocat) {
-            $output['data'][] = [
-                'id'=>$avocat->getId(),
-                'nomPrenom' =>$avocat->getNomPrenom(),
-                'convenu' => $avocat->getConvenu(),
-                'payer' => $avocat->getPayer(),
-                'reste_payer' => $avocat->getRestePayer(),
-                'devise' => $avocat->getDevise()->getLibelle(),
-                'prestation' => $avocat->getPrestation()->getLibelle(),
-                'statuts' => $avocat->getStatutIntervenant(),
-            ];
-        }
-
-        return new Response(json_encode($output), 200, ['Content-Type' => 'application/json']);
+        $listIntervenant = $this->getDoctrine()->getRepository(Intervenant::class)->getListIntervenant($extraParams,$this->id, false);
+        $nbrRecords = $this->getDoctrine()->getRepository(Intervenant::class)->getListIntervenant($extraParams,$this->id, true);
+        $response->setData(array(
+            'draw' => (int)$draw,
+            'recordsTotal' => (int)$nbrRecords[0]['record'],
+            'recordsFiltered' => (int)$nbrRecords[0]['record'],
+            'data' => $listIntervenant,
+        ));
+        return $response;
     }
+
     /**
      *
      * @Route("/{id}/delete", name="intervenant_delete", methods={"DELETE","GET"}, options={"expose"=true})
@@ -114,8 +125,7 @@ class IntervenantController extends Controller
                 } catch (\Exception $exception) {
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.error'));
                 }
-                return $this->redirectToRoute('core_litige');
-            }
+                return $this->redirectToRoute('render_edit_dossier', array('id' => $this->id, 'currentTab' => 'intervenant'));            }
             if($request->isXmlHttpRequest()){
             return $this->render('Admin/_delete_form_user.html.twig', array(
                 'form_delete' => $form->createView()
@@ -167,7 +177,7 @@ class IntervenantController extends Controller
                 $message['status'] = 500;
                 $message['type'] = 'danger';
             }
-            return $this->redirectToRoute('render_edit_dossier');
+            return $this->redirectToRoute('render_edit_dossier', array('id' => $this->id, 'currentTab' => 'intervenant'));
             return $response->setData($message);
         }
 
@@ -203,12 +213,11 @@ class IntervenantController extends Controller
                 try{
                     $this->getDoctrine()->getManager()->flush();
                     $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success'));
-                    return $this->redirectToRoute('core_litige');
                 }catch (\Exception $exception)
                 {
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.edit.error'));
-                    return $this->redirectToRoute('core_litige');
                 }
+                return $this->redirectToRoute('render_edit_dossier',array('id' => $this->id, 'currentTab' => 'intervenant'));
             }
             if($request->isXmlHttpRequest()){
                 return $this->render('intervenant/_form.html.twig', array(

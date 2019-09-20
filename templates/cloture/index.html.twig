@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cloture index{% endblock %}
+
+{% block body %}
+    <h1>Cloture index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Dossier</th>
+                <th>DateCloture</th>
+                <th>Juridiction</th>
+                <th>SensDecision</th>
+                <th>Risque</th>
+                <th>TypeCloture</th>
+                <th>GainCondamnation</th>
+                <th>MontantGainCondamn</th>
+                <th>MontantInitial</th>
+                <th>MontantIntervenant</th>
+                <th>MontantAuxiliaires</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cloture in clotures %}
+            <tr>
+                <td>{{ cloture.id }}</td>
+                <td>{{ cloture.dossier }}</td>
+                <td>{{ cloture.dateCloture ? cloture.dateCloture|date('Y-m-d') : '' }}</td>
+                <td>{{ cloture.juridiction }}</td>
+                <td>{{ cloture.sensDecision }}</td>
+                <td>{{ cloture.risque }}</td>
+                <td>{{ cloture.typeCloture }}</td>
+                <td>{{ cloture.gainCondamnation }}</td>
+                <td>{{ cloture.montantGainCondamn }}</td>
+                <td>{{ cloture.montantInitial }}</td>
+                <td>{{ cloture.montantIntervenant }}</td>
+                <td>{{ cloture.montantAuxiliaires }}</td>
+                <td>
+                    <a href="{{ path('cloture_show', {'id': cloture.id}) }}">show</a>
+                    <a href="{{ path('cloture_edit', {'id': cloture.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('cloture_new') }}">Create new</a>
+{% endblock %}

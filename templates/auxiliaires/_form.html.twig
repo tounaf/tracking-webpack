@@ -1,4 +1,4 @@
-{{ form_start(formAuxi)}}}
+{{ form_start(formAuxi) }}
 {% if formAuxi is defined %}
     <div class="row">
         <div class="card">
@@ -63,8 +63,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6" hidden>
-                        {{ form_row(formAuxi.statutIntervenant) }}
+                    <div class="col-md-6">
+                        {{ form_row(formAuxi.statutIntervenant,{'attr': {'class': 'auxiStatut'}})}}
                     </div>
                 </div>
             </div>

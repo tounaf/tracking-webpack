@@ -87,9 +87,10 @@ class Cloture
     private $montantAuxiliaires;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Dossier", inversedBy="clotures")
+     * @ORM\OneToOne(targetEntity="App\Entity\Dossier", inversedBy="cloture")
      */
     private $dossier;
+
 
     public function getId(): ?int
     {
@@ -275,4 +276,5 @@ class Cloture
 
         return $this;
     }
+    
 }

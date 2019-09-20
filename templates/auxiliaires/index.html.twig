@@ -1,7 +1,6 @@
-
-    <br>
-    {% include '_flash.html.twig' %}
-    <div class="card">
+<br>
+{% include '_flash.html.twig' %}
+<div class="card">
     <div class="">
         <div>
             <div class="row card-header">
@@ -10,7 +9,7 @@
                 </div>
                 <div class="col-md-4">
                     <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
-                        <button id="modalCreateAuxi" class="btn badge-success" data-route="auxiliaires_new"
+                        <button id="modalCreateAuxi" class="btn badge-success"  data-dossier="" data-route="auxiliaires_new"
                                 data-title="{{ 'label.edit.create'|trans }}"><a class="text-light fa fa-plus-circle"
                                                                                 href="#">Ajouter</a></button>
                     </div>
@@ -42,4 +41,5 @@
             </div>
         </div>
     </div>
-    {% include '/Admin/Popup/modal.html.twig' %}
+</div>
+{% include 'auxiliaires/modal.html.twig' %}

@@ -45,6 +45,7 @@ $(document).ready(function () {
         ],
         bLengthChange: false,
         info: false,
+        "order": [[ 0, "desc" ]],
         searching: false,
         language: {
             processing: "Traitement en cours...",
@@ -70,7 +71,7 @@ $(document).ready(function () {
         },
     });
     function editRow(data, type, row) {
-        data = ' <button  data-target="#modalPassword" data-title="{{ \'label.edit.create\'|trans }}" data-route="intervenant_edit" class="btn btn-link text-danger btn-edit" data-id="'+row.id+'" type="button"><i class="fa fa-edit"></i></button>\n' +
+        data = ' <button  data-target="#modalPassword" data-title="AJOUT/MODIFICATION" data-route="intervenant_edit" class="btn btn-link text-danger btn-edit" data-id="'+row.id+'" type="button"><i class="fa fa-edit"></i></button>\n' +
             '  <button  data-target="#modalPassword" data-title="SUPPRESSION" data-route="intervenant_delete" class="btn btn-link text-danger btn-remove" data-id="'+row.id+'" type="button"><i class="fa fa-trash-o"></i></button>';
 
         return data;
@@ -130,25 +131,6 @@ function removeClassStartingWith(node, begin) {
         return (className.match ( new RegExp("\\b"+begin+"\\S+", "g") ) || []).join(' ');
     });
 }
-/*
-$(function() {
-    $('a[data-toggle="tab"]').on('shown', function(e){
-        e.preventDefault();
-        //save the latest tab using a cookie:
-        $.cookie('last_tab', $(e.target).attr('href'));
-    });
-
-    //activate latest tab, if it exists:
-    var lastTab = $.cookie('last_tab');
-    console.log(lastTab);
-    if (lastTab) {
-        $('ul.nav-tabs').children().removeClass('active');
-        $('a[href='+ lastTab +']').parents('li:first').addClass('active');
-        $('div.tab-content').children().removeClass('active');
-        $(lastTab).addClass('active');
-    }
-});*/
-
 /**
  * get form on create
  */
@@ -159,7 +141,7 @@ $('body').on('click', '#modalCreateIntervenant', function (e) {
     var route = $(this).data('route');
     var title = $(this).data('title');
     var dossierId = $(this).data('dossier');
-    var url = Routing.generate(route, {id: dossierId});
+    var url = Routing.generate(route, {id: dossierId},true);
    // var convenu = $('#intervenant_convenu').val();
     //console.log(convenu);
     $.get(url,function (response) {
@@ -183,17 +165,6 @@ $('body').on('keyup', '#intervenant_restePayer', function(e){
            $("#intervenant_statutIntervenant").val("Soldé");
        }
     });
-/*
-$('body').on('change', '#intervenant_devise', function(e){
-        e.preventDefault();
-        console.log("devise");
-       var devise = $("#intervenant_devise").text();
-       console.log(devise);
-           $("#devise2").val(devise);
-
-           $("#devise1").val(devise);
-
-    }); */
 //after change on select devise, displaying devise on another devise
 $('body').on('change', '#intervenant_devise', function(e){
         var str = "";
