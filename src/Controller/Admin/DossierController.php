@@ -92,15 +92,15 @@ class DossierController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dossier = new Dossier();
-
+        $objInfoPj = new InformationPj();
         $form = $this->createForm(DossierType::class, $dossier, array(
             'action' => $this->generateUrl('create_dossier')
         ))->handleRequest($request);
+        $directory = $this->get('kernel')->getProjectDir() . $dossier->getPathUpload();
         if ($form->isSubmitted()) {
             $file = $form['File']->getData();
-            $objInfoPj = new InformationPj();
             $dossier->setDirectory($dossier->getPathUpload());
-            $directory = $this->get('kernel')->getProjectDir() . $dossier->getPathUpload();
+
             if ($file instanceof UploadedFile && is_dir($directory)){
                 $file->move($directory, $file->getClientOriginalName());
                 if($file->getClientOriginalName()  ){
@@ -109,10 +109,10 @@ class DossierController extends Controller
                     $objInfoPj->setLibelle($withoutExt);
                     $objInfoPj->setIsActif(true);
                     $objInfoPj->addDossier($dossier);
-                    if(is_object($objInfoPj)){
-                        $dossier->addPiecesJointe($objInfoPj);
-                    }
+                    $dossier->addPiecesJointe($objInfoPj);
+                    $dossier->setFileName($file->getClientOriginalName());
                     $em->persist($objInfoPj);
+                    $em->flush();
                 }
             }
             $dateLitige = $request->get('dossier')['dateLitige'];
@@ -120,6 +120,7 @@ class DossierController extends Controller
             $alert = $request->get('dossier')['alerteDate'];
             $dossier->setAlerteDate(new \DateTime($alert))->setDateLitige(new \DateTime($dateLitige))->setEcheance(new \DateTime($echeance));
             try {
+
                 $em->persist($dossier);
                 $em->flush();
                 $this->session->getFlashBag()->add('success',$this->trans->trans('label.create.success'));
@@ -128,9 +129,12 @@ class DossierController extends Controller
             }
             return $this->redirectToRoute('render_edit_dossier', array('id' =>$dossier->getId()));
         }
-
+        $dossierRecords = $this->getDoctrine()->getRepository(Dossier::class)->getAllDossier();
         return $this->render('dossier/form.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'dossier' => $dossierRecords,
+            'infoPj' =>  $objInfoPj,
+            'directory' => $directory
         ));
 
     }

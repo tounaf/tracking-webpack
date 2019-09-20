@@ -79,4 +79,13 @@ class DossierRepository extends ServiceEntityRepository
         return $result;
 
     }
+
+    public function getAllDossier(){
+        $sql = "SELECT  * FROM dossier AS D LEFT JOIN dossier_information_pj AS di ON D.id = di.`dossier_id`
+                LEFT JOIN information_pj AS infoPj ON infoPj.`id` = di.`information_pj_id`";
+        $qb = $this->getEntityManager()->getConnection()->prepare($sql);
+        $qb->execute();
+        $result = $qb->fetchAll();
+        return $result;
+    }
 }

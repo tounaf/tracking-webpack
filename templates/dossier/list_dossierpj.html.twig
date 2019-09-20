@@ -12,12 +12,16 @@
     </thead>
     <tbody>
 
-        <tr>
-            <td>{{ dossier.numeroDossier }}</td>
-            <td>{{ dossier.dateLitige|date('Y-m-d') }}</td>
-            <td>{{infoPj.filename}}</td>
-            <td><a href="{{ asset('/public/pieces_jointes/litige/cmd_symfony.txt') }}" >Lien</a></td>
-            <td><button  data-target="#modalPassword" data-title="{{ 'label.delete'|trans }}" data-route="delete_dossier" class="btn btn-link text-danger btn-remove" data-id="{{ dossier.id }}" type="button"><i class="fa fa-trash-o"></i></button></td>
-        </tr>
+        {% if dossier is defined %}
+            {% for dossier in dossier %}
+                <tr>
+                    <td>{{ dossier['numero_dossier'] }}</td>
+                    <td>{{  dossier['date_litige']}}   </td>
+                    <td>{{ dossier['filename'] }}</td>
+                    <td><a href="{{ asset('/public/pieces_jointes/litige/cmd_symfony.txt') }}" >Lien</a></td>
+                    <td><button  data-target="#modalPassword" data-title="{{ 'label.delete'|trans }}" data-route="delete_dossier" class="btn btn-link text-danger btn-remove" data-id="{{ dossier['id'] }}" type="button"><i class="fa fa-trash-o"></i></button></td>
+                </tr>
+            {% endfor %}
+        {% endif %}
     </tbody>
 </table>

@@ -132,6 +132,8 @@ class Dossier
 
     private $pathUpload = '/public/pieces_jointes/litige';
 
+    protected $fileName;
+
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
@@ -571,6 +573,14 @@ class Dossier
 
     public function setFile(UploadedFile $file = null){
         $this->file = $file;
+    }
+
+    public function setFileName($filename = null){
+        $this->fileName = $filename;
+    }
+
+    public function getFileName(){
+        return $this->fileName;
     }
 
     public function upload(){
