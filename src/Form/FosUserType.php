@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Fonction;
 use App\Entity\FosUser;
+use App\Entity\Profil;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -60,7 +61,17 @@ class FosUserType extends AbstractType
                     return $repository->getSocieteByRole($this->user);
                 }
             ))
-            ->add('fonction', EntityType::class, array(
+            ->add('profile', EntityType::class, array(
+                'class' => Profil::class,
+                'choice_label' => 'libele',
+                'attr' => array('class' => 'custom-select'),
+                'required' => true,
+                'placeholder' => $this->trans->trans('label.choose.fonction'),
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->getProfileByAdmin($this->auth->isGranted(('ROLE_SUPERADMIN')),$this->auth->isGranted(('ROLE_ADMIN')),$this->auth->isGranted(('ROLE_JURISTE')));
+                }
+            ))
+           /* ->add('fonction', EntityType::class, array(
                 'class' => Fonction::class,
                 'choice_label' => 'libele',
                 'attr' => array('class' => 'custom-select'),
@@ -69,7 +80,8 @@ class FosUserType extends AbstractType
                 'query_builder' => function(EntityRepository $repository) {
                     return $repository->getProfileByAdmin($this->auth->isGranted(('ROLE_SUPERADMIN')),$this->auth->isGranted(('ROLE_ADMIN')),$this->auth->isGranted(('ROLE_JURISTE')));
                 }
-            ));
+            ))*/
+           ;
         if ($options['remove_field']) {
             $builder
                 ->remove('name')
@@ -78,6 +90,7 @@ class FosUserType extends AbstractType
                 ->remove('phoneNumber')
                 ->remove('actif')
                 ->remove('societe')
+                ->remove('profile')
                 ->remove('fonction');
         }
     }

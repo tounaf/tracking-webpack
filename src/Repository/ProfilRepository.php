@@ -19,6 +19,35 @@ class ProfilRepository extends ServiceEntityRepository
         parent::__construct($registry, Profil::class);
     }
 
+    /**
+     * @param $isSuper
+     * @param $isAdmin
+     * @param $isJuriste
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getProfileByAdmin($isSuper, $isAdmin, $isJuriste)
+    {
+        $query = $this->createQueryBuilder('p');
+//        $query
+            //->innerJoin('f.profil', 'p')
+//            ->andWhere('p.enable = true');
+        if ($isSuper){
+            return $query;
+        } elseif($isAdmin) {
+            $query
+                ->andWhere('p.code <> :role_code')
+                ->setParameter('role_code','ROLE_SUPERADMIN');
+        }
+        elseif ($isJuriste) {
+            $query
+                ->andWhere('p.code = :role_code')
+                ->setParameter('role_code','ROLE_JURISTE');
+        }
+
+        ;
+        return $query;
+    }
+
     // /**
     //  * @return Profil[] Returns an array of Profil objects
     //  */
