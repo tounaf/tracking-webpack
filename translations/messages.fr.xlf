@@ -125,7 +125,7 @@
 
              <trans-unit id="31">
                 <source>label.confirmation.delete</source>
-                <target>Etes vous sur de vouloir supprimer ce données?</target>
+                <target>Êtes-vous sur de vouloir supprimer cette donnée?</target>
             </trans-unit>
 
              <trans-unit id="32">
