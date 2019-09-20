@@ -44,49 +44,55 @@ class IntervenantController extends Controller
     }
 
     /**
+     *
      * @Route("/getListAvocat", name="liste_avocat",  options={"expose"=true})
+     * @param Request $request
+     * @return JsonResponse
+     * @throws
      */
-    public function paginateAction(Request $request)
+    public function ajaxLoadListe(Request $request)
     {
+        $response = new JsonResponse();
+        $draw = $request->get('draw');
         $length = $request->get('length');
-        $length = $length && ($length!=-1)?$length:0;
-
         $start = $request->get('start');
-        $start = $length?($start && ($start!=-1)?$start:0)/$length:0;
-
         $search = $request->get('search');
         $filters = [
-            'query' => @$search['value']
+            'query' => $search['value'],
         ];
-        $avocats = $this->getDoctrine()->getRepository('App:Intervenant')->search(
-            $filters, $start, $length
+        $vOrder = $request->get('order');
+        $orderBy = $vOrder[0]['column'];
+        $order = $vOrder[0]['dir'];
+        $extraParams = array(
+            'filters' => $filters,
+            'start' => $start,
+            'length' => $length,
+            'orderBy' => $orderBy,
+            'order' => $order,
         );
-        $output = array(
-            'data' => array(),
-            'recordsFiltered' => count($this->getDoctrine()->getRepository('App:Intervenant')->search($filters, 0, false)),
-            'recordsTotal' => count($this->getDoctrine()->getRepository('App:Intervenant')->search(array(), 0, false))
-        );
-        foreach ($avocats as $avocat) {
-            $output['data'][] = [
-                'id'=>$avocat->getId(),
-                'nomPrenom' =>$avocat->getNomPrenom(),
-                'convenu' => $avocat->getConvenu(),
-                'payer' => $avocat->getPayer(),
-                'reste_payer' => $avocat->getRestePayer(),
-                'devise' => $avocat->getDevise()->getLibelle(),
-                'prestation' => $avocat->getPrestation()->getLibelle(),
-                'statuts' => $avocat->getStatutIntervenant(),
-            ];
-        }
 
-        return new Response(json_encode($output), 200, ['Content-Type' => 'application/json']);
+        /**
+         * id dossier
+         */
+        $id = $this->get('session')->get('id');
+        $listIntervenant = $this->getDoctrine()->getRepository(Intervenant::class)->getListIntervenant($extraParams,$id, false);
+        $nbrRecords = $this->getDoctrine()->getRepository(Intervenant::class)->getListIntervenant($extraParams,$id, true);
+        $response->setData(array(
+            'draw' => (int)$draw,
+            'recordsTotal' => (int)$nbrRecords[0]['record'],
+            'recordsFiltered' => (int)$nbrRecords[0]['record'],
+            'data' => $listIntervenant,
+        ));
+        return $response;
     }
+
     /**
      *
      * @Route("/{id}/delete", name="intervenant_delete", methods={"DELETE","GET"}, options={"expose"=true})
      * @param Request $request
      * @ParamConverter("intervenant", class="App\Entity\Intervenant")
      * @param Intervenant|null $intervenant
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function delete(Request $request, Intervenant $intervenant = null)
     {

@@ -69,6 +69,7 @@ class DossierController extends Controller
                     'id' => $id
                 ))
             ));
+            $this->get('session')->set('id', $id);
         }
         return $this->render('dossier/dossier.html.twig', array(
             'form' => $form->createView(),
