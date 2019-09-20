@@ -1,33 +1,102 @@
-.app-header {
-	background-color: #fff;
-	//border-bottom: 1px solid $greyC2;
-	border: none;
-	height: 100px;
+.sidebar {
+	background: $red;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
 	padding: 0;
-
-	.navbar-brand {
-		background-color: $red;
-		height: 100%;
-		width: 270px;
+	.sidebar-close {
+		background: 0;
+		border: 0;
+		color: #fff;
+		display: none;
+		font-size: 24px;
+		font-weight: 800;
+		line-height: 55px;
+		opacity: .8;
+		padding: 0 1rem;
+		position: absolute;
+		right: 0;
+		&:hover {
+			opacity: 1;
+		}
 	}
-}
-.titre-page {
-	color: $red;
-	font-size: 24px;
-	font-weight: 700;
-	line-height: 100%;
-	margin: 0;
-	text-transform: uppercase;
-}
-.user-infos {
-	color: $grey;
-	font-size: 14px;
-	margin-bottom: 0;
-	vertical-align: middle;
-	a {
-		text-decoration: none;
+	.nav {
+		padding: 15px 0;
 	}
-	i {
-		margin-left: 10px;
+	.nav-item {
+		position: relative;
+		z-index: 0;
+		&:after {
+			background-color: rgba(255, 255, 255, 0.3);
+			content: "";
+			display: inline-block;
+			height: 1px;
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			width: calc(100% - 30px);
+		}
+		&:last-child {
+			&:after {
+				display: none;
+			}
+		}
+	}
+	.nav-link {
+		color: #fff;
+		display: flex;
+		flex-wrap: nowrap;
+		font-size: 14px;
+		padding: 5px 15px;
+		i {
+			font-size: 14px;
+			line-height: 20px;
+			margin-right: 15px;
+			text-align: right;
+			width: 20px;
+		}
+		&.active {
+			background-color: $redDark;
+		}
+	}
+	.nav-dropdown-toggle {
+		&:before {
+			background: none;
+			content: "\eac8";
+			display: block;
+			font-family: IcoFont;
+			font-style: normal;
+			font-size: 14px;
+			position: absolute;
+			top: 5px; right: 15px;
+			transition: -webkit-transform .3s;
+			transform: rotate(-90deg);
+			transition: transform .3s;
+  			transition: transform .3s,
+		}
+	}
+	.nav-dropdown {
+		&.open {
+			background-color: rgba(0, 0, 0, 0.15);
+			> .nav-dropdown-toggle {
+				&::before {
+  					transform: rotate(0deg);
+				}
+			}
+		}
+	}
+	.nav-dropdown-items {
+		.nav-item {
+			&:after {
+				display: none;
+			}
+		}
+		.nav-link {
+			padding-left: 25px;
+			&.active {
+				background-color:  $redDark;
+			}
+		}
 	}
 }

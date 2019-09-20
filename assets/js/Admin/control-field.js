@@ -19,13 +19,13 @@ $("body").on('blur','#fos_user_email',function () {
 
         $('#emailHelp').remove();
         $("#emailFormatInvalid").remove();
-        $(this).addClass('border border-danger invalid');
-        $("#fos_user_email").parent().append("<small id='emailFormatInvalid' class='form-text text-danger'>Format email invalid</small>");
+        $(this).addClass('error-input invalid');
+        $("#fos_user_email").parent().append("<small id='emailFormatInvalid' class='form-text error-text'>Format email invalid</small>");
 
     } else {
 
         $('#emailHelp').remove();
-        $(this).removeClass('border border-danger invalid');
+        $(this).removeClass('error-input invalid');
         $("#emailFormatInvalid").remove();
         isValid = true;
     }
@@ -40,7 +40,7 @@ $("body").on('blur','#fos_user_email',function () {
             }
             if (response.status == 403) {
                 $('#emailHelp').remove();
-                $("#fos_user_email").parent().append("<small id='emailHelp' class='form-text text-danger'>Cet adresse email est déja utilisé</small>");
+                $("#fos_user_email").parent().append("<small id='emailHelp' class='form-text error-text'>Cet adresse email est déja utilisé</small>");
                 $('#saveCreateUser').attr('disabled','disabled');
                 $("#fos_user_email").addClass('invalid');
             }
@@ -55,11 +55,11 @@ $('body').on('blur','#fos_user_phoneNumber',function () {
     if (!Fonction.isPhone(phone)) {
 
         $("#phoneFormatInvalid").remove();
-        $(this).addClass('border border-danger invalid');
-        $(this).parent().append("<small id='phoneFormatInvalid' class='form-text text-danger'>Numero télephone incorrecte</small>");
+        $(this).addClass('error-input invalid');
+        $(this).parent().append("<small id='phoneFormatInvalid' class='form-text error-text'>Numero télephone incorrecte</small>");
     } else {
 
-        $(this).removeClass('border border-danger invalid');
+        $(this).removeClass('error-input invalid');
         $("#phoneFormatInvalid").remove();
     }
 })

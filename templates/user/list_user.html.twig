@@ -2,32 +2,26 @@
 
 {% set sectionUser = true %}
 {% block wrapper %}
-            <div class="card-header">{{ 'label.gestion.user'|trans }}</div>
-            <br>
-                {% include '_flash.html.twig' %}
-                <div>
-                    <div class="col-xs-12">
-                        <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
-                            <button id="showModalCreate" class="btn btn-success" data-title="{{ 'label.edit.create'|trans }}" data-route="create_user"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
-                        </div>
-                        <br>
-                    </div>
-
-                    <div class="btn-group" role="group" aria-label="Button group">
-                        <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
-                    </div>
-                </div>
-
-                <table id="listAdmin" class="table">
+    <div class="card-header">
+        <h2>{{ 'label.gestion.user'|trans }}</h2>
+    </div>
+    <div class="card-body">
+        {% include '_flash.html.twig' %}
+        <div class="listing-bloc relative-bloc">
+            <div class="btn-group wrap-btn">
+                <button id="showModalCreate" class="btn btn-success" data-title="{{ 'label.edit.create'|trans }}" data-route="create_user"> <i class="icon-plus-circle"></i><span>Ajouter</span></button>
+            </div>
+            <div class="table-responsive">
+                <table id="listUser" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Nom</th>
-                            <th>Prénoms</th>
-                            <th>Entité</th>
-                            <th>Email</th>
-                            <th>Téléphone</th>
-                            <th>Profil</th>
-                            <th>{{ 'column.actions'|trans }}</th>
+                            <th><span>Nom</span></th>
+                            <th><span>Prénoms</span></th>
+                            <th><span>Entité</span></th>
+                            <th><span>Email</span></th>
+                            <th><span>Téléphone</span></th>
+                            <th><span>Profil</span></th>
+                            <th class="actions"><span>{{ 'column.actions'|trans }}</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,17 +33,20 @@
                             <td>{{ user.email }}</td>
                             <td>{{ user.phoneNumber }}</td>
                             <td>{{ user.fonction }}</td>
-                            <td style="width:15%; text-align: center; padding-right: 8px !important;">
-
-                                <button  data-target="#modalPassword" data-title="{{ 'label.edit.create'|trans }}" data-route="edit_user" class="btn btn-link text-danger btn-edit" data-id="{{ user.id }}" type="button"><i class="fa fa-edit"></i></button>
-                                <button  data-target="#modalPassword" data-title="{{ 'label.delete'|trans }}" data-route="delete_user" class="btn btn-link text-danger btn-remove" data-id="{{ user.id }}" type="button"><i class="fa fa-trash-o"></i></button>
+                            <td class="actions">
+                                <button  data-target="#modalPassword" data-title="{{ 'label.edit.create'|trans }}" data-route="edit_user" class="btn-edit" data-id="{{ user.id }}" type="button"><i class="icon-edit"></i></button>
+                                <button  data-target="#modalPassword" data-title="{{ 'label.delete'|trans }}" data-route="delete_user" class="btn-remove" data-id="{{ user.id }}" type="button"><i class="icon-trash"></i></button>
                             </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-    {% include 'user/popup.html.twig'  with {
-        'sectionUser' : sectionUser,
-        'form' : formUser
-    } %}
+            </div>
+        </div>
+
+        {% include 'user/popup.html.twig'  with {
+            'sectionUser' : sectionUser,
+            'form' : formUser
+        } %}
+    </div>
 {% endblock %}

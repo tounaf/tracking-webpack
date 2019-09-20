@@ -4,23 +4,24 @@
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('user') }}
+
 {% endblock %}
 {% block body %}
 
     <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show pace-done pace-done">
-    <header class="app-header navbar">
+    <header class="app-header">
         {% include 'nav-bar.html.twig' %}
     </header>
     <div class="app-body" >
         <div class="sidebar" id="bg_sidebar">
             {% include 'side-bar.html.twig' %}
         </div>
-        <main class="main">
+        <main class="main" id="testa">
             <!-- Breadcrumb-->
             <div class="container-fluid">
                 <div id="ui-view">
                     <div class="animated fadeIn">
-                        <div class="card">
+                        <div class="card custom-card">
                             {% block wrapper %}
 
                             {% endblock %}
@@ -37,6 +38,7 @@
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('user') }}
+    {{ encore_entry_script_tags('listingtable') }}
     {{ encore_entry_script_tags('dossier') }}
     {{ encore_entry_script_tags('auxiliaire') }}
     {{ encore_entry_script_tags('intervenant') }}
