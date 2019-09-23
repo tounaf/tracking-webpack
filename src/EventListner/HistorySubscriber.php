@@ -9,6 +9,7 @@
 namespace App\EventListner;
 
 
+use App\Entity\Dossier;
 use App\Entity\History;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\EventArgs;
@@ -40,55 +41,31 @@ class HistorySubscriber implements EventSubscriber
         $em= $eventArgs->getEntityManager();
         $unitOfWork = $em->getUnitOfWork();
         $entities =   $unitOfWork->getScheduledEntityUpdates();
-//        dump($entities);
-//        $em->removeEventListener('onFlush', $this);
-//        $eventArgs
+        //supprimer cet event pour eviter de boucler sur flush lors de la migration de history
         $em->getEventManager()->removeEventListener(array('preUpdate'), $this);
         foreach ($entities as $entity) {
 
+            if (!($entity instanceof Dossier)) {
+                return;
+            }
             $changesets = $unitOfWork->getEntityChangeSet($entity);
-
+            // serialize data changesets
             $dataserialize = $this->serializer->serialize($changesets, 'json');
 
+            //get class name
             $nameClass = $em->getMetadataFactory()->getMetadataFor(get_class($entity))->getName();
-
             $nameWithOutNameSpace = join('', array_slice(explode('\\', $nameClass), -1));
 
             $history = new History();
             $history->setClasseName($nameWithOutNameSpace);
             $history->setMetadata($dataserialize);
-//            $history->setNewValue();
+            $history->setDossier($entity);
             $em->persist($history);
             $unitOfWork->computeChangeSets();
             $metaData = $em->getClassMetadata('App\Entity\History');
             $unitOfWork->computeChangeSet($metaData, $history);
             $em->flush();
-            $data = json_encode($history->getMetadata());
-//            dump(json_decode($data));
-//            die;
-//            foreach ($changesets as $column => $changeset) {
-////                $this->addToHistory($entity, $column, $changeset, $em);
-//                dump($changeset);
-//                dump($column);
-
-//                $metaData = $em->getClassMetadata('App\Entity\History');
-////                dump($metaData);die;
-
-//                dump($history);//die;
-//                $em->flush();
-//            }//die;
 
         }
     }
-
-    private function addToHistory($entity, $column, $changeset, $em)
-    {
-        $history = new History();
-        $history->setColumnUpdated($column);
-        $history->setOldValue($changeset[0]);
-        $history->setNewValue($changeset[1]);
-        $em->persist($history);
-        $em->flush();
-    }
-
 }

@@ -145,6 +145,11 @@ class Dossier
      */
     private $intervenants;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="dossier")
+     */
+    private $histories;
+
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
@@ -153,6 +158,7 @@ class Dossier
         $this->auxiliaires = new ArrayCollection();
         $this->clotures = new ArrayCollection();
         $this->intervenants = new ArrayCollection();
+        $this->histories = new ArrayCollection();
     }
 
 
@@ -702,6 +708,37 @@ class Dossier
             // set the owning side to null (unless already changed)
             if ($intervenant->getDossier() === $this) {
                 $intervenant->setDossier(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|History[]
+     */
+    public function getHistories(): Collection
+    {
+        return $this->histories;
+    }
+
+    public function addHistory(History $history): self
+    {
+        if (!$this->histories->contains($history)) {
+            $this->histories[] = $history;
+            $history->setDossier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistory(History $history): self
+    {
+        if ($this->histories->contains($history)) {
+            $this->histories->removeElement($history);
+            // set the owning side to null (unless already changed)
+            if ($history->getDossier() === $this) {
+                $history->setDossier(null);
             }
         }
 
