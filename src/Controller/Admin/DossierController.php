@@ -7,9 +7,12 @@ use App\Entity\DossierSearch;
 use App\Entity\InformationPj;
 use App\Form\DossierSearchType;
 use App\Form\DossierType;
+use App\Repository\DossierRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -81,6 +84,71 @@ class DossierController extends Controller
             'directory' => $directory
         ));
     }
+
+    /**
+     * @Route("/dossier/render/deletepj/{id}", name="delete_pj",  methods={"GET", "POST"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+      public function deletepj($id){
+        $em = $this->getDoctrine()->getManager();
+        $objDossier = $em->getRepository(Dossier::class)->find($id);
+        $directoryFile = $this->get('kernel')->getProjectDir() .$objDossier->getPathUpload();
+        $dataDossierInfoPj = $em->getRepository(Dossier::class)
+            ->getInfoPjByDossierId($objDossier->getId());
+        if(!empty($dataDossierInfoPj) && is_array($dataDossierInfoPj)){
+            foreach($dataDossierInfoPj as $dossierInfoPj){
+                $infoPjId = $dossierInfoPj['information_pj_id'];
+            }
+        }
+        if($infoPjId){
+            $objInformationPj = $em->getRepository(InformationPj::class)->find($infoPjId);
+            if(!empty($objInformationPj->getFilename())){
+                $objInformationPj->deleteFile($directoryFile.'/'. $objInformationPj->getFilename());
+            }
+            $em->remove($objInformationPj);
+            $em->flush();
+        }
+        try{
+            $em->remove($objDossier);
+            $em->flush();
+            return $this->redirectToRoute('render_create_dossier');
+        }
+        catch (\Exception $exception){
+
+        }
+
+      }
+
+
+    /**
+     * @Route("/dossier/render/download/{id}", name="download_dossier",  methods={"GET", "POST"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function downloadDossier($id) {
+        $em = $this->getDoctrine()->getManager();
+        $dataDossier = $em->getRepository(Dossier::class)->getDossierById($id) ?? '';
+        if(is_array($dataDossier) && !empty($dataDossier)){
+            foreach($dataDossier as $valueDossier){
+                if(!empty($valueDossier['filename'])){
+                    $fileDownload = $valueDossier['filename'];
+                }
+            }
+        }
+        $fileName = $fileDownload ?? '';
+        if($fileName){
+            $objDossier = new Dossier();
+            $response = new Response();
+            $response->headers->set('Content-type', 'application/octet-stream');
+            $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', $fileName ));
+            $response->setContent(file_get_contents($this->get('kernel')->getProjectDir() .$objDossier->getPathUpload().'/'.$fileName));
+            $response->setStatusCode(200);
+            $response->headers->set('Content-Transfer-Encoding', 'binary');
+            $response->headers->set('Pragma', 'no-cache');
+            $response->headers->set('Expires', '0');
+            return $response;
+        }
+    }
+
     /**
      *
      * @Route("/dossier/create", name="create_dossier", methods={"GET","POST"})
@@ -98,13 +166,20 @@ class DossierController extends Controller
         ))->handleRequest($request);
         $directory = $this->get('kernel')->getProjectDir() . $dossier->getPathUpload();
         if ($form->isSubmitted()) {
-            $file = $form['File']->getData();
+            $entityObjSelected = $form->get('piecesJointes')->getData();
+            $libelleSelected = $entityObjSelected->getLibelle() ?? '';
+            $dossier->setLibelle($libelleSelected);
+            $dateLitige = $request->get('dossier')['dateLitige'];
+            $echeance = $request->get('dossier')['echeance'];
+            $alert = $request->get('dossier')['alerteDate'];
+            $dossier->setAlerteDate(new \DateTime($alert))->setDateLitige(new \DateTime($dateLitige))->setEcheance(new \DateTime($echeance));
+            $file = $form['File']->getData() ?? '';
             $dossier->setDirectory($dossier->getPathUpload());
 
             if ($file instanceof UploadedFile && is_dir($directory)){
                 $file->move($directory, $file->getClientOriginalName());
                 if($file->getClientOriginalName()  ){
-                    $withoutExt = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
+                    $objInfoPj->setLibelle($libelleSelected);
                     $objInfoPj->setFilename($file->getClientOriginalName());
                     $objInfoPj->setLibelle($withoutExt);
                     $objInfoPj->setIsActif(true);
@@ -114,11 +189,13 @@ class DossierController extends Controller
                     $em->persist($objInfoPj);
                     $em->flush();
                 }
+            }else{
+                $objInfoPj->setLibelle($libelleSelected);
+                $objInfoPj->addDossier($dossier);
+                $dossier->addPiecesJointe($objInfoPj);
+                $em->persist($objInfoPj);
+                $em->flush();
             }
-            $dateLitige = $request->get('dossier')['dateLitige'];
-            $echeance = $request->get('dossier')['echeance'];
-            $alert = $request->get('dossier')['alerteDate'];
-            $dossier->setAlerteDate(new \DateTime($alert))->setDateLitige(new \DateTime($dateLitige))->setEcheance(new \DateTime($echeance));
             try {
 
                 $em->persist($dossier);
@@ -133,7 +210,6 @@ class DossierController extends Controller
         return $this->render('dossier/form.html.twig', array(
             'form' => $form->createView(),
             'dossier' => $dossierRecords,
-            'infoPj' =>  $objInfoPj,
             'directory' => $directory
         ));
 

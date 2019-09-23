@@ -117,7 +117,7 @@ class Dossier
     private $formePartieAdverse;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\InformationPj", inversedBy="dossiers")
+     * @ORM\ManyToMany(targetEntity="App\Entity\InformationPj", inversedBy="dossiers",cascade={"persist", "remove", "merge"} )
      */
     private $piecesJointes;
 
