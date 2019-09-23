@@ -32,7 +32,8 @@ $(document).ready(function () {
         columnDefs: [
           { "width": "20%", "targets": 0, orderable: true },
           { "width": "20%", "targets": 1, orderable: true},
-          { "width": "10%", "targets": 6, orderable: false}
+          { "width": "5%", "targets": 6, orderable: true},
+          { "width": "5%", "targets": 7, orderable: false}
         ]
     });
 
