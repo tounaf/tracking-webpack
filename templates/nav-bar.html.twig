@@ -16,8 +16,14 @@
     <section class="header-right">
         <div class="header-right-content">
             <!-- Titre Page -->
-            <h1 class="titre-page">{% if title is defined  %}{{ title }} {% else %}Gestion{% endif %}</h1>
+            <h1 class="titre-page">{% if title is defined  %}{{ title }} {% else %}{% endif %}</h1>
             <!-- Titre Page -->
+
+            <!-- reférence dossier -->
+            {% if dossier is defined %}
+                <p class="refDossier">Référence: {{ dossier.referenceDossier }}</p>
+            {% endif %}
+            <!-- /reférence dossier -->
 
             <!-- user connecté -->
             <p class="user-infos">
