@@ -48,7 +48,6 @@ class IntervenantController extends Controller
         $intervenantLatest = $this->getDoctrine()->getRepository(Intervenant::class)->findLatestIntervenant($dossier->getId());
         if (count($intervenantLatest) > 0) {
             $intervenant = $this->getDoctrine()->getRepository(Intervenant::class)->find($intervenantLatest[0]['id']);
-            //dump($intervenant);die();
         } else {
             $intervenant = new Intervenant();
         }

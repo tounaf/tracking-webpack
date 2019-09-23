@@ -47,15 +47,13 @@
                             {{ form_row(form_intervenant.payer) }}
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="devi">{{ 'label.devise'| trans }}</label>
-                            <input type="text" class="form-control" id="devi">
+                            {{ form_row(form_intervenant.devisePayer) }}
                         </div>
                         <div class="form-group col-md-4">
                             {{ form_row(form_intervenant.restePayer) }}
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="">{{ 'label.devise'| trans }}</label>
-                            <input type="text" class="form-control" id="">
+                            {{ form_row(form_intervenant.deviseReste) }}
                         </div>
                     </div>
                 </div>

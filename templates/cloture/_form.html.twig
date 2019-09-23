@@ -9,6 +9,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         {{ form_row(formCloture.dateCloture) }}
+
                     </div>
                     <div class="form-group col-md-6">
                         {{ form_row(formCloture.juridiction) }}
@@ -65,14 +66,23 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-10">
                                 {{ form_row(formCloture.montantInitial) }}
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-2">
+                                {{ form_row(formCloture.deviseInitial) }}
+                            </div>
+                            <div class="form-group col-md-10">
                                 {{ form_row(formCloture.montantIntervenant) }}
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-2">
+                                {{ form_row(formCloture.deviseAvocat) }}
+                            </div>
+                            <div class="form-group col-md-10">
                                 {{ form_row(formCloture.montantAuxiliaires) }}
+                            </div>
+                            <div class="form-group col-md-2">
+                                {{ form_row(formCloture.deviseAuxiliaires) }}
                             </div>
                         </div>
                     </div>

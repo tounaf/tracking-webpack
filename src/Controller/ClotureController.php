@@ -70,10 +70,10 @@ class ClotureController extends Controller
         ));
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $datecloture = $request->get('cloture')['dateCloture'];
-            $date = new \DateTime($datecloture);
-            $date->format('Y-m-d');
-            $cloture->setDateCloture($date);
+          //  $datecloture = $request->get('cloture')['dateCloture'];
+            //$date = new \DateTime($datecloture);
+        // $dtC =   $date->format('Y-m-d');
+           // $cloture->setDateCloture($dtC);
           try{
               $entityManager = $this->getDoctrine()->getManager();
               $cloture->setDossier($dossier);

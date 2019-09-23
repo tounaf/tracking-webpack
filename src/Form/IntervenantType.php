@@ -40,7 +40,15 @@ class IntervenantType extends AbstractType
             ))
             ->add('statutIntervenant')
             ->add('devise', EntityType::class, [
-                'label'=> $this->trans->trans('column.nameDevise'),
+                'label'=> $this->trans->trans('label.devise'),
+                'class' => Devise::class,
+            ])
+            ->add('devisePayer', EntityType::class, [
+                'label'=> $this->trans->trans('label.devise'),
+                'class' => Devise::class,
+            ])
+            ->add('deviseReste', EntityType::class, [
+                'label'=> $this->trans->trans('label.devise'),
                 'class' => Devise::class,
             ])
             ->add('prestation',EntityType::class, array(
@@ -66,6 +74,8 @@ class IntervenantType extends AbstractType
                 ->remove('restePayer')
                 ->remove('statutIntervenant')
                 ->remove('devise')
+                ->remove('devisePayer')
+                ->remove('deviseReste')
                 ->remove('prestation')
                 ->remove('nomPrenom')
                 ->remove('adresse')

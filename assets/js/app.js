@@ -21,6 +21,9 @@ import 'perfect-scrollbar';
 import 'perfect-scrollbar/dist/perfect-scrollbar.min';
 import '@coreui/coreui/dist/js/coreui.min';
 import '@coreui/coreui-plugin-chartjs-custom-tooltips/js/custom-tooltips';
+import 'jquery.mobilephonenumber/vendor/jquery.caret';
+require('jquery.mobilephonenumber');
+//import mobilePhoneNumber from 'jquery.mobilephonenumber/lib/jquery.mobilePhoneNumber';
 // require('main');
 // import './main'
 // import jQuery from 'jquery';
@@ -36,9 +39,14 @@ $('#btn-dismiss').click(function (e) {
     console.log("log");
     $('#flash').fadeToggle("slow");
 })
+$(document).ready(function() {
+    $('.js-datepicker').datepicker({
+        dateFormat: 'yy/mm/dd'
+    });
+    //$('body .phone-num').mobilePhoneNumber({allowPhoneWithoutPrefix: '+1'});
+});
 
-$('.js-datepicker').datepicker();
-
+//$.fn.datepicker.defaults.format = "mm-dd-yyyy";
 
 /*
 

@@ -61,7 +61,7 @@ class IntervenantRepository extends ServiceEntityRepository
                     i.`payer` AS payer,
                     i.`reste_payer` AS reste_payer,
                     i.`statut_intervenant` AS statuts,
-                    d.`libelle` AS devise,
+                    d.`code` AS devise,
                     p.`libelle` AS prestation
                ';
         $sql .= '  FROM intervenant i ';
