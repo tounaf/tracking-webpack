@@ -52,7 +52,7 @@ class FosUserType extends AbstractType
             ))
             ->add('societe', EntityType::class, array(
                 'class' => 'App\Entity\Societe',
-                'label' => 'Société',
+                'label' => $this->trans->trans('label.societe'),
                 'choice_label' => 'libele',
                 'attr' => array('class' => 'custom-select'),
                 'required' => true,
@@ -63,6 +63,7 @@ class FosUserType extends AbstractType
             ))
             ->add('profile', EntityType::class, array(
                 'class' => Profil::class,
+                'label' => 'PROFILE :',
                 'choice_label' => 'libele',
                 'attr' => array('class' => 'custom-select'),
                 'required' => true,
