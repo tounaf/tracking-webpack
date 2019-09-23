@@ -16,10 +16,12 @@
                         <i class="fa fa-circle"></i><span>Sociétés</span></a>
                 </li>
                 {% endif %}
+                {% if app.user.hasRole('ROLE_ROOT') %}
                 <li class="nav-item">
                     <a class="nav-link {% if isFonction is defined and isFonction == true %} active {% endif %}" href="{{ path('list_fonction') }}">
                        <i class="fa fa-circle"></i><span>Fonctions</span></a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link {% if isStatut is defined and isStatut == true %} active {% endif %}" href="{{ path('list_statut') }}">
                        <i class="fa fa-circle"></i><span>Statuts</span></a>
