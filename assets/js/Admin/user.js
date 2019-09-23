@@ -129,6 +129,11 @@ $("#search_box").on('keyup', function() {
     // dataTable.state().clear().search( this.value ).draw();
 });
 $(document).ready(function () {
+
+    $(document).on('keyup','.input-entite-name',function () {
+        $(this).val($(this).val().toUpperCase());
+    })
+
     $('.alert_value').click(function () {
         $(this).css('display','none')
     })

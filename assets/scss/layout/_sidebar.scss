@@ -52,7 +52,7 @@
 		i {
 			font-size: 14px;
 			line-height: 20px;
-			margin-right: 15px;
+			margin-right: 10px;
 			text-align: right;
 			width: 20px;
 		}
@@ -93,9 +93,28 @@
 			}
 		}
 		.nav-link {
-			padding-left: 25px;
+			padding-left: 60px;
+			position: relative;
+			z-index: 0;
+			&:before {
+				background-color: #fff;
+				border-radius: 50%;
+				content: "";
+				display: inline-block;
+				position: absolute;
+				left: 45px;
+				top: 11px;
+				vertical-align: middle;
+				width: 8px; height: 8px;
+			}
+			span {
+				vertical-align: middle;
+			}
 			&.active {
 				background-color:  $redDark;
+			}
+			i {
+				display: none;
 			}
 		}
 	}
