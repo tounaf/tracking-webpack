@@ -263,7 +263,7 @@
             </trans-unit>
             <trans-unit id="60">
                 <source>column.libelle</source>
-                <target>Libellé :</target>
+                <target>Libellé</target>
             </trans-unit>
             <trans-unit id="61">
                 <source>column.actif</source>
@@ -277,6 +277,25 @@
                 <source>label.societe</source>
                 <target>SOCIÉTÉ :</target>
             </trans-unit>
+
+            <trans-unit id="64">
+                <source>column.statut</source>
+                <target>Statut</target>
+            </trans-unit>
+            <trans-unit id="65">
+                <source>label.statut</source>
+                <target>Statut :</target>
+            </trans-unit>
+
+            <trans-unit id="66">
+                <source>label.libelle</source>
+                <target>Libellé :</target>
+            </trans-unit>
+            <trans-unit id="67">
+                <source>label.code</source>
+                <target>CODE :</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>
