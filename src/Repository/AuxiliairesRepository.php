@@ -42,7 +42,7 @@ class AuxiliairesRepository extends ServiceEntityRepository
                     a.`payer` AS payer,
                     a.`reste_payer` AS reste_payer,
                     a.`statut_intervenant` AS statuts,
-                    d.`libelle` AS devise,
+                    d.`code` AS devise,
                     p.`libelle` AS prestation
                ';
         $sql .= '  FROM auxiliaires a ';
