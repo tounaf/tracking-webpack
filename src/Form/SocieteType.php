@@ -21,7 +21,8 @@ class SocieteType extends AbstractType
         $builder
             ->add('libele', null, array(
                 'label' => $this->trans->trans('label.societe'),
-                'required' => true
+                'required' => true,
+                'attr' => ['class' => 'input-entite-name']
             ))
             ->add('trigramme', null, array(
                 'label' => $this->trans->trans('Acronyme :'),
