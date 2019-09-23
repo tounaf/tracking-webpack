@@ -93,9 +93,28 @@
 			}
 		}
 		.nav-link {
-			padding-left: 25px;
+			padding-left: 65px;
+			position: relative;
+			z-index: 0;
+			&:before {
+				background-color: #fff;
+				border-radius: 50%;
+				content: "";
+				display: inline-block;
+				position: absolute;
+				left: 50px;
+				top: 11px;
+				vertical-align: middle;
+				width: 8px; height: 8px;
+			}
+			span {
+				vertical-align: middle;
+			}
 			&.active {
 				background-color:  $redDark;
+			}
+			i {
+				display: none;
 			}
 		}
 	}
