@@ -2935,11 +2935,14 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination { margin: 0; }
 .app-header .navbar-brand .logo { width: 175px; height: 78px; }
 .app-header .header-right { width: 100%; }
 .app-header .header-right-content { display: flex; align-items: center; justify-content: space-between; height: 100%; padding: 0 30px; }
+.app-header .refDossier { color: #878786; font-size: 14px; font-weight: 700; margin-bottom: 0; }
+.app-header .refDossier span { font-weight: 400; }
 
 @media (min-width: 992px) { .header-fixed .app-header { position: fixed; width: 100%; z-index: 1020; } }
 .header-fixed .app-body { margin-top: 100px; }
 
 .titre-page { color: #C80F2D; font-size: 24px; font-weight: 700; line-height: 100%; margin: 0; text-transform: uppercase; }
+.titre-page:empty { display: none; }
 
 .user-infos { color: #878786; font-size: 14px; margin-bottom: 0; vertical-align: middle; }
 .user-infos a { text-decoration: none; }

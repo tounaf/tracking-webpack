@@ -15,15 +15,17 @@
     <!-- /Logo -->
     <section class="header-right">
         <div class="header-right-content">
-            <!-- Titre Page -->
-            <h1 class="titre-page">{% if title is defined  %}{{ title }} {% else %}{% endif %}</h1>
-            <!-- Titre Page -->
+            <div class="text-header">
+                <!-- Titre Page -->
+                {% if title is defined  %}<h1 class="titre-page">{{ title }} </h1>{% else %}<h1 class="titre-page"></h1>{% endif %}
+                <!-- Titre Page -->
 
-            <!-- reférence dossier -->
-            {% if dossier is defined %}
-                <p class="refDossier">Référence: {{ dossier.referenceDossier }}</p>
-            {% endif %}
-            <!-- /reférence dossier -->
+                <!-- reférence dossier -->
+                {% if dossier is defined %}
+                    <p class="refDossier"><span>Référence:</span> {{ dossier.referenceDossier }}</p>
+                {% endif %}
+                <!-- /reférence dossier -->
+            </div>
 
             <!-- user connecté -->
             <p class="user-infos">
