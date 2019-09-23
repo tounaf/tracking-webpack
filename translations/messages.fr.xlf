@@ -295,6 +295,10 @@
                 <source>label.code</source>
                 <target>CODE :</target>
             </trans-unit>
+            <trans-unit id="68">
+                <source>column.societe</source>
+                <target>SOCIÉTÉ</target>
+            </trans-unit>
 
         </body>
     </file>
