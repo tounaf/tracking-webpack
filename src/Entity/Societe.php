@@ -38,6 +38,11 @@ class Societe
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $trigramme;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -150,5 +155,17 @@ class Societe
     public function __toString()
     {
         return $this->libele;
+    }
+
+    public function getTrigramme(): ?string
+    {
+        return $this->trigramme;
+    }
+
+    public function setTrigramme(string $trigramme): self
+    {
+        $this->trigramme = $trigramme;
+
+        return $this;
     }
 }

@@ -59,7 +59,7 @@ class FosUser extends BasUser
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Fonction")
-     * @ORM\JoinColumn(name="fonction_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="fonction_id", referencedColumnName="id", nullable=true)
      */
     private $fonction;
 
@@ -68,6 +68,16 @@ class FosUser extends BasUser
      * @ORM\Column(name="actif",type="boolean",  nullable=true)
      */
     private $actif = true;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Profil")
+     */
+    private $profile;
+
+    /**
+     * @ORM\Column(type="string", length=5)
+     */
+    private $prefixPhone;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Dossier", mappedBy="userEnCharge")
@@ -189,9 +199,9 @@ class FosUser extends BasUser
      */
     public function setRoleUser()
     {
-        if ($this->fonction){
+        if ($this->profile){
             $this->addRole(
-                $this->fonction->getProfil()?$this->fonction->getProfil()->getCode():'');
+                $this->profile?$this->profile->getCode():'');
         }
         
     }
@@ -219,6 +229,30 @@ class FosUser extends BasUser
     public function setEnable()
     {
         $this->enabled = $this->actif;
+    }
+
+    public function getProfile(): ?Profil
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?Profil $profile): self
+    {
+        $this->profile = $profile;
+
+        return $this;
+    }
+
+    public function getPrefixPhone(): ?string
+    {
+        return $this->prefixPhone;
+    }
+
+    public function setPrefixPhone(string $prefixPhone): self
+    {
+        $this->prefixPhone = $prefixPhone;
+
+        return $this;
     }
 
     /**

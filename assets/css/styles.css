@@ -2966,14 +2966,17 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination { margin: 0; }
 .sidebar .nav-item:after { background-color: rgba(255, 255, 255, 0.3); content: ""; display: inline-block; height: 1px; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: calc(100% - 30px); }
 .sidebar .nav-item:last-child:after { display: none; }
 .sidebar .nav-link { color: #fff; display: flex; flex-wrap: nowrap; font-size: 14px; padding: 5px 15px; }
-.sidebar .nav-link i { font-size: 14px; line-height: 20px; margin-right: 15px; text-align: right; width: 20px; }
+.sidebar .nav-link i { font-size: 14px; line-height: 20px; margin-right: 10px; text-align: right; width: 20px; }
 .sidebar .nav-link.active { background-color: #961023; }
 .sidebar .nav-dropdown-toggle:before { background: none; content: "\eac8"; display: block; font-family: IcoFont; font-style: normal; font-size: 14px; position: absolute; top: 5px; right: 15px; transition: -webkit-transform .3s; transform: rotate(-90deg); transition: transform .3s; transition: transform 0.3s; }
 .sidebar .nav-dropdown.open { background-color: rgba(0, 0, 0, 0.15); }
 .sidebar .nav-dropdown.open > .nav-dropdown-toggle::before { transform: rotate(0deg); }
 .sidebar .nav-dropdown-items .nav-item:after { display: none; }
-.sidebar .nav-dropdown-items .nav-link { padding-left: 25px; }
+.sidebar .nav-dropdown-items .nav-link { padding-left: 60px; position: relative; z-index: 0; }
+.sidebar .nav-dropdown-items .nav-link:before { background-color: #fff; border-radius: 50%; content: ""; display: inline-block; position: absolute; left: 45px; top: 11px; vertical-align: middle; width: 8px; height: 8px; }
+.sidebar .nav-dropdown-items .nav-link span { vertical-align: middle; }
 .sidebar .nav-dropdown-items .nav-link.active { background-color: #961023; }
+.sidebar .nav-dropdown-items .nav-link i { display: none; }
 
 .dossier-tabs .nav-tabs { border-bottom: none; }
 .dossier-tabs .nav-tabs .nav-link { text-decoration: none; }

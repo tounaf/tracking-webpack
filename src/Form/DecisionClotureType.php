@@ -20,7 +20,7 @@ class DecisionClotureType extends AbstractType
     {
         $builder
             ->add('libele', null, array(
-                'label' => $this->trans->trans('label'),
+                'label' => $this->trans->trans('label.libelle'),
                 'required' => true
             ))
             ->add('enable', null, array(
