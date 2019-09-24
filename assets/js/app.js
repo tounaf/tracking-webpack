@@ -21,8 +21,7 @@ import 'perfect-scrollbar';
 import 'perfect-scrollbar/dist/perfect-scrollbar.min';
 import '@coreui/coreui/dist/js/coreui.min';
 import '@coreui/coreui-plugin-chartjs-custom-tooltips/js/custom-tooltips';
-import 'jquery.mobilephonenumber/vendor/jquery.caret';
-require('jquery.mobilephonenumber');
+
 //import mobilePhoneNumber from 'jquery.mobilephonenumber/lib/jquery.mobilePhoneNumber';
 // require('main');
 // import './main'

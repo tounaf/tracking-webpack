@@ -643,10 +643,10 @@ class Dossier
     }
 
 
-    public function __toString()
-    {
-        return $this->numeroDossier;
-    }
+//    public function __toString()
+//    {
+//        return (string)$this->numeroDossier;
+//    }
 
     /**
      * @return Collection|Intervenant[]

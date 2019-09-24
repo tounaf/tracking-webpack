@@ -48,36 +48,26 @@ class ClotureController extends Controller
     }
 
     /**
-     * @Route("/new/{id}", name="cloture_new", methods={"GET","POST"}, options={"expose"=true})
+     * @Route("/new", name="cloture_new", methods={"GET","POST"}, options={"expose"=true})
      */
-    public function new(Request $request, Dossier $dossier=null)
+    public function new(Request $request)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $dossier = $entityManager->getRepository(Dossier::class)->find($this->id);
-        $dossierExist = $entityManager->getRepository(Cloture::class)->findOneBy([
-                'dossier'=> $dossier
-            ]
-        );
         if ($dossier->getCloture()){
             $cloture = $dossier->getCloture();
         } else {
-
             $cloture = new Cloture();
         }
-
         $form = $this->createForm(ClotureType::class, $cloture, array(
-            'action' =>$this->generateUrl('cloture_new', array('id' => $request->get('id')))
+            'action' =>$this->generateUrl('cloture_new')
         ));
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-          //  $datecloture = $request->get('cloture')['dateCloture'];
-            //$date = new \DateTime($datecloture);
-        // $dtC =   $date->format('Y-m-d');
-           // $cloture->setDateCloture($dtC);
           try{
               $entityManager = $this->getDoctrine()->getManager();
               $cloture->setDossier($dossier);
-              if (!$dossierExist){
+              if (!$dossier){
                   $entityManager->persist($cloture);
                   $entityManager->flush();
               }

@@ -148,7 +148,6 @@ class ClotureType extends AbstractType
                 'query_builder' => function(EntityRepository $repository) {
                     return $repository->getDevise();}
             ])
-            ->add('dossier')
         ;
     }
 

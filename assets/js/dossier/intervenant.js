@@ -70,8 +70,8 @@ $(document).ready(function () {
         },
     });
     function editRow(data, type, row) {
-        data = ' <button  data-target="#modalPassword" data-title="AJOUT/MODIFICATION" data-route="intervenant_edit" class="btn btn-link text-danger btn-edit" data-id="'+row.id+'" type="button"><i class="fa fa-edit"></i></button>\n' +
-            '  <button  data-target="#modalPassword" data-title="SUPPRESSION" data-route="intervenant_delete" class="btn btn-link text-danger btn-remove" data-id="'+row.id+'" type="button"><i class="fa fa-trash-o"></i></button>';
+        data = ' <button  data-target="#modalIntervenant" data-title="AJOUT/MODIFICATION" data-route="intervenant_edit" class="btn btn-link text-danger btn-edit" data-id="'+row.id+'" type="button"><i class="fa fa-edit"></i></button>\n' +
+            '  <button  data-target="#modalIntervenant" data-title="SUPPRESSION" data-route="intervenant_delete" class="btn btn-link text-danger btn-remove" data-id="'+row.id+'" type="button"><i class="fa fa-trash-o"></i></button>';
 
         return data;
     }
@@ -91,7 +91,7 @@ $('body').on('click', '.btn-remove', function (e) {
              var elt = $('#exampleModalLongTitle');
              if (response.status == 403) {
                  $('.modal-body').hide();
-                 $('#modalPassword').modal('show');
+                 $('#modalIntervenant').modal('show');
                  $('#intervenant_convenu').keydown(function(e){
                      e.preventDefault();
                      console.log("key");
@@ -112,7 +112,7 @@ $('body').on('click', '.btn-remove', function (e) {
                  $('.modal-body').show();
                  $("#exampleModalLongTitle").addClass('text-danger').text(title);
                  $('.modal-body').html(response);
-                 $('#modalPassword').modal('show');
+                 $('#modalIntervenant').modal('show');
                  main.ajaxloader('hide');
              }
          }
@@ -149,7 +149,7 @@ $('body').on('click', '#modalCreateIntervenant', function (e) {
         $('.modal-body').html(response);
         elt.addClass('text-danger').text(title);
         $('.modal-body').show();
-        $('#modalPassword').modal('show');
+        $('#modalIntervenant').modal('show');
         //main.ajaxloader('hide');
     })
 });
@@ -180,7 +180,7 @@ $('body').on('change', '#intervenant_devise', function(e){
     }).trigger("change");
 
 //after loading modal, chargement du devise selon le type par defaut
-$("#modalPassword").on('shown.bs.modal', function(){
+$("#modalIntervenant").on('shown.bs.modal', function(){
     console.log("afterloading modal");
     var str = "";
     $( "#intervenant_devise option:selected" ).each(function() {
@@ -207,7 +207,7 @@ $('body').on('click', '.btn-edit', function (e) {
         var elt = $('#exampleModalLongTitle');
         if (response.status == 403) {
             $('.modal-body').hide();
-            $('#modalPassword').modal('show');
+            $('#modalIntervenant').modal('show');
             elt.removeClass('text-danger').addClass('alert alert-'+response.type).text(response.message);
             setTimeout(function(){// wait for 5 secs(2)
                 elt.text("La page va se raffraichir");
@@ -222,7 +222,7 @@ $('body').on('click', '.btn-edit', function (e) {
             $('.modal-body').show();
             $("#exampleModalLongTitle").addClass('text-danger').text(title);
             $('.modal-body').html(response);
-            $('#modalPassword').modal('show');
+            $('#modalIntervenant').modal('show');
      //       main.ajaxloader('hide');
         }
     })
