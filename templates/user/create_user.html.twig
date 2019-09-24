@@ -1,13 +1,14 @@
 <div class="form-bloc standard-form">
     {% form_theme form 'bootstrap_4_layout.html.twig' %}
     {{ form_start(form, {'attr': {'id': 'formCreateUser','class': 'form-horizontale fos_user_registration_register'}}) }}
-        <div class="form-group">
-            {{ form_label(form.name) }}
-            {{ form_widget(form.name) }}
-        </div>
+
         <div class="form-group">
             {{ form_label(form.lastname) }}
             {{ form_widget(form.lastname) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
         </div>
         <div class="form-group">
             {{ form_label(form.email) }}
@@ -22,10 +23,10 @@
         <div class="form-group">
             {{ form_label(form.phoneNumber) }}
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     {{ form_widget(form.prefixPhone) }}
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-10">
                     {{ form_widget(form.phoneNumber) }}
                 </div>
             </div>
