@@ -136,9 +136,9 @@ class Dossier
     private $auxiliaires;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cloture", mappedBy="dossier")
+     * @ORM\OneToOne(targetEntity="App\Entity\Cloture", mappedBy="dossier")
      */
-    private $clotures;
+    private $cloture;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Intervenant", mappedBy="dossier")
@@ -156,7 +156,6 @@ class Dossier
         $this->subDossiers = new ArrayCollection();
 
         $this->auxiliaires = new ArrayCollection();
-        $this->clotures = new ArrayCollection();
         $this->intervenants = new ArrayCollection();
         $this->histories = new ArrayCollection();
     }
@@ -649,35 +648,14 @@ class Dossier
     }
 
     /**
-     * @return Collection|Cloture[]
+     * @return mixed
      */
-    public function getClotures(): Collection
+    public function getCloture()
     {
-        return $this->clotures;
+        return $this->cloture;
     }
 
-    public function addCloture(Cloture $cloture): self
-    {
-        if (!$this->clotures->contains($cloture)) {
-            $this->clotures[] = $cloture;
-            $cloture->setDossier($this);
-        }
 
-        return $this;
-    }
-
-    public function removeCloture(Cloture $cloture): self
-    {
-        if ($this->clotures->contains($cloture)) {
-            $this->clotures->removeElement($cloture);
-            // set the owning side to null (unless already changed)
-            if ($cloture->getDossier() === $this) {
-                $cloture->setDossier(null);
-            }
-        }
-
-        return $this;
-    }
     public function __toString()
     {
         return (string)$this->numeroDossier;

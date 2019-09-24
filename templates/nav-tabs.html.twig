@@ -28,8 +28,9 @@
             {% endif %}
         </div>
 
-        <div class="tab-pane fade {% if currentTab is defined and currentTab == 'historique' %}show active {% endif %}" id="historique" role="tabpanel" aria-labelledby="historique-tab">
-            {% if isGranted is defined and isGranted == true %}
+        <div class="tab-pane fade {% if currentTab is defined and currentTab == 'historique' %}show active {% endif %}"
+             id="historique" role="tabpanel" aria-labelledby="historique-tab">
+            {% if dossier is defined and dossier is not null %}
                 {{ render(controller('App\\Controller\\Admin\\HistoryController::index', {id: dossier.id})) }}
             {% endif %}
         </div>
