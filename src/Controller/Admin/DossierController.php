@@ -68,20 +68,20 @@ class DossierController extends Controller
         $directory = $this->get('kernel')->getProjectDir();
 
         if ($dossier) {
-
             $form = $this->createForm(DossierType::class, $dossier, array(
                 'method' => 'POST',
                 'action' => $this->generateUrl('edit_dossier', array(
                     'id' => $id
                 ))
             ));
+
         }
+        $dossierRecords = $this->getDoctrine()->getRepository(Dossier::class)->getAllDossier();
+
 
         return $this->render('dossier/dossier.html.twig', array(
             'form' => $form->createView(),
-            'dossier' => $dossier,
-            'infoPj' => $informationPj,
-            'directory' => $directory
+            'dossier' => $dossierRecords,
         ));
     }
 
@@ -181,7 +181,6 @@ class DossierController extends Controller
                 if($file->getClientOriginalName()  ){
                     $objInfoPj->setLibelle($libelleSelected);
                     $objInfoPj->setFilename($file->getClientOriginalName());
-                    $objInfoPj->setLibelle($withoutExt);
                     $objInfoPj->setIsActif(true);
                     $objInfoPj->addDossier($dossier);
                     $dossier->addPiecesJointe($objInfoPj);
@@ -197,7 +196,6 @@ class DossierController extends Controller
                 $em->flush();
             }
             try {
-
                 $em->persist($dossier);
                 $em->flush();
                 $this->session->getFlashBag()->add('success',$this->trans->trans('label.create.success'));
@@ -231,16 +229,25 @@ class DossierController extends Controller
             ;
             $response = new JsonResponse();
             if ($form->isSubmitted()) {
-                try {
-                    $file = $form['File']->getData();
-                    $dossier->setDirectory($dossier->getPathUpload());
-                    $directory = $this->get('kernel')->getProjectDir() . $dossier->getPathUpload();
-                     if ($file instanceof UploadedFile && is_dir($directory)){
-                         $file->move($directory, $file->getClientOriginalName());
-                     }
-                    $this->getDoctrine()->getManager()->flush();
-                    $this->session->getFlashBag()->add('success', $this->trans->trans('label.edit.success'));
+                $em = $this->getDoctrine()->getManager();
+                $dossier->setDirectory($dossier->getPathUpload());
+                $directory = $this->get('kernel')->getProjectDir() . $dossier->getPathUpload();
+                $entityObjSelected = $form->get('piecesJointes')->getData();
+                $libelleSelected = $entityObjSelected->getLibelle() ?? '';
+                $dossier->setLibelle($libelleSelected);
+                $file = $form['File']->getData() ?? '';dump($file);
+                $objInfoPj = new InformationPj();
+                $objInfoPj->addDossier($dossier);
+                if ($file instanceof UploadedFile && is_dir($directory)){
+                    $file->move($directory, $file->getClientOriginalName());
+                }
 
+                $dataDossierUpdate = $em->getRepository(Dossier::class)->find($id);
+                $objDossierUpdate = $dossier->UpdateObjDossier($dataDossierUpdate, $dossier);
+                try {
+                    $em->persist($objDossierUpdate);
+                    $em->flush();
+                    $this->session->getFlashBag()->add('success', $this->trans->trans('label.edit.success'));
                 } catch (\Exception $exception) {
                     $this->session->getFlashBag()->add('danger', $this->trans->trans('label.edit.error'));
                 }

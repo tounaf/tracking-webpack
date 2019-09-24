@@ -603,4 +603,30 @@ class Dossier
         return $this->pathUpload;
     }
 
+    public function UpdateObjDossier($dataDossierUpdate, $dossier){
+        if(is_object($dataDossierUpdate)){
+            $dataDossierUpdate->setNumeroDossier($dossier->getNumeroDossier());
+            $dataDossierUpdate->setLibelle($dossier->getLibelle());
+            $dataDossierUpdate->setNomDossier($dossier->getNomDossier());
+            $dataDossierUpdate->setStatut($dossier->getStatut());
+            $dataDossierUpdate->setMontant($dossier->getMontant());
+            $dataDossierUpdate->setSituation($dossier->getSituation());
+            $dataDossierUpdate->setResumeFait($dossier->getResumeFait());
+            $dataDossierUpdate->setDateLitige($dossier->getDateLitige());
+            $dataDossierUpdate->setSensLitige($dossier->getSensLitige());
+            $dataDossierUpdate->setEcheance($dossier->getEcheance());
+            $dataDossierUpdate->setAlerteDate($dossier->getAlerteDate());
+            $dataDossierUpdate->setRaisonSocial($dossier->getRaisonSocial());
+            $dataDossierUpdate->setCategorie($dossier->getCategorie());
+            $dataDossierUpdate->setEtapeSuivante($dossier->getEtapeSuivante());
+            $dataDossierUpdate->setPartieAdverse($dossier->getPartieAdverse());
+            $dataDossierUpdate->setNomPartieAdverse($dossier->getNomPartieAdverse());
+            $dataDossierUpdate->setStatutPartiAdverse($dossier->getStatutPartiAdverse());
+            $dataDossierUpdate->setFormePartieAdverse($dossier->getFormePartieAdverse());
+            $dataDossierUpdate->setDevise($dossier->getDevise());
+            $dataDossierUpdate->setFileName($dossier->getFileName());
+            return $dataDossierUpdate;
+        }
+    }
+
     }

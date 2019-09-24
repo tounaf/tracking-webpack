@@ -19,7 +19,7 @@
                     <td>{{  dossier['date_litige']}}   </td>
                     <td>{{ dossier['libelle'] }}</td>
                     {% if dossier['filename'] is not null %}
-                    <td><a href="{{   path('download_dossier',{'id':dossier.dossier_id})}}">Download fichir: {{ dossier.filename }}</a> </td>
+                    <td><a href="{{   path('download_dossier',{'id':dossier.dossier_id})}}">Download fichier: {{ dossier.filename }}</a> </td>
                     {% else %}
                         <td>Pas de fichier joints </td>
                     {%  endif %}

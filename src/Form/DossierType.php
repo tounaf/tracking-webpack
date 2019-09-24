@@ -135,7 +135,7 @@ class DossierType extends AbstractType
             ))
 //            //PJ Field to add file in pj
             ->add('File', FileType::class,[
-                'label' => 'File',
+                'label' => 'Fichier',
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
                 // make it optional so you don't have to re-upload the PDF file
