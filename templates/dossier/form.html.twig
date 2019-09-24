@@ -141,7 +141,24 @@
                         </div>
                     </div>
                 </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
 
+                            <div class="col-md-6">
+
+                                {{ form_row(form.piecesJointes) }}
+                            </div>
+                            <div class="col-md-6">
+
+                                {{ form_row(form.File) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% include 'dossier/list_dossierpj.html.twig' %}
                 <div class="btns-group text-right">
                     <button type="submit" class="btn btn-success">Enregistrer</button>
                 </div>

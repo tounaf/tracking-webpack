@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Dossier;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Entity\Repository;
 
 /**
  * @method Dossier|null find($id, $lockMode = null, $lockVersion = null)
@@ -78,4 +79,34 @@ class DossierRepository extends ServiceEntityRepository
         return $result;
 
     }
+//listing dossier with Pj
+    public function getAllDossier(){
+        $sql = "SELECT  * FROM dossier AS D LEFT JOIN dossier_information_pj AS di ON D.id = di.`dossier_id`
+                LEFT JOIN information_pj AS infoPj ON infoPj.`id` = di.`information_pj_id`";
+        $qb = $this->getEntityManager()->getConnection()->prepare($sql);
+        $qb->execute();
+        $result = $qb->fetchAll();
+        return $result;
+    }
+
+    public function getDossierById($id){
+        $sql = "SELECT  * FROM dossier AS D LEFT JOIN dossier_information_pj AS di ON D.id = di.`dossier_id`
+                LEFT JOIN information_pj AS infoPj ON infoPj.`id` = di.`information_pj_id`
+                WHERE D.`id` =".$id;
+        $qb = $this->getEntityManager()->getConnection()->prepare($sql);
+        $qb->execute();
+        $result = $qb->fetchAll();
+        return $result;
+    }
+
+    public function getInfoPjByDossierId($dossierId){
+        $sql = "SELECT * FROM dossier_information_pj where dossier_id =".$dossierId;
+        $qb = $this->getEntityManager()->getConnection()->prepare($sql);
+        $qb->execute();
+        $result = $qb->fetchAll();
+        return $result;
+    }
+
+
+
 }
