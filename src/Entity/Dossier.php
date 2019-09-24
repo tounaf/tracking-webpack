@@ -680,7 +680,7 @@ class Dossier
     }
     public function __toString()
     {
-        return $this->numeroDossier;
+        return (string)$this->numeroDossier;
     }
 
     /**
