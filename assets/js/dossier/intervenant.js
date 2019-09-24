@@ -20,11 +20,11 @@ $(document).ready(function () {
         "orderable": true,
         "columns": [
             {"data": "nomPrenom"},
+            {"data": "prestation"},
             {"data": "convenu"},
             {"data": "payer"},
             {"data": "reste_payer"},
             {"data": "devise"},
-            {"data": "prestation"},
             {"data": "statuts"},
             {
                 "targets": -1,
@@ -34,13 +34,6 @@ $(document).ready(function () {
                 "className": 'text-center',
                 "render": editRow
             },
-            /* { "targets": -1,
-                 "data": "delete",
-                 "orderable": false,
-                 "defaultContent": "",
-                 "className": 'text-center',
-                 "render": deleteRender
-             }*/
         ],
         bLengthChange: false,
         info: false,
@@ -147,16 +140,8 @@ $('body').on('click', '#modalCreateIntervenant', function (e) {
         //main.ajaxloader('hide');
     })
 });
-$('body').on('keyup', '#intervenant_restePayer', function(e){
-        e.preventDefault();
-       var convenu = $("input#intervenant_restePayer").val();
-       if (convenu > 0) {
-           $("#intervenant_statutIntervenant").val("A Payer");
-       } else {
-           $("#intervenant_statutIntervenant").val("Soldé");
-       }
-    });
-$('#modalIntervenant').on('blur keyup mouseout', '#intervenant_restePayer', function(event){
+
+$(' body #modalIntervenant').on('blur keyup mouseout', '#intervenant_restePayer', function(event){
     event.preventDefault();
     var convenu = $("#modalIntervenant #intervenant_restePayer").val();
     if (convenu != 0){

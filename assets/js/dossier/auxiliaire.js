@@ -20,11 +20,11 @@ $(document).ready(function () {
         "orderable": true,
         "columns": [
             {"data": "nomPrenom"},
+            {"data": "prestation"},
             {"data": "convenu"},
             {"data": "payer"},
             {"data": "reste_payer"},
             {"data": "devise"},
-            {"data": "prestation"},
             {"data": "statuts"},
             {
                 "targets": -1,
@@ -63,8 +63,8 @@ $(document).ready(function () {
         },
     });
     function editRow(data, type, row) {
-        data = ' <button  data-target="#modalAuxi" data-title="AJOUT/MODIFICATION" data-route="auxiliaires_edit" class="btn btn-link text-danger btn-editAuxi" data-id="'+row.id+'" type="button"><i class="fa fa-edit"></i></button>\n' +
-            '  <button  data-target="#modalAuxi" data-title="SUPPRESSION" data-route="auxiliaires_delete" class="btn btn-link text-danger btn-removeAuxi" data-id="'+row.id+'" type="button"><i class="fa fa-trash-o"></i></button>';
+        data = ' <button  data-target="#modalAuxi" data-title="AJOUT/MODIFICATION" data-route="auxiliaires_edit" class="btn-editAuxi" data-id="'+row.id+'" type="button"><i class="icon-edit"></i></button>\n' +
+            '  <button  data-target="#modalAuxi" data-title="SUPPRESSION" data-route="auxiliaires_delete" class="btn-removeAuxi" data-id="'+row.id+'" type="button"><i class="icon-trash"></i></button>';
         return data;
     }
 

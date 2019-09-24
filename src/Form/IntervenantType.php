@@ -55,7 +55,9 @@ class IntervenantType extends AbstractType
                 'label' => $this->trans->trans('label.typePrestation'),
                 'class' => TypePrestation::class,
                 'choice_label' => 'libelle'))
-            ->add('nomPrenom')
+            ->add('nomPrenom',null,[
+                'label' => 'NOM & PRENOM :',
+                ])
             ->add('adresse')
             ->add('telephone', null, array(
                 'required' => true,

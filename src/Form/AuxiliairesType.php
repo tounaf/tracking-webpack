@@ -39,7 +39,9 @@ class AuxiliairesType extends AbstractType
             ))
             ->add('statutIntervenant')
             ->add('fonction')
-            ->add('nomPrenom')
+            ->add('nomPrenom',null,[
+                'label' => 'NOM & PRENOM :',
+            ])
             ->add('adresse')
             ->add('telephone', null, array(
                 'required' => true,
