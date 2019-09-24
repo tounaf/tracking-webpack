@@ -44,6 +44,7 @@ $(document).ready(function () {
         ],
         bLengthChange: false,
         info: false,
+        "order": [[ 0, "desc" ]],
         searching: false,
         language: {
             processing: "Traitement en cours...",
@@ -69,7 +70,7 @@ $(document).ready(function () {
         },
     });
     function editRow(data, type, row) {
-        data = ' <button  data-target="#modalPassword" data-title="{{ \'label.edit.create\'|trans }}" data-route="intervenant_edit" class="btn btn-link text-danger btn-edit" data-id="'+row.id+'" type="button"><i class="fa fa-edit"></i></button>\n' +
+        data = ' <button  data-target="#modalPassword" data-title="AJOUT/MODIFICATION" data-route="intervenant_edit" class="btn btn-link text-danger btn-edit" data-id="'+row.id+'" type="button"><i class="fa fa-edit"></i></button>\n' +
             '  <button  data-target="#modalPassword" data-title="SUPPRESSION" data-route="intervenant_delete" class="btn btn-link text-danger btn-remove" data-id="'+row.id+'" type="button"><i class="fa fa-trash-o"></i></button>';
 
         return data;
@@ -138,7 +139,8 @@ $('body').on('click', '#modalCreateIntervenant', function (e) {
  //   main.ajaxloader('show');
     var route = $(this).data('route');
     var title = $(this).data('title');
-    var url = Routing.generate(route);
+    var dossierId = $(this).data('dossier');
+    var url = Routing.generate(route, {id: dossierId},true);
    // var convenu = $('#intervenant_convenu').val();
     //console.log(convenu);
     $.get(url,function (response) {
@@ -162,6 +164,7 @@ $('body').on('keyup', '#intervenant_restePayer', function(e){
            $("#intervenant_statutIntervenant").val("Soldé");
        }
     });
+//after change on select devise, displaying devise on another devise
 
 /**
  *  after change on select devise, displaying devise on another devise

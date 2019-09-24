@@ -70,6 +70,16 @@ class Intervenant
      */
     private $dossier;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="devisePayer")
+     */
+    private $devisePayer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="deviseReste")
+     */
+    private $deviseReste;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -203,6 +213,30 @@ class Intervenant
     public function setDossier(?Dossier $dossier): self
     {
         $this->dossier = $dossier;
+
+        return $this;
+    }
+
+    public function getDevisePayer(): ?Devise
+    {
+        return $this->devisePayer;
+    }
+
+    public function setDevisePayer(?Devise $devisePayer): self
+    {
+        $this->devisePayer = $devisePayer;
+
+        return $this;
+    }
+
+    public function getDeviseReste(): ?Devise
+    {
+        return $this->deviseReste;
+    }
+
+    public function setDeviseReste(?Devise $deviseReste): self
+    {
+        $this->deviseReste = $deviseReste;
 
         return $this;
     }

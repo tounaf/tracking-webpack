@@ -4,7 +4,7 @@
     <div class="card-header">
         Les intervenants
     </div>
-    {%  include "/intervenant/_current-form.html.twig" %}
+    {% include "/intervenant/_current-form.html.twig" %}
     <div class="">
         <div>
             <div class="row card-header">
@@ -13,7 +13,8 @@
                 </div>
                 <div class="col-md-4">
                     <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
-                        <button id="modalCreateIntervenant" class="btn badge-success" data-route="intervenant_new"
+                        <button id="modalCreateIntervenant" class="btn badge-success" data-dossier="{{ dossier.id }}"
+                                data-route="intervenant_new"
                                 data-title="{{ 'label.edit.create'|trans }}"><a class="text-light fa fa-plus-circle"
                                                                                 href="#">Ajouter</a></button>
                     </div>
@@ -21,7 +22,9 @@
                 <div class="btn-group" role="group" aria-label="Button group">
                     <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
                 </div>
+
             </div>
+
             <div class="example-wrapper">
                 <table id="avocat-list" class="table">
                     <thead>
@@ -43,5 +46,5 @@
             </div>
         </div>
     </div>
-    {% include '/Admin/Popup/modal.html.twig' %}
 </div>
+{% include '/Admin/Popup/modal.html.twig' %}

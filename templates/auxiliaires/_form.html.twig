@@ -1,4 +1,4 @@
-{{ form_start(formAuxi)}}}
+{{ form_start(formAuxi) }}
 {% if formAuxi is defined %}
     <div class="row">
         <div class="card">
@@ -51,20 +51,18 @@
                         {{ form_row(formAuxi.payer) }}
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="deviseAuxi">Devise</label>
-                        <input type="text" class="form-control" id="devise1Auxi">
+                        {{ form_row(formAuxi.deviseAuxiPayer) }}
                     </div>
                     <div class="form-group col-md-3">
                         {{ form_row(formAuxi.restePayer) }}
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="devise2Auxi">Devise</label>
-                        <input type="text" class="form-control" id="devise2Auxi">
+                        {{ form_row(formAuxi.deviseReste) }}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6" hidden>
-                        {{ form_row(formAuxi.statutIntervenant) }}
+                    <div class="col-md-6">
+                        {{ form_row(formAuxi.statutIntervenant,{'attr': {'class': 'auxiStatut'}})}}
                     </div>
                 </div>
             </div>

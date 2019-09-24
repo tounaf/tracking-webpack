@@ -51,17 +51,20 @@ class DossierController extends Controller
      */
     public function renderCreateDossier()
     {
-        return $this->render('dossier/dossier.html.twig');
+        return $this->render('dossier/dossier.html.twig',array(
+            'currentTab' => 'declaration'
+        ));
     }
 
     /**
      *
-     * @Route("/dossier/render/edit/{id}", name="render_edit_dossier")
+     * @Route("/dossier/render/edit/{id}/{currentTab}", name="render_edit_dossier")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function renderEditDossier(Dossier $dossier = null, Request $request)
     {
         $id = $request->get('id');
+        $currentTab = $request->get('currentTab');
         if ($dossier) {
             $form = $this->createForm(DossierType::class, $dossier, array(
                 'method' => 'POST',
@@ -69,10 +72,12 @@ class DossierController extends Controller
                     'id' => $id
                 ))
             ));
+            $this->get('session')->set('id', $id);
         }
         return $this->render('dossier/dossier.html.twig', array(
             'form' => $form->createView(),
-            'dossier' => $dossier
+            'dossier' => $dossier,
+            'currentTab' =>$currentTab
         ));
     }
 
@@ -141,9 +146,10 @@ class DossierController extends Controller
                 $this->session->getFlashBag()->add('danger',$this->trans->trans('label.create.error'));
             }
 
-            return $this->redirectToRoute('render_edit_dossier', array('id' =>$dossier->getId()));
+            return $this->redirectToRoute('render_edit_dossier', array('id' =>$dossier->getId(),'currentTab' => 'declaration'));
         }
 
+      // return $this->redirectToRoute('render_create_dossier');
         return $this->render('dossier/form.html.twig', array(
             'form' => $form->createView()
         ));

@@ -73,6 +73,16 @@ class Auxiliaires
      */
     private $statutIntervenant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="devisePayeer")
+     */
+    private $deviseAuxiPayer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="DeviseResteAux")
+     */
+    private $deviseReste;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -218,6 +228,30 @@ class Auxiliaires
     public function setTelephone(int $telephone): self
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getDeviseAuxiPayer(): ?Devise
+    {
+        return $this->deviseAuxiPayer;
+    }
+
+    public function setDeviseAuxiPayer(?Devise $deviseAuxiPayer): self
+    {
+        $this->deviseAuxiPayer = $deviseAuxiPayer;
+
+        return $this;
+    }
+
+    public function getDeviseReste(): ?Devise
+    {
+        return $this->deviseReste;
+    }
+
+    public function setDeviseReste(?Devise $deviseReste): self
+    {
+        $this->deviseReste = $deviseReste;
 
         return $this;
     }

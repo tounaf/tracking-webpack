@@ -1,8 +1,4 @@
-{#{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }#}
-{{ form_start(formCloture)}}
+{{ form_start(formCloture) }}
 {% if formCloture is defined %}
     <div class="row card">
         <div class="card-header">
@@ -13,6 +9,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         {{ form_row(formCloture.dateCloture) }}
+
                     </div>
                     <div class="form-group col-md-6">
                         {{ form_row(formCloture.juridiction) }}
@@ -69,23 +66,29 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-10">
                                 {{ form_row(formCloture.montantInitial) }}
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-2">
+                                {{ form_row(formCloture.deviseInitial) }}
+                            </div>
+                            <div class="form-group col-md-10">
                                 {{ form_row(formCloture.montantIntervenant) }}
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-2">
+                                {{ form_row(formCloture.deviseAvocat) }}
+                            </div>
+                            <div class="form-group col-md-10">
                                 {{ form_row(formCloture.montantAuxiliaires) }}
+                            </div>
+                            <div class="form-group col-md-2">
+                                {{ form_row(formCloture.deviseAuxiliaires) }}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="form-group col-md-6">
-        {{ form_row(formCloture.dossier) }}
     </div>
     <div class="modal-footer">
         <div class="pull-right adjust text-right offset-10">
@@ -94,4 +97,4 @@
 
     </div>
 {% endif %}
-{{ form_end(formCloture) }}
+{{ form_end(formCloture,{'render_rest': false}) }}

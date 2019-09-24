@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Cloture;
 use App\Entity\Devise;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -24,7 +25,7 @@ class ClotureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateCloture',DateTimeType::class,[
+            ->add('dateCloture',DateType::class,[
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy',
                     'model_timezone' => 'UTC',
@@ -64,11 +65,8 @@ class ClotureType extends AbstractType
                 'placeholder'=>'Sélectionner',
                 'required'=>false,
                 'choices'=>[
-                    'Faible'=>'Faible',
-                    'Moyen'=>'Moyen',
-                    'Elevé'=>'Elevé',
-                    'Critique'=>'Critique',
-
+                    'Amiable'=>'Amiable',
+                    'Justice'=>'Justice',
                 ]
             ])
             ->add('gainCondamnation',ChoiceType::class, [
@@ -112,10 +110,43 @@ class ClotureType extends AbstractType
                 'label'=> 'NATURE DE LA DECISION DE JUSTICE',
                 'placeholder'=>'Sélectionner',
                 'required'=> false,])
-            ->add('devise', EntityType::class, [
-                'label'=> 'DEVISE',
+         /*   ->add('devise', EntityType::class, [
+                'label'=> $this->trans->trans('label.devise'),
                 'class' => Devise::class,
                 'required' => false
+            ])*/
+
+            ->add('devise', EntityType::class, array(
+                'class' => 'App\Entity\Devise',
+                'label' =>  $this->trans->trans('label.devise'),
+               // 'choice_label' => 'ch',
+                'required' => true,
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->getDevise();
+                }))
+            ->add('deviseInitial', EntityType::class, [
+                'class' => 'App\Entity\Devise',
+                'label' =>  $this->trans->trans('label.devise'),
+                // 'choice_label' => 'ch',
+                'required' => true,
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->getDevise();}
+            ])
+            ->add('deviseAvocat', EntityType::class, [
+                'class' => 'App\Entity\Devise',
+                'label' =>  $this->trans->trans('label.devise'),
+                // 'choice_label' => 'ch',
+                'required' => true,
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->getDevise();}
+            ])
+            ->add('deviseAuxiliaires', EntityType::class, [
+                'class' => 'App\Entity\Devise',
+                'label' =>  $this->trans->trans('label.devise'),
+                // 'choice_label' => 'ch',
+                'required' => true,
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->getDevise();}
             ])
             ->add('dossier')
         ;
