@@ -32,7 +32,7 @@
                             <td>{{ user.lastname }}</td>
                             <td>{{ user.societe }}</td>
                             <td>{{ user.email }}</td>
-                            <td>{{ user.phoneNumber }}</td>
+                            <td>{{ user.prefixPhone !=''?user.prefixPhone~user.phoneNumber :user.phoneNumber }}</td>
                             <td>{{ user.profile }}</td>
                             <td>{{ user.isActif?'OUI':'NON' }}</td>
                             <td class="actions">

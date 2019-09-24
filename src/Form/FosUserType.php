@@ -42,9 +42,13 @@ class FosUserType extends AbstractType
                 'label' => $this->trans->trans('label.email'),
                 'required' => true
             ))
+            ->add('prefixPhone', null, array(
+                'required' => true,
+                'attr' => ['maxlength' => 4]
+            ))
             ->add('phoneNumber', null, array(
                 'required' => true,
-                'attr' => array('maxlength' => 10, 'minlength' => 10),
+                'attr' => array('maxlength' => 7, 'minlength' => 7),
                 'label' => $this->trans->trans('label.tel')
             ))
             ->add('actif', null, array(
@@ -88,6 +92,7 @@ class FosUserType extends AbstractType
                 ->remove('name')
                 ->remove('lastname')
                 ->remove('email')
+                ->remove('prefixPhone')
                 ->remove('phoneNumber')
                 ->remove('actif')
                 ->remove('societe')
