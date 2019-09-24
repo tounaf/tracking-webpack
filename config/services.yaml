@@ -33,6 +33,6 @@ services:
     # please note that last definitions always *replace* previous ones
     history.litige:
         class: App\EventListner\HistorySubscriber
-        arguments: ['@service_container']
+        arguments: ['@service_container','@security.helper']
         tags:
           - { name: doctrine.event_listener, event: preUpdate}

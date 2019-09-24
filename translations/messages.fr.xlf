@@ -402,6 +402,110 @@
                 <source>label.devise</source>
                 <target>DEVISE</target>
             </trans-unit>
+            <trans-unit id="90">
+                <source>referenceDossier</source>
+                <target>Référence</target>
+            </trans-unit>
+
+            <trans-unit id="91">
+                <source>libelle</source>
+                <target>Libelle</target>
+            </trans-unit>
+
+            <trans-unit id="92">
+                <source>nomDossier</source>
+                <target>NOM DOSSIER</target>
+            </trans-unit>
+
+            <trans-unit id="93">
+                <source>montant</source>
+                <target>MONTANT</target>
+            </trans-unit>
+            <trans-unit id="94">
+                <source>situation</source>
+                <target>SITUATION</target>
+            </trans-unit>
+
+            <trans-unit id="95">
+                <source>resumeFait</source>
+                <target>RESUME DES FAITS</target>
+            </trans-unit>
+
+            <trans-unit id="96">
+                <source>dataLitige</source>
+                <target>DATE LITIGE</target>
+            </trans-unit>
+
+            <trans-unit id="97">
+                <source>sensLitige</source>
+                <target>SENS DU LITIGE</target>
+            </trans-unit>
+
+            <trans-unit id="98">
+                <source>echeance</source>
+                <target>ECHEANCE</target>
+            </trans-unit>
+
+            <trans-unit id="99">
+                <source>alerteDate</source>
+                <target>ALERTE</target>
+            </trans-unit>
+
+            <trans-unit id="100">
+                <source>userEnCharge</source>
+                <target>PERSONNE EN CHARGE DU DOSSIER</target>
+            </trans-unit>
+
+            <trans-unit id="101">
+                <source>raisonSocial</source>
+                <target>RAISON SOCIALE</target>
+            </trans-unit>
+
+            <trans-unit id="102">
+                <source>statut</source>
+                <target>STATUT</target>
+            </trans-unit>
+
+            <trans-unit id="103">
+                <source>categorie</source>
+                <target>CATEGORIE</target>
+            </trans-unit>
+
+            <trans-unit id="104">
+                <source>etapeSuivante</source>
+                <target>ETAPE SUIVANTE</target>
+            </trans-unit>
+
+            <trans-unit id="105">
+                <source>partieAdverse</source>
+                <target>PARTIE ADVERSE</target>
+            </trans-unit>
+
+            <trans-unit id="106">
+                <source>nomPartieAdverse</source>
+                <target>NOM</target>
+            </trans-unit>
+
+            <trans-unit id="107">
+                <source>formePartieAdverse</source>
+                <target>FORME</target>
+            </trans-unit>
+
+            <trans-unit id="108">
+                <source>statutPartiAdverse</source>
+                <target>STATUT</target>
+            </trans-unit>
+
+            <trans-unit id="109">
+                <source>piecesJointes</source>
+                <target>PIECES JOINTES</target>
+            </trans-unit>
+
+            <trans-unit id="110">
+                <source>devise</source>
+                <target>DEVISE</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

@@ -24,14 +24,26 @@
                                 <td>
                                     {% for champ, value in metadatas %}
                                         {% for changeset, field in  value %}
-                                            {{ field[0] }} <br>
+                                            {% if field[0] is iterable %}
+                                                {% for childField in field[0] %}
+                                                    {{ childField }} <br>
+                                                {% endfor %}
+                                            {% else %}
+                                                {{ field[0] }} <br>
+                                            {% endif %}
                                         {% endfor %}
                                     {% endfor %}
                                 </td>
                                 <td>
                                     {% for champ, value in metadatas %}
                                         {% for changeset, field in  value %}
+                                            {% if field[1] is iterable %}
+                                                {% for childField in field[1] %}
+                                                    {{ childField }} <br>
+                                                {% endfor %}
+                                            {% else %}
                                             {{ field[1] }} <br>
+                                            {% endif %}
                                         {% endfor %}
                                     {% endfor %}
                                 </td>
