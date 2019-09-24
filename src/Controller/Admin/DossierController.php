@@ -186,7 +186,7 @@ class DossierController extends Controller
                 }
             }
         }
-        return $this->redirectToRoute('render_edit_dossier', array('id' => $id, 'dossier' => $dossier));
+        return $this->redirectToRoute('render_edit_dossier', array('id' => $id, 'dossier' => $dossier, 'currentTab' => 'declaration'));
     }
 
     /**

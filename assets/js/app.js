@@ -35,7 +35,6 @@ require('./bootstrap.datepicker.1.6.min');
  * get form user edit
  */
 $('#btn-dismiss').click(function (e) {
-    console.log("log");
     $('#flash').fadeToggle("slow");
 })
 $(document).ready(function() {
@@ -62,4 +61,3 @@ $(document).ready(function() {
 */
 
 
-console.log($('.example-wrapper').text())

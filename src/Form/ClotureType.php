@@ -32,7 +32,7 @@ class ClotureType extends AbstractType
                     'view_timezone' => 'UTC',
                     'required' => false,
                     'label' => 'DATE DE CLÔTURE',
-                    'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker','readonly'=>''],
+                    'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
             ])
             ->add('juridiction',TextType::class,[
                 'label'=> 'JURIDICTION',

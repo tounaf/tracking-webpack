@@ -94,8 +94,6 @@ $('body').on('click', '.btn-remove', function (e) {
                  $('#modalIntervenant').modal('show');
                  $('#intervenant_convenu').keydown(function(e){
                      e.preventDefault();
-                     console.log("key");
-                     console.log("key");
                      $('intervenant_convenu').css("background-color", "yellow");
                  });
                  elt.removeClass('text-danger').addClass('alert alert-'+response.type).text(response.message);
@@ -135,14 +133,12 @@ function removeClassStartingWith(node, begin) {
  */
 $('body').on('click', '#modalCreateIntervenant', function (e) {
     e.preventDefault();
-    console.log("create Intervention");
  //   main.ajaxloader('show');
     var route = $(this).data('route');
     var title = $(this).data('title');
     var dossierId = $(this).data('dossier');
     var url = Routing.generate(route, {id: dossierId},true);
    // var convenu = $('#intervenant_convenu').val();
-    //console.log(convenu);
     $.get(url,function (response) {
         var elt = $('#exampleModalLongTitle');
         removeClassStartingWith(elt, 'alert');
@@ -155,9 +151,7 @@ $('body').on('click', '#modalCreateIntervenant', function (e) {
 });
 $('body').on('keyup', '#intervenant_restePayer', function(e){
         e.preventDefault();
-        console.log("reste");
        var convenu = $("input#intervenant_restePayer").val();
-       console.log(convenu);
        if (convenu > 0) {
            $("#intervenant_statutIntervenant").val("A Payer");
        } else {
@@ -181,7 +175,6 @@ $('body').on('change', '#intervenant_devise', function(e){
 
 //after loading modal, chargement du devise selon le type par defaut
 $("#modalIntervenant").on('shown.bs.modal', function(){
-    console.log("afterloading modal");
     var str = "";
     $( "#intervenant_devise option:selected" ).each(function() {
         str += $( this ).text() + " ";
@@ -199,7 +192,6 @@ $('body').on('click', '.btn-edit', function (e) {
 
    // main.ajaxloader('show');
     var id = $(this).data('id');
-    console.log("edit"+id);
     var route = $(this).data('route');
     var title = $(this).data('title');
     var url = Routing.generate(route,{'id':id})

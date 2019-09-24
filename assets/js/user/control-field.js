@@ -24,7 +24,6 @@ $("#fos_user_email").keyup(function () {
     $.get(url,email,
         function (response) {
             if (response.status == 200) {
-                console.log(response);
                 $('#emailHelp').remove();
                 $('#saveCreateUser').attr('disabled',false);
             }

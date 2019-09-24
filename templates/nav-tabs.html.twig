@@ -1,7 +1,7 @@
 
 <div class="dossier-tabs">
     <div class="tab-content" id="DossierTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="tab-pane fade {% if currentTab is defined and currentTab == 'declaration' %}show active {% endif %}" id="home" role="tabpanel" aria-labelledby="home-tab">
             {% if form is defined and form is not null %}
                 {{ include('dossier/form.html.twig') }}
             {% else %}
@@ -23,9 +23,8 @@
         </div>
         <div class="tab-pane fade {% if currentTab is defined and currentTab == 'cloture' %}show active {% endif %}" id="cloture" role="tabpanel"
              aria-labelledby="cloture-tab">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias animi autem consequatur, dicta dolore, enim eos esse et in ipsa, laboriosam maiores odit optio quia repellendus sunt totam vel!
             {% if dossier is defined and dossier is not null %}
-                {{render(controller('App\\Controller\\ClotureController::new')) }}
+                {{render(controller('App\\Controller\\ClotureController::new', {id: dossier.id})) }}
 
             {% endif %}
         </div>

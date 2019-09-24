@@ -119,7 +119,6 @@ function removeClassStartingWith(node, begin) {
  */
 $('body').on('click', '#modalCreateAuxi', function (e) {
     e.preventDefault();
-    console.log("create Auxiliaire");
     //   main.ajaxloader('show');
     var route = $(this).data('route');
     var title = $(this).data('title');
@@ -138,9 +137,7 @@ $('body').on('click', '#modalCreateAuxi', function (e) {
 
 $('#modalAuxi').on('blur keyup mouseout', '#auxiliaires_restePayer', function(event){
     event.preventDefault();
-    console.log("resteauxi");
     var convenu = $("#modalAuxi #auxiliaires_restePayer").val();
-    console.log(convenu);
     if (convenu != 0){
         $(".auxiStatut").val("A Payer");
     } else if (convenu == 0){
@@ -165,7 +162,6 @@ $('body').on('change', '#auxiliaires_devise', function(e){
 
 //after loading modal, chargement du devise selon le type par defaut
 $("#modalAuxi").on('shown.bs.modal', function(){
-    console.log("afterloading modal");
     var str = "";
     $( "#auxiliaires_devise option:selected" ).each(function() {
         str += $( this ).text() + " ";
@@ -182,7 +178,6 @@ $('body').on('click', '.btn-editAuxi', function (e) {
     e.preventDefault();
 
     var id = $(this).data('id');
-    console.log("edit"+id);
     var route = $(this).data('route');
     var title = $(this).data('title');
     var url = Routing.generate(route,{'id':id})

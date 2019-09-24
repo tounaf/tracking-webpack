@@ -101,12 +101,6 @@ $(document).ready(function () {
                 .replace(/__name__label__/g, 'Catégorie n°' + (index+1))
                 .replace(/__name__/g,        index)
             ;
-            // console.log($('.col-form-label'));
-            //
-            // console.log($(template).children(0).remove());
-            // $(template).children(0).remove();
-            // $('.col-form-label').remove();
-
             // On crée un objet jquery qui contient ce template
             var $prototype = $(template);
 
