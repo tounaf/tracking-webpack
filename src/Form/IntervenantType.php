@@ -52,7 +52,7 @@ class IntervenantType extends AbstractType
                 'class' => Devise::class,
             ])
             ->add('prestation',EntityType::class, array(
-                'label' => $this->trans->trans('label.titre.typePrestation'),
+                'label' => $this->trans->trans('label.typePrestation'),
                 'class' => TypePrestation::class,
                 'choice_label' => 'libelle'))
             ->add('nomPrenom')

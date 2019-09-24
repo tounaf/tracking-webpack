@@ -402,6 +402,22 @@
                 <source>label.devise</source>
                 <target>DEVISE</target>
             </trans-unit>
+            <trans-unit id="90">
+                <source>label.convenu</source>
+                <target>CONVENU</target>
+            </trans-unit>
+            <trans-unit id="91">
+                <source>label.payer</source>
+                <target>PAYE</target>
+            </trans-unit>
+            <trans-unit id="92">
+                <source>label.restePayer</source>
+                <target>RESTE A PAYE</target>
+            </trans-unit>
+            <trans-unit id="93">
+                <source>label.typePrestation</source>
+                <target>TYPE DE PRESTATION</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -70,12 +70,10 @@ $(document).ready(function () {
         },
     });
     function editRow(data, type, row) {
-        data = ' <button  data-target="#modalIntervenant" data-title="AJOUT/MODIFICATION" data-route="intervenant_edit" class="btn btn-link text-danger btn-edit" data-id="'+row.id+'" type="button"><i class="fa fa-edit"></i></button>\n' +
-            '  <button  data-target="#modalIntervenant" data-title="SUPPRESSION" data-route="intervenant_delete" class="btn btn-link text-danger btn-remove" data-id="'+row.id+'" type="button"><i class="fa fa-trash-o"></i></button>';
-
+        data = ' <button  data-target="#modalIntervenant" data-title="AJOUT/MODIFICATION" data-route="intervenant_edit" class="btn-edit"  data-id="'+row.id+'" type="button"><i class="icon-edit"></i></button>\n' +
+            '  <button  data-target="#modalIntervenant" data-title="SUPPRESSION" data-route="intervenant_delete" class="btn-remove" data-id="'+row.id+'" type="button"><i class="icon-trash"></i></button>';
         return data;
     }
-
 });
 $('body').on('click', '.btn-remove', function (e) {
     //    var id = table.row(this).id();
@@ -158,7 +156,18 @@ $('body').on('keyup', '#intervenant_restePayer', function(e){
            $("#intervenant_statutIntervenant").val("Soldé");
        }
     });
-//after change on select devise, displaying devise on another devise
+$('#modalIntervenant').on('blur keyup mouseout', '#intervenant_restePayer', function(event){
+    event.preventDefault();
+    var convenu = $("#modalIntervenant #intervenant_restePayer").val();
+    if (convenu != 0){
+        $(".intervenantStatut").val("A Payer");
+    } else if (convenu == 0){
+        $(".intervenantStatut").val("Soldé");
+    }
+    else{
+        $(".intervenantStatut").val("Autres");
+    }
+});
 
 /**
  *  after change on select devise, displaying devise on another devise
