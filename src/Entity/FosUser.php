@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BasUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class FosUser
@@ -37,6 +38,7 @@ class FosUser extends BasUser
     /**
      * @var string
      * @ORM\Column(name="firstname",type="string", nullable=true)
+     * @Groups("groupe1")
      */
     protected $name;
 
