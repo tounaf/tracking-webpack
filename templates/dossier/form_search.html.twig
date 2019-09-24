@@ -1,0 +1,27 @@
+{#{{ form_start(form)  }}#}
+<div class="form-bloc standard-form form-search-dossier">
+    {{ form_start(form, {'attr': {'id': 'formSearchDossier','class': 'form-horizontale'}}) }}
+        <div class="card card-custom-2">
+            <div class="card-header">
+                <h2>Recherche par :</h2>
+            </div>
+            <div class="card-body">
+                <nav class="filterForm-list">
+                    <ul class="">
+                        <li class="list-item">{{ form_row(form.reference) }}</li>
+                        <li class="list-item">{{ form_row(form.nom) }}</li>
+                        <li class="list-item">{{ form_row(form.categorie) }}</li>
+                        <li class="list-item">{{ form_row(form.entite) }}</li>
+                        <li class="list-item">{{ form_row(form.statut) }}</li>
+                    </ul>
+                </nav>
+                <div class="btn-group wrap-btn">
+                    <button class="btn btn-danger pull-right" id="searchButtonDossier" type="submit">Rechercher</button>
+                </div>
+            </div>
+        </div>
+    {{ form_end(form) }}
+</div>
+
+
+

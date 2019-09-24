@@ -20,4 +20,12 @@ class DashboardController extends Controller
         return $this->render('dashboard/dashboard.html.twig');
     }
 
+    /**
+     * @Route("/core/dossier", name="core_litige")
+     */
+    public function dossier()
+    {
+        return $this->render('dossier/dossier.html.twig');
+    }
+
 }

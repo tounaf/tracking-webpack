@@ -1,28 +1,23 @@
 {% extends 'dashboard/dashboard.html.twig' %}
 {% set sectionSociete = true %}
+
 {% block wrapper %}
-                <div class="card-header">{{ 'Gestion des Sociétés'|trans }}</div>
-                <br>
-
-                {% include '_flash.html.twig' %}
-                <div>
-                    <div class="col-xs-12">
-                        <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
-                            <button id="showModalCreate" class="btn badge-success" data-route="create_societe" data-title="{{ 'label.edit.create'|trans }}"> <a class="text-light fa fa-plus-circle" href="#">Ajouter</a></button>
-                        </div>
-                        <br>
-                    </div>
-                    <div class="btn-group" role="group" aria-label="Button group">
-                        <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
-                    </div>
-                </div>
-
-                <table id="listAdmin" class="table">
+    <div class="card-header">
+        <h2>{{ 'Gestion des Sociétés'|trans }}</h2>
+    </div>
+    <div class="card-body">
+        {% include '_flash.html.twig' %}
+        <div class="listing-bloc relative-bloc">
+            <div class="btn-group wrap-btn">
+                <button id="showModalCreate" class="btn btn-success" data-route="create_societe" data-title="{{ 'label.edit.create'|trans }}"><i class="icon-plus-circle"></i><span>Ajouter</span></button>
+            </div>
+            <div class="table-responsive">
+                <table id="listSociete" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>{{ 'column.libelle'|trans }}</th>
-                            <th>{{ 'column.actif'|trans }}</th>
-                            <th>{{ 'column.actions'|trans }}</th>
+                            <th><span>{{ 'column.societe'|trans }}</span></th>
+                            <th><span>{{ 'column.actif'|trans }}</span></th>
+                            <th class="actions"><span>{{ 'column.actions'|trans }}</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,16 +25,19 @@
                         <tr>
                             <td>{{ societe.libele }}</td>
                             <td>{{ societe.enable?'OUI':'NON' }}</td>
-                            <td  style="width:15%; text-align: center; padding-right: 8px !important;">
-                                <button  data-target="#modalPassword" data-title="{{ 'label.edit.create'|trans }}" data-route="edit_societe" class="btn btn-link text-danger btn-edit" data-id="{{ societe.id }}" type="button"><i class="fa fa-edit"></i></button>
-                                <button  data-target="#modalPassword" data-title="{{ 'label.delete'|trans }}" data-route="delete_societe" class="btn btn-link text-danger btn-remove" data-id="{{ societe.id }}" type="button"><i class="fa fa-trash-o"></i></button>
+                            <td class="actions">
+                                <button data-target="#modalPassword" data-title="{{ 'label.edit.create'|trans }}" data-route="edit_societe" class="btn-edit" data-id="{{ societe.id }}" type="button"><i class="icon-edit"></i></button>
+                                <button  data-target="#modalPassword" data-title="{{ 'label.delete'|trans }}" data-route="delete_societe" class="btn-remove" data-id="{{ societe.id }}" type="button"><i class="icon-trash"></i></button>
                             </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-    {% include 'user/popup.html.twig'  with {
-        'sectionSociete' : sectionSociete,
-        'form' : formSociete
-    } %}
+            </div>
+        </div>
+        {% include 'user/popup.html.twig'  with {
+            'sectionSociete' : sectionSociete,
+            'form' : formSociete
+        } %}
+    </div>
 {% endblock %}

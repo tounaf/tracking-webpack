@@ -2,41 +2,39 @@
 
 {% block title %}{{ parent() }} | Niveau de décision {% endblock %}
 {% block wrapper %}
-
-    <div class="card-header">{{ 'label.titre.niveauDecision'|trans }}</div>
-    {% include '_flash.html.twig' %}
-    <br>
-    <div>
-        <div class="col-xs-12">
-            <div class="btn btn-ps pull-right adjust">
-                <button id="showModalCreate" class="btn badge-success"data-route="niveau_decision_new" data-title="{{ 'label.title.ajout'|trans }}"> <i class="text-light fa fa-plus-circle">Ajouter</i></button>
-            </div>
-            <br>
-        </div>
-        <div class="btn-group" role="group" aria-label="Button group">
-            <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
-        </div>
+    <div class="card-header">
+        <h2>{{ 'label.titre.niveauDecision'|trans }}</h2>
     </div>
-    <table id="listAdmin" class="table " >
-        <thead>
-        <tr>
-            <th>{{ 'column.libelle'|trans }}</th>
-            <th>{{ 'column.actif'|trans }}</th>
-            <th style="text-align: center; width:15%; padding-right: 8px !important;">{{ 'column.actions'|trans }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for niveau_decision in niveau_decisions %}
-            <tr>
-                <td>{{  niveau_decision.libelle }}</td>
-                <td>{{  niveau_decision.isActif ? 'OUI' : 'NON' }} </td>
-                <td style="width:15%; text-align: center; padding-right: 8px !important;">
-                    <button data-route="niveau_decision_edit" data-title="{{ 'label.title.modification'|trans }}" class="btn btn-link text-danger btn-edit" data-id="{{ niveau_decision.id }}" type="button"><i class="fa fa-edit"></i></button>
-                    <button data-route="niveau_decision_delete" data-title="{{ 'label.titre.delete'|trans }}" class="btn btn-link text-danger btn-remove" data-id="{{ niveau_decision.id }}" type="button"><i class="fa fa-trash-o"></i></button>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {% include '/Admin/Popup/modal.html.twig' %}
+    <div class="card-body">
+        {% include '_flash.html.twig' %}
+        <div class="listing-bloc relative-bloc">
+            <div class="btn-group wrap-btn">
+                <button id="showModalCreate" class="btn btn-success"data-route="niveau_decision_new" data-title="{{ 'label.title.ajout'|trans }}"><i class="icon-plus-circle"></i><span>Ajouter</span></button>
+            </div>
+            <div class="table-responsive">
+                <table id="listNiveauDecision" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><span>{{ 'column.libelle'|trans }}</span></th>
+                            <th><span>{{ 'column.actif'|trans }}</span></th>
+                            <th class="actions"><span>{{ 'column.actions'|trans }}</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for niveau_decision in niveau_decisions %}
+                            <tr>
+                                <td>{{  niveau_decision.libelle }}</td>
+                                <td>{{  niveau_decision.isActif ? 'OUI' : 'NON' }} </td>
+                                <td class="actions">
+                                    <button data-route="niveau_decision_edit" data-title="{{ 'label.title.modification'|trans }}" class="btn-edit" data-id="{{ niveau_decision.id }}" type="button"><i class="icon-edit"></i></button>
+                                    <button data-route="niveau_decision_delete" data-title="{{ 'label.titre.delete'|trans }}" class="btn-remove" data-id="{{ niveau_decision.id }}" type="button"><i class="icon-trash"></i></button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% include '/Admin/Popup/modal.html.twig' %}
+    </div>
 {% endblock %}

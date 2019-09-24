@@ -1,0 +1,18 @@
+{{ form_start(form_subdossier, {'attr':{'id': 'formSubDossier'}})  }}
+    {#{{ dump(form_subdossier) }}#}
+    <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(form_subdossier.numeroSubDossier) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(form_subdossier.libelle) }}
+                        {% if idSubDossier is defined %}
+                            <input type="hidden" value="{{ idSubDossier }}" id="idSubDossier">
+                        {% endif %}
+                        <div class="pull-right adjust text-right offset-10">
+                            <button type="submit" id="createSubDossier" class="btn btn-success">Enregistrer</button>
+                        </div>
+                    </div>
+
+    </div>
+{{ form_end(form_subdossier) }}

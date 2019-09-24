@@ -1,0 +1,69 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="card">
+        <div class="card-header">
+            AVOCAT EN CHARGE DE L'AFFAIRE
+        </div>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.nomPrenom) }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form_row(form.adresse) }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.email) }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form_row(form.telephone) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            HONORAIRES
+        </div>
+        <div class="card-body">
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    {{ form_row(form.prestation) }}
+                </div>
+                <div class="form-group col-md-4">
+                    {{ form_row(form.convenu) }}
+                </div>
+                <div class="form-group col-md-3">
+                    {{ form_row(form.devise) }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    {{ form_row(form.payer) }}
+                </div>
+                <div class="form-group col-md-2">
+                    {{ form_row(form.devisePayer) }}
+                </div>
+                <div class="form-group col-md-3">
+                    {{ form_row(form.restePayer) }}
+                </div>
+                <div class="form-group col-md-2">
+                    {{ form_row(form.deviseReste) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" hidden>
+                    {{ form_row(form.statutIntervenant) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <input type="button" data-dismiss="modal" id="cancel" class="btn btn-dark" value="{{ 'label.cancel'|trans }}"/>
+    <input type="submit" id="saveCreateUser" class="btn btn-danger" value="{{ 'label.save'|trans }}"/>
+</div>
+{{ form_end(form) }}

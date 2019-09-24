@@ -12,25 +12,24 @@ $("#fos_user_email").keyup(function () {
 
     if (!Fonction.isEmailValidFormat(email)) {
         $("#emailFormatInvalid").remove();
-        $(this).addClass('border border-danger');
-        $("#fos_user_email").parent().append("<small id='emailFormatInvalid' class='form-text text-danger'>Format email invalid</small>");
+        $(this).addClass('');
+        $("#fos_user_email").parent().append("<small id='emailFormatInvalid' class='form-text error-text'>Format d'email invalide</small>");
         $('#saveCreateUser').attr('disabled','disabled');
         return false;
     } else {
-        $(this).removeClass('border border-danger');
+        $(this).removeClass('border');
         $("#emailFormatInvalid").remove();
         $('#saveCreateUser').attr('disabled',false);
     }
     $.get(url,email,
         function (response) {
             if (response.status == 200) {
-                console.log(response);
                 $('#emailHelp').remove();
                 $('#saveCreateUser').attr('disabled',false);
             }
             if (response.status == 403) {
                 $('#emailHelp').remove();
-                $("#fos_user_email").parent().append("<small id='emailHelp' class='form-text text-muted'>Cet addresse email est déja utilisé</small>");
+                $("#fos_user_email").parent().append("<small id='emailHelp' class='form-text error-text text-muted'>Cet addresse email est déja utilisé</small>");
                 $('#saveCreateUser').attr('disabled','disabled');
             }
         })
@@ -44,12 +43,12 @@ $('#fos_user_phoneNumber').keyup(function () {
     if (!Fonction.isPhone(phone)) {
 
         $("#phoneFormatInvalid").remove();
-        $(this).addClass('border border-danger');
-        $(this).parent().append("<small id='phoneFormatInvalid' class='form-text text-danger'>Numero télephone incorrecte</small>");
+        $(this).addClass('border');
+        $(this).parent().append("<small id='phoneFormatInvalid' class='form-text error-text'>Numero de télephone incorrecte</small>");
         $('#saveCreateUser').attr('disabled','disabled');
     } else {
 
-        $(this).removeClass('border border-danger');
+        $(this).removeClass('border');
         $("#phoneFormatInvalid").remove();
         $('#saveCreateUser').attr('disabled',false);
     }

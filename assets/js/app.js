@@ -13,32 +13,38 @@ require('../css/app.css');
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // const $ = require('jquery');
 
-    import $ from 'jquery';
-    import 'popper.js';
-    import 'bootstrap';
-    import 'bootstrap/dist/js/bootstrap.min';
-    import 'perfect-scrollbar';
-    import 'perfect-scrollbar/dist/perfect-scrollbar.min';
-    import '@coreui/coreui/dist/js/coreui.min';
-    import '@coreui/coreui-plugin-chartjs-custom-tooltips/js/custom-tooltips';
-    // require('main');
-    // import './main'
-    // import jQuery from 'jquery';
-    require ('../img/photo-deco.png');
+import $ from 'jquery';
+import 'popper.js';
+import 'bootstrap';
+import 'bootstrap/dist/js/bootstrap.min';
+import 'perfect-scrollbar';
+import 'perfect-scrollbar/dist/perfect-scrollbar.min';
+import '@coreui/coreui/dist/js/coreui.min';
+import '@coreui/coreui-plugin-chartjs-custom-tooltips/js/custom-tooltips';
 
-    require('./jquery.ajaxloader');
+//import mobilePhoneNumber from 'jquery.mobilephonenumber/lib/jquery.mobilePhoneNumber';
+// require('main');
+// import './main'
+// import jQuery from 'jquery';
+require('../img/photo-deco.png');
+
+require('./jquery.ajaxloader');
+require('./bootstrap.datepicker.1.6.min');
 
 /**
  * get form user edit
  */
 $('#btn-dismiss').click(function (e) {
-console.log("log");
-$('#flash').fadeToggle("slow");
+    $('#flash').fadeToggle("slow");
 })
+$(document).ready(function() {
+    $('.js-datepicker').datepicker({
+        dateFormat: 'yy/mm/dd'
+    });
+    //$('body .phone-num').mobilePhoneNumber({allowPhoneWithoutPrefix: '+1'});
+});
 
-
-
-
+//$.fn.datepicker.defaults.format = "mm-dd-yyyy";
 
 /*
 
@@ -55,5 +61,3 @@ $('#flash').fadeToggle("slow");
 */
 
 
-
-console.log($('.example-wrapper').text())

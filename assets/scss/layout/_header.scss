@@ -1,0 +1,133 @@
+.app-header {
+	background-color: #fff;
+	border: none;
+	border-bottom: 1px solid $greyC2;
+	flex: 0 0 55px;
+	height: 100px;
+	padding: 0;
+	z-index: 0;
+	.header-content {
+		align-items: stretch;
+		flex-wrap: nowrap;
+		height: inherit;
+		padding: 0;
+		width: 100%;
+	}
+	.navbar-brand {
+		background-color: $red;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+		align-items: center;
+		display: inline-flex;
+		flex-basis: 270px;
+		justify-content: center;
+		height: 100%;
+    	margin-right: 0;
+		min-width: 270px;
+		padding: 0;
+		.logo {
+			width: 175px;
+			height: 78px;
+		}
+	}
+	.header-right {
+		width: 100%;
+	}
+	.header-right-content {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 100%;
+		padding: 0 30px;
+	}
+	.refDossier {
+		color: $grey;
+		font-size: 14px;
+		font-weight: 700;
+		margin-bottom: 0;
+		span {
+			font-weight: 400;
+		}
+	}
+}
+.header-fixed {
+	.app-header {
+	    @include min(#{992px}) {
+	    	position: fixed;
+		    width: 100%;
+		    z-index: 1020;
+	    }
+	}
+	.app-body {
+	    margin-top: 100px;
+	}
+}
+
+.titre-page {
+	color: $red;
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 100%;
+	margin: 0;
+	text-transform: uppercase;
+	&:empty {
+		display: none;
+	}
+}
+.user-infos {
+	color: $grey;
+	font-size: 14px;
+	margin-bottom: 0;
+	vertical-align: middle;
+	a {
+		text-decoration: none;
+		&:hover, &:focus {
+			outline: none;
+			text-decoration: none;
+		}
+	}
+	i {
+		font-size: 14px;
+		margin-left: 10px;
+		vertical-align: middle;
+	}
+}
+
+.tabs-dossier {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	z-index: 1;
+	@include min(768px) {
+		left: 285px;	
+
+	}
+	ul {
+		margin: 0;
+		padding: 0;
+	}
+	.nav-tabs {
+		border: none;
+		.nav-item {
+			padding: 0 20px;
+			&.show {
+				.nav.link {
+					background-color: transparent;
+				}
+			}
+		}
+		.nav-link {
+			border-top-left-radius: 0;
+    		border-top-right-radius: 0;
+    		border-width: 0 0 2px;
+			color: $grey;
+			font-size: 14px;
+			padding: 0;
+			text-decoration: none;
+			&.active {
+				background-color: transparent;
+				border-color: transparent transparent $red;
+				color: $red;
+			}
+		}
+	}
+}

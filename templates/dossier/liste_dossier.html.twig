@@ -1,0 +1,27 @@
+{% extends 'dashboard/dashboard.html.twig' %}
+
+{% set sectionUser = true %}
+{% block wrapper %}
+    <div class="card-header">
+        <h2>{{ 'Dossiers'|trans }}</h2>
+    </div>
+    <div class="card-body">
+        {% include '_flash.html.twig' %}
+        {{ include('dossier/form_search.html.twig') }}
+        <div class="table-responsive">
+            <table id="listDossier" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-left"><span>reference</span></th>
+                        <th class="text-left"><span>nom</span></th>
+                        <th class="text-left"><span>categorie</span></th>
+                        <th class="text-left"><span>entite</span></th>
+                        <th class="text-left"><span>statut</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
