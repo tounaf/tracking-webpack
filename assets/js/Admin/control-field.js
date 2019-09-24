@@ -52,7 +52,7 @@ $("body").on('blur','#fos_user_email',function () {
  */
 $('body').on('blur','#fos_user_phoneNumber',function () {
     var phone = $(this).val();
-    if (!Fonction.isPhone(phone)) {
+    if (!Fonction.isFormaNumber(phone)) {
 
         $("#phoneFormatInvalid").remove();
         $(this).addClass('error-input invalid');
@@ -64,6 +64,17 @@ $('body').on('blur','#fos_user_phoneNumber',function () {
     }
 })
 
+$(document).on('keyup','#fos_user_prefixPhone', function () {
+    var phonePrefix = $(this).val();
+    if (!Fonction.prefixPhoneNumber(phonePrefix)) {
+        $("#prefixPhoneFormatInvalid").remove();
+        $(this).addClass('error-input invalid');
+        $(this).parent().append("<small id='prefixPhoneFormatInvalid' class='form-text error-text'>Indicateur incorrecte</small>");
+    } else {
+        $(this).removeClass('error-input invalid');
+        $("#prefixPhoneFormatInvalid").remove();
+    }
+})
 /**
  * Desactiver bouton submit si il existe input.invalid
  */

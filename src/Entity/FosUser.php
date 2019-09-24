@@ -73,6 +73,11 @@ class FosUser extends BasUser
     private $profile;
 
     /**
+     * @ORM\Column(type="string", length=5)
+     */
+    private $prefixPhone;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -220,6 +225,18 @@ class FosUser extends BasUser
     public function setProfile(?Profil $profile): self
     {
         $this->profile = $profile;
+
+        return $this;
+    }
+
+    public function getPrefixPhone(): ?string
+    {
+        return $this->prefixPhone;
+    }
+
+    public function setPrefixPhone(string $prefixPhone): self
+    {
+        $this->prefixPhone = $prefixPhone;
 
         return $this;
     }
