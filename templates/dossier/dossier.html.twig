@@ -5,9 +5,29 @@
     <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show pace-done pace-done">
     <header class="app-header navbar">
         {% include 'nav-bar.html.twig' %}
+        <!-- onglets pour la création dossier -->
+        <nav class="tabs-dossier">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Déclaration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Intervenants</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Autres auxiliaires</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="cloture-tab" data-toggle="tab" href="#cloture" role="tab" aria-controls="cloture" aria-selected="false">Clôture</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Historique</a>
+                    </li>
+            </ul>
+        </nav>
+        <!-- onglets pour la création dossier -->
     </header>
-    <div class="app-body" >
-
+    <div class="app-body body-dossier" >
         <div class="sidebar" id="bg_sidebar">
             {% include 'side-bar.html.twig' %}
         </div>
@@ -20,7 +40,6 @@
                     <div class="animated fadeIn">
                         <div class="card">
                             {% block wrapper %}
-
                             {% endblock %}
                         </div>
                     </div>

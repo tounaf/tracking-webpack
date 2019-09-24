@@ -3,8 +3,7 @@
     <ul class="nav">
         <li class="nav-item">
             <a class="nav-link" href="#">
-                <i class="icon-dashboard"></i><span>Tableau de bord</span>
-                {#<span class="badge badge-primary">NEW</span>#}
+                <i class="fa fa-dashboard"></i> Dashboard
             </a>
         </li>
         <li class="nav-item nav-dropdown">
@@ -21,60 +20,61 @@
                 </li>
             </ul>
         </li>
+
         <li class="nav-item nav-dropdown">
-            <a class="nav-link nav-dropdown-toggle" href="javascript:;">
-                <i class="icon-cog"></i><span>Administration</span></a>
+            <a class="nav-link nav-dropdown-toggle" href="#">
+                <i class="fa fa-user-md"></i> Administration</a>
             <ul class="nav-dropdown-items">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('list_user') }}"><i class="icon-users"></i><span>Gestion des utilisateurs</span></a>
+                    <a class="nav-link" href="{{ path('list_user') }}">&nbsp;<i class="fa fa-users"></i> Gestion des utilisateurs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if isSociete is defined and isSociete == true %} active {% endif %}" href="{{ path('list_societe') }}">
-                        <i class="fa fa-building-o"></i><span>Gestion des sociétés</span></a>
+                        &nbsp;<i class="fa fa-building-o"></i> Gestion des sociétés</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if isFonction is defined and isFonction == true %} active {% endif %}" href="{{ path('list_fonction') }}">
-                       <i class="fa fa-money"></i><span>Gestion des fonctions</span></a>
+                       &nbsp;<i class="fa fa-money"></i> Gestion des fonctions</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if isStatut is defined and isStatut == true %} active {% endif %}" href="{{ path('list_statut') }}">
-                       <i class="fa fa-tasks"></i><span>Gestion des statuts</span></a>
+                       &nbsp; <i class="fa fa-tasks"></i> Gestion des statuts</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if isDecisionCloture is defined and isDecisionCloture == true %} active {% endif %}" href="{{ path('list_decision_cloture') }}">
-                        <i class="fa fa-cogs"></i><span>Gestion de décision pour la cloture d'un litige</span></a>
+                        &nbsp;<i class="fa fa-cogs"></i> Gestion de décision pour la cloture d'un litige</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('statuts_pers_morale_index') }}">
-                        <i class="fa fa-cogs"></i><span>Gestion des statuts du personne morale</span></a>
+                        &nbsp;<i class="fa fa-cogs"></i> Gestion des statuts du personne morale</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('categorie_litige_index') }}">
-                        <i class="fa fa-cogs"></i><span>Gestion des catégories litige</span></a>
+                        &nbsp;<i class="fa fa-cogs"></i> Gestion des catégories litige</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('type_prestation_index') }}">
-                        <i class="fa fa-cogs"></i><span>Gestion des types de prestation</span></a>
+                        &nbsp;<i class="fa fa-cogs"></i> Gestion des types de prestation</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('devise_index') }}">
-                        <i class="fa fa-cogs"></i><span>Gestion des devises</span></a>
+                        &nbsp;<i class="fa fa-cogs"></i> Gestion des devises</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('etape_suivante_index') }}">
-                        <i class="fa fa-cogs"></i><span>Gestion des etapes suivantes</span></a>
+                       &nbsp; <i class="fa fa-cogs"></i> Gestion des etapes suivantes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('nature_decision_index') }}">
-                        <i class="fa fa-cogs"></i><span>Gestion des natures de décision du justice</span></a>
+                        &nbsp;<i class="fa fa-cogs"></i> Gestion des natures de décision du justice</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('niveau_decision_index') }}">
-                        <i class="fa fa-cogs"></i><span>Gestion de niveaux de la décision de justice</span></a>
+                        &nbsp;<i class="fa fa-cogs"></i> Gestion de niveaux de la décision de justice</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('information_pj_index') }}">
-                        <i class="fa fa-cogs"></i><span>Gestion des informations pièces jointes</span></a>
+                        &nbsp;<i class="fa fa-cogs"></i> Gestion des informations pièces jointes</a>
                 </li>
             </ul>
         </li>

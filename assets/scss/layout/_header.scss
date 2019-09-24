@@ -5,11 +5,13 @@
 	flex: 0 0 55px;
 	height: 100px;
 	padding: 0;
+	z-index: 0;
 	.header-content {
 		align-items: stretch;
 		flex-wrap: nowrap;
 		height: inherit;
 		padding: 0;
+		width: 100%;
 	}
 	.navbar-brand {
 		background-color: $red;
@@ -37,6 +39,15 @@
 		height: 100%;
 		padding: 0 30px;
 	}
+	.refDossier {
+		color: $grey;
+		font-size: 14px;
+		font-weight: 700;
+		margin-bottom: 0;
+		span {
+			font-weight: 400;
+		}
+	}
 }
 .header-fixed {
 	.app-header {
@@ -58,6 +69,9 @@
 	line-height: 100%;
 	margin: 0;
 	text-transform: uppercase;
+	&:empty {
+		display: none;
+	}
 }
 .user-infos {
 	color: $grey;
@@ -75,5 +89,45 @@
 		font-size: 14px;
 		margin-left: 10px;
 		vertical-align: middle;
+	}
+}
+
+.tabs-dossier {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	z-index: 1;
+	@include min(768px) {
+		left: 285px;	
+
+	}
+	ul {
+		margin: 0;
+		padding: 0;
+	}
+	.nav-tabs {
+		border: none;
+		.nav-item {
+			padding: 0 20px;
+			&.show {
+				.nav.link {
+					background-color: transparent;
+				}
+			}
+		}
+		.nav-link {
+			border-top-left-radius: 0;
+    		border-top-right-radius: 0;
+    		border-width: 0 0 2px;
+			color: $grey;
+			font-size: 14px;
+			padding: 0;
+			text-decoration: none;
+			&.active {
+				background-color: transparent;
+				border-color: transparent transparent $red;
+				color: $red;
+			}
+		}
 	}
 }

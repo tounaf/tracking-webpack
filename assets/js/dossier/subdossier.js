@@ -32,6 +32,14 @@ $('#listSubdossier').DataTable({
             sortDescending: ": activer pour trier la colonne par ordre décroissant"
         }
     },
+    "autoWidth": false,
+        responsive: true,
+        columnDefs: [
+          { "width": "47%", "targets": 0, orderable: true },
+          { "width": "47%", "targets": 1, orderable: true},
+          { "width": "6%", "targets": 2, orderable: false},
+          
+        ]
 });
 
 $(document).ready(function () {

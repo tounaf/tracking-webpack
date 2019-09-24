@@ -17,6 +17,9 @@ body {
         max-width: 1200px;
     }
 }
+.container-fluid {
+    padding: 0 30px;
+}
 
 a {
     color: $red;
@@ -49,6 +52,8 @@ button {
             background-size: auto 6px;
             background-position: calc(100% - 10px) 12px;
             padding: 0 30px 3px 0;
+            -webkit-appearance: none;
+            appearance: none;
         }
         .form-check {
             overflow: hidden;
@@ -108,6 +113,61 @@ button {
                 }
             }
         }
+        textarea {
+            background-color: #F5F5F5;
+            margin-top: 5px;
+            padding: 10px 15px;
+            resize: none;
+        }
+    }
+    .date-form {
+        &:after {
+            color: $grey;
+            content: "\f073";
+            display: inline-block;
+            font-family: "FontAwesome";
+            font-size: 14px;
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+            z-index: 1;
+        }
+    }
+    .mnt-form {
+        .devise-col {
+            padding-left: 10px;
+        }
+    }
+    .file-form {
+        .file-field {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .select-typefile {
+            @include min(768px) {
+                flex-basis: 275px;
+                min-width: 275px;
+            }
+        }
+        .load-file {
+            color: $red;
+            font-size: 12px;
+            font-style: italic;
+            padding: 0 15px;
+            a {
+                display: inline-block;
+            }
+        }
+    }
+    .textarea-wrap {
+        height: 100%;
+        .form-group {
+            height: inherit;
+        }
+        textarea {
+            height: calc(100% - 17px);
+        }
     }
     .form-label {
         font-style: normal;
@@ -130,9 +190,6 @@ button {
         }
     }
     
-
- 
-
     // auto fill in chrome
     input:-webkit-autofill, input:-webkit-autofill:hover,  input:-webkit-autofill:focus,
     textarea:-webkit-autofill, textarea:-webkit-autofill:hover, textarea:-webkit-autofill:focus,
@@ -148,21 +205,24 @@ button {
         font-weight: 400;
         margin-bottom: 15px;
     }
+
 }
 .standard-form {
     .form-label {
         color: $red;
-        font-size: 14px;
+        font-size: 12px;
         text-transform: uppercase;
+        white-space: nowrap;
     }
     .form-group {
         font-size: 0;
         label {
             color: $red;
-            font-size: 14px;
+            font-size: 12px;
             line-height: 100%;
             margin-bottom: 0;
             text-transform: uppercase;
+            white-space: nowrap;
         }
     }
     .form-control {
@@ -339,6 +399,17 @@ button {
     }
 }
 
+.header-fixed {
+    .app-body {
+        &.body-dossier {
+            //z-index: 1020;    
+        }
+        .main {
+            //padding-top: 0;
+        }
+    }
+}
+
 .custom-card {
     border-color: $greyC2;
     .card-header {
@@ -357,7 +428,46 @@ button {
         padding: 15px;
     }
 }
+.card-custom-2 {
+    border: none;
+    border-radius: 0;
+    .card-header {
+        background-color: transparent;
+        padding: 0;
+        h2, h3 {
+            color: $grey;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 130%;
+            margin: 0;
+            text-transform: uppercase;
+        }
+    }
+    .card-body {
+        border: 1px solid $greyC2;
+    }
 
+}
+.same-height {
+    [class*="col-"] {
+        height: inherit;
+        > .card {
+            height: 100%;
+        }
+    }
+}
+.noMargin-form-group {
+    .form-group {
+        margin: 0;
+    }
+}
+.noMargin-xl-form-group {
+    .form-group {
+        @include min(1200px) {
+            margin: 0;
+        }
+    }
+}
 
 .app-footer {
     flex: 0 0 50px;
@@ -414,8 +524,6 @@ button {
         }
     }
 }
-
-
 .table-responsive {
     .table {
         min-width: 768px;
@@ -588,3 +696,100 @@ div.dataTables_wrapper {
 }
 
 
+/* card custom */
+.card {
+    &.card-custom {
+        
+    }
+}
+
+.tab-content {
+    border: none;
+    .tab-pane {
+        padding: 0;
+    }
+}
+
+.datepicker {
+    border-radius: 0;
+    .datepicker-days {
+        padding: 5px;
+        table {
+            margin: 0 auto;
+            width: 100%;
+            thead {
+                tr {
+                    border-bottom: 1px solid $grey;
+                }
+            }
+            th, td {
+                font-size: 12px;
+                text-align: center;
+            }
+            th {
+                color: $red;
+            }
+            td {
+                color: $grey;
+                cursor: pointer;
+            }
+            .old {
+                opacity: 0.5;
+            }
+            .active {
+                color: $red;
+                font-weight: 700;
+            }
+        }
+    }
+    &.dropdown-menu {
+        border: 1px solid $red;
+    }
+}
+
+.subdossier-bloc {
+    > .form-group {
+        margin-bottom: 0;
+        > .col-form-label {
+            display: none;
+        }
+    }
+    .col-form-label {
+        display: none;
+    }
+    #dossier_subDossiers {
+        > .form-group {
+            text-align: center;
+            @include min(768px) {
+                text-align: right;
+            }
+            &:first-child {
+                display: none;
+            }
+        }
+        > .form-group:not(:first-child) {
+            div[id*="dossier_sub"] {
+                display: flex;
+                flex-direction: column;
+                margin: 0 -15px;
+                @include min(768px) {
+                    flex-direction: row;
+                    justify-content: space-between;
+                    margin-bottom: 15px;
+                }
+                .form-group {
+                    margin-bottom: 15px;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    text-align: left;
+                    width: 100%;
+                    @include min(768px) {
+                        margin-bottom: 0;
+                        width: 50%;
+                    }
+                }
+                
+            }
+        }
+    }
+}
