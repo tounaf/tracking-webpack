@@ -57,7 +57,7 @@ class DossierType extends AbstractType
             ->add('formePartieAdverse', EntityType::class, array(
                 'label' => $this->trans->trans('label.form'),
                 'class' => StatutsPersMorale::class,
-                'choice_label' => 'libelle'
+                'choice_label' => 'libelle',
             ))
 //            ->add('partieAdverse', PartiAdverseType::class, array(
 //                'label' => 'partiadverse'
@@ -128,7 +128,7 @@ class DossierType extends AbstractType
                 'view_timezone' => 'UTC',
                 'required' => true,
 
-                'label' => $this->trans->trans('label.alerte'),
+                'label' => $this->trans->trans('label.alert'),
                 'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
             ))
 

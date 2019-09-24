@@ -35,6 +35,17 @@ class IntervenantRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param $dossierId
+     * @return mixed[]
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function findLatestIntervenant($dossierId)
+    {
+        $query = "SELECT * FROM Intervenant AS i where i.dossier_id = $dossierId ORDER by id desc  LIMIT 1";
+        return $this->getEntityManager()->getConnection()->executeQuery($query)->fetchAll();
+    }
+
+    /**
      * @param $extraParams
      * @param $idDossier
      * @param bool $count
@@ -50,7 +61,7 @@ class IntervenantRepository extends ServiceEntityRepository
                     i.`payer` AS payer,
                     i.`reste_payer` AS reste_payer,
                     i.`statut_intervenant` AS statuts,
-                    d.`libelle` AS devise,
+                    d.`code` AS devise,
                     p.`libelle` AS prestation
                ';
         $sql .= '  FROM intervenant i ';

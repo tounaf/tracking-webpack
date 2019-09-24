@@ -51,7 +51,15 @@ class AuxiliairesType extends AbstractType
                 'required' => true
             ))
             ->add('devise', EntityType::class, [
-                'label'=> $this->trans->trans('column.nameDevise'),
+                'label'=> $this->trans->trans('label.devise'),
+                'class' => Devise::class,
+            ])
+            ->add('deviseAuxiPayer', EntityType::class, [
+                'label'=> $this->trans->trans('label.devise'),
+                'class' => Devise::class,
+            ])
+            ->add('deviseReste', EntityType::class, [
+                'label'=> $this->trans->trans('label.devise'),
                 'class' => Devise::class,
             ])
             ->add('prestation',EntityType::class, array(
@@ -66,6 +74,8 @@ class AuxiliairesType extends AbstractType
                 ->remove('restePayer')
                 ->remove('statutIntervenant')
                 ->remove('devise')
+                ->remove('deviseAuxiPayer')
+                ->remove('deviseReste')
                 ->remove('prestation')
                 ->remove('fonction')
                 ->remove('nomPrenom')

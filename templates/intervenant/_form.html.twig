@@ -7,18 +7,18 @@
         <div class="card-body">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    {{ form_row(form.nomPrenom)}}
+                    {{ form_row(form.nomPrenom) }}
                 </div>
                 <div class="form-group col-md-6">
-                    {{ form_row(form.adresse)}}
+                    {{ form_row(form.adresse) }}
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    {{ form_row(form.email)}}
+                    {{ form_row(form.email) }}
                 </div>
                 <div class="form-group col-md-6">
-                    {{ form_row(form.telephone)}}
+                    {{ form_row(form.telephone) }}
                 </div>
             </div>
         </div>
@@ -45,15 +45,13 @@
                     {{ form_row(form.payer) }}
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="devise">Devise</label>
-                    <input type="text"  class="form-control" id="devise1">
+                    {{ form_row(form.devisePayer) }}
                 </div>
                 <div class="form-group col-md-3">
                     {{ form_row(form.restePayer) }}
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="devise">Devise</label>
-                    <input type="text" class="form-control" id="devise2">
+                    {{ form_row(form.deviseReste) }}
                 </div>
             </div>
             <div class="row">

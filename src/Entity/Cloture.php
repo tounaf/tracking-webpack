@@ -87,9 +87,24 @@ class Cloture
     private $montantAuxiliaires;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Dossier", inversedBy="clotures")
+     * @ORM\OneToOne(targetEntity="App\Entity\Dossier", inversedBy="cloture")
      */
     private $dossier;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="cloturesInitial")
+     */
+    private $deviseInitial;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="cloturesAvocat")
+     */
+    private $deviseAvocat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="cloturesAuxi")
+     */
+    private $DeviseAuxiliaires;
 
     public function getId(): ?int
     {
@@ -275,4 +290,42 @@ class Cloture
 
         return $this;
     }
+
+    public function getDeviseInitial(): ?Devise
+    {
+        return $this->deviseInitial;
+    }
+
+    public function setDeviseInitial(?Devise $deviseInitial): self
+    {
+        $this->deviseInitial = $deviseInitial;
+
+        return $this;
+    }
+
+    public function getDeviseAvocat(): ?Devise
+    {
+        return $this->deviseAvocat;
+    }
+
+    public function setDeviseAvocat(?Devise $deviseAvocat): self
+    {
+        $this->deviseAvocat = $deviseAvocat;
+
+        return $this;
+    }
+
+    public function getDeviseAuxiliaires(): ?Devise
+    {
+        return $this->DeviseAuxiliaires;
+    }
+
+    public function setDeviseAuxiliaires(?Devise $DeviseAuxiliaires): self
+    {
+        $this->DeviseAuxiliaires = $DeviseAuxiliaires;
+
+        return $this;
+    }
+
+    
 }

@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cloture{% endblock %}
+
+{% block body %}
+    <h1>Cloture</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ cloture.id }}</td>
+            </tr>
+            <tr>
+                <th>DateCloture</th>
+                <td>{{ cloture.dateCloture ? cloture.dateCloture|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Juridiction</th>
+                <td>{{ cloture.juridiction }}</td>
+            </tr>
+            <tr>
+                <th>SensDecision</th>
+                <td>{{ cloture.sensDecision }}</td>
+            </tr>
+            <tr>
+                <th>Risque</th>
+                <td>{{ cloture.risque }}</td>
+            </tr>
+            <tr>
+                <th>TypeCloture</th>
+                <td>{{ cloture.typeCloture }}</td>
+            </tr>
+            <tr>
+                <th>GainCondamnation</th>
+                <td>{{ cloture.gainCondamnation }}</td>
+            </tr>
+            <tr>
+                <th>MontantGainCondamn</th>
+                <td>{{ cloture.montantGainCondamn }}</td>
+            </tr>
+            <tr>
+                <th>MontantInitial</th>
+                <td>{{ cloture.montantInitial }}</td>
+            </tr>
+            <tr>
+                <th>MontantIntervenant</th>
+                <td>{{ cloture.montantIntervenant }}</td>
+            </tr>
+            <tr>
+                <th>MontantAuxiliaires</th>
+                <td>{{ cloture.montantAuxiliaires }}</td>
+            </tr>
+            <tr>
+                <th>Ref Dossier</th>
+                <td>{{ cloture.dossier }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('cloture_index') }}">back to list</a>
+
+    <a href="{{ path('cloture_edit', {'id': cloture.id}) }}">edit</a>
+
+    {{ include('cloture/_delete_form.html.twig') }}
+{% endblock %}

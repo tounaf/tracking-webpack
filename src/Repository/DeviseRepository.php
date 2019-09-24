@@ -18,7 +18,17 @@ class DeviseRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Devise::class);
     }
+    /**
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getDevise() {
+        $query = $this->createQueryBuilder('d');
+        $query->andWhere('d.isActif = true')
+        ->orderBy('d.libelle', 'ASC');
+        return $query;
 
+    }
     // /**
     //  * @return Devise[] Returns an array of Devise objects
     //  */

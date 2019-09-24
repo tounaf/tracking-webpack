@@ -8,7 +8,6 @@ require('../jquery.ajaxloader');
 var main = $('#auxiliaires-list');
 
 $(document).ready(function () {
-    console.log('auxi');
     var table = $('#auxiliaires-list').DataTable({
         "processing": true,
         "serverSide": true,
@@ -35,16 +34,10 @@ $(document).ready(function () {
                 "className": 'text-center',
                 "render": editRow
             },
-            /* { "targets": -1,
-                 "data": "delete",
-                 "orderable": false,
-                 "defaultContent": "",
-                 "className": 'text-center',
-                 "render": deleteRender
-             }*/
         ],
         bLengthChange: false,
         info: false,
+        "order": [[ 0, "desc" ]],
         searching: false,
         language: {
             processing: "Traitement en cours...",
@@ -70,16 +63,14 @@ $(document).ready(function () {
         },
     });
     function editRow(data, type, row) {
-        data = ' <button  data-target="#modalPassword" data-title="AJOUT/MODIFICATION" data-route="auxiliaires_edit" class="btn btn-link text-danger btn-editAuxi" data-id="'+row.id+'" type="button"><i class="fa fa-edit"></i></button>\n' +
-            '  <button  data-target="#modalPassword" data-title="SUPPRESSION" data-route="auxiliaires_delete" class="btn btn-link text-danger btn-removeAuxi" data-id="'+row.id+'" type="button"><i class="fa fa-trash-o"></i></button>';
+        data = ' <button  data-target="#modalAuxi" data-title="AJOUT/MODIFICATION" data-route="auxiliaires_edit" class="btn btn-link text-danger btn-editAuxi" data-id="'+row.id+'" type="button"><i class="fa fa-edit"></i></button>\n' +
+            '  <button  data-target="#modalAuxi" data-title="SUPPRESSION" data-route="auxiliaires_delete" class="btn btn-link text-danger btn-removeAuxi" data-id="'+row.id+'" type="button"><i class="fa fa-trash-o"></i></button>';
         return data;
     }
 
-    // var data  = '<div class="btn-perso" data-toggle="tooltip" data-original-title="Supprimer" data-title="'+row.thematic+'" data-id="'+row.id+'" onclick="deleteRow(this)"><i class="fa fa-remove text-red"></i></div>';
 });
 $('body').on('click', '.btn-removeAuxi', function (e) {
     e.preventDefault();
-    //   main.ajaxloader('show');
     var route = $(this).data('route');
     var id = $(this).data('id');
     var title = $(this).data('title');
@@ -90,7 +81,7 @@ $('body').on('click', '.btn-removeAuxi', function (e) {
             var elt = $('#exampleModalLongTitle');
             if (response.status == 403) {
                 $('.modal-body').hide();
-                $('#modalPassword').modal('show');
+                $('#modalAuxi').modal('show');
                 elt.removeClass('text-danger').addClass('alert alert-'+response.type).text(response.message);
                 setTimeout(function(){// wait for 5 secs(2)
                     elt.text("La page va se raffraichir");
@@ -105,7 +96,7 @@ $('body').on('click', '.btn-removeAuxi', function (e) {
                 $('.modal-body').show();
                 $("#exampleModalLongTitle").addClass('text-danger').text(title);
                 $('.modal-body').html(response);
-                $('#modalPassword').modal('show');
+                $('#modalAuxi').modal('show');
                 main.ajaxloader('hide');
             }
         }
@@ -122,69 +113,44 @@ function removeClassStartingWith(node, begin) {
         return (className.match ( new RegExp("\\b"+begin+"\\S+", "g") ) || []).join(' ');
     });
 }
-/*
-$(function() {
-    $('a[data-toggle="tab"]').on('shown', function(e){
-        e.preventDefault();
-        //save the latest tab using a cookie:
-        $.cookie('last_tab', $(e.target).attr('href'));
-    });
-
-    //activate latest tab, if it exists:
-    var lastTab = $.cookie('last_tab');
-    console.log(lastTab);
-    if (lastTab) {
-        $('ul.nav-tabs').children().removeClass('active');
-        $('a[href='+ lastTab +']').parents('li:first').addClass('active');
-        $('div.tab-content').children().removeClass('active');
-        $(lastTab).addClass('active');
-    }
-});*/
 
 /**
  * get form on create
  */
 $('body').on('click', '#modalCreateAuxi', function (e) {
     e.preventDefault();
-    console.log("create Auxiliaire");
     //   main.ajaxloader('show');
     var route = $(this).data('route');
     var title = $(this).data('title');
-    var url = Routing.generate(route,{},true);
+    var dossierId = $(this).data('dossier');
+    var url = Routing.generate(route, {id: dossierId},true);
     $.get(url,function (response) {
         var elt = $('#exampleModalLongTitle');
         removeClassStartingWith(elt, 'alert');
         $('.modal-body').html(response);
         elt.addClass('text-danger').text(title);
         $('.modal-body').show();
-        $('#modalPassword').modal('show');
+        $('#modalAuxi').modal('show');
         //main.ajaxloader('hide');
     })
 });
 
-$('body').on('keyup', '#auxiliaires_restePayer', function(e){
-    e.preventDefault();
-    console.log("reste");
-    var convenu = $("input#auxiliaires_restePayer").val();
-    console.log(convenu);
-    if (convenu > 0){
-        $("#auxiliaires_statutIntervenant").val("A Payer");
-    } else {
-        $("#auxiliaires_statutIntervenant").val("Soldé");
+$('#modalAuxi').on('blur keyup mouseout', '#auxiliaires_restePayer', function(event){
+    event.preventDefault();
+    var convenu = $("#modalAuxi #auxiliaires_restePayer").val();
+    if (convenu != 0){
+        $(".auxiStatut").val("A Payer");
+    } else if (convenu == 0){
+        $(".auxiStatut").val("Soldé");
+    }
+    else{
+        $(".auxiStatut").val("Autres");
     }
 });
-/*
-$('body').on('change', '#intervenant_devise', function(e){
-        e.preventDefault();
-        console.log("devise");
-       var devise = $("#intervenant_devise").text();
-       console.log(devise);
-           $("#devise2").val(devise);
 
-           $("#devise1").val(devise);
-
-    }); */
-//after change on select devise, displaying devise on another devise
+/**
+ *  after change on select devise, displaying devise on another devie
+ */
 $('body').on('change', '#auxiliaires_devise', function(e){
     var str = "";
     $( "#auxiliaires_devise option:selected" ).each(function() {
@@ -195,8 +161,7 @@ $('body').on('change', '#auxiliaires_devise', function(e){
 }).trigger("change");
 
 //after loading modal, chargement du devise selon le type par defaut
-$("#modalPassword").on('shown.bs.modal', function(){
-    console.log("afterloading modal");
+$("#modalAuxi").on('shown.bs.modal', function(){
     var str = "";
     $( "#auxiliaires_devise option:selected" ).each(function() {
         str += $( this ).text() + " ";
@@ -205,9 +170,6 @@ $("#modalPassword").on('shown.bs.modal', function(){
     $( "#devise1Auxi" ).val( str );
 });
 
-/*$("input").keyup(function(){
-    $("input").css("background-color", "pink");
-});*/
 
 /**
  * get form edit
@@ -215,9 +177,7 @@ $("#modalPassword").on('shown.bs.modal', function(){
 $('body').on('click', '.btn-editAuxi', function (e) {
     e.preventDefault();
 
-    // main.ajaxloader('show');
     var id = $(this).data('id');
-    console.log("edit"+id);
     var route = $(this).data('route');
     var title = $(this).data('title');
     var url = Routing.generate(route,{'id':id})
@@ -225,7 +185,7 @@ $('body').on('click', '.btn-editAuxi', function (e) {
         var elt = $('#exampleModalLongTitle');
         if (response.status == 403) {
             $('.modal-body').hide();
-            $('#modalPassword').modal('show');
+            $('#modalAuxi').modal('show');
             elt.removeClass('text-danger').addClass('alert alert-'+response.type).text(response.message);
             setTimeout(function(){// wait for 5 secs(2)
                 elt.text("La page va se raffraichir");
@@ -240,7 +200,7 @@ $('body').on('click', '.btn-editAuxi', function (e) {
             $('.modal-body').show();
             $("#exampleModalLongTitle").addClass('text-danger').text(title);
             $('.modal-body').html(response);
-            $('#modalPassword').modal('show');
+            $('#modalAuxi').modal('show');
             //       main.ajaxloader('hide');
         }
     })

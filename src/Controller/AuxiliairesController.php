@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Auxiliaires;
+use App\Entity\Dossier;
 use App\Form\AuxiliairesType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -19,61 +21,65 @@ class AuxiliairesController extends Controller
      * @var TranslatorInterface
      */
     private $translator;
-
+    private $session;
+    private $id ;
     /**
      * UtilisateurController constructor.
      * @param TranslatorInterface $translator
      */
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, SessionInterface $session)
     {
         $this->translator = $translator;
+        $this->session = $session;
+        $this->id = $this->session->get('id');
     }
 
     /**
-     *
      * @Route("/auxiliaires", name="auxiliaires")
-     * @return Response
      */
     public function index()
     {
-        return $this->render('auxiliaires/index.html.twig');
+        $id = $this->get('session')->get('id');
+        return $this->render('auxiliaires/index.html.twig', [
+            'dossier' => $id,
+        ]);
     }
     /**
+     *
      * @Route("/getListAuxiliaire", name="liste_auxiliaire",  options={"expose"=true})
+     * @param Request $request
+     * @return JsonResponse
+     * @throws
      */
     public function ajaxlistAuxiliaire(Request $request)
     {
+        $response = new JsonResponse();
+        $draw = $request->get('draw');
         $length = $request->get('length');
-        $length = $length && ($length!=-1)?$length:0;
-
         $start = $request->get('start');
-        $start = $length?($start && ($start!=-1)?$start:0)/$length:0;
-
         $search = $request->get('search');
         $filters = [
-            'query' => @$search['value']
+            'query' => $search['value'],
         ];
-        $auxis = $this->getDoctrine()->getRepository('App:Auxiliaires')->ajaxlistAuxiliaire(
-            $filters, $start, $length
+        $vOrder = $request->get('order');
+        $orderBy = $vOrder[0]['column'];
+        $order = $vOrder[0]['dir'];
+        $extraParams = array(
+            'filters' => $filters,
+            'start' => $start,
+            'length' => $length,
+            'orderBy' => $orderBy,
+            'order' => $order,
         );
-        $output = array(
-            'data' => array(),
-            'recordsFiltered' => count($this->getDoctrine()->getRepository('App:Auxiliaires')->ajaxlistAuxiliaire($filters, 0, false)),
-            'recordsTotal' => count($this->getDoctrine()->getRepository('App:Auxiliaires')->ajaxlistAuxiliaire(array(), 0, false))
-        );
-        foreach ($auxis as $auxi) {
-            $output['data'][] = [
-                'id'=>$auxi->getId(),
-                'nomPrenom' =>$auxi->getNomPrenom(),
-                'convenu' => $auxi->getConvenu(),
-                'payer' => $auxi->getPayer(),
-                'reste_payer' => $auxi->getRestePayer(),
-                'devise' => $auxi->getDevise()->getLibelle(),
-                'prestation' => $auxi->getPrestation()->getLibelle(),
-                'statuts' => $auxi->getStatutIntervenant(),
-            ];
-        }
-        return new Response(json_encode($output), 200, ['Content-Type' => 'application/json']);
+        $listIntervenant = $this->getDoctrine()->getRepository(Auxiliaires::class)->getListAuxiliaires($extraParams,$this->id, false);
+        $nbrRecords = $this->getDoctrine()->getRepository(Auxiliaires::class)->getListAuxiliaires($extraParams,$this->id, true);
+        $response->setData(array(
+            'draw' => (int)$draw,
+            'recordsTotal' => (int)$nbrRecords[0]['record'],
+            'recordsFiltered' => (int)$nbrRecords[0]['record'],
+            'data' => $listIntervenant,
+        ));
+        return $response;
     }
 
     /**
@@ -103,7 +109,7 @@ class AuxiliairesController extends Controller
                 } catch (\Exception $exception) {
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.error'));
                 }
-                return $this->redirectToRoute('core_litige');
+                return $this->redirectToRoute('render_edit_dossier', array('id' => $this->id, 'currentTab' => 'auxiliaires'));
             }
             if($request->isXmlHttpRequest()){
                 return $this->render('Admin/_delete_form_user.html.twig', array(
@@ -119,46 +125,41 @@ class AuxiliairesController extends Controller
             return $response;
         }
     }
-
-
     /**
      * @Route("/new_auxiliaires", name="auxiliaires_new", methods={"GET","POST"}, options={"expose"=true})
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function new(Request $request)
+    public function new(Request $request, Dossier $dossier=null)
     {
         $auxiliaires = new Auxiliaires();
         $form = $this->createForm(AuxiliairesType::class, $auxiliaires, [
             'method' => 'POST',
             'action' => $this->generateUrl('auxiliaires_new')
         ])->handleRequest($request);
-
         $response = new JsonResponse();
         $message = [
             'status' => 200,
             'message' => $this->translator->trans('label.create.success'),
             'type' => 'success'
         ];
-
         if ($form->isSubmitted() && $form->isValid()) {
             try{
                 $entityManager = $this->getDoctrine()->getManager();
+                $dossier = $entityManager->getRepository(Dossier::class)->find($this->id);
+                $auxiliaires->setDossier($dossier);
                 $entityManager->persist($auxiliaires);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
-                return $this->redirectToRoute('core_litige');
             }
             catch (\Exception $exception){
                 $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.error.create'));
-                return $this->redirectToRoute('core_litige');
                 $message['message'] = $exception->getMessage();
                 $message['status'] = 500;
                 $message['type'] = 'danger';
             }
-            return $this->redirectToRoute('core_litige');
+            return $this->redirectToRoute('render_edit_dossier', array('id' => $this->id, 'currentTab' => 'auxiliaires'));
             return $response->setData($message);
         }
-
         if($request->isXmlHttpRequest()){
             return $this->render('auxiliaires/_form.html.twig', array(
                 'formAuxi' => $form->createView(),
@@ -181,23 +182,20 @@ class AuxiliairesController extends Controller
         $id = $request->get('id');
         $response = new JsonResponse();
         if($auxiliaires){
-
             $form = $this->createForm(AuxiliairesType::class, $auxiliaires, [
                 'method' => 'POST',
                 'action' => $this->generateUrl('auxiliaires_edit', ['id' => $id])
             ])->handleRequest($request);
-
             if ($form->isSubmitted() && $form->isValid())
             {
                 try{
                     $this->getDoctrine()->getManager()->flush();
                     $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success'));
-                    return $this->redirectToRoute('core_litige');
                 }catch (\Exception $exception)
                 {
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.edit.error'));
-                    return $this->redirectToRoute('core_litige');
                 }
+                return $this->redirectToRoute('render_edit_dossier', array('id' => $this->id, 'currentTab' => 'auxiliaires'));
             }
             if($request->isXmlHttpRequest()){
                 return $this->render('auxiliaires/_form.html.twig', array(

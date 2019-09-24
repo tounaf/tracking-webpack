@@ -62,4 +62,9 @@ class Profil
     {
         return (string)$this->libele;
     }
+
+    public function __toString()
+    {
+        return (string)$this->libele;
+    }
 }

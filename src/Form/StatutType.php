@@ -20,7 +20,7 @@ class StatutType extends AbstractType
     {
         $builder
             ->add('libele', null, array(
-                'label' => $this->trans->trans('label'),
+                'label' => $this->trans->trans('label.statut'),
                 'required' => true
             ))
             ->add('enable', null, array(
