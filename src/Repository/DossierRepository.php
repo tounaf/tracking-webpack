@@ -71,7 +71,6 @@ class DossierRepository extends ServiceEntityRepository
                 $sql .= ' LIMIT '.$extraParams['start'].','. $extraParams['length'];
             }
         }
-
         $qb = $this->getEntityManager()->getConnection()->prepare($sql);
         $qb->execute();
         $result = $qb->fetchAll();

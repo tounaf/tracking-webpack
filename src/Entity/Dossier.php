@@ -5,10 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Annotation\Groups;
+use App\Annotation\TrackableClass;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DossierRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @TrackableClass()
  */
 class Dossier
 {
@@ -118,6 +121,7 @@ class Dossier
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\InformationPj", inversedBy="dossiers")
+     *
      */
     private $piecesJointes;
 
@@ -135,6 +139,10 @@ class Dossier
      */
     private $auxiliaires;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Cloture", mappedBy="dossier")
+     */
+    private $cloture;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Intervenant", mappedBy="dossier")
@@ -142,9 +150,9 @@ class Dossier
     private $intervenants;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Cloture", cascade={"persist", "remove"}, mappedBy="dossier")
+     * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="dossier")
      */
-    private $cloture;
+    private $histories;
 
     public function __construct()
     {
@@ -153,6 +161,7 @@ class Dossier
 
         $this->auxiliaires = new ArrayCollection();
         $this->intervenants = new ArrayCollection();
+        $this->histories = new ArrayCollection();
     }
 
 
@@ -642,11 +651,19 @@ class Dossier
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCloture()
+    {
+        return $this->cloture;
+    }
 
-//    public function __toString()
-//    {
-//        return (string)$this->numeroDossier;
-//    }
+
+    public function __toString()
+    {
+        return (string)$this->numeroDossier;
+    }
 
     /**
      * @return Collection|Intervenant[]
@@ -679,14 +696,33 @@ class Dossier
         return $this;
     }
 
-    public function getCloture()
+    /**
+     * @return Collection|History[]
+     */
+    public function getHistories(): Collection
     {
-        return $this->cloture;
+        return $this->histories;
     }
 
-    public function setCloture(?Cloture $dossier): self
+    public function addHistory(History $history): self
     {
-        $this->cloture = $dossier;
+        if (!$this->histories->contains($history)) {
+            $this->histories[] = $history;
+            $history->setDossier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistory(History $history): self
+    {
+        if ($this->histories->contains($history)) {
+            $this->histories->removeElement($history);
+            // set the owning side to null (unless already changed)
+            if ($history->getDossier() === $this) {
+                $history->setDossier(null);
+            }
+        }
 
         return $this;
     }

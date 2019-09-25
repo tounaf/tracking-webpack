@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use App\Annotation\TrackableClass;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AuxiliairesRepository")
+ * @TrackableClass()
  */
 class Auxiliaires
 {

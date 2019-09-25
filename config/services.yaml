@@ -31,3 +31,12 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    history.litige:
+        class: App\EventListner\HistorySubscriber
+        arguments: ['@service_container','@security.helper', '@trackable.reader']
+        tags:
+          - { name: doctrine.event_listener, event: preUpdate}
+
+    trackable.reader:
+        class: App\Annotation\TrackableReader
+        arguments: ['@annotations.reader']

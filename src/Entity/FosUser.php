@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BasUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class FosUser
@@ -37,6 +38,7 @@ class FosUser extends BasUser
     /**
      * @var string
      * @ORM\Column(name="firstname",type="string", nullable=true)
+     * @Groups("groupe1")
      */
     protected $name;
 
@@ -84,10 +86,16 @@ class FosUser extends BasUser
      */
     private $dossiers;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="user")
+     */
+    private $histories;
+
     public function __construct()
     {
         parent::__construct();
         $this->dossiers = new ArrayCollection();
+        $this->histories = new ArrayCollection();
     }
 
 
@@ -289,5 +297,36 @@ class FosUser extends BasUser
     public function __toString()
     {
         return (string)$this->name;
+    }
+
+    /**
+     * @return Collection|History[]
+     */
+    public function getHistories(): Collection
+    {
+        return $this->histories;
+    }
+
+    public function addHistory(History $history): self
+    {
+        if (!$this->histories->contains($history)) {
+            $this->histories[] = $history;
+            $history->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistory(History $history): self
+    {
+        if ($this->histories->contains($history)) {
+            $this->histories->removeElement($history);
+            // set the owning side to null (unless already changed)
+            if ($history->getUser() === $this) {
+                $history->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
