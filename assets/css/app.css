@@ -36,3 +36,7 @@
 #dossier_File{
     display: none;
 }
+
+label[for='dossier_formePartieAdverse'], #dossier_formePartieAdverse {
+    display: none;
+}
