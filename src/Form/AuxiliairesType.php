@@ -6,6 +6,7 @@ use App\Entity\Auxiliaires;
 use App\Entity\Devise;
 use App\Entity\FosUser;
 use App\Entity\TypePrestation;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -52,18 +53,30 @@ class AuxiliairesType extends AbstractType
                 'label' => $this->trans->trans('label.email'),
                 'required' => true
             ))
-            ->add('devise', EntityType::class, [
-                'label'=> $this->trans->trans('label.devise'),
-                'class' => Devise::class,
-            ])
-            ->add('deviseAuxiPayer', EntityType::class, [
-                'label'=> $this->trans->trans('label.devise'),
-                'class' => Devise::class,
-            ])
-            ->add('deviseReste', EntityType::class, [
-                'label'=> $this->trans->trans('label.devise'),
-                'class' => Devise::class,
-            ])
+            ->add('devise', EntityType::class, array(
+                'class' => 'App\Entity\Devise',
+                'label' =>  $this->trans->trans('label.devise'),
+                // 'choice_label' => 'ch',
+                'required' => true,
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->getDevise();
+                }))
+            ->add('deviseAuxiPayer', EntityType::class, array(
+                'class' => 'App\Entity\Devise',
+                'label' =>  $this->trans->trans('label.devise'),
+                // 'choice_label' => 'ch',
+                'required' => true,
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->getDevise();
+                }))
+            ->add('deviseReste',EntityType::class, array(
+                'class' => 'App\Entity\Devise',
+                'label' =>  $this->trans->trans('label.devise'),
+                // 'choice_label' => 'ch',
+                'required' => true,
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->getDevise();
+                }))
             ->add('prestation',EntityType::class, array(
                 'label' => $this->trans->trans('label.titre.typePrestation'),
                 'class' => TypePrestation::class,

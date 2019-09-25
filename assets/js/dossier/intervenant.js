@@ -19,13 +19,13 @@ $(document).ready(function () {
         "pageLength": 10,
         "orderable": true,
         "columns": [
-            {"data": "nomPrenom"},
-            {"data": "prestation"},
-            {"data": "convenu"},
-            {"data": "payer"},
-            {"data": "reste_payer"},
-            {"data": "devise"},
-            {"data": "statuts"},
+            {"data": "nomPrenom",},
+            {"data": "prestation",},
+            {"data": "convenu",},
+            {"data": "payer",},
+            {"data": "reste_payer",},
+            {"data": "devise",},
+            {"data": "statuts",},
             {
                 "targets": -1,
                 "data": "edit",
@@ -61,6 +61,18 @@ $(document).ready(function () {
                 sortDescending: ": activer pour trier la colonne par ordre décroissant"
             }
         },
+        "autoWidth": false,
+        responsive: true,
+       /*columnDefs: [
+            {"targets": 0, orderable: true },
+            {"targets": 1, orderable: true},
+            {"targets": 2, orderable: true},
+            {"targets": 3, orderable: true},
+            {"targets": 4, orderable: true},
+            {"targets": 5, orderable: true},
+            {"targets": 6, orderable: true},
+            {"targets": 7, orderable: true},
+        ]*/
     });
     function editRow(data, type, row) {
         data = ' <button  data-target="#modalIntervenant" data-title="AJOUT/MODIFICATION" data-route="intervenant_edit" class="btn-edit"  data-id="'+row.id+'" type="button"><i class="icon-edit"></i></button>\n' +

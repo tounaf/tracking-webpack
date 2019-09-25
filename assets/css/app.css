@@ -26,3 +26,9 @@
 .datepicker {
     z-index: 10000;
 }
+.dataTable .btn-editAuxi i {
+    color: #5CB85C;
+}
+.dataTable .btn-removeAuxi i {
+    color: #C80F2D;
+}

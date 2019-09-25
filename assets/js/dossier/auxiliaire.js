@@ -35,6 +35,8 @@ $(document).ready(function () {
                 "render": editRow
             },
         ],
+        "autoWidth": false,
+        responsive: true,
         bLengthChange: false,
         info: false,
         "order": [[ 0, "desc" ]],
@@ -67,7 +69,6 @@ $(document).ready(function () {
             '  <button  data-target="#modalAuxi" data-title="SUPPRESSION" data-route="auxiliaires_delete" class="btn-removeAuxi" data-id="'+row.id+'" type="button"><i class="icon-trash"></i></button>';
         return data;
     }
-
 });
 $('body').on('click', '.btn-removeAuxi', function (e) {
     e.preventDefault();
@@ -113,7 +114,6 @@ function removeClassStartingWith(node, begin) {
         return (className.match ( new RegExp("\\b"+begin+"\\S+", "g") ) || []).join(' ');
     });
 }
-
 /**
  * get form on create
  */
@@ -170,13 +170,11 @@ $("#modalAuxi").on('shown.bs.modal', function(){
     $( "#devise1Auxi" ).val( str );
 });
 
-
 /**
  * get form edit
  */
 $('body').on('click', '.btn-editAuxi', function (e) {
     e.preventDefault();
-
     var id = $(this).data('id');
     var route = $(this).data('route');
     var title = $(this).data('title');
