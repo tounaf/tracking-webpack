@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SubDossierRepository")
@@ -18,6 +19,7 @@ class SubDossier
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("groupe1")
      */
     private $libelle;
 

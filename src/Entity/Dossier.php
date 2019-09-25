@@ -5,10 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Annotation\Groups;
+use App\Annotation\TrackableClass;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DossierRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @TrackableClass()
  */
 class Dossier
 {
@@ -117,7 +120,7 @@ class Dossier
     private $formePartieAdverse;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\InformationPj", inversedBy="dossiers")
+     * @ORM\ManyToMany(targetEntity="App\Entity\InformationPj", inversedBy="dossiers",   cascade={"persist", "remove", "merge"})
      */
     private $piecesJointes;
 
@@ -135,6 +138,10 @@ class Dossier
      */
     private $auxiliaires;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Cloture", mappedBy="dossier")
+     */
+    private $cloture;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Intervenant", mappedBy="dossier")
@@ -142,9 +149,17 @@ class Dossier
     private $intervenants;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Cloture", cascade={"persist", "remove"}, mappedBy="dossier")
+     * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="dossier")
      */
-    private $cloture;
+    private $histories;
+
+    protected $file;
+
+    private $directory;
+
+    private $pathUpload = '/public/pieces_jointes/litige';
+
+    protected $fileName;
 
     public function __construct()
     {
@@ -153,6 +168,7 @@ class Dossier
 
         $this->auxiliaires = new ArrayCollection();
         $this->intervenants = new ArrayCollection();
+        $this->histories = new ArrayCollection();
     }
 
 
@@ -642,11 +658,19 @@ class Dossier
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCloture()
+    {
+        return $this->cloture;
+    }
 
-//    public function __toString()
-//    {
-//        return (string)$this->numeroDossier;
-//    }
+
+    public function __toString()
+    {
+        return (string)$this->numeroDossier;
+    }
 
     /**
      * @return Collection|Intervenant[]
@@ -679,15 +703,96 @@ class Dossier
         return $this;
     }
 
-    public function getCloture()
+    /**
+     * @return Collection|History[]
+     */
+    public function getHistories(): Collection
     {
-        return $this->cloture;
+        return $this->histories;
     }
 
-    public function setCloture(?Cloture $dossier): self
+    public function addHistory(History $history): self
     {
-        $this->cloture = $dossier;
+        if (!$this->histories->contains($history)) {
+            $this->histories[] = $history;
+            $history->setDossier($this);
+        }
 
         return $this;
     }
-}
+
+    public function removeHistory(History $history): self
+    {
+        if ($this->histories->contains($history)) {
+            $this->histories->removeElement($history);
+            // set the owning side to null (unless already changed)
+            if ($history->getDossier() === $this) {
+                $history->setDossier(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFile(){
+        return $this->file;
+    }
+
+    public function setFile(UploadedFile $file = null){
+        $this->file = $file;
+    }
+
+    public function setFileName($filename = null){
+        $this->fileName = $filename;
+    }
+
+    public function getFileName(){
+        return $this->fileName;
+    }
+
+    public function upload(){
+        // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
+        if (null === $this->file) {
+            return;
+        }
+
+    }
+
+    public function setDirectory($directory){
+        $this->directory = $directory;
+    }
+
+    public function getDirectory(){
+        return $this->directory;
+    }
+
+    public function getPathUpload(){
+        return $this->pathUpload;
+    }
+
+    public function UpdateObjDossier($dataDossierUpdate, $dossier){
+        if(is_object($dataDossierUpdate)){
+            $dataDossierUpdate->setLibelle($dossier->getLibelle());
+            $dataDossierUpdate->setNomDossier($dossier->getNomDossier());
+            $dataDossierUpdate->setStatut($dossier->getStatut());
+            $dataDossierUpdate->setMontant($dossier->getMontant());
+            $dataDossierUpdate->setSituation($dossier->getSituation());
+            $dataDossierUpdate->setResumeFait($dossier->getResumeFait());
+            $dataDossierUpdate->setDateLitige($dossier->getDateLitige());
+            $dataDossierUpdate->setSensLitige($dossier->getSensLitige());
+            $dataDossierUpdate->setEcheance($dossier->getEcheance());
+            $dataDossierUpdate->setAlerteDate($dossier->getAlerteDate());
+            $dataDossierUpdate->setRaisonSocial($dossier->getRaisonSocial());
+            $dataDossierUpdate->setCategorie($dossier->getCategorie());
+            $dataDossierUpdate->setEtapeSuivante($dossier->getEtapeSuivante());
+            $dataDossierUpdate->setPartieAdverse($dossier->getPartieAdverse());
+            $dataDossierUpdate->setNomPartieAdverse($dossier->getNomPartieAdverse());
+            $dataDossierUpdate->setStatutPartiAdverse($dossier->getStatutPartiAdverse());
+            $dataDossierUpdate->setFormePartieAdverse($dossier->getFormePartieAdverse());
+            $dataDossierUpdate->setDevise($dossier->getDevise());
+            $dataDossierUpdate->setFileName($dossier->getFileName());
+            return $dataDossierUpdate;
+        }
+    }
+
+    }

@@ -133,7 +133,8 @@
                                             {{ form_widget(form.piecesJointes) }}
                                         </div>
                                         <div class="load-file">
-                                            <a href="" class="loadLink">insérer pièces jointes</a>
+                                            <!--<a href="" class="loadLink">insérer pièces jointes</a>-->
+                                            <a href="" class="loadLink"> {{ form_row(form.File) }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -142,6 +143,7 @@
                     </div>
                 </div>
 
+            {% include 'dossier/list_dossierpj.html.twig' %}
                 <div class="btns-group text-right">
                     <button type="submit" class="btn btn-success">Enregistrer</button>
                 </div>

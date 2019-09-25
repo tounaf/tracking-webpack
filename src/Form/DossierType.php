@@ -17,8 +17,11 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class DossierType extends AbstractType
 {
@@ -57,7 +60,7 @@ class DossierType extends AbstractType
             ->add('formePartieAdverse', EntityType::class, array(
                 'label' => $this->trans->trans('label.form'),
                 'class' => StatutsPersMorale::class,
-                'choice_label' => 'libelle',
+                'choice_label' => 'libelle'
             ))
 //            ->add('partieAdverse', PartiAdverseType::class, array(
 //                'label' => 'partiadverse'
@@ -144,6 +147,18 @@ class DossierType extends AbstractType
 //            ->add('numeroDossier')
 //            ->add('libelle')
 //            //PJ
+//            //PJ Field to add file in pj
+            ->add('File', FileType::class,[
+                'label' => 'insérer pièces jointes',
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+                "multiple" => true,
+                // make it optional so you don't have to re-upload the PDF file
+                // everytime you edit the Product details
+                'required' => false,
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+            ])
 
             ->add('piecesJointes', EntityType::class, array(
                 'class' => InformationPj::class,

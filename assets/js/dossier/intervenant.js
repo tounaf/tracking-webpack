@@ -75,12 +75,12 @@ $(document).ready(function () {
         ]*/
     });
     function editRow(data, type, row) {
-        data = ' <button  data-target="#modalIntervenant" data-title="AJOUT/MODIFICATION" data-route="intervenant_edit" class="btn-edit"  data-id="'+row.id+'" type="button"><i class="icon-edit"></i></button>\n' +
-            '  <button  data-target="#modalIntervenant" data-title="SUPPRESSION" data-route="intervenant_delete" class="btn-remove" data-id="'+row.id+'" type="button"><i class="icon-trash"></i></button>';
+        data = ' <button  data-target="#modalIntervenant" data-title="AJOUT/MODIFICATION" data-route="intervenant_edit" class="btn-edit edit-intervenant"  data-id="'+row.id+'" type="button"><i class="icon-edit"></i></button>\n' +
+            '  <button  data-target="#modalIntervenant" data-title="SUPPRESSION" data-route="intervenant_delete" class="btn-remove remove-intervenant" data-id="'+row.id+'" type="button"><i class="icon-trash"></i></button>';
         return data;
     }
 });
-$('body').on('click', '.btn-remove', function (e) {
+$('body').on('click', '.remove-intervenant', function (e) {
     //    var id = table.row(this).id();
     e.preventDefault();
  //   main.ajaxloader('show');
@@ -193,7 +193,7 @@ $('body').on('change', '#intervenant_devise', function(e){
 /**
  * get form edit
  */
-$('body').on('click', '.btn-edit', function (e) {
+$('body').on('click', '.edit-intervenant', function (e) {
     e.preventDefault();
 
    // main.ajaxloader('show');

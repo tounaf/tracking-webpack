@@ -125,6 +125,7 @@ $('.btn-edit').click(function (e) {
     e.preventDefault();
 
     main.ajaxloader('show');
+
     var id = $(this).data('id');
     var route = $(this).data('route');
     var title = $(this).data('title');
@@ -194,7 +195,6 @@ $('.btn-remove').click(function (e) {
                 $('#modalPassword').modal('show');
                 elt.removeClass('text-danger').addClass('alert alert-'+response.type).text(response.message);
                 setTimeout(function(){// wait for 5 secs(2)
-                    elt.text("La page va se raffraichir");
                 }, 1000);
                 setTimeout(function(){// wait for 5 secs(2)
                     location.reload(); // then reload the page.(3)

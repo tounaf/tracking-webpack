@@ -75,10 +75,11 @@ class AuxiliairesController extends Controller
         );
         $listIntervenant = $this->getDoctrine()->getRepository(Auxiliaires::class)->getListAuxiliairesActuel($extraParams, $this->id, false);
         $nbrRecords = $this->getDoctrine()->getRepository(Auxiliaires::class)->getListAuxiliairesActuel($extraParams, $this->id, true);
+
         $response->setData(array(
             'draw' => (int)$draw,
-            'recordsTotal' => (int)$nbrRecords[0]['record'],
-            'recordsFiltered' => (int)$nbrRecords[0]['record'],
+            'recordsTotal' => isset($nbrRecords['record'])?(int)$nbrRecords['record']:(int)$nbrRecords,
+            'recordsFiltered' => isset($nbrRecords['record'])?(int)$nbrRecords['record']:(int)$nbrRecords,
             'data' => $listIntervenant,
         ));
         return $response;

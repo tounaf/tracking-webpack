@@ -17,7 +17,14 @@ $(document).ready(function () {
         "pageLength": 5,
         "orderable": true,
         "columns": [
-            {"data": "reference"},
+            {
+                "data": "reference",
+                "render": function (data, type, row) {
+                    var data = '<a href="' + Routing.generate('render_edit_dossier', {'id': row.id, 'currentTab':'declaration'}) + '" class="text-danger">' + row.reference + '</a>';
+
+                    return data;
+                }
+            },
             {"data": "nom"},
             {"data": "categorie"},
             {"data": "entite"},
