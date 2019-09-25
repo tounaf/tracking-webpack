@@ -29,6 +29,9 @@ body {
 .m-b-20 {
     margin-bottom: 20px !important;
 }
+.m-b-30 {
+    margin-bottom: 30px !important;
+}
 .m-l-10 {
     margin-left: 10px !important;
 }
@@ -94,9 +97,19 @@ body {
     flex: 1 1 0%;
 }
 // btns
+.btn-group, .btns-group {
+    .btn {
+        flex: 0 1 auto;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
 .btn {
     border: none;
     @include browserCss('border-radius', 3px);
+    color: #fff;
+    cursor: pointer;
     font-size: 14px;
     font-weight: 500;
     height: 40px;
@@ -106,9 +119,15 @@ body {
     white-space: normal;
     @include min(640px) {
         white-space: nowrap;
+        min-width: 180px;
     }
     &:hover {
         @include browserCss('box-shadow', none);
+        color: #fff;
+        text-decoration: none;
+        span {
+            text-decoration: none;
+        }
     }
     &:focus {
         @include browserCss('box-shadow', none);
@@ -121,10 +140,14 @@ body {
             @include browserCss('box-shadow', none);
         }
     }
+    i {
+        font-size: 16px;
+        margin-right: 5px;
+        vertical-align: middle;
+    }  
 }
 .btn-primary {
     background-color: $red;
-    min-width: 180px;
     &:hover {
         background-color: $redDark;
     }
@@ -135,19 +158,31 @@ body {
             @include browserCss('box-shadow', none);
         }
     }
-}
-.btn-default {
-    
-}
-.btn-success {
-    
-    &:not(:disabled):not(.disabled):active, &:hover {
-    
+    &.disabled, &:disabled {
+        background-color: $greyC;
     }
 }
 
-// alert
+.btn-default {
+    background-color: $grey;
+    &:hover {
+        background-color: $greyF;
+    }
 
+}
+.btn-success {
+    background-color: #5cb85c;
+    &:not(:disabled):not(.disabled):active, &:hover {
+        background-color: #26872f;
+    }
+}
+
+.relative-bloc {
+    position: relative;
+    z-index: 0;
+}
+
+// alert
 .alert {
     border-radius: 0;
     font-size: 14px;

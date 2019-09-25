@@ -19,13 +19,13 @@ $("body").on('blur','#fos_user_email',function () {
 
         $('#emailHelp').remove();
         $("#emailFormatInvalid").remove();
-        $(this).addClass('border border-danger invalid');
-        $("#fos_user_email").parent().append("<small id='emailFormatInvalid' class='form-text text-danger'>Format email invalid</small>");
+        $(this).addClass('error-input invalid');
+        $("#fos_user_email").parent().append("<small id='emailFormatInvalid' class='form-text error-text'>Format email invalid</small>");
 
     } else {
 
         $('#emailHelp').remove();
-        $(this).removeClass('border border-danger invalid');
+        $(this).removeClass('error-input invalid');
         $("#emailFormatInvalid").remove();
         isValid = true;
     }
@@ -40,7 +40,7 @@ $("body").on('blur','#fos_user_email',function () {
             }
             if (response.status == 403) {
                 $('#emailHelp').remove();
-                $("#fos_user_email").parent().append("<small id='emailHelp' class='form-text text-danger'>Cet adresse email est déja utilisé</small>");
+                $("#fos_user_email").parent().append("<small id='emailHelp' class='form-text error-text'>Cet adresse email est déja utilisé</small>");
                 $('#saveCreateUser').attr('disabled','disabled');
                 $("#fos_user_email").addClass('invalid');
             }
@@ -52,18 +52,29 @@ $("body").on('blur','#fos_user_email',function () {
  */
 $('body').on('blur','#fos_user_phoneNumber',function () {
     var phone = $(this).val();
-    if (!Fonction.isPhone(phone)) {
+    if (!Fonction.isFormaNumber(phone)) {
 
         $("#phoneFormatInvalid").remove();
-        $(this).addClass('border border-danger invalid');
-        $(this).parent().append("<small id='phoneFormatInvalid' class='form-text text-danger'>Numero télephone incorrecte</small>");
+        $(this).addClass('error-input invalid');
+        $(this).parent().append("<small id='phoneFormatInvalid' class='form-text error-text'>Numero télephone incorrecte</small>");
     } else {
 
-        $(this).removeClass('border border-danger invalid');
+        $(this).removeClass('error-input invalid');
         $("#phoneFormatInvalid").remove();
     }
 })
 
+$(document).on('keyup','#fos_user_prefixPhone', function () {
+    var phonePrefix = $(this).val();
+    if (!Fonction.prefixPhoneNumber(phonePrefix)) {
+        $("#prefixPhoneFormatInvalid").remove();
+        $(this).addClass('error-input invalid');
+        $(this).parent().append("<small id='prefixPhoneFormatInvalid' class='form-text error-text'>Indicateur incorrecte</small>");
+    } else {
+        $(this).removeClass('error-input invalid');
+        $("#prefixPhoneFormatInvalid").remove();
+    }
+})
 /**
  * Desactiver bouton submit si il existe input.invalid
  */
@@ -190,7 +201,19 @@ $('.btn-remove').click(function (e) {
                 }, 3000);
                 main.ajaxloader('hide');
                 return false;
-            } else {
+            }
+            else if (response.status == 201) {
+                $('.modal-body').hide();
+                $('#modalPassword').modal('show');
+                elt.removeClass('text-danger').addClass(' text-success alert alert-'+response.type).text(response.message);
+                setTimeout(function(){// wait for 5 secs(2)
+                    elt.text("La page va se raffraichir");
+                    location.reload();
+                }, 1000);
+                main.ajaxloader('hide');
+                return false;
+            }
+            else {
                 removeClassStartingWith(elt, 'alert');
                 $('.modal-body').show();
                 $("#exampleModalLongTitle").addClass('text-danger').text(title);

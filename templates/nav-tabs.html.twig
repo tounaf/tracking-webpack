@@ -1,0 +1,39 @@
+
+<div class="dossier-tabs">
+    <div class="tab-content" id="DossierTabContent">
+        <div class="tab-pane fade {% if currentTab is defined and currentTab == 'declaration' %}show active {% endif %}" id="home" role="tabpanel" aria-labelledby="home-tab">
+            {% if form is defined and form is not null %}
+                {{ include('dossier/form.html.twig') }}
+            {% else %}
+            {{ render(controller('App\\Controller\\Admin\\DossierController::createDossier')) }}
+        {% endif %}
+        </div>
+
+        <div class="tab-pane fade {% if currentTab is defined and currentTab == 'intervenant' %}show active {% endif %}" id="intervenant" role="tabpanel" aria-labelledby="intervenant-tab">
+            {% if dossier is defined and dossier is not null %}
+                {{ render(controller('App\\Controller\\IntervenantController::index', {id: dossier.id})) }}
+            {% endif %}
+        </div>
+        <div class="tab-pane fade {% if currentTab is defined and currentTab == 'auxiliaires' %}show active {% endif %}" id="auxiliaires" role="tabpanel"
+             aria-labelledby="auxiliaires-tab">
+            {% if dossier is defined and dossier is not null %}
+                {{ render(controller('App\\Controller\\AuxiliairesController::index', {id: dossier.id}))}}
+
+            {% endif %}
+        </div>
+        <div class="tab-pane fade {% if currentTab is defined and currentTab == 'cloture' %}show active {% endif %}" id="cloture" role="tabpanel"
+             aria-labelledby="cloture-tab">
+            {% if dossier is defined and dossier is not null %}
+                {{render(controller('App\\Controller\\ClotureController::new', {id: dossier.id})) }}
+            {% endif %}
+        </div>
+
+        <div class="tab-pane fade {% if currentTab is defined and currentTab == 'historique' %}show active {% endif %}"
+             id="historique" role="tabpanel" aria-labelledby="historique-tab">
+            {% if dossier is defined and dossier is not null %}
+                {{ render(controller('App\\Controller\\Admin\\HistoryController::index', {id: dossier.id})) }}
+            {% endif %}
+        </div>
+
+    </div>
+</div>

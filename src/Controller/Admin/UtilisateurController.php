@@ -77,7 +77,7 @@ class UtilisateurController extends Controller
             'method' => 'POST',
             'action' => $this->generateUrl('create_user')
         ))->handleRequest($request);
-        if ($form->isSubmitted() && $request->isXmlHttpRequest()) {
+        if ($form->isSubmitted()) {
             $newPassword = Fonctions::generatePassword();
             try {
 
@@ -98,7 +98,8 @@ class UtilisateurController extends Controller
             return $response->setData($message);
         }
         if($request->isXmlHttpRequest()){
-        return $this->render('Admin/_create_user.html.twig', array(
+//        return $this->render('Admin/_create_user.html.twig', array(
+        return $this->render('user/create_user.html.twig', array(
             'form' => $form->createView(),
             'title' => 'fetra'
         ));
@@ -136,7 +137,7 @@ class UtilisateurController extends Controller
                 }
                 return $this->redirectToRoute('list_user');
             }
-            return $this->render('Admin/_create_user.html.twig', array(
+            return $this->render('user/create_user.html.twig', array(
                 'form' => $form->createView()
             ));
         } else {

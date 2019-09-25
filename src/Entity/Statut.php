@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StatutRepository")
@@ -18,6 +19,7 @@ class Statut
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups("groupe1")
      */
     private $libele;
 

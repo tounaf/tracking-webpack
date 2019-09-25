@@ -1,0 +1,83 @@
+{{ form_start(formAuxi) }}
+{% if formAuxi is defined %}
+    <div class="form-bloc standard-form form-declaration-litige">
+        <div class="row same-height m-b-30">
+            <div class="col-xl-12">
+                <div class="card card-custom-2 m-0">
+                    <div class="card-header">
+                        <h3> AUTRES INTERVENANTS INTERVENUS DE L'AFFAIRE </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-xl-6">
+                                {{ form_row(formAuxi.nomPrenom) }}
+                            </div>
+                            <div class="form-group col-xl-6">
+                                {{ form_row(formAuxi.adresse) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-xl-6">
+                                {{ form_row(formAuxi.email) }}
+                            </div>
+                            <div class="form-group col-xl-6">
+                                {{ form_row(formAuxi.telephone) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-xl-6">
+                                {{ form_row(formAuxi.fonction) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row same-height m-b-30">
+            <div class="col-xl-12">
+                <div class="card card-custom-2 m-0">
+                    <div class="card-header">
+                        <h3> HONORAIRES</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-xl-6">
+                                {{ form_row(formAuxi.prestation) }}
+                            </div>
+                            <div class="form-group col-xl-4">
+                                {{ form_row(formAuxi.convenu) }}
+                            </div>
+                            <div class="form-group col-xl-2">
+                                {{ form_row(formAuxi.devise) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-xl-4">
+                                {{ form_row(formAuxi.payer) }}
+                            </div>
+                            <div class="form-group col-xl-2">
+                                {{ form_row(formAuxi.deviseAuxiPayer) }}
+                            </div>
+                            <div class="form-group col-xl-4">
+                                {{ form_row(formAuxi.restePayer) }}
+                            </div>
+                            <div class="form-group col-xl-2">
+                                {{ form_row(formAuxi.deviseReste) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6" hidden>
+                                {{ form_row(formAuxi.statutIntervenant,{'attr': {'class': 'auxiStatut'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btns-group">
+        <input type="button" data-dismiss="modal" id="cancel" class="btn btn-default" value="{{ 'label.cancel'|trans }}"/>
+        <input type="submit" id="saveCreateUser" class="btn btn-danger" value="{{ 'label.save'|trans }}"/>
+    </div>
+{% endif %}
+{{ form_end(formAuxi) }}

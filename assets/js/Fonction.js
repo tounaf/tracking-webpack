@@ -32,4 +32,14 @@ export default class Fonction {
             return (className.match ( new RegExp("\\b"+begin+"\\S+", "g") ) || []).join(' ');
         });
     }
+
+    static prefixPhoneNumber(str) {
+        var regex = /^(032|033|034|039|\+261)/
+        return regex.test(str);
+    }
+
+    static isFormaNumber(str) {
+        var regex = /[0-9]/;
+        return regex.test(str);
+    }
 }

@@ -8,14 +8,21 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class TypePrestationType extends AbstractType
 {
+    private $trans;
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->trans = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('libelle', TextType::class,[
-                'label'=> 'Libellé',
+                'label'=> $this->trans->trans('label.libelle'),
                 'required' => true,
                 'attr'=> ['requiredMessage' => 'Veuillez renseigner ce champs s\'il vous plait'],
             ])

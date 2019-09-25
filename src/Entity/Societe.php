@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SocieteRepository")
@@ -20,6 +22,7 @@ class Societe
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("groupe1")
      */
     private $libele;
 
@@ -37,6 +40,11 @@ class Societe
      * @ORM\OneToMany(targetEntity="App\Entity\FosUser", mappedBy="societe")
      */
     private $users;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $trigramme;
 
     public function __construct()
     {
@@ -150,5 +158,17 @@ class Societe
     public function __toString()
     {
         return $this->libele;
+    }
+
+    public function getTrigramme(): ?string
+    {
+        return $this->trigramme;
+    }
+
+    public function setTrigramme(string $trigramme): self
+    {
+        $this->trigramme = $trigramme;
+
+        return $this;
     }
 }

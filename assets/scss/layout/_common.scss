@@ -1,3 +1,8 @@
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
 .container {
     @include min(576px) {
         max-width: 576px;
@@ -11,6 +16,9 @@
     @include min(1200px) {
         max-width: 1200px;
     }
+}
+.container-fluid {
+    padding: 0 30px;
 }
 
 a {
@@ -33,6 +41,133 @@ button {
     .form-group {
         margin-bottom: 25px;
         position: relative;
+        .error-text {
+            color: #f00;
+            font-size: 11px;
+            font-style: italic;
+            line-height: 100%;
+        }
+        select {
+            background:transparent url('../img/arrow-down.svg') left top no-repeat;
+            background-size: auto 6px;
+            background-position: calc(100% - 10px) 12px;
+            padding: 0 30px 3px 0;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .form-check {
+            overflow: hidden;
+            padding: 0;
+            label {
+                color: $grey;
+                line-height: 125%;
+                padding-left: 25px;
+                text-transform: none;
+            }
+            .form-check-input {
+                position: absolute;
+                left: -9999px;
+                line-height: 0;
+                opacity: 0;
+                width: 0; height: 0;
+                &:not(:checked), &:checked {
+                    + label {
+                        position: relative;
+                        padding-left: 1.95em;
+                        cursor: pointer;
+                        &:before {
+                            background: #fff;
+                            border: 1px solid $grey;
+                            content: '';
+                            position: absolute;
+                            left: 0; top: 0;
+                            width: 16px; height: 16px;
+                            z-index: 1;
+                        }
+                        &:after {
+                            background-color: $grey;
+                            content: '';
+                            position: absolute;
+                            top: 4px; left: 4px;
+                            transition: all .2s;
+                            width: 8px; height: 8px;
+                            z-index: 1;
+                        }
+                    }
+                }
+                &:not(:checked) {
+                    + label {
+                        &:after {
+                            opacity: 0;
+                            transform: scale(0);
+                        }
+                    }
+                }
+                &:checked {
+                    + label {
+                        &:after {
+                            opacity: 1;
+                            transform: scale(1);
+                        }
+                    }
+                }
+            }
+        }
+        textarea {
+            background-color: #F5F5F5;
+            margin-top: 5px;
+            padding: 10px 15px;
+            resize: none;
+        }
+    }
+    .date-form {
+        &:after {
+            color: $grey;
+            content: "\f073";
+            display: inline-block;
+            font-family: "FontAwesome";
+            font-size: 14px;
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+            z-index: 1;
+        }
+    }
+    .mnt-form {
+        .devise-col {
+            padding-left: 10px;
+        }
+    }
+    .file-form {
+        .file-field {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .select-typefile {
+            @include min(768px) {
+                flex-basis: 275px;
+                min-width: 275px;
+            }
+        }
+        .load-file {
+            color: $red;
+            font-size: 12px;
+            font-style: italic;
+            padding: 0 15px;
+            a {
+                display: inline-block;
+            }
+        }
+    }
+    .textarea-wrap {
+        height: 100%;
+        .form-group {
+            height: inherit;
+        }
+        textarea {
+            height: calc(100% - 17px);
+        }
     }
     .form-label {
         font-style: normal;
@@ -45,11 +180,16 @@ button {
         color: $grey;
         font-size: 14px;
         font-style: italic;
+        height: 31px;
         &:focus {
             border-color: $greyC;
             box-shadow: none;
         }
+        &.error-input  {
+            border-color: #f00;
+        }
     }
+    
     // auto fill in chrome
     input:-webkit-autofill, input:-webkit-autofill:hover,  input:-webkit-autofill:focus,
     textarea:-webkit-autofill, textarea:-webkit-autofill:hover, textarea:-webkit-autofill:focus,
@@ -65,21 +205,34 @@ button {
         font-weight: 400;
         margin-bottom: 15px;
     }
+
 }
 .standard-form {
     .form-label {
         color: $red;
-        font-size: 14px;
+        font-size: 12px;
         text-transform: uppercase;
+        white-space: nowrap;
+    }
+    .form-group {
+        font-size: 0;
+        label {
+            color: $red;
+            font-size: 12px;
+            line-height: 100%;
+            margin-bottom: 0;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
     }
     .form-control {
         border: none;
         border-bottom: 1px solid $greyF;
-        height: 30px;
         padding: 0 0 3px;
+        &:focus {
+            border-color: $greyF;
+        }
     }
-
-
 }
 
 .floating-form {
@@ -119,15 +272,13 @@ button {
     select:-webkit-autofill, select:-webkit-autofill:hover, select:-webkit-autofill:focus {
         border: 1px solid $greyC;
     }
-    input:-webkit-autofill {
-        &:focus, &:valid {
+    input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:valid {
             + .form-control-placeholder {
                 background-color: #fff;
                 font-size: 75%;
                 padding: 0 10px;
                 transform: translate3d(0, -50%, 0);
             }
-        }
     }
 }
 
@@ -177,7 +328,9 @@ button {
 /* modal */
 .modal  {
     .modal-dialog {
-
+        @include min(576px) {
+            max-width: 640px;
+        }
     }
     .modal-header {
         align-items: flex-start;
@@ -194,19 +347,449 @@ button {
             text-align: center;
         }
         .close {
+            font-size: 16px;
+            line-height: 16px;
             margin: 0;
             padding: 0;
             position: absolute;
             right: 15px;
             top: 15px;
             z-index: 1;
+            i {
+                vertical-align: middle;
+            }
         }
     }
-    .modal-body {}
-    .btn-group {
+    .modal-content {
+        border-color: $greyF;   
+    }
+    .modal-body {
+        padding: 15px;
+    }
+    .btns-group {
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         padding-top: 5px;
+        .btn {
+            margin: 0 15px;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+    .form-group {
+        margin-bottom: 25px;
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 }
 
+
+.app-body {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    overflow-x: hidden;
+    .main {
+        background-color: #f6f6f6;
+        flex: 1;
+        min-width: 0;
+        padding: 30px 0;
+    }
+}
+
+.header-fixed {
+    .app-body {
+        &.body-dossier {
+            //z-index: 1020;    
+        }
+        .main {
+            //padding-top: 0;
+        }
+    }
+}
+
+.custom-card {
+    border-color: $greyC2;
+    .card-header {
+        background-color: #f6f6f6;
+        border-bottom: none;
+        padding: 14px 15px;
+        h2 {
+            color: #000;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 125%;
+            margin: 0;
+        }
+    }
+    .card-body {
+        padding: 15px;
+    }
+}
+.card-custom-2 {
+    border: none;
+    border-radius: 0;
+    .card-header {
+        background-color: transparent;
+        padding: 0;
+        h2, h3 {
+            color: $grey;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 130%;
+            margin: 0;
+            text-transform: uppercase;
+        }
+    }
+    .card-body {
+        border: 1px solid $greyC2;
+    }
+
+}
+.same-height {
+    [class*="col-"] {
+        height: inherit;
+        > .card {
+            height: 100%;
+        }
+    }
+}
+.noMargin-form-group {
+    .form-group {
+        margin: 0;
+    }
+}
+.noMargin-xl-form-group {
+    .form-group {
+        @include min(1200px) {
+            margin: 0;
+        }
+    }
+}
+
+.app-footer {
+    flex: 0 0 50px;
+}
+
+
+.search-bloc {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.listing-bloc {
+    .wrap-btn {
+        position: absolute;
+        top: 6px;
+        left: 0;
+        z-index: 1;
+    }
+    .dataTables_filter {
+        label {
+            color: $red;
+            font-size: 12px;
+            line-height: 100%;
+            margin-bottom: 0;
+            text-transform: uppercase;
+            width: 300px;
+        }
+        input {
+            border-color: $greyF;
+            border-radius: 0;
+            border-width: 0 0 1px;
+            color: $grey;
+            display: block;
+            font-size: 14px;
+            font-style: italic;
+            height: 34px;
+            
+            padding-left: 0;
+        }
+    }
+    .dataTables_wrapper {
+        div.dataTables_filter {
+            input {
+                display: block;
+                margin-left: 0;
+                width: 100%;
+                &:focus {
+                    box-shadow: none;
+                    color: $grey;
+                }
+            }
+
+        }
+    }
+}
+.table-responsive {
+    .table {
+        min-width: 768px;
+    }
+}
+.dataTable {
+    thead {
+        th {
+            background-color: $red;
+            border-bottom: none;
+        }
+        .sorting_asc {
+            &:before, &:after {
+                position: relative;
+                display: inline-block;
+            }
+        }
+    }
+    
+    th, td {
+        border-top: none;
+        font-weight: 400;
+    }
+    th {
+        color: #fff;    
+        font-size: 14px;
+        padding: 10px 10px 9px;
+        vertical-align: middle;
+    }
+    td {
+        color: $grey;
+        font-size: 12px;
+        padding: 9px 10px;
+        vertical-align: middle;
+    }
+    .sorting, .sorting_asc, .sorting_desc {
+        span {
+            display: inline-block;
+            padding-right: 20px;
+            position: relative;
+            z-index: 0;
+            &:after {
+                display: inline-block;
+                font-family: "FontAwesome";
+                font-size: 16px;
+                line-height: 100%;
+                position: absolute;
+                right: 5px;
+                vertical-align: middle;              
+            }
+        }
+    }
+    .sorting {
+        span {
+            &:after {
+                content: "\f0dc";
+                top: 3px;
+            }
+        }
+    }
+    .sorting_asc {
+        span {
+            &:after {
+                top: 6px;
+                content: "\f0de";
+            }
+        }
+    }
+    .sorting_desc {
+        span {
+            &:after {
+                content: "\f0dd";
+                top: 0;
+            }
+        }
+    }
+    .actions {
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+    button {
+        background: none;
+        border: none;
+        line-height: 100%;
+        padding: 2px 5px;
+        i {
+            font-size: 16px;
+        }
+    }
+    .btn-edit {
+        i {
+            color: $green;
+        }
+    }
+    .btn-remove {
+        i {
+            color: $red;
+        }
+    }
+}
+table {
+    &.dataTable {
+        thead {
+            .sorting, .sorting_asc, 
+            .sorting_desc, .sorting_asc_disabled, 
+            .sorting_desc_disabled {
+                &:before, &:after {
+                 display: none;
+                }
+            }
+            >tr {
+                >th {
+                    &.sorting_asc, 
+                    &.sorting_desc, 
+                    &.sorting {
+                        padding-right: 15px;
+                    }
+                }
+            }
+        }
+        th, td {
+            &.dataTables_empty {
+                color: $grey;
+                font-size: 14px;
+            }
+        }
+    }
+}
+div.dataTables_wrapper {
+    div.dataTables_paginate {
+        margin-top: 15px;
+        ul.pagination {
+            margin: 0;
+        }
+    }
+}
+.dataTables_paginate {
+    .pagination {
+
+    }
+    .page-link {
+        border-color: $grey;
+        color: $grey;
+        font-size: 12px;
+        text-decoration: none;
+        &:focus {
+            box-shadow: none;
+            outline: none;
+        }
+    }
+    .page-item {
+        &:first-child, &:last-child {
+            .page-link {
+                border-radius: 0;
+            }
+        }
+        &.active {
+            .page-link {
+                background-color: $red;
+                border-color: $red;
+            }
+        }
+        &.disabled {
+            .page-link {
+                color: rgba(135, 135, 134, 0.5);
+            }
+        }
+    }   
+}
+
+
+/* card custom */
+.card {
+    &.card-custom {
+        
+    }
+}
+
+.tab-content {
+    border: none;
+    .tab-pane {
+        padding: 0;
+    }
+}
+
+.datepicker {
+    border-radius: 0;
+    .datepicker-days {
+        padding: 5px;
+        table {
+            margin: 0 auto;
+            width: 100%;
+            thead {
+                tr {
+                    border-bottom: 1px solid $grey;
+                }
+            }
+            th, td {
+                font-size: 12px;
+                text-align: center;
+            }
+            th {
+                color: $red;
+            }
+            td {
+                color: $grey;
+                cursor: pointer;
+            }
+            .old {
+                opacity: 0.5;
+            }
+            .active {
+                color: $red;
+                font-weight: 700;
+            }
+        }
+    }
+    &.dropdown-menu {
+        border: 1px solid $red;
+    }
+}
+
+.subdossier-bloc {
+    > .form-group {
+        margin-bottom: 0;
+        > .col-form-label {
+            display: none;
+        }
+    }
+    .col-form-label {
+        display: none;
+    }
+    #dossier_subDossiers {
+        > .form-group {
+            text-align: center;
+            @include min(768px) {
+                text-align: right;
+            }
+            &:first-child {
+                display: none;
+            }
+        }
+        > .form-group:not(:first-child) {
+            div[id*="dossier_sub"] {
+                display: flex;
+                flex-direction: column;
+                margin: 0 -15px;
+                @include min(768px) {
+                    flex-direction: row;
+                    justify-content: space-between;
+                    margin-bottom: 15px;
+                }
+                .form-group {
+                    margin-bottom: 15px;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    text-align: left;
+                    width: 100%;
+                    @include min(768px) {
+                        margin-bottom: 0;
+                        width: 50%;
+                    }
+                }
+                
+            }
+        }
+    }
+}

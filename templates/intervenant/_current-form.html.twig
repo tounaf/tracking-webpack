@@ -1,0 +1,71 @@
+<div class="card-body">
+    <div class="form-bloc standard-form form-declaration-litige">
+        {{ form_start(form_intervenant) }}
+        <div class="row same-height m-b-30">
+            <div class="col-md-6">
+                <div class="card card-custom-2 m-0">
+                    <div class="card-header">
+                        <h3> AVOCAT EN CHARGE DE L'AFFAIRE</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                {{ form_row(form_intervenant.nomPrenom) }}
+                            </div>
+                            <div class="col-xl-6 noMargin-xl-form-group">
+                                {{ form_row(form_intervenant.adresse) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6">
+                                {{ form_row(form_intervenant.email) }}
+                            </div>
+                            <div class="col-xl-6 noMargin-xl-form-group">
+                                {{ form_row(form_intervenant.telephone) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-custom-2 m-0">
+                    <div class="card-header">
+                        <h3>HONORAIRES</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                {{ form_row(form_intervenant.prestation) }}
+                            </div>
+                            <div class="col-xl-4">
+                                {{ form_row(form_intervenant.convenu) }}
+                            </div>
+                            <div class="col-xl-2">
+                                {{ form_row(form_intervenant.devise) }}
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xl-4">
+                                {{ form_row(form_intervenant.payer) }}
+                            </div>
+                            <div class="col-xl-2">
+                                {{ form_row(form_intervenant.devisePayer) }}
+                            </div>
+                            <div class="col-xl-4">
+                                {{ form_row(form_intervenant.restePayer) }}
+                            </div>
+                            <div class="col-xl-2">
+                                {{ form_row(form_intervenant.deviseReste) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form_intervenant, {'render_rest': false}) }}
+    </div>
+</div>
+
+

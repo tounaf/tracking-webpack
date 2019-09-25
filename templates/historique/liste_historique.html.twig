@@ -1,0 +1,61 @@
+{#{% extends 'dashboard/dashboard.html.twig' %}#}
+
+{#{% block title %}{{ parent() }} | Historique {% endblock %}#}
+{% block wrapper %}
+    <div class="card custom-card">
+        <div class="card-body">
+            <div class="listing-bloc relative-bloc">
+                <div class="table-responsive">
+                    <table id="listHistorique" class="dataTable table table-striped">
+                        <tbody>
+                        {% for history in histories %}
+                            <tr>
+                                <td>
+                                    {{ history.createdAt|date("d/m/Y H:i") }}<br>
+                                    <b>{{ history.user?history.user.name }}</b> a modifié
+                                </td>
+                                <td>
+                                    {% for champ, value in metadatas[history.id] %}
+                                           {{ champ|trans }} <br>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for champ, value in metadatas[history.id] %}
+                                            {% if value[0] is iterable %}
+                                                {% for childField in value[0] %}
+                                                    {{ childField }} <br>
+                                                {% endfor %}
+                                            {% else %}
+                                                {{ value[0] }} <br>
+                                            {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for champ, value in metadatas[history.id] %}
+                                        {% if value[1] is iterable %}
+                                            {% for childField in value[1] %}
+                                                {{ childField }} <br>
+                                            {% endfor %}
+                                        {% else %}
+                                            {{ value[1] }} <br>
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <thead>
+                        <tr>
+                            <th><span>{{ 'Utilisateur'|trans }}</span></th>
+                            <th><span>{{ 'Champ modifié'|trans }}</span></th>
+                            <th><span>{{ 'Ancienne valeur'|trans }}</span></th>
+                            <th><span>{{ 'Nouvelle valeur'|trans }}</span></th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

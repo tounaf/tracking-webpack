@@ -1,0 +1,10 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        litige:
+            uri_prefix: /pieces_jointes/litige
+            upload_destination: '%kernel.project_dir%/public/pieces_jointes/litige'
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true

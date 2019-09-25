@@ -9,9 +9,12 @@
 namespace App\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BasUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class FosUser
@@ -35,6 +38,7 @@ class FosUser extends BasUser
     /**
      * @var string
      * @ORM\Column(name="firstname",type="string", nullable=true)
+     * @Groups("groupe1")
      */
     protected $name;
 
@@ -57,7 +61,7 @@ class FosUser extends BasUser
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Fonction")
-     * @ORM\JoinColumn(name="fonction_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="fonction_id", referencedColumnName="id", nullable=true)
      */
     private $fonction;
 
@@ -66,6 +70,34 @@ class FosUser extends BasUser
      * @ORM\Column(name="actif",type="boolean",  nullable=true)
      */
     private $actif = true;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Profil")
+     */
+    private $profile;
+
+    /**
+     * @ORM\Column(type="string", length=5)
+     */
+    private $prefixPhone;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Dossier", mappedBy="userEnCharge")
+     */
+    private $dossiers;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="user")
+     */
+    private $histories;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->dossiers = new ArrayCollection();
+        $this->histories = new ArrayCollection();
+    }
+
 
     /**
      * @return int
@@ -175,9 +207,9 @@ class FosUser extends BasUser
      */
     public function setRoleUser()
     {
-        if ($this->fonction){
+        if ($this->profile){
             $this->addRole(
-                $this->fonction->getProfil()?$this->fonction->getProfil()->getCode():'');
+                $this->profile?$this->profile->getCode():'');
         }
         
     }
@@ -207,4 +239,94 @@ class FosUser extends BasUser
         $this->enabled = $this->actif;
     }
 
+    public function getProfile(): ?Profil
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?Profil $profile): self
+    {
+        $this->profile = $profile;
+
+        return $this;
+    }
+
+    public function getPrefixPhone(): ?string
+    {
+        return $this->prefixPhone;
+    }
+
+    public function setPrefixPhone(string $prefixPhone): self
+    {
+        $this->prefixPhone = $prefixPhone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Dossier[]|null
+     */
+    public function getDossiers()
+    {
+        return $this->dossiers;
+    }
+
+    public function addDossier(Dossier $dossier): self
+    {
+        if (!$this->dossiers->contains($dossier)) {
+            $this->dossiers[] = $dossier;
+            $dossier->setUserEnCharge($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRaisonSocial(Dossier $dossier): self
+    {
+        if ($this->dossiers->contains($dossier)) {
+            $this->dossiers->removeElement($dossier);
+            // set the owning side to null (unless already changed)
+            if ($dossier->getUserEnCharge() === $this) {
+                $dossier->setUserEnCharge(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->name;
+    }
+
+    /**
+     * @return Collection|History[]
+     */
+    public function getHistories(): Collection
+    {
+        return $this->histories;
+    }
+
+    public function addHistory(History $history): self
+    {
+        if (!$this->histories->contains($history)) {
+            $this->histories[] = $history;
+            $history->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistory(History $history): self
+    {
+        if ($this->histories->contains($history)) {
+            $this->histories->removeElement($history);
+            // set the owning side to null (unless already changed)
+            if ($history->getUser() === $this) {
+                $history->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 }

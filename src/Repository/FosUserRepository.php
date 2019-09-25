@@ -22,11 +22,10 @@ class FosUserRepository extends EntityRepository
         $societeId = $user->getSociete()?$user->getSociete()->getId():'';
         $query = $this->createQueryBuilder('u');
 
-        $query
-            ->innerJoin('u.societe' ,'s');
         if (!$isAdmin) {
 
             $query
+                ->innerJoin('u.societe' ,'s')
                 ->andWhere('s.id = :id')
                 ->setParameter('id', $societeId)
             ;
