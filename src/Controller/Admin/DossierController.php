@@ -63,7 +63,7 @@ class DossierController extends Controller
 
     /**
      *
-     * @Route("/dossier/render/edit/{id}/{currentTab}", name="render_edit_dossier")
+     * @Route("/dossier/render/edit/{id}/{currentTab}", name="render_edit_dossier", options={"expose"=true})
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function renderEditDossier(Dossier $dossier = null, Request $request)
