@@ -32,3 +32,7 @@
 .dataTable .btn-removeAuxi i {
     color: #C80F2D;
 }
+
+#dossier_File{
+    display: none;
+}
