@@ -63,7 +63,10 @@ class AuxiliairesRepository extends ServiceEntityRepository
         $qb->execute();
         $result = $qb->fetchAll();
         return $result;
-    }     public function getListAuxiliaires( $extraParams,$idDossier, $count = false)
+    }
+
+
+    public function getListAuxiliaires( $extraParams,$idDossier, $count = false)
     {
         $sql = $count?' SELECT COUNT(d.`id`) AS record ' : 'SELECT 
                     a.`id`,

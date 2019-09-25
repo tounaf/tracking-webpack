@@ -82,15 +82,10 @@ class DossierController extends Controller
             $this->get('session')->set('id', $id);
         }
 
-
-        $dossierRecords = $this->getDoctrine()->getRepository(Dossier::class)->getAllDossier();
-
-
         return $this->render('dossier/dossier.html.twig', array(
             'form' => $form->createView(),
-            //'dossier' => $dossier,
+            'dossier' => $dossier,
             'currentTab' =>$currentTab,
-            'dossier' => $dossierRecords,
         ));
     }
 
@@ -262,7 +257,6 @@ class DossierController extends Controller
         $dossierRecords = $this->getDoctrine()->getRepository(Dossier::class)->getAllDossier();
         return $this->render('dossier/form.html.twig', array(
             'form' => $form->createView(),
-            'dossier' => $dossierRecords,
         ));
 
     }

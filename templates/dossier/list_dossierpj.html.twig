@@ -12,20 +12,22 @@
     </thead>
     <tbody>
 
-        {% if dossier is not null %}
-            {% for dossier in dossier %}
-                <tr>
-                    <td>{{ dossier['id'] }}</td>
-                    <td>{{  dossier['date_litige']}}   </td>
-                    <td>{{ dossier['libelle'] }}</td>
-                    {% if dossier['filename'] is not null %}
-                    <td><a href="{{   path('download_dossier',{'id':dossier['id']})}}">Download fichier: {{ dossier['filename'] }}</a> </td>
-                    {% else %}
-                        <td>Pas de fichier joints </td>
-                    {%  endif %}
-                    <td><a href="{{ path('delete_pj', {'id':dossier['id']})}}"><i class="icon-trash"></i></a> </td>
-                </tr>
-            {% endfor %}
+        {% if dossier is defined %}
+            {% if dossier.piecesJointes is not null %}
+                {% for pj in dossier.piecesJointes %}
+                    <tr>
+                        <td>{{ pj.id }}</td>
+                        <td></td>
+                        <td>{{ pj.libelle }}</td>
+                        {% if dossier.fileName is not null %}
+                        <td><a href="{{   path('download_dossier',{'id':dossier.id })}}">Download fichier: {{ dossier.fileName }}</a> </td>
+                        {% else %}
+                            <td>Pas de fichier joints </td>
+                        {%  endif %}
+                        <td><a href="{{ path('delete_pj', {'id':dossier.id})}}"><i class="icon-trash"></i></a> </td>
+                    </tr>
+                {% endfor %}
+                {% endif %}
         {% endif %}
     </tbody>
 </table>

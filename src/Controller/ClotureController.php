@@ -71,9 +71,7 @@ class ClotureController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $datecloture = $request->get('cloture')['dateCloture'];
-//            dump(new \DateTime('19-09-2019'));die;
-
-            $date = new \DateTime(str_replace('/','-',$datecloture));
+            $date = new \DateTime($datecloture);
           try{
               $entityManager = $this->getDoctrine()->getManager();
               $cloture->setDateCloture($date);
