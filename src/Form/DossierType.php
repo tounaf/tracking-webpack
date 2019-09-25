@@ -149,9 +149,10 @@ class DossierType extends AbstractType
 //            //PJ
 //            //PJ Field to add file in pj
             ->add('File', FileType::class,[
-                'label' => 'Fichier',
+                'label' => 'insérer pièces jointes',
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
+                "multiple" => true,
                 // make it optional so you don't have to re-upload the PDF file
                 // everytime you edit the Product details
                 'required' => false,

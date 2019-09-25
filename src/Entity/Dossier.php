@@ -117,7 +117,7 @@ class Dossier
     private $formePartieAdverse;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\InformationPj", inversedBy="dossiers")
+     * @ORM\ManyToMany(targetEntity="App\Entity\InformationPj", inversedBy="dossiers",   cascade={"persist", "remove", "merge"})
      */
     private $piecesJointes;
 
@@ -737,7 +737,6 @@ class Dossier
 
     public function UpdateObjDossier($dataDossierUpdate, $dossier){
         if(is_object($dataDossierUpdate)){
-            $dataDossierUpdate->setNumeroDossier($dossier->getNumeroDossier());
             $dataDossierUpdate->setLibelle($dossier->getLibelle());
             $dataDossierUpdate->setNomDossier($dossier->getNomDossier());
             $dataDossierUpdate->setStatut($dossier->getStatut());

@@ -26,3 +26,7 @@
 .datepicker {
     z-index: 10000;
 }
+
+#dossier_File{
+    display: none;
+}
