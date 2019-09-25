@@ -33,7 +33,7 @@ class Auxiliaires
     private $email;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=10)
      */
     private $telephone;
     /**
@@ -84,6 +84,11 @@ class Auxiliaires
      * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="DeviseResteAux")
      */
     private $deviseReste;
+
+    /**
+     * @ORM\Column(type="string", length=5, nullable=true)
+     */
+    private $prefixPhone;
 
     public function getId(): ?int
     {
@@ -222,12 +227,12 @@ class Auxiliaires
         return $this;
     }
 
-    public function getTelephone(): ?int
+    public function getTelephone(): ?string
     {
         return $this->telephone;
     }
 
-    public function setTelephone(int $telephone): self
+    public function setTelephone(string $telephone): self
     {
         $this->telephone = $telephone;
 
@@ -254,6 +259,18 @@ class Auxiliaires
     public function setDeviseReste(?Devise $deviseReste): self
     {
         $this->deviseReste = $deviseReste;
+
+        return $this;
+    }
+
+    public function getPrefixPhone(): ?string
+    {
+        return $this->prefixPhone;
+    }
+
+    public function setPrefixPhone(?string $prefixPhone): self
+    {
+        $this->prefixPhone = $prefixPhone;
 
         return $this;
     }

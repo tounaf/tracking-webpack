@@ -20,8 +20,16 @@
                             <div class="col-xl-6">
                                 {{ form_row(form_intervenant.email) }}
                             </div>
-                            <div class="col-xl-6 noMargin-xl-form-group">
-                                {{ form_row(form_intervenant.telephone) }}
+                            <div class="col-xl-6 noMargin-xl-form-group form-group">
+                                {{ form_label(form_intervenant.telephone) }}
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        {{ form_widget(form_intervenant.prefixPhone) }}
+                                    </div>
+                                    <div class="col-md-8">
+                                        {{ form_widget(form_intervenant.telephone) }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
