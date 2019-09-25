@@ -9,7 +9,6 @@ $(document).ready(function () {
         "serverSide": true,
         "searching": false,
         "paging": true,
-        "info": true,
         "ajax": {
             "url": Routing.generate('ajax_list_dossier'),
             "type": "POST"

@@ -1,100 +1,112 @@
-{{ form_start(formCloture) }}
-{% if formCloture is defined %}
-    <div class="row card">
-        <div class="card-header">
-            Etat de clôture
-        </div>
-        <div class="card col-sm-12">
-            <div class="card-body">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        {{ form_row(formCloture.dateCloture) }}
-
-                    </div>
-                    <div class="form-group col-md-6">
-                        {{ form_row(formCloture.juridiction) }}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                DECISION DE JUSTICE
-                <div class="card">
-                    <div class="card-body">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                {{ form_row(formCloture.decisionLitige) }}
-                            </div>
-                            <div class="form-group col-md-6">
-                                {{ form_row(formCloture.natureDecision) }}
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                {{ form_row(formCloture.niveauDecision) }}
-                            </div>
-                            <div class="form-group col-md-6">
-                                {{ form_row(formCloture.sensDecision) }}
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                {{ form_row(formCloture.risque) }}
-                            </div>
-                            <div class="form-group col-md-6">
-                                {{ form_row(formCloture.typeCloture) }}
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                {{ form_row(formCloture.gainCondamnation) }}
-                            </div>
-                            <div class="form-group col-md-4">
-                                {{ form_row(formCloture.montantGainCondamn) }}
-                            </div>
-                            <div class="form-group col-md-2">
-                                {{ form_row(formCloture.devise) }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                MONTANT DU LITIGE
-                <div class="card">
-                    <div class="card-body">
-                        <div class="form-row">
-                            <div class="form-group col-md-10">
-                                {{ form_row(formCloture.montantInitial) }}
-                            </div>
-                            <div class="form-group col-md-2">
-                                {{ form_row(formCloture.deviseInitial) }}
-                            </div>
-                            <div class="form-group col-md-10">
-                                {{ form_row(formCloture.montantIntervenant) }}
-                            </div>
-                            <div class="form-group col-md-2">
-                                {{ form_row(formCloture.deviseAvocat) }}
-                            </div>
-                            <div class="form-group col-md-10">
-                                {{ form_row(formCloture.montantAuxiliaires) }}
-                            </div>
-                            <div class="form-group col-md-2">
-                                {{ form_row(formCloture.deviseAuxiliaires) }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="card custom-card">
+    <div class="card-header">
+        <h2>Etat de clôture</h2>
     </div>
-    <div class="modal-footer">
-        <div class="pull-right adjust text-right offset-10">
-            <button type="submit" class="btn btn-success ">{{ 'label.save'|trans }}</button>
-        </div>
+    <div class="card-body">
+        <div class="form-bloc standard-form form-declaration-litige">
+            {{ form_start(formCloture) }}
+            {% if formCloture is defined %}
+                <div class="row same-height m-b-30">
+                    <div class="col-md-6">
+                        <div class="card card-custom-2 m-0">
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group date-form">
+                                            {{ form_row(formCloture.dateCloture) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        {{ form_row(formCloture.juridiction) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row same-height m-b-30">
+                    <div class="col-md-6">
+                        <div class="card card-custom-2 m-0">
+                            <div class="card-header">
+                                <h3>DECISION DE JUSTICE</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        {{ form_row(formCloture.decisionLitige) }}
+                                    </div>
+                                    <div class="col-xl-6">
+                                        {{ form_row(formCloture.natureDecision) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        {{ form_row(formCloture.niveauDecision) }}
+                                    </div>
+                                    <div class="col-xl-6">
+                                        {{ form_row(formCloture.sensDecision) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        {{ form_row(formCloture.risque) }}
+                                    </div>
+                                    <div class="col-xl-6">
+                                        {{ form_row(formCloture.typeCloture) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            {{ form_row(formCloture.gainCondamnation) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4">
+                                        {{ form_row(formCloture.montantGainCondamn) }}
+                                    </div>
+                                    <div class="col-xl-2">
+                                        {{ form_row(formCloture.devise) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card-custom-2 m-0">
+                            <div class="card-header">
+                                <h3> MONTANT FINAL DU LITIGE</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        {{ form_row(formCloture.montantInitial) }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{ form_row(formCloture.deviseInitial) }}
+                                    </div>
+                                    <div class="col-md-10">
+                                        {{ form_row(formCloture.montantIntervenant) }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{ form_row(formCloture.deviseAvocat) }}
+                                    </div>
+                                    <div class="col-md-10">
+                                        {{ form_row(formCloture.montantAuxiliaires) }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{ form_row(formCloture.deviseAuxiliaires) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+            <div class="btns-group text-right">
+                <button type="submit" class="btn btn-success">{{ 'label.save'|trans }}</button>
+            </div>
+        </div>
+        {% endif %}
+        {{ form_end(formCloture,{'render_rest': false}) }}
     </div>
-{% endif %}
-{{ form_end(formCloture,{'render_rest': false}) }}
+</div>

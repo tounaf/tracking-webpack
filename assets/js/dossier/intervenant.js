@@ -19,13 +19,13 @@ $(document).ready(function () {
         "pageLength": 10,
         "orderable": true,
         "columns": [
-            {"data": "nomPrenom"},
-            {"data": "convenu"},
-            {"data": "payer"},
-            {"data": "reste_payer"},
-            {"data": "devise"},
-            {"data": "prestation"},
-            {"data": "statuts"},
+            {"data": "nomPrenom",},
+            {"data": "prestation",},
+            {"data": "convenu",},
+            {"data": "payer",},
+            {"data": "reste_payer",},
+            {"data": "devise",},
+            {"data": "statuts",},
             {
                 "targets": -1,
                 "data": "edit",
@@ -34,13 +34,6 @@ $(document).ready(function () {
                 "className": 'text-center',
                 "render": editRow
             },
-            /* { "targets": -1,
-                 "data": "delete",
-                 "orderable": false,
-                 "defaultContent": "",
-                 "className": 'text-center',
-                 "render": deleteRender
-             }*/
         ],
         bLengthChange: false,
         info: false,
@@ -68,6 +61,18 @@ $(document).ready(function () {
                 sortDescending: ": activer pour trier la colonne par ordre décroissant"
             }
         },
+        "autoWidth": false,
+        responsive: true,
+       /*columnDefs: [
+            {"targets": 0, orderable: true },
+            {"targets": 1, orderable: true},
+            {"targets": 2, orderable: true},
+            {"targets": 3, orderable: true},
+            {"targets": 4, orderable: true},
+            {"targets": 5, orderable: true},
+            {"targets": 6, orderable: true},
+            {"targets": 7, orderable: true},
+        ]*/
     });
     function editRow(data, type, row) {
         data = ' <button  data-target="#modalIntervenant" data-title="AJOUT/MODIFICATION" data-route="intervenant_edit" class="btn-edit"  data-id="'+row.id+'" type="button"><i class="icon-edit"></i></button>\n' +
@@ -147,16 +152,8 @@ $('body').on('click', '#modalCreateIntervenant', function (e) {
         //main.ajaxloader('hide');
     })
 });
-$('body').on('keyup', '#intervenant_restePayer', function(e){
-        e.preventDefault();
-       var convenu = $("input#intervenant_restePayer").val();
-       if (convenu > 0) {
-           $("#intervenant_statutIntervenant").val("A Payer");
-       } else {
-           $("#intervenant_statutIntervenant").val("Soldé");
-       }
-    });
-$('#modalIntervenant').on('blur keyup mouseout', '#intervenant_restePayer', function(event){
+
+$(' body #modalIntervenant').on('blur keyup mouseout', '#intervenant_restePayer', function(event){
     event.preventDefault();
     var convenu = $("#modalIntervenant #intervenant_restePayer").val();
     if (convenu != 0){
@@ -183,14 +180,14 @@ $('body').on('change', '#intervenant_devise', function(e){
     }).trigger("change");
 
 //after loading modal, chargement du devise selon le type par defaut
-$("#modalIntervenant").on('shown.bs.modal', function(){
+/*$("#modalIntervenant").on('shown.bs.modal', function(){
     var str = "";
     $( "#intervenant_devise option:selected" ).each(function() {
         str += $( this ).text() + " ";
     });
-    $( "#devise2" ).val( str );
+    $( "#indevise2" ).val( str );
     $( "#devise1" ).val( str );
-});
+});*/
 
 
 /**

@@ -75,6 +75,7 @@ class ClotureType extends AbstractType
                 'expanded' => true,
                 'choices' => [
                     'Condamnation' => 'Condamnation',
+
                     'Gain' => 'Gain',
 
                 ],
