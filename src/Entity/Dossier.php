@@ -7,10 +7,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Serializer\Annotation\Groups;
-
+use App\Annotation\TrackableClass;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DossierRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @TrackableClass()
  */
 class Dossier
 {

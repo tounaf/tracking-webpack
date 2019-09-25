@@ -9,8 +9,12 @@
 namespace App\EventListner;
 
 
+use App\Annotation\TrackableClass;
+use App\Annotation\TrackableReader;
+use App\Entity\Auxiliaires;
 use App\Entity\Dossier;
 use App\Entity\History;
+use App\Entity\Intervenant;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -27,11 +31,13 @@ class HistorySubscriber implements EventSubscriber
     private $serializer;
     private $container;
     private $security;
-    public function __construct(Container $container, Security $security)
+    private $trackable;
+    public function __construct(Container $container, Security $security, TrackableReader $trackableReader)
     {
         $this->container = $container;
         $this->serializer = $container->get('serializer');
         $this->security = $security;
+        $this->trackable = $trackableReader;
     }
 
     public function getSubscribedEvents()
@@ -50,9 +56,12 @@ class HistorySubscriber implements EventSubscriber
         $em->getEventManager()->removeEventListener(array('preUpdate'), $this);
         foreach ($entities as $entity) {
 
-            if (!($entity instanceof Dossier)) {
+            // ne fait rien si l'entite n'est pas trackable
+            if (!$this->trackable->isTrackable($entity)) {
                 return;
             }
+
+
             $changesets = $unitOfWork->getEntityChangeSet($entity);
 
             $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
@@ -61,6 +70,15 @@ class HistorySubscriber implements EventSubscriber
             $normalizer = new ObjectNormalizer($classMetadataFactory);
             $serializer = new Serializer([$normalizer], [$encoder]);
 
+            if ($entity instanceof Dossier) {
+                $dossier = $entity;
+            } else if ($entity) {
+                $dossier = $entity->getDossier();
+                $normalizer->setIgnoredAttributes(['dossier']);
+            } else {
+                return;
+            }
+            
             // serialize data changesets
             $data = $serializer->normalize($changesets,null,['groups'=> ['groupe1']]);
             $dataserialize = $serializer->serialize($data, 'json');
@@ -71,7 +89,7 @@ class HistorySubscriber implements EventSubscriber
             $history->setClasseName($nameWithOutNameSpace);
             $history->setMetadata($dataserialize);
             $history->setUser($this->security->getToken()->getUser());
-            $history->setDossier($entity);
+            $history->setDossier($dossier);
             $em->persist($history);
             $unitOfWork->computeChangeSets();
             $metaData = $em->getClassMetadata('App\Entity\History');
@@ -80,4 +98,6 @@ class HistorySubscriber implements EventSubscriber
 
         }
     }
+
+
 }
