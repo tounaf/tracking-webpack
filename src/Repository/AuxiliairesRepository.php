@@ -14,7 +14,6 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class AuxiliairesRepository extends ServiceEntityRepository
 {
-
     /**
      * @var array
      */
@@ -33,7 +32,38 @@ class AuxiliairesRepository extends ServiceEntityRepository
         parent::__construct($registry, Auxiliaires::class);
     }
 
-    public function getListAuxiliaires( $extraParams,$idDossier, $count = false)
+     public function getListAuxiliairesActuel( $extraParams,$idDossier, $count = false)
+    {
+        $sql = $count?' SELECT COUNT(d.`id`) AS record ' : 'SELECT 
+                    a.`id`,
+                    a.`nom_prenom` AS nomPrenom,
+                    a.`convenu` AS convenu ,
+                    a.`payer` AS payer,
+                    a.`reste_payer` AS reste_payer,
+                    a.`statut_intervenant` AS statuts,
+                    d.`code` AS devise,
+                    p.`libelle` AS prestation
+               ';
+        $sql .= '  FROM auxiliaires a ';
+        $sql .=' INNER JOIN `devise` AS d ON d.`id` = a.`devise_id` ';
+        $sql .=' INNER JOIN type_prestation p ON p.`id` = a.`prestation_id` ';
+        $sql .=' WHERE a.dossier_id = '.$idDossier;
+        $sql .=' GROUP BY prestation_id';
+        if (!$count) {
+            if (isset($this->column[$extraParams['orderBy']]) && isset($extraParams['order'])) {
+
+                $sql .= ' ORDER BY '.$this->column[$extraParams['orderBy']] .' '. $extraParams['order'];
+            }
+            if (isset($extraParams['start']) && isset($extraParams['length'])) {
+
+                $sql .= ' LIMIT '.$extraParams['start'].','. $extraParams['length'];
+            }
+        }
+        $qb = $this->getEntityManager()->getConnection()->prepare($sql);
+        $qb->execute();
+        $result = $qb->fetchAll();
+        return $result;
+    }     public function getListAuxiliaires( $extraParams,$idDossier, $count = false)
     {
         $sql = $count?' SELECT COUNT(d.`id`) AS record ' : 'SELECT 
                     a.`id`,

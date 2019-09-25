@@ -180,14 +180,14 @@ $('body').on('change', '#intervenant_devise', function(e){
     }).trigger("change");
 
 //after loading modal, chargement du devise selon le type par defaut
-$("#modalIntervenant").on('shown.bs.modal', function(){
+/*$("#modalIntervenant").on('shown.bs.modal', function(){
     var str = "";
     $( "#intervenant_devise option:selected" ).each(function() {
         str += $( this ).text() + " ";
     });
-    $( "#devise2" ).val( str );
+    $( "#indevise2" ).val( str );
     $( "#devise1" ).val( str );
-});
+});*/
 
 
 /**

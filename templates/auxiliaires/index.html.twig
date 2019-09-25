@@ -1,38 +1,58 @@
-<br>
 {% include '_flash.html.twig' %}
 <div class="card">
     <div class="listing-bloc relative-bloc">
-            <div class="row">
-                <div class="col-xl-8">
-                    AUXILIAIRES INTERVENUS SUR L'AFFAIRE
-                </div>
-                <div class="col-xl-4">
-                    <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
-                        <button id="modalCreateAuxi" class="btn badge-success"  data-dossier="" data-route="auxiliaires_new"
-                                data-title="{{ 'label.edit.create'|trans }}"><a class="text-light fa fa-plus-circle"
-                                                                                href="#">Ajouter</a></button>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-xl-8">
+                AUXILIAIRES INTERVENUS SUR L'AFFAIRE
             </div>
-            <div class="table-responsive">
-                <table id="auxiliaires-list" class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>{{ 'column.nameUser'|trans }}</th>
-                        <th>{{ 'column.namePrestation'|trans }}</th>
-                        <th>{{ 'column.nameConvenu'|trans }}</th>
-                        <th>{{ 'column.namePayer'|trans }}</th>
-                        <th>{{ 'column.nameReste'|trans }}</th>
-                        <th>{{ 'column.nameDevise'|trans }}</th>
-                        <th>{{ 'column.nameStatIntervenant'|trans }}</th>
-                        <th  class="actions">{{ 'column.actions'|trans }}</th>
-                        {#<th>{{ 'column.actions'|trans }}</th>#}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+            <div class="col-xl-4">
+                <div id="btn-thematic-create" class="btn btn-ps pull-right adjust">
+                    <button id="modalCreateAuxi" class="btn badge-success" data-dossier="" data-route="auxiliaires_new"
+                            data-title="{{ 'label.edit.create'|trans }}"><a class="text-light fa fa-plus-circle"
+                                                                            href="#">Ajouter</a></button>
+                </div>
             </div>
         </div>
-    {% include 'auxiliaires/modal.html.twig' %}
+        <div class="table-responsive">
+            <table id="auxiliaires-listActuel" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>{{ 'column.nameUser'|trans }}</th>
+                    <th>{{ 'column.namePrestation'|trans }}</th>
+                    <th>{{ 'column.nameConvenu'|trans }}</th>
+                    <th>{{ 'column.namePayer'|trans }}</th>
+                    <th>{{ 'column.nameReste'|trans }}</th>
+                    <th>{{ 'column.nameDevise'|trans }}</th>
+                    <th>{{ 'column.nameStatIntervenant'|trans }}</th>
+                    <th class="actions">{{ 'column.actions'|trans }}</th>
+                    {#<th>{{ 'column.actions'|trans }}</th>#}
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <br>
+        <div class="table-responsive">
+            <table id="auxiliaires-list" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>{{ 'column.nameUser'|trans }}</th>
+                    <th>{{ 'column.namePrestation'|trans }}</th>
+                    <th>{{ 'column.nameConvenu'|trans }}</th>
+                    <th>{{ 'column.namePayer'|trans }}</th>
+                    <th>{{ 'column.nameReste'|trans }}</th>
+                    <th>{{ 'column.nameDevise'|trans }}</th>
+                    <th>{{ 'column.nameStatIntervenant'|trans }}</th>
+                    <th class="actions">{{ 'column.actions'|trans }}</th>
+                    {#<th>{{ 'column.actions'|trans }}</th>#}
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
+    {% include 'auxiliaires/modal.html.twig' %}
+</div>

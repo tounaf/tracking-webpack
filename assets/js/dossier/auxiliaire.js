@@ -8,6 +8,62 @@ require('../jquery.ajaxloader');
 var main = $('#auxiliaires-list');
 
 $(document).ready(function () {
+    var table = $('#auxiliaires-listActuel').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": Routing.generate('liste_auxiliaireActuel'),
+            "type" : "POST"
+        },
+        "sAjaxDataProp": "data",
+        "pageLength": 10,
+        "orderable": true,
+        "columns": [
+            {"data": "nomPrenom"},
+            {"data": "prestation"},
+            {"data": "convenu"},
+            {"data": "payer"},
+            {"data": "reste_payer"},
+            {"data": "devise"},
+            {"data": "statuts"},
+            {
+                "targets": -1,
+                "data": "edit",
+                "orderable": false,
+                "defaultContent": "",
+                "className": 'text-center',
+                "render": editRow
+            },
+        ],
+        "autoWidth": false,
+        responsive: true,
+        bLengthChange: false,
+        info: false,
+        "order": [[ 0, "desc" ]],
+        searching: false,
+        language: {
+            processing: "Traitement en cours...",
+            search: "Rechercher&nbsp;:",
+            lengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments",
+            info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+            infoEmpty: "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+            infoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+            infoPostFix: "",
+            loadingRecords: "Chargement en cours...",
+            zeroRecords: "Aucun &eacute;l&eacute;ment &agrave; trouv&eacute;",
+            emptyTable: "Aucune donnée disponible dans le tableau",
+            paginate: {
+                first: "Premier",
+                previous: "Pr&eacute;c&eacute;dent",
+                next: "Suivant",
+                last: "Dernier"
+            },
+            aria: {
+                sortAscending: ": activer pour trier la colonne par ordre croissant",
+                sortDescending: ": activer pour trier la colonne par ordre décroissant"
+            }
+        },
+    });
     var table = $('#auxiliaires-list').DataTable({
         "processing": true,
         "serverSide": true,
@@ -152,12 +208,14 @@ $('#modalAuxi').on('blur keyup mouseout', '#auxiliaires_restePayer', function(ev
  *  after change on select devise, displaying devise on another devie
  */
 $('body').on('change', '#auxiliaires_devise', function(e){
+
     var str = "";
     $( "#auxiliaires_devise option:selected" ).each(function() {
         str += $( this ).text() + " ";
     });
-    $( "#devise2Auxi" ).val( str );
-    $( "#devise1Auxi" ).val( str );
+    $( "#auxiliaires_deviseAuxiPayer" ).val( str );
+    $( "#auxiliaires_deviseAuxiPayer" ).val( str );
+    console.log(str);
 }).trigger("change");
 
 //after loading modal, chargement du devise selon le type par defaut
