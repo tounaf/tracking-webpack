@@ -157,9 +157,14 @@ class Dossier
 
     private $directory;
 
-    private $pathUpload = '/public/pieces_jointes/litige';
+    private $pathUpload = '/public/pieces_jointes/litige/';
 
     protected $fileName;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
 
     public function __construct()
     {
@@ -169,6 +174,7 @@ class Dossier
         $this->auxiliaires = new ArrayCollection();
         $this->intervenants = new ArrayCollection();
         $this->histories = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
 
@@ -669,7 +675,7 @@ class Dossier
 
     public function __toString()
     {
-        return (string)$this->numeroDossier;
+        return (string) $this->numeroDossier;
     }
 
     /**
@@ -793,6 +799,18 @@ class Dossier
             $dataDossierUpdate->setFileName($dossier->getFileName());
             return $dataDossierUpdate;
         }
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     }

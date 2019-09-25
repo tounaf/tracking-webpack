@@ -129,26 +129,16 @@ class DossierController extends Controller
      */
     public function deletepj($id){
         $em = $this->getDoctrine()->getManager();
-        $objDossier = $em->getRepository(Dossier::class)->find($id);
+        $oInfoPj = $em->getRepository(InformationPj::class)->find($id);
+        $objDossier = $oInfoPj->getDossiers()[0];
         $directoryFile = $this->get('kernel')->getProjectDir() .$objDossier->getPathUpload();
-        $dataDossierInfoPj = $em->getRepository(Dossier::class)
-            ->getInfoPjByDossierId($objDossier->getId());
-
-        if(!empty($dataDossierInfoPj) && is_array($dataDossierInfoPj)){
-            foreach($dataDossierInfoPj as $dossierInfoPj){
-                $infoPjId = $dossierInfoPj['information_pj_id'];
+        if($directoryFile){
+            if(!empty($oInfoPj->getFilename())){
+                $oInfoPj->deleteFile($directoryFile.'/'. $oInfoPj->getFilename());
             }
-        }
-        if($infoPjId){
-            $objInformationPj = $em->getRepository(InformationPj::class)->find($infoPjId);
-            if(!empty($objInformationPj->getFilename())){
-                $objInformationPj->deleteFile($directoryFile.'/'. $objInformationPj->getFilename());
-            }
-            $em->remove($objInformationPj);
-            $em->flush();
         }
         try{
-            $em->remove($objDossier);
+            $em->remove($oInfoPj);
             $em->flush();
             $this->session->getFlashBag()->add('success',$this->trans->trans('label.delete.success'));
             return $this->redirectToRoute('render_create_dossier');
@@ -156,7 +146,7 @@ class DossierController extends Controller
         catch (\Exception $exception){
             $this->session->getFlashBag()->add('danger', $this->trans->trans('label.delete.error'));
         }
-
+        return $this->redirectToRoute('render_create_dossier');
     }
 
 
@@ -219,20 +209,19 @@ class DossierController extends Controller
             $dossier->setAlerteDate(new \DateTime($alert))->setDateLitige(new \DateTime($dateLitige))->setEcheance(new \DateTime($echeance));
             $file = $form['File']->getData() ?? '';
 
-            $dossier->setDirectory($directory);
-            if ($file instanceof UploadedFile && is_dir($directory)){
-                $file->move($directory, $file->getClientOriginalName());
-                if($file->getClientOriginalName()  ){
-                    $objInfoPj->setLibelle($libelleSelected);
-                    $objInfoPj->setFilename($file->getClientOriginalName());
-                    $objInfoPj->setIsActif(true);
-                    $objInfoPj->addDossier($dossier);
-                    $dossier->addPiecesJointe($objInfoPj);
-                    $dossier->setFileName($file->getClientOriginalName());
-                    $em->persist($objInfoPj);
-                    $em->flush();
-                }
 
+            $dossier->setDirectory($directory);
+
+            if ($file instanceof UploadedFile && is_dir($directory) && $file->getClientOriginalName()){
+                $file->move($directory, $file->getClientOriginalName());
+                $objInfoPj->setLibelle($libelleSelected);
+                $objInfoPj->setFilename($file->getClientOriginalName());
+                $objInfoPj->setIsActif(true);
+                $objInfoPj->addDossier($dossier);
+                $dossier->addPiecesJointe($objInfoPj);
+                $dossier->setFileName($file->getClientOriginalName());
+                $em->persist($objInfoPj);
+                $em->flush();
             }else{
                 $objInfoPj->setLibelle($libelleSelected);
                 $objInfoPj->addDossier($dossier);
@@ -301,14 +290,17 @@ class DossierController extends Controller
                     if ($file instanceof UploadedFile && is_dir($directory)){
                         //on supprime le fichier existant
                         //$objInfoPjUpdate->deleteFile($directoryFile.'/'. $objInfoPjUpdate->getFilename());
-                        $objInfoPjUpdate->setFilename($file->getClientOriginalName());
+                        $objInfoPj->addDossier($dossier);
+                        $objInfoPj->setFilename($file->getClientOriginalName());
+                        $objInfoPj->setLibelle($libelleSelected);
+                        $em->persist($objInfoPj);
+                        $em->flush();
                         $file->move($directory, $file->getClientOriginalName());
                     }
                     $em->persist($objInfoPjUpdate);
                     $em->flush();
                 }
                 try {
-
                     foreach ($dossier->getSubDossiers() as $subDossier){
                         $subDossier->setDossier($dossier);
                         $em->persist($subDossier);
