@@ -15,36 +15,30 @@
                                     <b>{{ history.user?history.user.name }}</b> a modifié
                                 </td>
                                 <td>
-                                    {% for champ, value in metadatas %}
-                                        {% for changeset, field in  value %}
-                                           {{ changeset|trans }} <br>
-                                        {% endfor %}
+                                    {% for champ, value in metadatas[history.id] %}
+                                           {{ champ|trans }} <br>
                                     {% endfor %}
                                 </td>
                                 <td>
-                                    {% for champ, value in metadatas %}
-                                        {% for changeset, field in  value %}
-                                            {% if field[0] is iterable %}
-                                                {% for childField in field[0] %}
+                                    {% for champ, value in metadatas[history.id] %}
+                                            {% if value[0] is iterable %}
+                                                {% for childField in value[0] %}
                                                     {{ childField }} <br>
                                                 {% endfor %}
                                             {% else %}
-                                                {{ field[0] }} <br>
+                                                {{ value[0] }} <br>
                                             {% endif %}
-                                        {% endfor %}
                                     {% endfor %}
                                 </td>
                                 <td>
-                                    {% for champ, value in metadatas %}
-                                        {% for changeset, field in  value %}
-                                            {% if field[1] is iterable %}
-                                                {% for childField in field[1] %}
-                                                    {{ childField }} <br>
-                                                {% endfor %}
-                                            {% else %}
-                                            {{ field[1] }} <br>
-                                            {% endif %}
-                                        {% endfor %}
+                                    {% for champ, value in metadatas[history.id] %}
+                                        {% if value[1] is iterable %}
+                                            {% for childField in value[1] %}
+                                                {{ childField }} <br>
+                                            {% endfor %}
+                                        {% else %}
+                                            {{ value[1] }} <br>
+                                        {% endif %}
                                     {% endfor %}
                                 </td>
 

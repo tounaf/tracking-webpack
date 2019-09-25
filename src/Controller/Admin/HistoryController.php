@@ -22,10 +22,11 @@ class HistoryController extends Controller
     public function index(Dossier $dossier = null)
     {
         $histories = $dossier->getHistories();
+
         $metadatas = array();
         foreach ($histories as $history) {
             $metadata = json_decode($history->getMetadata(), true);
-            $metadatas[]=$metadata;
+            $metadatas[$history->getId()]=$metadata;
         }
         return $this->render('historique/liste_historique.html.twig', array(
            'histories' => $histories,
