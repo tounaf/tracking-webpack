@@ -22,7 +22,7 @@ class EtapeSuivanteType extends AbstractType
     {
         $builder
             ->add('libelle', TextType::class,[
-                'label'=> $this->trans->trans('label.libelle'),
+                'label'=> $this->trans->trans('Etape suivante :'),
                 'required' => true,
                 'attr'=> ['requiredMessage' => 'Veuillez renseigner ce champs s\'il vous plait'],
             ])

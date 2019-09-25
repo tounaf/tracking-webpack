@@ -104,7 +104,7 @@
 
            <trans-unit id="27">
                  <source>label.titre.persMorale</source>
-                 <target>Statuts des Personnes Morale</target>
+                 <target>Statuts des Personnes Morales</target>
              </trans-unit>
 
              <trans-unit id="28">
@@ -155,7 +155,7 @@
 
            <trans-unit id="37">
                  <source>label.titre.persMorale</source>
-                 <target>Statuts des Personnes Morale</target>
+                 <target>Statuts des Personnes Morales</target>
              </trans-unit>
 
              <trans-unit id="38">

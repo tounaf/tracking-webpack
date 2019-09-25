@@ -15,21 +15,21 @@
                 <table id="listUser" class="table table-striped">
                     <thead>
                         <tr>
-                            <th><span>Nom</span></th>
                             <th><span>Prénoms</span></th>
+                            <th><span>Nom</span></th>
                             <th><span>Entité</span></th>
                             <th><span>Email</span></th>
                             <th><span>Téléphone</span></th>
                             <th><span>Profil</span></th>
                             <th><span>Actif</span></th>
-                            <th class="actions"><span>{{ 'column.actions'|trans }}</span></th>
+                            <th class="actions"><span>{{ 'action'|trans }}</span></th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for user in users %}
                         <tr>
-                            <td>{{ user.name }}</td>
                             <td>{{ user.lastname }}</td>
+                            <td>{{ user.name }}</td>
                             <td>{{ user.societe }}</td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.prefixPhone !=''?user.prefixPhone~user.phoneNumber :user.phoneNumber }}</td>
