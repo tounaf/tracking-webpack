@@ -19,6 +19,16 @@ class InformationPjRepository extends ServiceEntityRepository
         parent::__construct($registry, InformationPj::class);
     }
 
+    public function getDossierByIdInfoPj($idInfoPj){
+        $sql = "SELECT  D.id, D.`date_litige`,infoPj.`libelle`,infoPj.`filename` FROM dossier AS D LEFT JOIN dossier_information_pj AS di ON D.id = di.`dossier_id`
+                LEFT JOIN information_pj AS infoPj ON infoPj.`id` = di.`information_pj_id`
+                WHERE infoPj.`id` =".$idInfoPj;
+        $qb = $this->getEntityManager()->getConnection()->prepare($sql);
+        $qb->execute();
+        $result = $qb->fetchAll();
+        return $result;
+    }
+
     // /**
     //  * @return InformationPj[] Returns an array of InformationPj objects
     //  */

@@ -10,6 +10,7 @@ use App\Form\DossierSearchType;
 use App\Form\DossierType;
 use App\Form\SubDossierType;
 use App\Repository\DossierRepository;
+use mysql_xdevapi\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -60,6 +61,24 @@ class DossierController extends Controller
             'currentTab' => 'declaration'
         ));
     }
+    protected function setDataInfoPjByDossierId($idDossier){
+        $em = $this->getDoctrine()->getManager();
+        $dataInfoPj = $em->getRepository(Dossier::class)->getDataInfoPjByDossierId($idDossier);
+        $dataIdInfoPj = array();
+        $dataFilename = array();
+        if(!empty($dataInfoPj) && is_array($dataInfoPj)){
+            foreach($dataInfoPj as $data){
+                array_push($dataIdInfoPj, $data['filename']);
+            }
+        }
+        if(!empty($dataInfoPj)){
+            foreach($dataIdInfoPj as $value){
+                array_push($dataFilename, $value);
+            }
+        }
+        return  $dataFilename;
+    }
+
 
     /**
      *
@@ -69,9 +88,11 @@ class DossierController extends Controller
     public function renderEditDossier(Dossier $dossier = null, Request $request)
     {
         $id = $request->get('id');
-        $currentTab = $request->get('currentTab');
-        $directory = $this->get('kernel')->getProjectDir();
+       /* $dataFilename = $this->setDataInfoPjByDossierId($id);
+        $oInfoPj = new InformationPj();*/
 
+
+        $currentTab = $request->get('currentTab');
         if ($dossier) {
             $form = $this->createForm(DossierType::class, $dossier, array(
                 'method' => 'POST',
@@ -130,23 +151,33 @@ class DossierController extends Controller
     public function deletepj($id){
         $em = $this->getDoctrine()->getManager();
         $oInfoPj = $em->getRepository(InformationPj::class)->find($id);
-        $objDossier = $oInfoPj->getDossiers()[0];
-        $directoryFile = $this->get('kernel')->getProjectDir() .$objDossier->getPathUpload();
+        $dataDossier = $em->getRepository(InformationPj::class)->getDossierByIdInfoPj($oInfoPj->getId());
+
+        if(is_array($dataDossier)){
+            $idDossier = $dataDossier[0]['id'];
+            $oDossier = $em->getRepository(Dossier::class)->find($idDossier);
+            $directoryFile = $this->get('kernel')->getProjectDir().$oDossier->getPathUpload();
+        }
+
         if($directoryFile){
             if(!empty($oInfoPj->getFilename())){
-                $oInfoPj->deleteFile($directoryFile.'/'. $oInfoPj->getFilename());
+
+                $oInfoPj->deleteFile($directoryFile, $oInfoPj->getFilename());
             }
         }
         try{
             $em->remove($oInfoPj);
             $em->flush();
             $this->session->getFlashBag()->add('success',$this->trans->trans('label.delete.success'));
-            return $this->redirectToRoute('render_create_dossier');
+            return $this->redirectToRoute('edit_dossier', array(
+                'id' => $idDossier));
         }
         catch (\Exception $exception){
+            dump($exception->getMessage());die;
             $this->session->getFlashBag()->add('danger', $this->trans->trans('label.delete.error'));
         }
-        return $this->redirectToRoute('render_create_dossier');
+        return $this->redirectToRoute('edit_dossier', array(
+            'id' => $idDossier));
     }
 
 
@@ -157,6 +188,7 @@ class DossierController extends Controller
     public function downloadDossier($id) {
         $em = $this->getDoctrine()->getManager();
         $dataDossier = $em->getRepository(Dossier::class)->getDossierById($id) ?? '';
+        $objDossier = new Dossier();
 
         if(is_array($dataDossier) && !empty($dataDossier)){
             foreach($dataDossier as $valueDossier){
@@ -166,13 +198,12 @@ class DossierController extends Controller
             }
         }
         $fileName = $fileDownload ?? '';
-
         if($fileName){
             $objDossier = $em->getRepository(Dossier::class)->find($id);
             $response = new Response();
             $response->headers->set('Content-type', 'application/octet-stream');
             $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', $fileName ));
-            $response->setContent(file_get_contents($this->get('kernel')->getProjectDir() .$objDossier->getPathUpload().'/'.$fileName));
+            $response->setContent(file_get_contents($this->get('kernel')->getProjectDir() .$objDossier->getPathUpload().'\\'.$fileName));
             $response->setStatusCode(200);
             $response->headers->set('Content-Transfer-Encoding', 'binary');
             $response->headers->set('Pragma', 'no-cache');
@@ -208,7 +239,6 @@ class DossierController extends Controller
             $alert = $request->get('dossier')['alerteDate'];
             $dossier->setAlerteDate(new \DateTime($alert))->setDateLitige(new \DateTime($dateLitige))->setEcheance(new \DateTime($echeance));
             $file = $form['File']->getData() ?? '';
-
 
             $dossier->setDirectory($directory);
 
@@ -285,17 +315,17 @@ class DossierController extends Controller
                     $idDossierInfoPj = $dataDossierInformationPj['information_pj_id'];
                     $objInfoPjUpdate = $em->getRepository(InformationPj::class)->find($idDossierInfoPj);
                     $objInfoPjUpdate->setLibelle($libelleSelected);
-                    //Au cas ou on change de fichier
-                    $directoryFile = $this->get('kernel')->getProjectDir() .$objDossierUpdate ->getPathUpload();
-                    if ($file instanceof UploadedFile && is_dir($directory)){
-                        //on supprime le fichier existant
-                        //$objInfoPjUpdate->deleteFile($directoryFile.'/'. $objInfoPjUpdate->getFilename());
+                    if ($file instanceof UploadedFile){
                         $objInfoPj->addDossier($dossier);
                         $objInfoPj->setFilename($file->getClientOriginalName());
                         $objInfoPj->setLibelle($libelleSelected);
                         $em->persist($objInfoPj);
                         $em->flush();
-                        $file->move($directory, $file->getClientOriginalName());
+                        try  {
+                            $file->move($directory, $file->getClientOriginalName());
+                        }catch (Exception $exception) {
+                        }
+
                     }
                     $em->persist($objInfoPjUpdate);
                     $em->flush();
@@ -470,7 +500,6 @@ class DossierController extends Controller
                     'type' => 'success',
                     'statut' => '200'
                 )) ;
-//                return $this->redirectToRoute('render_edit_dossier', array('id' => $id, 'dossier' => $dossier->getDossier()->getId()));
             }
             return $this->render('dossier/sub_dossier/form_sub_dossier.html.twig', array(
                 'form_subdossier' => $form->createView(),

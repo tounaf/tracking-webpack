@@ -120,7 +120,7 @@ class Dossier
     private $formePartieAdverse;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\InformationPj", inversedBy="dossiers",   cascade={"persist", "remove", "merge"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\InformationPj", inversedBy="dossiers", cascade={"persist"})
      */
     private $piecesJointes;
 
@@ -149,7 +149,7 @@ class Dossier
     private $intervenants;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="dossier")
+     * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="dossier", cascade={"persist", "remove", "merge"})
      */
     private $histories;
 
@@ -157,7 +157,7 @@ class Dossier
 
     private $directory;
 
-    private $pathUpload = '/public/pieces_jointes/litige/';
+    private $pathUpload = '\public\pieces_jointes\litige';
 
     protected $fileName;
 
@@ -675,7 +675,7 @@ class Dossier
 
     public function __toString()
     {
-        return (string) $this->numeroDossier;
+        return (string) $this->referenceDossier;
     }
 
     /**

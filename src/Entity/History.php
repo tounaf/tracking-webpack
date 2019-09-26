@@ -27,12 +27,12 @@ class History
     private $metadata;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Dossier", inversedBy="histories")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Dossier", inversedBy="histories", cascade={"persist", "remove", "merge"})
      */
     private $dossier;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\FosUser", inversedBy="histories")
+     * @ORM\ManyToOne(targetEntity="App\Entity\FosUser", inversedBy="histories", cascade={"persist", "remove", "merge"})
      */
     private $user;
 

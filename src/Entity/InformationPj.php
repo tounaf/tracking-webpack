@@ -6,9 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Filesystem\Filesystem;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\InformationPjRepository")
  */
@@ -33,7 +33,7 @@ class InformationPj
     private $isActif=true;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Dossier", mappedBy="piecesJointes", cascade={"persist", "remove", "merge"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Dossier", mappedBy="piecesJointes" , cascade={"persist"})
      */
     private $dossiers;
 
@@ -148,11 +148,11 @@ class InformationPj
         return $this;
     }
 
-    public function deleteFile($directoryFile){
+
+    public function deleteFile($directoryFile, $fileName){
         if(!empty($directoryFile)){
             $fs = new Filesystem();
-            $fs->remove($directoryFile);
-            return;
+           return $fs->remove($directoryFile, $fileName);
         }
     }
 
