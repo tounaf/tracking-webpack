@@ -60,6 +60,8 @@ class DossierType extends AbstractType
             ->add('formePartieAdverse', EntityType::class, array(
                 'label' => $this->trans->trans('label.form'),
                 'class' => StatutsPersMorale::class,
+                'required' => false,
+                'placeholder' => 'Veuillez selectionner',
                 'choice_label' => 'libelle'
             ))
 //            ->add('partieAdverse', PartiAdverseType::class, array(

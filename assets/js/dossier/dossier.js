@@ -125,4 +125,20 @@ $(document).ready(function () {
         })
     })
 
+    if ($("#dossier_statutPartiAdverse").val() == 'Personne morale') {
+        $("#dossier_formePartieAdverse").css('display','block')
+        $("label[for='dossier_formePartieAdverse']").css('display','block')
+    }
+    $("#dossier_statutPartiAdverse").change(function () {
+
+        if ($(this).val() == 'Personne morale') {
+            $("#dossier_formePartieAdverse").css('display','block')
+            $("label[for='dossier_formePartieAdverse']").css('display','block')
+        } else {
+            $("#dossier_formePartieAdverse").css('display','none')
+            $("label[for='dossier_formePartieAdverse']").css('display','none')
+        }
+
+    })
+
 });
