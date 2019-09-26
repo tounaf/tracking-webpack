@@ -27,7 +27,7 @@ class DeviseType extends AbstractType
                 'attr'=> ['requiredMessage' => 'Veuillez renseigner ce champs s\'il vous plait'],
             ])
             ->add('libelle', TextType::class,[
-                'label'=> $this->trans->trans('label.libelle'),
+                'label'=> $this->trans->trans('Devise :'),
                 'required' => true,
                 'attr'=> ['requiredMessage' => 'Veuillez renseigner ce champs s\'il vous plait'],
             ])

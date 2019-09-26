@@ -21,7 +21,9 @@ class FosUserRepository extends EntityRepository
     {
         $societeId = $user->getSociete()?$user->getSociete()->getId():'';
         $query = $this->createQueryBuilder('u');
-
+        $query
+            ->andWhere('u.id <> :currentUserId')
+            ->setParameter('currentUserId', $user->getId());
         if (!$isAdmin) {
 
             $query

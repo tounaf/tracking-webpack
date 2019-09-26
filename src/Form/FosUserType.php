@@ -44,11 +44,11 @@ class FosUserType extends AbstractType
             ))
             ->add('prefixPhone', null, array(
                 'required' => true,
-                'attr' => ['maxlength' => 4]
+                'attr' => ['maxlength' => 5]
             ))
             ->add('phoneNumber', null, array(
                 'required' => true,
-                'attr' => array('maxlength' => 7, 'minlength' => 7),
+                'attr' => array('maxlength' => 10, 'minlength' => 7),
                 'label' => $this->trans->trans('label.tel')
             ))
             ->add('actif', null, array(
@@ -67,7 +67,7 @@ class FosUserType extends AbstractType
             ))
             ->add('profile', EntityType::class, array(
                 'class' => Profil::class,
-                'label' => 'PROFILE :',
+                'label' => 'PROFIL :',
                 'choice_label' => 'libele',
                 'attr' => array('class' => 'custom-select'),
                 'required' => true,
