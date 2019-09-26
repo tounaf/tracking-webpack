@@ -50,7 +50,7 @@ $("body").on('blur','#fos_user_email',function () {
 /**
  * control foramt phone
  */
-$('body').on('blur','#fos_user_phoneNumber',function () {
+$('body').on('blur','#fos_user_phoneNumber, .phoneNumber',function () {
     var phone = $(this).val();
     if (!Fonction.isFormaNumber(phone)) {
 
@@ -64,7 +64,7 @@ $('body').on('blur','#fos_user_phoneNumber',function () {
     }
 })
 
-$(document).on('keyup','#fos_user_prefixPhone', function () {
+$(document).on('keyup','#fos_user_prefixPhone, .prefixPhoneNumber', function () {
     var phonePrefix = $(this).val();
     if (!Fonction.prefixPhoneNumber(phonePrefix)) {
         $("#prefixPhoneFormatInvalid").remove();

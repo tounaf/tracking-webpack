@@ -23,11 +23,11 @@
                             <div class="form-group col-xl-6">
                                     {{ form_label(formAuxi.telephone) }}
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            {{ form_widget(formAuxi.prefixPhone) }}
+                                        <div class="col-md-3">
+                                            {{ form_widget(formAuxi.prefixPhone, {'attr':{'class':'prefixPhoneNumber'}}) }}
                                         </div>
-                                        <div class="col-md-8">
-                                            {{ form_widget(formAuxi.telephone) }}
+                                        <div class="col-md-9">
+                                            {{ form_widget(formAuxi.telephone, {'attr':{'class':'phoneNumber'}}) }}
                                         </div>
                                     </div>
                             </div>

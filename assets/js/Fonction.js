@@ -34,7 +34,7 @@ export default class Fonction {
     }
 
     static prefixPhoneNumber(str) {
-        var regex = /^(032|033|034|039|\+261)/
+        var regex = /^([0-9]|\+261)/
         return regex.test(str);
     }
 
