@@ -34,26 +34,33 @@ class AuxiliairesRepository extends ServiceEntityRepository
 
      public function getListAuxiliairesActuel( $extraParams,$idDossier, $count = false)
     {
-        $sql = $count?' SELECT COUNT(d.`id`) AS record ' : 'SELECT 
-                    a.`id`,
-                    a.`nom_prenom` AS nomPrenom,
-                    a.`convenu` AS convenu ,
-                    a.`payer` AS payer,
-                    a.`reste_payer` AS reste_payer,
-                    a.`statut_intervenant` AS statuts,
-                    d.`code` AS devise,
-                    p.`libelle` AS prestation
+        $sql = $count?' SELECT COUNT(aux.`id`) AS record ' : 'SELECT 
+                    aux.`id`,
+                    aux.`nom_prenom` AS nomPrenom,
+                    aux.`convenu` AS convenu ,
+                    aux.`payer` AS payer,
+                    aux.`reste_payer` AS reste_payer,
+                    aux.`statut_intervenant` AS statuts,
+                   (
+                     SELECT d.code FROM devise d WHERE d.id = aux.`devise_id`
+                   ) AS devise,
+                    
+                    (
+                     SELECT p.libelle FROM `type_prestation` p WHERE p.id = aux.prestation_id
+                  ) AS prestation
                ';
-        $sql .= '  FROM auxiliaires a ';
-        $sql .=' INNER JOIN `devise` AS d ON d.`id` = a.`devise_auxi_conv_id` ';
-        $sql .=' INNER JOIN type_prestation p ON p.`id` = a.`prestation_id` ';
-        $sql .=' WHERE a.dossier_id = '.$idDossier;
-        $sql .=' GROUP BY prestation_id';
-        if (!$count) {
-            if (isset($this->column[$extraParams['orderBy']]) && isset($extraParams['order'])) {
+        $sql .= '  FROM auxiliaires aux ';
+        $sql .= ' WHERE aux.id IN 
+                      (SELECT 
+                        MAX(a.id) 
+                      FROM
+                        `type_prestation` tp 
+                        INNER JOIN `auxiliaires` a 
+                          ON tp.`id` = a.`prestation_id` 
+                      WHERE a.`dossier_id` ='.$idDossier.' 
+                      GROUP BY tp.`id`)';
 
-                $sql .= ' ORDER BY '.$this->column[$extraParams['orderBy']] .' '. $extraParams['order'];
-            }
+        if (!$count) {
             if (isset($extraParams['start']) && isset($extraParams['length'])) {
 
                 $sql .= ' LIMIT '.$extraParams['start'].','. $extraParams['length'];
@@ -68,20 +75,31 @@ class AuxiliairesRepository extends ServiceEntityRepository
 
     public function getListAuxiliaires( $extraParams,$idDossier, $count = false)
     {
-        $sql = $count?' SELECT COUNT(d.`id`) AS record ' : 'SELECT 
-                    a.`id`,
-                    a.`nom_prenom` AS nomPrenom,
-                    a.`convenu` AS convenu ,
-                    a.`payer` AS payer,
-                    a.`reste_payer` AS reste_payer,
-                    a.`statut_intervenant` AS statuts,
-                    d.`code` AS devise,
-                    p.`libelle` AS prestation
+        $sql = $count?' SELECT COUNT(aux.`id`) AS record ' : 'SELECT 
+                    aux.`id`,
+                    aux.`nom_prenom` AS nomPrenom,
+                    aux.`convenu` AS convenu ,
+                    aux.`payer` AS payer,
+                    aux.`reste_payer` AS reste_payer,
+                    aux.`statut_intervenant` AS statuts,
+                   (
+                     SELECT d.code FROM devise d WHERE d.id = aux.`devise_id`
+                   ) AS devise,
+                    
+                    (
+                     SELECT p.libelle FROM `type_prestation` p WHERE p.id = aux.prestation_id
+                  ) AS prestation
                ';
-        $sql .= '  FROM auxiliaires a ';
-        $sql .=' INNER JOIN `devise` AS d ON d.`id` = a.`devise_auxi_conv_id` ';
-        $sql .=' INNER JOIN type_prestation p ON p.`id` = a.`prestation_id` ';
-        $sql .=' WHERE a.dossier_id = '.$idDossier;
+        $sql .= '  FROM auxiliaires aux ';
+        $sql .= ' WHERE aux.id NOT IN 
+                      (SELECT 
+                        MAX(a.id) 
+                      FROM
+                        `type_prestation` tp 
+                        INNER JOIN `auxiliaires` a 
+                          ON tp.`id` = a.`prestation_id` 
+                      WHERE a.`dossier_id` ='.$idDossier.' 
+                      GROUP BY tp.`id`)';
         if (!$count) {
             if (isset($this->column[$extraParams['orderBy']]) && isset($extraParams['order'])) {
 
@@ -97,32 +115,4 @@ class AuxiliairesRepository extends ServiceEntityRepository
         $result = $qb->fetchAll();
         return $result;
     }
-    // /**
-    //  * @return Auxiliaires[] Returns an array of Auxiliaires objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Auxiliaires
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

@@ -669,7 +669,7 @@ class Dossier
 
     public function __toString()
     {
-        return (string)$this->numeroDossier;
+        return (string)$this->referenceDossier;
     }
 
     /**
