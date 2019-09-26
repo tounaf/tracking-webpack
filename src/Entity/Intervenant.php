@@ -21,7 +21,7 @@ class Intervenant
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="intervenants")
      */
-    private $devise;
+    private $deviseConvInt;
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TypePrestation", inversedBy="intervenants")
      */
@@ -75,12 +75,12 @@ class Intervenant
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="devisePayer")
      */
-    private $devisePayer;
+    private $devisePayerInt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="deviseReste")
      */
-    private $deviseReste;
+    private $deviseResteInt;
 
     /**
      * @ORM\Column(type="string", length=5, nullable=true)
@@ -92,14 +92,14 @@ class Intervenant
         return $this->id;
     }
 
-    public function getDevise(): ?Devise
+    public function getDeviseConvInt(): ?Devise
     {
-        return $this->devise;
+        return $this->deviseConvInt;
     }
 
-    public function setDevise(?Devise $devise): self
+    public function setDeviseConvInt(?Devise $devise): self
     {
-        $this->devise = $devise;
+        $this->deviseConvInt = $devise;
 
         return $this;
     }
@@ -224,26 +224,26 @@ class Intervenant
         return $this;
     }
 
-    public function getDevisePayer(): ?Devise
+    public function getDevisePayerInt(): ?Devise
     {
-        return $this->devisePayer;
+        return $this->devisePayerInt;
     }
 
-    public function setDevisePayer(?Devise $devisePayer): self
+    public function setDevisePayerInt(?Devise $devisePayer): self
     {
-        $this->devisePayer = $devisePayer;
+        $this->devisePayerInt = $devisePayer;
 
         return $this;
     }
 
-    public function getDeviseReste(): ?Devise
+    public function getDeviseResteInt(): ?Devise
     {
-        return $this->deviseReste;
+        return $this->deviseResteInt;
     }
 
-    public function setDeviseReste(?Devise $deviseReste): self
+    public function setDeviseResteInt(?Devise $deviseReste): self
     {
-        $this->deviseReste = $deviseReste;
+        $this->deviseResteInt = $deviseReste;
 
         return $this;
     }

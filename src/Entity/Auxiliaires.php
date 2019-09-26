@@ -44,7 +44,7 @@ class Auxiliaires
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="auxiliaires")
      */
-    private $devise;
+    private $deviseAuxiConv;
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TypePrestation", inversedBy="auxiliaires")
      */
@@ -83,7 +83,7 @@ class Auxiliaires
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="DeviseResteAux")
      */
-    private $deviseReste;
+    private $deviseAuxiReste;
 
     /**
      * @ORM\Column(type="string", length=5, nullable=true)
@@ -107,14 +107,14 @@ class Auxiliaires
         return $this;
     }
 
-    public function getDevise(): ?Devise
+    public function getDeviseAuxiConv(): ?Devise
     {
-        return $this->devise;
+        return $this->deviseAuxiConv;
     }
 
-    public function setDevise(?Devise $devise): self
+    public function setDeviseAuxiConv(?Devise $devise): self
     {
-        $this->devise = $devise;
+        $this->deviseAuxiConv = $devise;
 
         return $this;
     }
@@ -251,14 +251,14 @@ class Auxiliaires
         return $this;
     }
 
-    public function getDeviseReste(): ?Devise
+    public function getDeviseAuxiReste(): ?Devise
     {
-        return $this->deviseReste;
+        return $this->deviseAuxiReste;
     }
 
-    public function setDeviseReste(?Devise $deviseReste): self
+    public function setDeviseAuxiReste(?Devise $deviseReste): self
     {
-        $this->deviseReste = $deviseReste;
+        $this->deviseAuxiReste = $deviseReste;
 
         return $this;
     }

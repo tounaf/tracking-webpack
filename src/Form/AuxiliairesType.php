@@ -56,7 +56,7 @@ class AuxiliairesType extends AbstractType
                 'label' => $this->trans->trans('label.email'),
                 'required' => true
             ))
-            ->add('devise', EntityType::class, array(
+            ->add('deviseAuxiConv', EntityType::class, array(
                 'class' => 'App\Entity\Devise',
                 'label' =>  $this->trans->trans('label.devise'),
                 // 'choice_label' => 'ch',
@@ -72,7 +72,7 @@ class AuxiliairesType extends AbstractType
                 'query_builder' => function(EntityRepository $repository) {
                     return $repository->getDevise();
                 }))
-            ->add('deviseReste',EntityType::class, array(
+            ->add('deviseAuxiReste',EntityType::class, array(
                 'class' => 'App\Entity\Devise',
                 'label' =>  $this->trans->trans('label.devise'),
                 // 'choice_label' => 'ch',

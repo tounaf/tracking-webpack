@@ -727,8 +727,34 @@
                 <source>montant</source>
                 <target>LITIGE > MONTANT</target>
             </trans-unit>
-
-
+            <trans-unit id="156">
+                <source>deviseConvInt</source>
+                <target>INTERVENANT> DEVISE</target>
+            </trans-unit>
+            <trans-unit id="157">
+                <source>deviseResteInt</source>
+                <target>INTERVENANT> DEVISE</target>
+            </trans-unit>
+            <trans-unit id="158">
+                <source>devisePayerInt</source>
+                <target>CLOTURE > DEVISE </target>
+            </trans-unit>
+            <trans-unit id="159">
+                <source>deviseAuxiConv</source>
+                <target>AUTRES AUXILIAIRES > DEVISE CONVENU</target>
+            </trans-unit>
+            <trans-unit id="160">
+                <source>deviseAuxiReste</source>
+                <target>AUTRES AUXILIAIRES > DEVISE RESTE A PAYER</target>
+            </trans-unit>
+            <trans-unit id="161">
+                <source>deviseAuxiPayer</source>
+                <target>AUTRES AUXILIAIRES > DEVISE PAYE</target>
+            </trans-unit>
+            <trans-unit id="162">
+                <source>deviseGain</source>
+                <target>CLOTURE > DEVISE GAIN/CONDAMNATION</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

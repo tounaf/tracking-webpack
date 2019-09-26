@@ -71,7 +71,7 @@ class Cloture
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Devise", inversedBy="clotures")
      */
-    private $devise;
+    private $deviseGain;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -233,14 +233,14 @@ class Cloture
         return $this;
     }
 
-    public function getDevise(): ?Devise
+    public function getDeviseGain(): ?Devise
     {
-        return $this->devise;
+        return $this->deviseGain;
     }
 
-    public function setDevise(?Devise $devise): self
+    public function setDeviseGain(?Devise $devise): self
     {
-        $this->devise = $devise;
+        $this->deviseGain = $devise;
 
         return $this;
     }

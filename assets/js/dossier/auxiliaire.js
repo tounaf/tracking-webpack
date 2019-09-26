@@ -207,7 +207,7 @@ $('#modalAuxi').on('blur keyup mouseout', '#auxiliaires_restePayer', function(ev
 /**
  *  after change on select devise, displaying devise on another devie
  */
-$('body').on('change', '#auxiliaires_devise', function(e){
+$('body').on('change', '#auxiliaires_deviseAuxiConv', function(e){
 
     var str = "";
     $( "#auxiliaires_devise option:selected" ).each(function() {

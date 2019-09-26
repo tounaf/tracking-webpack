@@ -43,7 +43,7 @@ class IntervenantType extends AbstractType
 
             ))
             ->add('statutIntervenant')
-            ->add('devise', EntityType::class, array(
+            ->add('deviseConvInt', EntityType::class, array(
                 'class' => 'App\Entity\Devise',
                 'label' =>  $this->trans->trans('label.devise'),
                 // 'choice_label' => 'ch',
@@ -51,7 +51,7 @@ class IntervenantType extends AbstractType
                 'query_builder' => function(EntityRepository $repository) {
                     return $repository->getDevise();
                 }))
-            ->add('devisePayer', EntityType::class, array(
+            ->add('devisePayerInt', EntityType::class, array(
                 'class' => 'App\Entity\Devise',
                 'label' =>  $this->trans->trans('label.devise'),
                 // 'choice_label' => 'ch',
@@ -59,7 +59,7 @@ class IntervenantType extends AbstractType
                 'query_builder' => function(EntityRepository $repository) {
                     return $repository->getDevise();
                 }))
-            ->add('deviseReste', EntityType::class, array(
+            ->add('deviseResteInt', EntityType::class, array(
                 'class' => 'App\Entity\Devise',
                 'label' =>  $this->trans->trans('label.devise'),
                 // 'choice_label' => 'ch',
@@ -95,9 +95,9 @@ class IntervenantType extends AbstractType
                 ->remove('payer')
                 ->remove('restePayer')
                 ->remove('statutIntervenant')
-                ->remove('devise')
-                ->remove('devisePayer')
-                ->remove('deviseReste')
+                ->remove('deviseConvInt')
+                ->remove('devisePayerInt')
+                ->remove('deviseResteInt')
                 ->remove('prestation')
                 ->remove('nomPrenom')
                 ->remove('adresse')
