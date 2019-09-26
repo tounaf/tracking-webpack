@@ -738,10 +738,6 @@ class Dossier
         return $this->file;
     }
 
-    public function setFile(UploadedFile $file = null){
-        $this->file = $file;
-    }
-
     public function setFileName($filename = null){
         $this->fileName = $filename;
     }
