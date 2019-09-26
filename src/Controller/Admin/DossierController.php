@@ -311,23 +311,25 @@ class DossierController extends Controller
                 $dataDossierUpdate = $em->getRepository(Dossier::class)->find($id);
                 $objDossierUpdate = $dossier->UpdateObjDossier($dataDossierUpdate, $dossier);
                 $dataDossierInformationPj = $em->getRepository(Dossier::class)->getDataDossierInfoPj($id);
+                if ($file instanceof UploadedFile) {
+                    $file->move($directory, $file->getClientOriginalName());
+                }
                 if(!empty($dataDossierInformationPj)){
                     $idDossierInfoPj = $dataDossierInformationPj['information_pj_id'];
                     $objInfoPjUpdate = $em->getRepository(InformationPj::class)->find($idDossierInfoPj);
                     $objInfoPjUpdate->setLibelle($libelleSelected);
-                    if ($file instanceof UploadedFile){
-                        $objInfoPj->addDossier($dossier);
-                        $objInfoPj->setFilename($file->getClientOriginalName());
-                        $objInfoPj->setLibelle($libelleSelected);
-                        $em->persist($objInfoPj);
-                        $em->flush();
-                        try  {
-                            $file->move($directory, $file->getClientOriginalName());
-                        }catch (Exception $exception) {
-                        }
-
-                    }
+                    $objInfoPj->addDossier($dossier);
+                    $objInfoPj->setFilename($file->getClientOriginalName());
+                    $objInfoPj->setLibelle($libelleSelected);
+                    $em->persist($objInfoPj);
+                    $em->flush();
                     $em->persist($objInfoPjUpdate);
+                    $em->flush();
+                }else{
+                    $objInfoPj->addDossier($dossier);
+                    $objInfoPj->setFilename($file->getClientOriginalName());
+                    $objInfoPj->setLibelle($libelleSelected);
+                    $em->persist($objInfoPj);
                     $em->flush();
                 }
                 try {
@@ -336,8 +338,10 @@ class DossierController extends Controller
                         $em->persist($subDossier);
                         $em->flush();
                     }
-                    $em->persist($objDossierUpdate);
-                    $em->flush();
+                    if(!empty($objInfoPjUpdate)){
+                        $em->persist($objDossierUpdate);
+                        $em->flush();
+                    }
                     $this->session->getFlashBag()->add('success', $this->trans->trans('label.edit.success'));
                 } catch (\Exception $exception) {
                     $this->session->getFlashBag()->add('danger', $this->trans->trans('label.edit.error'));
