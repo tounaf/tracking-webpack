@@ -669,7 +669,7 @@ class Dossier
 
     public function __toString()
     {
-        return (string)$this->numeroDossier;
+        return (string)$this->referenceDossier;
     }
 
     /**
@@ -736,10 +736,6 @@ class Dossier
 
     public function getFile(){
         return $this->file;
-    }
-
-    public function setFile(UploadedFile $file = null){
-        $this->file = $file;
     }
 
     public function setFileName($filename = null){
