@@ -21,7 +21,15 @@
                                 {{ form_row(formAuxi.email) }}
                             </div>
                             <div class="form-group col-xl-6">
-                                {{ form_row(formAuxi.telephone) }}
+                                    {{ form_label(formAuxi.telephone) }}
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            {{ form_widget(formAuxi.prefixPhone) }}
+                                        </div>
+                                        <div class="col-md-8">
+                                            {{ form_widget(formAuxi.telephone) }}
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                         <div class="row">

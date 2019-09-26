@@ -28,15 +28,18 @@ class AuxiliairesType extends AbstractType
             ->add('convenu',null, array(
                 'label' => $this->trans->trans('label.convenu'),
                 'required'=>true,
+                'attr' => array('maxlength' => 15,),
             ))
             ->add('payer',null, array(
                 'label' => $this->trans->trans('label.payer'),
-                'required'=>true
+                'required'=>true,
+                'attr' => array('maxlength' => 15,),
 
             ))
             ->add('restePayer',null, array(
                 'label' => $this->trans->trans('label.restePayer'),
-                'required'=>true
+                'required'=>true,
+                'attr' => array('maxlength' => 15,),
             ))
             ->add('statutIntervenant')
             ->add('fonction')
@@ -46,7 +49,7 @@ class AuxiliairesType extends AbstractType
             ->add('adresse')
             ->add('telephone', null, array(
                 'required' => true,
-                'attr' => array('maxlength' => 10, 'minlength' => 10),
+                'attr' => array('maxlength' => 10, 'minlength' => 7),
                 'label' => $this->trans->trans('label.tel')
             ))
             ->add('email', EmailType::class, array(
@@ -81,6 +84,10 @@ class AuxiliairesType extends AbstractType
                 'label' => $this->trans->trans('label.titre.typePrestation'),
                 'class' => TypePrestation::class,
                 'choice_label' => 'libelle'))
+            ->add('prefixPhone', null, array(
+                'required' => true,
+                'attr' => ['maxlength' => 4]
+            ))
         ;
         if ($options['remove_field']) {
             $builder
@@ -96,7 +103,8 @@ class AuxiliairesType extends AbstractType
                 ->remove('nomPrenom')
                 ->remove('adresse')
                 ->remove('email')
-                ->remove('telephone');
+                ->remove('telephone')
+                ->remove('prefixPhone');
         }
     }
 
