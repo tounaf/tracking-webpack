@@ -117,7 +117,7 @@ class ClotureType extends AbstractType
                 'required' => false
             ])*/
 
-            ->add('devise', EntityType::class, array(
+            ->add('deviseGain', EntityType::class, array(
                 'class' => 'App\Entity\Devise',
                 'label' =>  $this->trans->trans('label.devise'),
                // 'choice_label' => 'ch',

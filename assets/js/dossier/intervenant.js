@@ -170,7 +170,7 @@ $(' body #modalIntervenant').on('blur keyup mouseout', '#intervenant_restePayer'
  *  after change on select devise, displaying devise on another devise
  */
 
-$('body').on('change', '#intervenant_devise', function(e){
+$('body').on('change', '#intervenant_deviseConvInt', function(e){
         var str = "";
         $( "#intervenant_devise option:selected" ).each(function() {
             str += $( this ).text() + " ";

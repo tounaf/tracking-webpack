@@ -65,7 +65,7 @@ class IntervenantRepository extends ServiceEntityRepository
                     p.`libelle` AS prestation
                ';
         $sql .= '  FROM intervenant i ';
-        $sql .=' INNER JOIN `devise` AS d ON d.`id` = i.`devise_id` ';
+        $sql .=' INNER JOIN `devise` AS d ON d.`id` = i.`devise_conv_int_id` ';
         $sql .=' INNER JOIN type_prestation p ON p.`id` = i.`prestation_id` ';
         $sql .=' WHERE i.dossier_id = '.$idDossier;
         if (!$count) {

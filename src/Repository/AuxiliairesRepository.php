@@ -45,7 +45,7 @@ class AuxiliairesRepository extends ServiceEntityRepository
                     p.`libelle` AS prestation
                ';
         $sql .= '  FROM auxiliaires a ';
-        $sql .=' INNER JOIN `devise` AS d ON d.`id` = a.`devise_id` ';
+        $sql .=' INNER JOIN `devise` AS d ON d.`id` = a.`devise_auxi_conv_id` ';
         $sql .=' INNER JOIN type_prestation p ON p.`id` = a.`prestation_id` ';
         $sql .=' WHERE a.dossier_id = '.$idDossier;
         $sql .=' GROUP BY prestation_id';
@@ -79,7 +79,7 @@ class AuxiliairesRepository extends ServiceEntityRepository
                     p.`libelle` AS prestation
                ';
         $sql .= '  FROM auxiliaires a ';
-        $sql .=' INNER JOIN `devise` AS d ON d.`id` = a.`devise_id` ';
+        $sql .=' INNER JOIN `devise` AS d ON d.`id` = a.`devise_auxi_conv_id` ';
         $sql .=' INNER JOIN type_prestation p ON p.`id` = a.`prestation_id` ';
         $sql .=' WHERE a.dossier_id = '.$idDossier;
         if (!$count) {
