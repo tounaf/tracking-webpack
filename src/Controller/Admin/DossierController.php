@@ -242,7 +242,7 @@ class DossierController extends Controller
 
             $dossier->setDirectory($directory);
 
-            if ($file instanceof UploadedFile && is_dir($directory) && $file->getClientOriginalName()){
+            if ($file instanceof UploadedFile){
                 $file->move($directory, $file->getClientOriginalName());
                 $objInfoPj->setLibelle($libelleSelected);
                 $objInfoPj->setFilename($file->getClientOriginalName());
