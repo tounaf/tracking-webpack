@@ -41,7 +41,7 @@ class IntervenantRepository extends ServiceEntityRepository
      */
     public function findLatestIntervenant($dossierId)
     {
-        $query = "SELECT * FROM Intervenant AS i where i.dossier_id = $dossierId ORDER by id desc  LIMIT 1";
+        $query = "SELECT * FROM intervenant AS i where i.dossier_id = $dossierId ORDER by id desc  LIMIT 1";
         return $this->getEntityManager()->getConnection()->executeQuery($query)->fetchAll();
     }
 
