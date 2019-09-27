@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Filesystem\Filesystem;
@@ -22,7 +23,7 @@ class InformationPj
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      * @Groups("groupe1")
      */
     private $libelle;
@@ -155,6 +156,14 @@ class InformationPj
            return $fs->remove($directoryFile, $fileName);
         }
     }
+
+
+    public function setObjInfoPj($oInfPj){
+        if($oInfPj instanceof InformationPj){
+
+        }
+    }
+
 
 
 }

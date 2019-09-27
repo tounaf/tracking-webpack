@@ -29,6 +29,10 @@ class InformationPjRepository extends ServiceEntityRepository
         return $result;
     }
 
+    /*public function getDataDossierInfoPj($idInfoPj){
+
+    }*/
+
     // /**
     //  * @return InformationPj[] Returns an array of InformationPj objects
     //  */

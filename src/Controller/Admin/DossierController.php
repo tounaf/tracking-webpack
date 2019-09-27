@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Service\FileUploader;
 use App\Entity\Dossier;
 use App\Entity\DossierSearch;
 use App\Entity\SubDossier;
@@ -88,10 +89,6 @@ class DossierController extends Controller
     public function renderEditDossier(Dossier $dossier = null, Request $request)
     {
         $id = $request->get('id');
-       /* $dataFilename = $this->setDataInfoPjByDossierId($id);
-        $oInfoPj = new InformationPj();*/
-
-
         $currentTab = $request->get('currentTab');
         if ($dossier) {
             $form = $this->createForm(DossierType::class, $dossier, array(
@@ -102,7 +99,6 @@ class DossierController extends Controller
             ));
             $this->get('session')->set('id', $id);
         }
-
         return $this->render('dossier/dossier.html.twig', array(
             'form' => $form->createView(),
             'dossier' => $dossier,
@@ -152,16 +148,13 @@ class DossierController extends Controller
         $em = $this->getDoctrine()->getManager();
         $oInfoPj = $em->getRepository(InformationPj::class)->find($id);
         $dataDossier = $em->getRepository(InformationPj::class)->getDossierByIdInfoPj($oInfoPj->getId());
-
         if(is_array($dataDossier)){
             $idDossier = $dataDossier[0]['id'];
             $oDossier = $em->getRepository(Dossier::class)->find($idDossier);
             $directoryFile = $this->get('kernel')->getProjectDir().$oDossier->getPathUpload();
         }
-
         if($directoryFile){
             if(!empty($oInfoPj->getFilename())){
-
                 $oInfoPj->deleteFile($directoryFile, $oInfoPj->getFilename());
             }
         }
@@ -173,7 +166,6 @@ class DossierController extends Controller
                 'id' => $idDossier));
         }
         catch (\Exception $exception){
-            dump($exception->getMessage());die;
             $this->session->getFlashBag()->add('danger', $this->trans->trans('label.delete.error'));
         }
         return $this->redirectToRoute('edit_dossier', array(
@@ -189,7 +181,6 @@ class DossierController extends Controller
         $em = $this->getDoctrine()->getManager();
         $dataDossier = $em->getRepository(Dossier::class)->getDossierById($id) ?? '';
         $objDossier = new Dossier();
-
         if(is_array($dataDossier) && !empty($dataDossier)){
             foreach($dataDossier as $valueDossier){
                 if(!empty($valueDossier['filename'])){
@@ -243,24 +234,22 @@ class DossierController extends Controller
             $dossier->setDirectory($directory);
 
             if ($file instanceof UploadedFile){
-                $file->move($directory, $file->getClientOriginalName());
+                $this->get('uploaderfichier')->upload($file);
                 $objInfoPj->setLibelle($libelleSelected);
                 $objInfoPj->setFilename($file->getClientOriginalName());
                 $objInfoPj->setIsActif(true);
                 $objInfoPj->addDossier($dossier);
                 $dossier->addPiecesJointe($objInfoPj);
                 $dossier->setFileName($file->getClientOriginalName());
-                $em->persist($objInfoPj);
-                $em->flush();
+                $this->savePersistObj($em, $objInfoPj);
             }else{
                 $objInfoPj->setLibelle($libelleSelected);
                 $objInfoPj->addDossier($dossier);
                 $dossier->addPiecesJointe($objInfoPj);
-                $em->persist($objInfoPj);
-                $em->flush();
+                $this->savePersistObj($em, $objInfoPj);
             }
             try {
-                $em->persist($dossier);
+                $this->savePersistObj($em, $dossier);
                 foreach ($dossier->getSubDossiers() as $subDossier){
                     $subDossier->setDossier($dossier);
                     $em->persist($subDossier);
@@ -304,43 +293,42 @@ class DossierController extends Controller
                 $objInfoPj = new InformationPj();
                 if($entityObjSelected != null){
                     $libelleSelected = $entityObjSelected->getLibelle();
-                    $dossier->setLibelle($libelleSelected);
+                    //$dossier->setLibelle($libelleSelected);
                 }else{
                     $libelleSelected = $entityObjSelected->getLibelle();
                 }
+
+                //Check id by libelle infoPj
+                $dataInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle' => $libelleSelected));
                 $dataDossierUpdate = $em->getRepository(Dossier::class)->find($id);
                 $objDossierUpdate = $dossier->UpdateObjDossier($dataDossierUpdate, $dossier);
                 $dataDossierInformationPj = $em->getRepository(Dossier::class)->getDataDossierInfoPj($id);
                 if ($file instanceof UploadedFile) {
-                    $file->move($directory, $file->getClientOriginalName());
+                   /* $file->move($directory, $file->getClientOriginalName());*/
+                    $this->get('uploaderfichier')->upload($file);
+                    $objInfoPj->setFilename($file->getClientOriginalName());
                 }
                 if(!empty($dataDossierInformationPj)){
                     $idDossierInfoPj = $dataDossierInformationPj['information_pj_id'];
                     $objInfoPjUpdate = $em->getRepository(InformationPj::class)->find($idDossierInfoPj);
                     $objInfoPjUpdate->setLibelle($libelleSelected);
                     $objInfoPj->addDossier($dossier);
-                    $objInfoPj->setFilename($file->getClientOriginalName());
-                    $objInfoPj->setLibelle($libelleSelected);
-                    $em->persist($objInfoPj);
-                    $em->flush();
-                    $em->persist($objInfoPjUpdate);
-                    $em->flush();
+                    //$objInfoPj->setLibelle($libelleSelected);
+                    $this->savePersistObj($em, $objInfoPj);
+                    $this->savePersistObj($em, $objInfoPjUpdate);
                 }else{
                     $objInfoPj->addDossier($dossier);
                     $objInfoPj->setFilename($file->getClientOriginalName());
-                    $objInfoPj->setLibelle($libelleSelected);
-                    $em->persist($objInfoPj);
-                    $em->flush();
+                    //$objInfoPj->setLibelle($libelleSelected);
+                   $this->savePersistObj($em, $objInfoPj);
                 }
                 try {
                     foreach ($dossier->getSubDossiers() as $subDossier){
                         $subDossier->setDossier($dossier);
-                        $em->persist($subDossier);
-                        $em->flush();
+                        $this->savePersistObj($em, $subDossier);
                     }
                     if(!empty($objInfoPjUpdate)){
-                        $em->persist($objDossierUpdate);
-                        $em->flush();
+                        $this->savePersistObj($em, $objDossierUpdate);
                     }
                     $this->session->getFlashBag()->add('success', $this->trans->trans('label.edit.success'));
                 } catch (\Exception $exception) {
@@ -518,4 +506,11 @@ class DossierController extends Controller
         ));
         return $response;
     }
+
+    protected  function savePersistObj($em, $obj){
+        $em->persist($obj);
+        $em->flush();
+        return;
+    }
+
 }
