@@ -81,7 +81,6 @@ class ClotureType extends AbstractType
 
                 ],
                 'required' => true,
-
             ])
             ->add('montantGainCondamn',null,[
                 'label'=>'MONTANT',
@@ -117,7 +116,6 @@ class ClotureType extends AbstractType
                 'class' => Devise::class,
                 'required' => false
             ])*/
-
             ->add('deviseGain', EntityType::class, array(
                 'class' => 'App\Entity\Devise',
                 'label' =>  $this->trans->trans('label.devise'),

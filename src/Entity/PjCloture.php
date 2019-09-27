@@ -29,14 +29,6 @@ class PjCloture
      */
     private $lienAccess;
 
-
-    private $file;
-
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $tempFilename;
-
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
@@ -82,41 +74,6 @@ class PjCloture
         return $this;
     }
 
-    public function getFile(): ?string
-    {
-        return $this->file;
-    }
-
-    public function setFile(UploadedFile $file = null): self
-    {
-        $this->file = $file;
-        // Replacing a file ? Check if we already have a file for this entity
-        if (null !== $this->extension)
-        {
-            // Save file extension so we can remove it later
-            $this->tempFilename = $this->extension;
-
-            // Reset values
-            $this->extension = null;
-            $this->name= null;
-        }
-        return $this;
-
-    }
-
-    public function getTempFilename(): ?string
-    {
-        return $this->tempFilename;
-    }
-
-    public function setTempFilename(?string $tempFilename): self
-    {
-        $this->tempFilename = $tempFilename;
-
-        return $this;
-    }
-
-
     public function getExtension(): ?string
     {
         return $this->extension;
@@ -141,6 +98,41 @@ class PjCloture
         return $this;
     }
 
+    public function getCloture(): ?Cloture
+    {
+        return $this->cloture;
+    }
+
+    public function setCloture(?Cloture $cloture): self
+    {
+        $this->cloture = $cloture;
+
+        return $this;
+    }
+
+    private $file;
+
+    private $tempFilename;
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+        // Replacing a file ? Check if we already have a file for this entity
+        if (null !== $this->extension)
+        {
+            // Save file extension so we can remove it later
+            $this->tempFilename = $this->extension;
+            // Reset values
+            $this->extension = null;
+            $this->name= null;
+        }
+        //    return $this;
+
+    }
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
@@ -163,7 +155,6 @@ class PjCloture
     /**
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
-     * @ORM\PreUpdate()
      */
     public function upload()
     {
@@ -183,7 +174,6 @@ class PjCloture
                 unlink($oldFile);
             }
         }
-
         // Move the file to the upload folder
         $this->file->move(
             $this->getUploadRootDir(),
@@ -198,7 +188,6 @@ class PjCloture
         // Save the name of the file we would want to remove
         $this->tempFilename = $this->getUploadRootDir().'/'.$this->id.'.'.$this->extension;
     }
-
     /**
      * @ORM\PostRemove()
      */
@@ -211,7 +200,6 @@ class PjCloture
             unlink($this->tempFilename);
         }
     }
-
     public function getUploadDir()
     {
         // Upload directory
@@ -229,17 +217,4 @@ class PjCloture
     {
         return $this->id.'.'.$this->extension;
     }
-
-    public function getCloture(): ?Cloture
-    {
-        return $this->cloture;
-    }
-
-    public function setCloture(?Cloture $cloture): self
-    {
-        $this->cloture = $cloture;
-
-        return $this;
-    }
-
 }

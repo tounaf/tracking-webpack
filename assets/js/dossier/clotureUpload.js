@@ -1,15 +1,11 @@
 
 // var fileCount = '{{ form.pjClotures|length }}';
-var removeButton = "<button type='button' class='btn btn-danger btn-xs' onclick='removeFile($(this));'><i class='fa fa-times' aria-hidden='true'></i></button>";
-function removeFile(ob)
-{
-    ob.parent().parent().remove();
-}
+// var removeButton = "<button type='button' class='btn btn-danger btn-xs' onclick='removeFile($(this));'><i class='fa fa-times' aria-hidden='true'></i></button>";
 
-$('.add_tag').click(function () {
-    console.log("haaa");
+
+$('.add_tag').click(function (e) {
+    e.preventDefault();
     var filCount = $(this).data('length');
-    console.log(filCount);
     createAddFile(filCount);
 
 })
@@ -24,7 +20,7 @@ function createAddFile(fileCount)
 
     hideStuff = "";
     hideStuff += "<div class='col col-xs-1' id='jsRemove" + fileCount + "' style='display: none;'>";
-    hideStuff += removeButton;
+    hideStuff += "<button type='button' class='btn btn-danger btn-xs' id='jsBtnRemove" + fileCount + "'><i class='fa fa-times' aria-hidden='true'></i></button>";
     hideStuff += "</div>";
 
     hideStuff += "<div class='col col-xs-11' id='jsPreview" + fileCount + "'>";
@@ -40,9 +36,13 @@ function createAddFile(fileCount)
 
     // On click => Simulate file behaviour
     $("#jsBtnUpload" + fileCount).on('click', function(e){
-        $('#playground_cookiejarbundle_folder_pjClotures_' + fileCount + '_file').trigger('click');
+        $('#cloture_pjClotures_' + fileCount + '_file').trigger('click');
     });
 
+    $("#jsBtnRemove" + fileCount).click(function (e) {
+        e.preventDefault();
+        $(this).parent().parent().remove();
+    })
     // Once the file is added
     $('#playground_cookiejarbundle_folder_pjClotures_' + fileCount + '_file').on('change', function() {
         // Show its name
@@ -58,6 +58,10 @@ function createAddFile(fileCount)
 }
 
 $(document).ready(function(){
+    function removeFile(ob)
+    {
+        ob.parent().parent().remove();
+    }
     // createAddFile(fileCount);
     // fileCount++;
 });
