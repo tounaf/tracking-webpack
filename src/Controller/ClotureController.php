@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Cloture;
 use App\Entity\Dossier;
+use App\Entity\PjCloture;
 use App\Form\ClotureType;
 use App\Repository\ClotureRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -19,13 +20,23 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class ClotureController extends Controller
 {
+    private $entityManager;
+    private $repository;
     /**
      * @var TranslatorInterface
      */
     private $translator;
     private $session;
     private $id ;
+    // Set up all necessary variable
+    protected function initialise()
+    {
+        $this->entityManager = $this->getDoctrine()->getManager();
+        $this->repository = $this->entityManager->getRepository('App:PjCloture');
+        $this->translator = $this->get('translator');
+    }
     /**
+     *
      * UtilisateurController constructor.
      * @param TranslatorInterface $translator
      */
@@ -36,16 +47,6 @@ class ClotureController extends Controller
         $this->id = $this->session->get('id');
     }
 
-
-    /**
-     * @Route("/", name="cloture_index", methods={"GET"})
-     */
-    public function index(ClotureRepository $clotureRepository): Response
-    {
-        return $this->render('cloture/index.html.twig', [
-            'clotures' => $clotureRepository->findAll(),
-        ]);
-    }
 
     /**
      * @Route("/new/{id}", name="cloture_new", methods={"GET","POST"}, options={"expose"=true})
@@ -70,6 +71,8 @@ class ClotureController extends Controller
         ));
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
+            $paht = $this->getParameter('upload_directory');
+
             $datecloture = $request->get('cloture')['dateCloture'];
             $date = new \DateTime($datecloture);
           try{
@@ -96,20 +99,67 @@ class ClotureController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="cloture_edit", methods={"GET","POST"})
-     * @ParamConverter("cloture", class="App\Entity\Cloture")
+     * @param Request $request
+     * @param Cloture $cloture
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @Route("/pj-cloture-edit/{id}/edit", name="pj_cloture_edit")
      */
-    public function edit(Request $request, Cloture $cloture): Response
+    public function editAction(Request $request, cloture $cloture)
     {
-        $form = $this->createForm(ClotureType::class, $cloture);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('cloture_index');
+        // Set up required variables
+        $this->initialise();
+
+        // Build the form
+        $form = $this->get('form.factory')->create(ClotureType::class, $cloture);
+
+        if ($request->isMethod('POST'))
+        {
+            $form->handleRequest($request);
+            // Check form data is valid
+            if ($form->isValid())
+            {
+                // Save data to database
+                $this->entityManager->persist($cloture);
+                $this->entityManager->flush();
+
+                // Inform user
+                $flashBag = $this->translator->trans('folder_edit_success', array(), 'flash');
+                $request->getSession()->getFlashBag()->add('notice', $flashBag);
+
+                // Redirect to view page
+                return $this->redirectToRoute('pj_cloture_view', array(
+                    'id'	=>	$cloture->getId(),
+                ));
+            }
         }
-        return $this->render('cloture/_form.html.twig', [
-            'cloture' => $cloture,
-            'formCloture' => $form->createView(),
-        ]);
+        // If we are here it means that either
+        //	- request is GET (user has just landed on the page and has not filled the form)
+        //	- request is POST (form has invalid data)
+
+        return $this->render(
+            'pj_cloture/edit.html.twig',
+            array (
+                'form'		=>	$form->createView(),
+                'cloture'	=>	$cloture
+            )
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param Cloture $cloture
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/pj-cloture/{id}/view", name="pj_cloture_view")
+     */
+    public function viewAction(Request $request, Cloture $cloture)
+    {
+        // Set up required variables
+        $this->initialise();
+        return $this->render(
+            'pj_cloture/view.html.twig',
+            array (
+                'cloture'	=>	$cloture,
+            )
+        );
     }
 }

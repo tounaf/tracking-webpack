@@ -101,7 +101,27 @@
                         </div>
                     </div>
                 </div>
+            <div id="filesProto" data-prototype="{{ form_widget(formCloture.pjClotures.vars.prototype)|e }}"></div>
+            <div class="row">
+                <div class="col col-xs-12" id="filesBox">
+                    {% set pos = 0 %}
+                    {% for doc in formCloture.pjClotures %}
+                        <div class="row">
+                            <div class="col col-xs-1" id="jsRemove{{ pos }}" style="">
+                                <button type="button" class="btn btn-danger" onclick="removeFile($(this));"><i class="fa fa-times" aria-hidden="true"></i></button>
+                            </div>
+                            <div class="col col-xs-11" id="jsPreview{{ pos }}">{{ doc.vars.value.name }}</div>
 
+                            <div style="display:none">
+                                {{ form_widget(doc) }}
+                            </div>
+                        </div>
+                        {% set pos = pos + 1 %}
+                    {% endfor %}
+                    <button type="button" date-length="{{ formCloture.pjClotures|length }}" class="add_tag">Add a tag</button>
+                </div>
+            </div>
+{#            {{ include('pj_cloture/form.html.twig') }}#}
             <div class="btns-group text-right">
                 <button type="submit" class="btn btn-success">{{ 'label.save'|trans }}</button>
             </div>

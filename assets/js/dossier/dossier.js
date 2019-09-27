@@ -3,6 +3,8 @@ import Routing from '../Routing';
 require('datatables.net-bs4/css/dataTables.bootstrap4.min.css');
 require('datatables.net-bs4');
 require('./subdossier');
+require('./clotureUpload');
+
 $(document).ready(function () {
     $('#listDossier').DataTable({
         "processing": true,

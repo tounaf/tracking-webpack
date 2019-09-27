@@ -49,10 +49,16 @@ class InformationPj
      */
     private $file;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PjCloture", mappedBy="infoPj")
+     */
+    private $pjClotures;
+
 
     public function __construct()
     {
         $this->dossiers = new ArrayCollection();
+        $this->pjClotures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -156,5 +162,40 @@ class InformationPj
         }
     }
 
+    /**
+     * @return Collection|PjCloture[]
+     */
+    public function getPjClotures(): Collection
+    {
+        return $this->pjClotures;
+    }
+
+    public function addPjCloture(PjCloture $pjCloture): self
+    {
+        if (!$this->pjClotures->contains($pjCloture)) {
+            $this->pjClotures[] = $pjCloture;
+            $pjCloture->setInfoPj($this);
+        }
+
+        return $this;
+    }
+
+    public function removePjCloture(PjCloture $pjCloture): self
+    {
+        if ($this->pjClotures->contains($pjCloture)) {
+            $this->pjClotures->removeElement($pjCloture);
+            // set the owning side to null (unless already changed)
+            if ($pjCloture->getInfoPj() === $this) {
+                $pjCloture->setInfoPj(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getLibelle();
+    }
 
 }

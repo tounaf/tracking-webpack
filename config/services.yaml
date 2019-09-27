@@ -7,6 +7,7 @@ parameters:
     sender_name: 'LITIGE'
     router.request_context.host: '%env(string:HOST)%'
     router.request_context.scheme: '%env(string:SCHEME)%'
+    upload_directory: '%kernel.project_dir%/public/uploads'
 
 services:
     # default configuration for services in *this* file
