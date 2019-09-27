@@ -5,10 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Entity\File;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PjClotureRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class PjCloture
 {
@@ -165,10 +168,10 @@ class PjCloture
         }
 
         // A file is present, remove it
-        if (null !== $this->tempFilename)
+        if (null !== $this->name)
         {
-            $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
-
+            $oldFile = $this->getUploadRootDir().'/'.$this->name.'.'.$this->extension;
+//            dump(file_exists($oldFile));die;
             if (file_exists($oldFile))
             {
                 unlink($oldFile);
@@ -177,7 +180,7 @@ class PjCloture
         // Move the file to the upload folder
         $this->file->move(
             $this->getUploadRootDir(),
-            $this->id.'.'.$this->extension
+            $this->name//.'.'.$this->extension
         );
     }
     /**
@@ -206,11 +209,12 @@ class PjCloture
         return 'public/uploads';
         // This means /web/uploads/documents/
     }
-    protected function getUploadRootDir()
+    public function getUploadRootDir()
     {
         // On retourne le chemin relatif vers l'image pour notre code PHP
         // Image location (PHP)
-        return __DIR__.$this->getUploadDir();
+//        $directory = $container->get('kernel')->getRootDir();
+        return dirname(__DIR__).'../../'.$this->getUploadDir();
     }
 
     public function getUrl()

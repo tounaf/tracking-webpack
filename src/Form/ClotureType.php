@@ -26,15 +26,15 @@ class ClotureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateCloture',DateType::class,[
-                    'widget' => 'single_text',
-                    'format' => 'dd/MM/yyyy',
-                    'model_timezone' => 'UTC',
-                    'view_timezone' => 'UTC',
-                    'required' => false,
-                    'label' => 'DATE DE CLÔTURE',
-                    'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
-            ])
+            ->add('dateCloture', DateTimeType::class, array(
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'model_timezone' => 'UTC',
+                'view_timezone' => 'UTC',
+                'required' => false,
+                'label' => 'DATE DE CLÔTURE',
+                'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
+            ))
             ->add('juridiction',TextType::class,[
                 'label'=> 'JURIDICTION',
                 'required' =>false

@@ -44,7 +44,7 @@ function createAddFile(fileCount)
         $(this).parent().parent().remove();
     })
     // Once the file is added
-    $('#playground_cookiejarbundle_folder_pjClotures_' + fileCount + '_file').on('change', function() {
+    $('#cloture_pjClotures_' + fileCount + '_file').on('change', function() {
         // Show its name
         fileName = $(this).prop('files')[0].name;
         $("#jsPreview" + fileCount).append(fileName);
@@ -64,4 +64,5 @@ $(document).ready(function(){
     }
     // createAddFile(fileCount);
     // fileCount++;
+    $('.add_tag').trigger('click')
 });

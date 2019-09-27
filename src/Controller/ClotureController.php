@@ -7,6 +7,7 @@ use App\Entity\Dossier;
 use App\Entity\PjCloture;
 use App\Form\ClotureType;
 use App\Repository\ClotureRepository;
+use Psr\Container\ContainerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,8 +72,6 @@ class ClotureController extends Controller
         ));
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $paht = $this->getParameter('upload_directory');
-
             $datecloture = $request->get('cloture')['dateCloture'];
             $date = new \DateTime($datecloture);
           try{

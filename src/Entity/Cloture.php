@@ -20,7 +20,7 @@ class Cloture
     private $id;
 
     /**
-     * @ORM\Column(type="date",  nullable=true)
+     * @ORM\Column(type="datetime",  nullable=true)
      */
     private $dateCloture;
 
@@ -125,11 +125,19 @@ class Cloture
         return $this->id;
     }
 
-    public function getDateCloture(): ?\DateTimeInterface
+    /**
+     * @return \DateTime|null
+     */
+    public function getDateCloture()
     {
         return $this->dateCloture;
     }
 
+
+    /**
+     * @param \DateTime $dateCloture
+     * @return Cloture
+     */
     public function setDateCloture(\DateTimeInterface $dateCloture): self
     {
         $this->dateCloture = $dateCloture;

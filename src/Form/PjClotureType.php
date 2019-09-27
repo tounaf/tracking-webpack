@@ -26,6 +26,7 @@ class PjClotureType extends AbstractType
             ->add('file', FileType::class, [
                 'label' 	=> false,
                 'required' 	=> true,
+                'attr' => ['hidden'=> ''],
                 'constraints' => array(
                     new File(),
                 )])

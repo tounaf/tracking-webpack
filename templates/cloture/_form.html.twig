@@ -101,25 +101,69 @@
                         </div>
                     </div>
                 </div>
-            <div id="filesProto" data-prototype="{{ form_widget(formCloture.pjClotures.vars.prototype)|e }}"></div>
-            <div class="row">
-                <div class="col col-xs-12" id="filesBox">
-                    {% set pos = 0 %}
-                    {% for doc in formCloture.pjClotures %}
-                        <div class="row">
-                            <div class="col col-xs-1" id="jsRemove{{ pos }}" style="">
-                                <button type="button" class="btn btn-danger" id="jsBtnRemove{{ pos }}"><i class="fa fa-times" aria-hidden="true"></i></button>
-                            </div>
-                            <div class="col col-xs-11" id="jsPreview{{ pos }}">{{ doc.vars.value.name }}</div>
-                            <div style="display:none">
-                                {{ form_widget(doc) }}
+
+
+            <div class="card card-custom-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group file-form">
+
+                                <div id="filesProto" data-prototype="{{ form_widget(formCloture.pjClotures.vars.prototype)|e }}"></div>
+                                <div class="row">
+                                    <div class="col col-xs-12" id="filesBox">
+                                        {#{% set pos = 0 %}#}
+                                        {#{% for doc in formCloture.pjClotures %}#}
+                                        {#<div class="row">#}
+                                        {#<div class="col col-xs-1" id="jsRemove{{ pos }}" style="">#}
+                                        {#<button type="button" class="btn btn-danger" id="jsBtnRemove{{ pos }}"><i class="fa fa-times" aria-hidden="true"></i></button>#}
+                                        {#</div>#}
+                                        {#<div class="col col-xs-11" id="jsPreview{{ pos }}">{{ doc.vars.value.name }}</div>#}
+                                        {#<div class="col col-xs-11" id="jsPreview{{ pos }}">{{ doc.vars.value.infoPj }}</div>#}
+                                        {#<div style="display:none">#}
+                                        {#{{ form_widget(doc) }}#}
+                                        {#</div>#}
+                                        {#</div>#}
+                                        {#{% set pos = pos + 1 %}#}
+                                        {#{% endfor %}#}
+                                        <button type="button " data-length="{{ formCloture.pjClotures|length }}" class="add_tag" hidden>Add a tag</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-                        {% set pos = pos + 1 %}
-                    {% endfor %}
-                    <button type="button" data-length="{{ formCloture.pjClotures|length }}" class="add_tag">Add a tag</button>
+                    </div>
                 </div>
             </div>
+
+            <div class="table-responsive">
+                <table id="listSubdossier" class="table table-striped">
+                    <thead>
+                    <th><span>N°</span></th>
+                    <th><span>Date d'ajout dossier</span></th>
+                    <th><span>Information PJ</span></th>
+                    <th><span>Lien d'accès</span></th>
+                    <th><span>Action</span></th>
+                    </thead>
+                    <tbody>
+                        {% set pos = 0 %}
+                        {% for doc in formCloture.pjClotures %}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>{{ doc.vars.value.infoPj }}</td>
+                                <td>{{ doc.vars.value.name }}</td>
+                                <td class="actions">
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {#{% include 'dossier/list_dossierpj.html.twig' %}#}
+
 {#            {{ include('pj_cloture/form.html.twig') }}#}
             <div class="btns-group text-right">
                 <button type="submit" class="btn btn-success">{{ 'label.save'|trans }}</button>
