@@ -42,7 +42,7 @@ class AuxiliairesRepository extends ServiceEntityRepository
                     aux.`reste_payer` AS reste_payer,
                     aux.`statut_intervenant` AS statuts,
                    (
-                     SELECT d.code FROM devise d WHERE d.id = aux.`devise_id`
+                     SELECT d.code FROM devise d WHERE d.id = aux.`devise_auxi_conv_id`
                    ) AS devise,
                     
                     (
@@ -83,7 +83,7 @@ class AuxiliairesRepository extends ServiceEntityRepository
                     aux.`reste_payer` AS reste_payer,
                     aux.`statut_intervenant` AS statuts,
                    (
-                     SELECT d.code FROM devise d WHERE d.id = aux.`devise_id`
+                     SELECT d.code FROM devise d WHERE d.id = aux.`devise_auxi_conv_id`
                    ) AS devise,
                     
                     (
