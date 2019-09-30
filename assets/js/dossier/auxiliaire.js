@@ -119,7 +119,7 @@ $(document).ready(function () {
         },
     });
     function editRow(data, type, row) {
-        data = ' <button  data-target="#modalAuxi" data-title="AJOUT/MODIFICATION" data-route="auxiliaires_edit" class="btn-editAuxi" data-id="'+row.id+'" type="button"><i class="icon-edit"></i></button>\n' +
+        data = ' <button  data-target="#modalAuxi" data-title="MODIFICATION" data-route="auxiliaires_edit" class="btn-editAuxi" data-id="'+row.id+'" type="button"><i class="icon-edit"></i></button>\n' +
             '  <button  data-target="#modalAuxi" data-title="SUPPRESSION" data-route="auxiliaires_delete" class="btn-removeAuxi" data-id="'+row.id+'" type="button"><i class="icon-trash"></i></button>';
         return data;
     }

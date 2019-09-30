@@ -8,7 +8,7 @@
         {% include '_flash.html.twig' %}
         <div class="listing-bloc relative-bloc">
             <div class="btn-group wrap-btn">
-                <button id="showModalCreate" class="btn btn-success" data-route="create_decision_cloture" data-title="{{ 'label.edit.create'|trans }}"> <i class="icon-plus-circle"></i><span>Ajouter</span></button>
+                <button id="showModalCreate" class="btn btn-success" data-route="create_decision_cloture" data-title="{{ 'label.title.ajout'|trans }}"> <i class="icon-plus-circle"></i><span>Ajouter</span></button>
             </div>
             <div class="table-responsive">
                 <table id="listDecision" class="table table-striped">
@@ -25,7 +25,7 @@
                             <td>{{ dCloture.libele }}</td>
                             <td>{{ dCloture.enable?'OUI':'NON' }}</td>
                             <td class="actions">
-                                <button  data-target="#modalPassword" data-title="{{ 'label.edit.create'|trans }}" data-route="edit_decision_cloture" class="btn-edit" data-id="{{ dCloture.id }}" type="button"><i class="icon-edit"></i></button>
+                                <button  data-target="#modalPassword" data-title="{{ 'label.title.modification'|trans }}" data-route="edit_decision_cloture" class="btn-edit" data-id="{{ dCloture.id }}" type="button"><i class="icon-edit"></i></button>
                                 <button  data-target="#modalPassword" data-title="{{ 'label.delete'|trans }}" data-route="delete_decision_cloture" class="btn-remove" data-id="{{ dCloture.id }}" type="button"><i class="icon-trash"></i></button>
                             </td>
                         </tr>

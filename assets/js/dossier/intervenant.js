@@ -75,7 +75,7 @@ $(document).ready(function () {
         ]*/
     });
     function editRow(data, type, row) {
-        data = ' <button  data-target="#modalIntervenant" data-title="AJOUT/MODIFICATION" data-route="intervenant_edit" class="btn-edit edit-intervenant"  data-id="'+row.id+'" type="button"><i class="icon-edit"></i></button>\n' +
+        data = ' <button  data-target="#modalIntervenant" data-title="MODIFICATION" data-route="intervenant_edit" class="btn-edit edit-intervenant"  data-id="'+row.id+'" type="button"><i class="icon-edit"></i></button>\n' +
             '  <button  data-target="#modalIntervenant" data-title="SUPPRESSION" data-route="intervenant_delete" class="btn-remove remove-intervenant" data-id="'+row.id+'" type="button"><i class="icon-trash"></i></button>';
         return data;
     }
