@@ -34,12 +34,13 @@ export default class Fonction {
     }
 
     static prefixPhoneNumber(str) {
-        var regex = /^([0-9]|\+)/
+        var regex = /^([0-9]|\+)/;
         return regex.test(str);
     }
 
     static isFormaNumber(str) {
-        var regex = /[0-9]/;
+        var regex = /^[1-9][0-9]/;
+        //var regex0 = /[0-9]/;
         return regex.test(str);
     }
 }
