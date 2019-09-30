@@ -32,7 +32,8 @@ class FosUserType extends AbstractType
         $builder
             ->add('name', null, array(
                 'required' => true,
-                'label' => $this->trans->trans('label.nom')
+                'label' => $this->trans->trans('label.nom'),
+                'attr' => ['class' => 'input-entite-name'],
             ))
             ->add('lastname', null, array(
                 'required' => true,
