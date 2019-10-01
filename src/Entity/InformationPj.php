@@ -5,10 +5,11 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Annotation\Groups;
-
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Filesystem\Filesystem;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\InformationPjRepository")
  */
@@ -22,7 +23,7 @@ class InformationPj
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      * @Groups("groupe1")
      */
     private $libelle;
@@ -33,7 +34,7 @@ class InformationPj
     private $isActif=true;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Dossier", mappedBy="piecesJointes", cascade={"persist", "remove", "merge"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Dossier", mappedBy="piecesJointes" , cascade={"persist"})
      */
     private $dossiers;
 
@@ -49,10 +50,15 @@ class InformationPj
      */
     private $file;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PjDossier", mappedBy="informationPj")
+     */
+    private $pjDossiers;
 
     public function __construct()
     {
         $this->dossiers = new ArrayCollection();
+        $this->pjDossiers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,13 +154,46 @@ class InformationPj
         return $this;
     }
 
-    public function deleteFile($directoryFile){
-        if(!empty($directoryFile)){
-            $fs = new Filesystem();
-            $fs->remove($directoryFile);
-            return;
+
+
+    public function setObjInfoPj($oInfPj){
+        if($oInfPj instanceof InformationPj){
+
         }
     }
+
+    /**
+     * @return Collection|PjDossier[]
+     */
+    public function getPjDossiers(): Collection
+    {
+        return $this->pjDossiers;
+    }
+
+    public function addPjDossier(PjDossier $pjDossier): self
+    {
+        if (!$this->pjDossiers->contains($pjDossier)) {
+            $this->pjDossiers[] = $pjDossier;
+            $pjDossier->setInformationPj($this);
+        }
+
+        return $this;
+    }
+
+    public function removePjDossier(PjDossier $pjDossier): self
+    {
+        if ($this->pjDossiers->contains($pjDossier)) {
+            $this->pjDossiers->removeElement($pjDossier);
+            // set the owning side to null (unless already changed)
+            if ($pjDossier->getInformationPj() === $this) {
+                $pjDossier->setInformationPj(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 
 
 }

@@ -102,9 +102,12 @@ class DossierRepository extends ServiceEntityRepository
         return $result;
     }
 
-    public function getMaxId()
+    public function getDataInfoPjByDossierId($dossierId)
     {
-        $sql = "SELECT MAX(id) AS idMax FROM dossier";
+        $sql = "SELECT  D.id id_dossier, infoPj.id id_infoPj, infoPj.`libelle`, infoPj.`filename` 
+                FROM dossier AS D LEFT JOIN dossier_information_pj AS di ON D.id = di.`dossier_id`
+                LEFT JOIN information_pj AS infoPj ON infoPj.`id` = di.`information_pj_id`
+                WHERE D.`id` =".$dossierId;
         $qb = $this->getEntityManager()->getConnection()->prepare($sql);
         $qb->execute();
         $result = $qb->fetchAll();

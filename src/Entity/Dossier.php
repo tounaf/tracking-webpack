@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Annotation\TrackableClass;
 /**
@@ -98,8 +99,6 @@ class Dossier
     private $etapeSuivante;
 
     /**
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\PartiAdverse")
      */
     private $partieAdverse;
@@ -120,7 +119,7 @@ class Dossier
     private $formePartieAdverse;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\InformationPj", inversedBy="dossiers",   cascade={"persist", "remove", "merge"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\InformationPj", inversedBy="dossiers", cascade={"persist"})
      */
     private $piecesJointes;
 
@@ -153,13 +152,21 @@ class Dossier
      */
     private $histories;
 
-    protected $file;
-
     private $directory;
 
-    private $pathUpload = '/public/pieces_jointes/litige';
+    private $pathUpload = '\public\pieces_jointes\litige';
 
     protected $fileName;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PjDossier", mappedBy="dossier")
+     */
+    private $pjDossiers;
 
     public function __construct()
     {
@@ -169,8 +176,9 @@ class Dossier
         $this->auxiliaires = new ArrayCollection();
         $this->intervenants = new ArrayCollection();
         $this->histories = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->pjDossiers = new ArrayCollection();
     }
-
 
 
     /**
@@ -734,19 +742,18 @@ class Dossier
         return $this;
     }
 
-    public function getFile(){
-        return $this->file;
-    }
-
-    public function setFileName($filename = null){
+    public function setFileName($filename = null)
+    {
         $this->fileName = $filename;
     }
 
-    public function getFileName(){
+    public function getFileName()
+    {
         return $this->fileName;
     }
 
-    public function upload(){
+    public function upload()
+    {
         // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
         if (null === $this->file) {
             return;
@@ -754,41 +761,49 @@ class Dossier
 
     }
 
-    public function setDirectory($directory){
+    public function setDirectory($directory)
+    {
         $this->directory = $directory;
     }
 
-    public function getDirectory(){
+    public function getDirectory()
+    {
         return $this->directory;
     }
 
-    public function getPathUpload(){
+    public function getPathUpload()
+    {
         return $this->pathUpload;
     }
 
-    public function UpdateObjDossier($dataDossierUpdate, $dossier){
-        if(is_object($dataDossierUpdate)){
-            $dataDossierUpdate->setLibelle($dossier->getLibelle());
-            $dataDossierUpdate->setNomDossier($dossier->getNomDossier());
-            $dataDossierUpdate->setStatut($dossier->getStatut());
-            $dataDossierUpdate->setMontant($dossier->getMontant());
-            $dataDossierUpdate->setSituation($dossier->getSituation());
-            $dataDossierUpdate->setResumeFait($dossier->getResumeFait());
-            $dataDossierUpdate->setDateLitige($dossier->getDateLitige());
-            $dataDossierUpdate->setSensLitige($dossier->getSensLitige());
-            $dataDossierUpdate->setEcheance($dossier->getEcheance());
-            $dataDossierUpdate->setAlerteDate($dossier->getAlerteDate());
-            $dataDossierUpdate->setRaisonSocial($dossier->getRaisonSocial());
-            $dataDossierUpdate->setCategorie($dossier->getCategorie());
-            $dataDossierUpdate->setEtapeSuivante($dossier->getEtapeSuivante());
-            $dataDossierUpdate->setPartieAdverse($dossier->getPartieAdverse());
-            $dataDossierUpdate->setNomPartieAdverse($dossier->getNomPartieAdverse());
-            $dataDossierUpdate->setStatutPartiAdverse($dossier->getStatutPartiAdverse());
-            $dataDossierUpdate->setFormePartieAdverse($dossier->getFormePartieAdverse());
-            $dataDossierUpdate->setDevise($dossier->getDevise());
-            $dataDossierUpdate->setFileName($dossier->getFileName());
-            return $dataDossierUpdate;
-        }
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
+
+    /**
+     * @return Collection|PjDossier[]
+     */
+    public function getPjDossiers(): Collection
+    {
+        return $this->pjDossiers;
+    }
+
+    public function addPjDossier(PjDossier $pjDossier): self
+    {
+        if (!$this->pjDossiers->contains($pjDossier)) {
+            $this->pjDossiers[] = $pjDossier;
+            $pjDossier->setDossier($this);
+        }
+
+        return $this;
+    }
+
+}
