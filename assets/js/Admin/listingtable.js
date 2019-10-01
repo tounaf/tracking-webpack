@@ -6,6 +6,7 @@ $(document).ready(function () {
         bLengthChange: false,
         info: false,
         language: {
+            searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
             lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -44,6 +45,7 @@ $(document).ready(function () {
         bLengthChange: false,
         info: false,
         language: {
+            searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
             lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -81,6 +83,7 @@ $(document).ready(function () {
         bLengthChange: false,
         info: false,
         language: {
+            searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
             lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -119,6 +122,7 @@ $(document).ready(function () {
         bLengthChange: false,
         info: false,
         language: {
+            searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
             lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -156,6 +160,7 @@ $(document).ready(function () {
         bLengthChange: false,
         info: false,
         language: {
+            searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
             lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -193,6 +198,7 @@ $(document).ready(function () {
         bLengthChange: false,
         info: false,
         language: {
+            searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
             lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -230,6 +236,7 @@ $(document).ready(function () {
         bLengthChange: false,
         info: false,
         language: {
+            searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
             lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -267,6 +274,7 @@ $(document).ready(function () {
         bLengthChange: false,
         info: false,
         language: {
+            searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
             lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -304,6 +312,7 @@ $(document).ready(function () {
         bLengthChange: false,
         info: false,
         language: {
+            searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
             lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -343,6 +352,7 @@ $(document).ready(function () {
         bLengthChange: false,
         info: false,
         language: {
+            searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
             lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -380,6 +390,7 @@ $(document).ready(function () {
         bLengthChange: false,
         info: false,
         language: {
+            searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
             lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -418,6 +429,7 @@ $(document).ready(function () {
         bLengthChange: false,
         info: false,
         language: {
+            searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
             lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -457,6 +469,7 @@ $(document).ready(function () {
         bLengthChange: false,
         info: false,
         language: {
+            searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
             lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -525,5 +538,10 @@ $(document).ready(function () {
         ]
     });
 
+    /**
+     * ajout icon sur le champ recherche 
+     */
+    $(".dataTables_filter").append("<i class='fa fa-search'></i>")
+    $(".dataTables_filter label").css("margin-right","-13px");
 
 });
