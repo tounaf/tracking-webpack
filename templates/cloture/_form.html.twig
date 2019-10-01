@@ -102,7 +102,6 @@
                     </div>
                 </div>
 
-
             <div class="card card-custom-2">
                 <div class="card-body">
                     <div class="row">
@@ -129,44 +128,42 @@
                                         <button type="button " data-length="{{ formCloture.pjClotures|length }}" class="add_tag" hidden>Add a tag</button>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
+                    <div class="table-responsive">
+                        <table id="listPJ" class="dataTable table table-striped">
+                            <thead>
+                            <th><span>N°</span></th>
+                            <th><span>Date d'ajout dossier</span></th>
+                            <th><span>Information PJ</span></th>
+                            <th><span>Lien d'accès</span></th>
+                            <th><span>Action</span></th>
+                            </thead>
+                            <tbody>
+                            {% set pos = 0%}
+                            {% set i = 1 %}
+                            {% for doc in formCloture.pjClotures %}
+                                <tr>
+                                    <td>{{ i }}</td>
+                                    <td></td>
+                                    <td>{{ doc.vars.value.infoPj }}</td>
+                                    <td>{{ doc.vars.value.name }}</td>
+                                    <td class="actions">
+
+                                    </td>
+                                </tr>
+                                {% set i = i + 1 %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
-            <div class="table-responsive">
-                <table id="listSubdossier" class="table table-striped">
-                    <thead>
-                    <th><span>N°</span></th>
-                    <th><span>Date d'ajout dossier</span></th>
-                    <th><span>Information PJ</span></th>
-                    <th><span>Lien d'accès</span></th>
-                    <th><span>Action</span></th>
-                    </thead>
-                    <tbody>
-                        {% set pos = 0 %}
-                        {% for doc in formCloture.pjClotures %}
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>{{ doc.vars.value.infoPj }}</td>
-                                <td>{{ doc.vars.value.name }}</td>
-                                <td class="actions">
-
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
             {#{% include 'dossier/list_dossierpj.html.twig' %}#}
-
 {#            {{ include('pj_cloture/form.html.twig') }}#}
             <div class="btns-group text-right">
-                <button type="submit" class="btn btn-success">{{ 'label.save'|trans }}</button>
+                <button type="submit" class="btn btn-danger">{{ 'label.save'|trans }}</button>
             </div>
         </div>
         {% endif %}
