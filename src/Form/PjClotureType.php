@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\InformationPj;
 use App\Entity\PjCloture;
+use Bnbc\UploadBundle\Form\Type\AjaxfileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -24,9 +25,9 @@ class PjClotureType extends AbstractType
     {
         $builder
             ->add('file', FileType::class, [
-                'label' 	=> false,
+                'label' 	=> 'INSÉRER PIÈCES JOINTES',
                 'required' 	=> true,
-                'attr' => ['hidden'=> ''],
+//                'attr' => ['hidden'=> ''],
                 'constraints' => array(
                     new File(),
                 )])

@@ -14,37 +14,58 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class PjClotureRepository extends ServiceEntityRepository
 {
+
+    /**
+     * @var array
+     */
+    private $column = array(
+        'id',
+        'numero',
+        'dateAjoutDossier',
+        'informationPJ',
+        'lien'
+    );
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, PjCloture::class);
     }
 
-    // /**
-    //  * @return PjCloture[] Returns an array of PjCloture objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function listPjCloture($extraParams, $id, $count = false)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?PjCloture
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $sql =$count?' SELECT COUNT(pc.`id`) AS record ' : 'SELECT 
+                      pc.`id`,
+                      d.`reference_dossier` as numero,
+                      d.`date_litige` as dateAjoutDossier,
+                      i.`libelle` AS informationPJ,
+                      pc.name AS lien
+                   ';
+
+        $sql .= "FROM
+                      pj_cloture pc 
+                  INNER JOIN cloture c 
+                    ON c.id = pc.cloture_id 
+                  INNER JOIN dossier d 
+                    ON d.`id` = c.`dossier_id`
+                  INNER JOIN information_pj i
+                    ON i.`id` = pc.`info_pj_id` ";
+
+        $sql .= ' WHERE c.id ='.$id;
+
+        if (!$count) {
+            if (isset($this->column[$extraParams['orderBy']]) && isset($extraParams['order'])) {
+
+                $sql .= ' ORDER BY '.$this->column[$extraParams['orderBy']] .' '. $extraParams['order'];
+            }
+            if (isset($extraParams['start']) && isset($extraParams['length'])) {
+
+                $sql .= ' LIMIT '.$extraParams['start'].','. $extraParams['length'];
+            }
+        }
+        $qb = $this->getEntityManager()->getConnection()->prepare($sql);
+        $qb->execute();
+        $result = $qb->fetchAll();
+        return $result;
     }
-    */
 }

@@ -1,0 +1,25 @@
+<div class="table-responsive">
+    <table id="listPj" class="dataTable table table-striped">
+        <thead>
+        <th><span>N°</span></th>
+        <th><span>Date d'ajout dossier</span></th>
+        <th><span>Information PJ</span></th>
+        <th><span>Lien d'accès</span></th>
+        <th><span>Action</span></th>
+        </thead>
+        <tbody>
+        {% set pos = 0 %}
+        {% for doc in formCloture.pjClotures %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td>{{ doc.vars.value.infoPj }}</td>
+                <td>{{ doc.vars.value.name }}</td>
+                <td class="actions">
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

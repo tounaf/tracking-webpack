@@ -3,6 +3,8 @@
 // var removeButton = "<button type='button' class='btn btn-danger btn-xs' onclick='removeFile($(this));'><i class='fa fa-times' aria-hidden='true'></i></button>";
 
 
+import Routing from "../user/Routing";
+
 $('.add_tag').click(function (e) {
     e.preventDefault();
     var filCount = $(this).data('length');
@@ -64,5 +66,125 @@ $(document).ready(function(){
     }
     // createAddFile(fileCount);
     // fileCount++;
-    $('.add_tag').trigger('click')
+    $('.add_tag').trigger('click');
+
+    /**
+     * trigger submit when file selected
+     */
+    $("#pj_cloture_file").on("change", function () {
+        var formPj = $("#form-pj-cloture");
+        // var data = new FormData(formPj);
+        // console.log(this);
+        formPj.trigger('submit');
+    })
+
+    /**
+     * submit form pj-info
+     */
+    $("#form-pj-cloture").submit(function (e) {
+        e.preventDefault();
+        var formData = new FormData($("#form-pj-cloture")[0]);
+        var id = $("#cloture-id").val();
+        var url = Routing.generate('upload_file', {id: id}, true);
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            enctype: 'multipart/form-data',
+            cache: false,
+            contentType: false,
+            processData: false,
+            async: true,
+            data: formData,
+            success: function (response) {
+                $('#listPj').DataTable().ajax.reload()
+            }
+        })
+    })
+
+    /**
+     * declencher la submission du formulaire cloture
+     */
+    $("#button-cloture-form").click(function (e) {
+        e.preventDefault();
+        $("#cloture-form").submit();
+    })
+
+    /**
+     * list pj cloture
+     */
+    $('#listPj').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "searching": false,
+        "paging": true,
+        "ajax": {
+            "url": Routing.generate('liste_pj_cloture'),
+            "type": "POST"
+        },
+        "sAjaxDataProp": "data",
+        "pageLength": 5,
+        "orderable": true,
+        "columns": [
+            {
+                "data": "id",
+            },
+            {"data": "dateAjoutDossier"},
+            {"data": "informationPJ"},
+            {
+                "data": "lien"
+            },
+            { "targets": -1,
+                "data": "edit",
+                "orderable": false,
+                "defaultContent": "",
+                "className": 'text-center',
+                "render": function (data, type, row) {
+                    var data = '<a href="' + Routing.generate('render_edit_dossier', {'id': row.id, 'currentTab':'declaration'}) + '" class="text-danger"><i class="icon-trash"></i></a>';
+
+                    return data;
+                }
+            },
+            /* { "targets": -1,
+                 "data": "delete",
+                 "orderable": false,
+                 "defaultContent": "",
+                 "className": 'text-center',
+                 "render": deleteRender
+             }*/
+        ],
+        bLengthChange: false,
+        info: false,
+        language: {
+            processing:     "Chargement en cours...",
+            search:         "Rechercher&nbsp;:",
+            lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
+            info:           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+            infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+            infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+            infoPostFix:    "",
+            loadingRecords: "Chargement en cours...",
+            zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; trouv&eacute;",
+            emptyTable:     "Aucune donnée disponible dans le tableau",
+            paginate: {
+                first:      "Premier",
+                previous:   "Pr&eacute;c&eacute;dent",
+                next:       "Suivant",
+                last:       "Dernier"
+            },
+            aria: {
+                sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                sortDescending: ": activer pour trier la colonne par ordre décroissant"
+            }
+        },
+        "autoWidth": false,
+        responsive: true,
+        columnDefs: [
+            { "width": "12.5%", "targets": 0, orderable: true },
+            { "width": "50%", "targets": 1, orderable: true},
+            { "width": "12.5%", "targets": 2, orderable: true},
+            { "width": "12.5%", "targets": 3, orderable: false},
+            { "width": "10%", "targets": 4, orderable: false},
+        ]
+    });
 });
