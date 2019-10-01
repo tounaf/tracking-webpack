@@ -162,6 +162,8 @@ class DossierType extends AbstractType
             ->add('piecesJointes', EntityType::class, array(
                 'class' => InformationPj::class,
                 'choice_label' => 'libelle',
+                'required' => false,
+                'placeholder' =>'Veuillez selectionner',
 //                'data_class' =>
                 'mapped' => false
             ))

@@ -258,28 +258,29 @@ class DossierController extends Controller
                 $dossier->setDirectory($dossier->getPathUpload());
                 $entityObjSelected = $form->get('piecesJointes')->getData();
                 $file = $form['File']->getData() ?? '';
-                $objPjDossier = new PjDossier();
                 if($entityObjSelected != null){
+                    $objPjDossier = new PjDossier();
                     $libelleSelected = $entityObjSelected->getLibelle();
                     $dossier->setLibelle($libelleSelected);
-                }else{
-                    $libelleSelected = $entityObjSelected->getLibelle();
+
+                    $dataInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle' => $libelleSelected));
+                    $objPjDossier->setInformationPj($dataInfoPj);
+                    if ($file instanceof UploadedFile) {
+                        $this->get('uploaderfichier')->upload($file);
+                        $objPjDossier->setFilename($file->getClientOriginalName());
+                    }
+                    $objPjDossier->setDossier($dossier);
+                    $this->savePersistObj($em, $objPjDossier);
                 }
-                $dataInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle' => $libelleSelected));
-                $objPjDossier->setInformationPj($dataInfoPj);
-                if ($file instanceof UploadedFile) {
-                    $this->get('uploaderfichier')->upload($file);
-                    $objPjDossier->setFilename($file->getClientOriginalName());
-                }
-                $objPjDossier->setDossier($dossier);
                 try {
                     foreach ($dossier->getSubDossiers() as $subDossier){
                         $subDossier->setDossier($dossier);
                         $this->savePersistObj($em, $subDossier);
                     }
-                    $this->savePersistObj($em, $objPjDossier);
+                    $em->flush();
                     $this->session->getFlashBag()->add('success', $this->trans->trans('label.edit.success'));
                 } catch (\Exception $exception) {
+                    dump($exception->getMessage());die;
                     $this->session->getFlashBag()->add('danger', $this->trans->trans('label.edit.error'));
                 }
             }
@@ -461,7 +462,6 @@ class DossierController extends Controller
 
     protected  function savePersistObj($em, $obj){
         $em->persist($obj);
-        $em->flush();
         return;
     }
 
