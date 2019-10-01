@@ -171,7 +171,7 @@ class PjCloture
         if (null !== $this->name)
         {
             $oldFile = $this->getUploadRootDir().'/'.$this->name.'.'.$this->extension;
-//            dump(file_exists($oldFile));die;
+
             if (file_exists($oldFile))
             {
                 unlink($oldFile);
@@ -189,7 +189,7 @@ class PjCloture
     public function preRemoveUpload()
     {
         // Save the name of the file we would want to remove
-        $this->tempFilename = $this->getUploadRootDir().'/'.$this->id.'.'.$this->extension;
+        $this->tempFilename = $this->getUploadRootDir().'/'.$this->name;//.'.'.$this->extension;
     }
     /**
      * @ORM\PostRemove()

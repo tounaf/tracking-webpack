@@ -140,7 +140,7 @@ $(document).ready(function(){
                 "defaultContent": "",
                 "className": 'text-center',
                 "render": function (data, type, row) {
-                    var data = '<a href="' + Routing.generate('render_edit_dossier', {'id': row.id, 'currentTab':'declaration'}) + '" class="text-danger"><i class="icon-trash"></i></a>';
+                    var data = '<a href="' + Routing.generate('delete_pj_cloture', {'id': row.id}) + '" class="text-danger"><i class="icon-trash"></i></a>';
 
                     return data;
                 }

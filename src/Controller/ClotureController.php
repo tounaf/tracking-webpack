@@ -234,4 +234,28 @@ class ClotureController extends Controller
         ));
         return $response;
     }
+
+    /**
+     *
+     * @Route("/pj-cloture/delete/{id}", name="delete_pj_cloture", options={"expose"=true})
+     * @param PjCloture|null $pjCloture
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteSubDossier(PjCloture $pjCloture = null)
+    {
+        if ($pjCloture) {
+            $em = $this->getDoctrine()->getManager();
+            try {
+                $em->remove($pjCloture);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.delete.success'));
+            } catch (\Exception $exception) {
+                $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.error'));
+            }
+            return $this->redirectToRoute('render_edit_dossier', array('id' => $this->id, 'currentTab' => 'cloture'));
+        }
+        $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.error'));
+        return $this->redirectToRoute('render_edit_dossier', array('id' => $this->id, 'currentTab' => 'cloture'));
+    }
+
 }
