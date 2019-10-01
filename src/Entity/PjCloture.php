@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Service\FileUploader;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -117,6 +118,8 @@ class PjCloture
 
     private $tempFilename;
 
+    private $uploadDir;
+
     public function getFile()
     {
         return $this->file;
@@ -203,20 +206,28 @@ class PjCloture
             unlink($this->tempFilename);
         }
     }
-    public function getUploadDir()
+
+    /**
+     * @param FileUploader $fileUploader
+     * @return mixed
+     */
+    public function getUploadDir(FileUploader $fileUploader)
     {
         // Upload directory
-        return 'public/uploads';
-        // This means /web/uploads/documents/
-    }
-    public function getUploadRootDir()
-    {
-        // On retourne le chemin relatif vers l'image pour notre code PHP
-        // Image location (PHP)
-//        $directory = $container->get('kernel')->getRootDir();
-        return dirname(__DIR__).'../../'.$this->getUploadDir();
+        return $this->uploadDir =  $fileUploader->getTargetDirectory();
     }
 
+    /**
+     * @return mixed
+     */
+    private function getUploadRootDir()
+    {
+        return $this->uploadDir;
+    }
+
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return $this->id.'.'.$this->extension;

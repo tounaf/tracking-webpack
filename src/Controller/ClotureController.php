@@ -184,6 +184,8 @@ class ClotureController extends Controller
             $em = $this->getDoctrine()->getManager();
             $cloture = $em->getRepository(Cloture::class)->find($request->get('id'));
             $pjCloture->setCloture($cloture);
+            $directory = $this->get('uploaderfichier');
+            $pjCloture->getUploadDir($directory);
             $em->persist($pjCloture);
             $em->flush();
             return new JsonResponse(array(
