@@ -50,10 +50,15 @@ class InformationPj
      */
     private $file;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PjDossier", mappedBy="informationPj")
+     */
+    private $pjDossiers;
 
     public function __construct()
     {
         $this->dossiers = new ArrayCollection();
+        $this->pjDossiers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,19 +155,44 @@ class InformationPj
     }
 
 
-    public function deleteFile($directoryFile, $fileName){
-        if(!empty($directoryFile)){
-            $fs = new Filesystem();
-           return $fs->remove($directoryFile, $fileName);
-        }
-    }
-
 
     public function setObjInfoPj($oInfPj){
         if($oInfPj instanceof InformationPj){
 
         }
     }
+
+    /**
+     * @return Collection|PjDossier[]
+     */
+    public function getPjDossiers(): Collection
+    {
+        return $this->pjDossiers;
+    }
+
+    public function addPjDossier(PjDossier $pjDossier): self
+    {
+        if (!$this->pjDossiers->contains($pjDossier)) {
+            $this->pjDossiers[] = $pjDossier;
+            $pjDossier->setInformationPj($this);
+        }
+
+        return $this;
+    }
+
+    public function removePjDossier(PjDossier $pjDossier): self
+    {
+        if ($this->pjDossiers->contains($pjDossier)) {
+            $this->pjDossiers->removeElement($pjDossier);
+            // set the owning side to null (unless already changed)
+            if ($pjDossier->getInformationPj() === $this) {
+                $pjDossier->setInformationPj(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 
 

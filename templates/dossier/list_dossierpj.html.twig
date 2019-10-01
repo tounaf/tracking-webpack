@@ -13,14 +13,14 @@
     <tbody>
 
         {% if dossier is defined %}
-            {% if dossier.piecesJointes is not null %}
-                {% for pj in dossier.piecesJointes %}
+            {% if dossier.PjDossiers is not null %}
+                {% for pj in dossier.PjDossiers  %}
                     <tr>
                         <td>{{ dossier.id }}</td>
-                        <td>{{ dossier.createdAt|date('d/m/Y') }}</td>
-                        <td>{{ pj.libelle }}</td>
+                        <td>{{ pj.createdAt|date('d/m/Y') }}</td>
+                        <td>{{ pj.InformationPj.libelle}}</td>
                         {% if pj.fileName is not null %}
-                        <td><a href="{{   path('download_dossier',{'id':dossier.id })}}">Download fichier: {{ pj.fileName }}</a> </td>
+                        <td><a href="{{   path('download_dossier',{'id':pj.id })}}">Download fichier: {{ pj.fileName }}</a> </td>
                         {% else %}
                             <td>Pas de fichier joints </td>
                         {%  endif %}

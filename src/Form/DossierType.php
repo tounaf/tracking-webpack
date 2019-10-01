@@ -7,6 +7,7 @@ use App\Entity\Devise;
 use App\Entity\Dossier;
 use App\Entity\EtapeSuivante;
 use App\Entity\InformationPj;
+use App\Entity\PjDossier;
 use App\Entity\Societe;
 use App\Entity\Statut;
 use App\Entity\StatutsPersMorale;
@@ -144,15 +145,11 @@ class DossierType extends AbstractType
                 'attr' => array('class' => 'my-selector',)
                 )
             )
-//            ->add('numeroDossier')
-//            ->add('libelle')
-//            //PJ
 //            //PJ Field to add file in pj
-            ->add('File', FileType::class,[
+          ->add('File', FileType::class,[
                 'label' => 'insérer pièces jointes',
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
-                //"multiple" => true,
                 // make it optional so you don't have to re-upload the PDF file
                 // everytime you edit the Product details
                 'required' => false,

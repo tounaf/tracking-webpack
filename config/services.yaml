@@ -7,7 +7,7 @@ parameters:
     sender_name: 'LITIGE'
     router.request_context.host: '%env(string:HOST)%'
     router.request_context.scheme: '%env(string:SCHEME)%'
-    File_directory: '%kernel.project_dir%/public/pieces_jointes/litige'
+    File_directory: '%kernel.project_dir%/public/pieces_jointes/litige/'
 
 services:
     # default configuration for services in *this* file
