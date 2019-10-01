@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\PjCloture;
 use App\Service\FileUploader;
 use App\Entity\Dossier;
 use App\Entity\DossierSearch;
@@ -160,7 +161,12 @@ class DossierController extends Controller
     public function downloadDossier($id) {
         $em = $this->getDoctrine()->getManager();
         $PjDossier = $em->getRepository(PjDossier::class)->find($id);
-        $fileName = $PjDossier->getFilename() ;
+        if ($PjDossier) {
+            $fileName = $PjDossier->getFilename() ;
+        } else {
+            $PjDossier = $em->getRepository(PjCloture::class)->find($id);
+            $fileName = $PjDossier->getName() ;
+        }
         if($fileName){
             $response = new Response();
             $response->headers->set('Content-type', 'application/octet-stream');
