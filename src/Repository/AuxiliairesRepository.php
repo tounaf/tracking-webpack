@@ -27,19 +27,23 @@ class AuxiliairesRepository extends ServiceEntityRepository
         'prestation',
         'statuts'
     );
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Auxiliaires::class);
     }
 
-     public function getListAuxiliairesActuel( $extraParams,$idDossier, $count = false)
+    public function getListAuxiliairesActuel($extraParams, $idDossier, $count = false)
     {
-        $sql = $count?' SELECT COUNT(aux.`id`) AS record ' : 'SELECT 
+        $sql = $count ? ' SELECT COUNT(aux.`id`) AS record ' : 'SELECT 
                     aux.`id`,
-                    aux.`nom_prenom` AS nomPrenom,
-                    aux.`convenu` AS convenu ,
-                    aux.`payer` AS payer,
-                    aux.`reste_payer` AS reste_payer,
+                        aux.`nom_prenom` AS nomPrenom,
+                        CONCAT(aux.`convenu`," ",(SELECT d.code FROM devise d 
+                          WHERE d.id = aux.`devise_auxi_conv_id`)) AS convenu,
+                        CONCAT(aux.`payer`," ",(SELECT d.code FROM devise d 
+                          WHERE d.id = aux.`devise_auxi_payer_id`)) AS payer,
+                        CONCAT(aux.`reste_payer`," ",(SELECT d.code FROM devise d 
+                          WHERE d.id = aux.`devise_auxi_reste_id`)) AS reste_payer,
                     aux.`statut_intervenant` AS statuts,
                    (
                      SELECT d.code FROM devise d WHERE d.id = aux.`devise_auxi_conv_id`
@@ -57,13 +61,13 @@ class AuxiliairesRepository extends ServiceEntityRepository
                         `type_prestation` tp 
                         INNER JOIN `auxiliaires` a 
                           ON tp.`id` = a.`prestation_id` 
-                      WHERE a.`dossier_id` ='.$idDossier.' 
+                      WHERE a.`dossier_id` =' . $idDossier . ' 
                       GROUP BY tp.`id`)';
 
         if (!$count) {
             if (isset($extraParams['start']) && isset($extraParams['length'])) {
 
-                $sql .= ' LIMIT '.$extraParams['start'].','. $extraParams['length'];
+                $sql .= ' LIMIT ' . $extraParams['start'] . ',' . $extraParams['length'];
             }
         }
         $qb = $this->getEntityManager()->getConnection()->prepare($sql);
@@ -73,14 +77,17 @@ class AuxiliairesRepository extends ServiceEntityRepository
     }
 
 
-    public function getListAuxiliaires( $extraParams,$idDossier, $count = false)
+    public function getListAuxiliaires($extraParams, $idDossier, $count = false)
     {
-        $sql = $count?' SELECT COUNT(aux.`id`) AS record ' : 'SELECT 
+        $sql = $count ? ' SELECT COUNT(aux.`id`) AS record ' : 'SELECT 
                     aux.`id`,
                     aux.`nom_prenom` AS nomPrenom,
-                    aux.`convenu` AS convenu ,
-                    aux.`payer` AS payer,
-                    aux.`reste_payer` AS reste_payer,
+                  CONCAT(aux.`convenu`," ",(SELECT d.code FROM devise d 
+                          WHERE d.id = aux.`devise_auxi_conv_id`)) AS convenu,
+                  CONCAT(aux.`payer`," ",(SELECT d.code FROM devise d 
+                      WHERE d.id = aux.`devise_auxi_payer_id`)) AS payer,
+                   CONCAT(aux.`reste_payer`," ",(SELECT d.code FROM devise d 
+                       WHERE d.id = aux.`devise_auxi_reste_id`)) AS reste_payer,
                     aux.`statut_intervenant` AS statuts,
                    (
                      SELECT d.code FROM devise d WHERE d.id = aux.`devise_auxi_conv_id`
@@ -98,16 +105,16 @@ class AuxiliairesRepository extends ServiceEntityRepository
                         `type_prestation` tp 
                         INNER JOIN `auxiliaires` a 
                           ON tp.`id` = a.`prestation_id` 
-                      WHERE a.`dossier_id` ='.$idDossier.' 
+                      WHERE a.`dossier_id` =' . $idDossier . ' 
                       GROUP BY tp.`id`)';
         if (!$count) {
             if (isset($this->column[$extraParams['orderBy']]) && isset($extraParams['order'])) {
 
-                $sql .= ' ORDER BY '.$this->column[$extraParams['orderBy']] .' '. $extraParams['order'];
+                $sql .= ' ORDER BY ' . $this->column[$extraParams['orderBy']] . ' ' . $extraParams['order'];
             }
             if (isset($extraParams['start']) && isset($extraParams['length'])) {
 
-                $sql .= ' LIMIT '.$extraParams['start'].','. $extraParams['length'];
+                $sql .= ' LIMIT ' . $extraParams['start'] . ',' . $extraParams['length'];
             }
         }
         $qb = $this->getEntityManager()->getConnection()->prepare($sql);

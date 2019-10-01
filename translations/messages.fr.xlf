@@ -165,7 +165,7 @@
 
               <trans-unit id="39">
                  <source>label.title.ajout</source>
-                 <target>AJOUT/MODIFICATION</target>
+                 <target>AJOUT</target>
              </trans-unit>
 
              <trans-unit id="40">
@@ -175,7 +175,7 @@
 
             <trans-unit id="41">
                  <source>label.title.modification</source>
-                 <target>AJOUT/MODIFICATION</target>
+                 <target>MODIFICATION</target>
              </trans-unit>
 
              <trans-unit id="42">
@@ -302,7 +302,7 @@
 
             <trans-unit id="69">
                 <source>column.nameUser</source>
-                <target>Nom et Prénom</target>
+                <target>Prénom et Nom</target>
             </trans-unit>
             <trans-unit id="70">
                 <source>column.nameConvenu</source>
@@ -758,6 +758,10 @@
             <trans-unit id="163">
                 <source>label.infoPj</source>
                 <target>INFOS PIECES JOINTES</target>
+            </trans-unit>
+            <trans-unit id="164">
+                <source>column.pJ</source>
+                <target>Pièces jointes</target>
             </trans-unit>
         </body>
     </file>

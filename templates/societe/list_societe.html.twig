@@ -9,7 +9,7 @@
         {% include '_flash.html.twig' %}
         <div class="listing-bloc relative-bloc">
             <div class="btn-group wrap-btn">
-                <button id="showModalCreate" class="btn btn-success" data-route="create_societe" data-title="{{ 'label.edit.create'|trans }}"><i class="icon-plus-circle"></i><span>Ajouter</span></button>
+                <button id="showModalCreate" class="btn btn-success" data-route="create_societe" data-title="{{ 'label.title.ajout'|trans }}"><i class="icon-plus-circle"></i><span>Ajouter</span></button>
             </div>
             <div class="table-responsive">
                 <table id="listSociete" class="table table-striped">
@@ -26,7 +26,7 @@
                             <td>{{ societe.libele }}</td>
                             <td>{{ societe.enable?'OUI':'NON' }}</td>
                             <td class="actions">
-                                <button data-target="#modalPassword" data-title="{{ 'label.edit.create'|trans }}" data-route="edit_societe" class="btn-edit" data-id="{{ societe.id }}" type="button"><i class="icon-edit"></i></button>
+                                <button data-target="#modalPassword" data-title="{{ 'label.title.modification'|trans }}" data-route="edit_societe" class="btn-edit" data-id="{{ societe.id }}" type="button"><i class="icon-edit"></i></button>
                                 <button  data-target="#modalPassword" data-title="{{ 'label.delete'|trans }}" data-route="delete_societe" class="btn-remove" data-id="{{ societe.id }}" type="button"><i class="icon-trash"></i></button>
                             </td>
                         </tr>

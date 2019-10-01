@@ -57,9 +57,9 @@ class IntervenantRepository extends ServiceEntityRepository
         $sql = $count?' SELECT COUNT(d.`id`) AS record ' : 'SELECT 
                     i.`id`,
                     i.`nom_prenom` AS nomPrenom,
-                    i.`convenu` AS convenu ,
-                    i.`payer` AS payer,
-                    i.`reste_payer` AS reste_payer,
+                        CONCAT(i.`convenu`," ",(SELECT d.code FROM devise d WHERE d.id = i.`devise_conv_int_id`)) AS convenu,
+                        CONCAT(i.`payer`," ",(SELECT  d.code FROM devise d WHERE d.id = i.`devise_payer_int_id`)) AS payer, 
+                        CONCAT(i.`reste_payer`," ",(SELECT d.code FROM devise d WHERE d.id = i.`devise_reste_int_id` )) AS reste_payer,
                     i.`statut_intervenant` AS statuts,
                     d.`code` AS devise,
                     p.`libelle` AS prestation
