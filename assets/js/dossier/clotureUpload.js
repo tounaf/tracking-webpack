@@ -132,7 +132,11 @@ $(document).ready(function(){
             {"data": "dateAjoutDossier"},
             {"data": "informationPJ"},
             {
-                "data": "lien"
+                "data": "edit",
+                "render": function (data, type, row) {
+                    var data = '<a href="'+Routing.generate('download_dossier',{'id':row.id }) +'">Download fichier: '+row.lien+'</a>';
+                    return data;
+                }
             },
             { "targets": -1,
                 "data": "edit",

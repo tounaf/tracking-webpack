@@ -7,19 +7,5 @@
         <th><span>Lien d'accès</span></th>
         <th><span>Action</span></th>
         </thead>
-        <tbody>
-        {% set pos = 0 %}
-        {% for doc in formCloture.pjClotures %}
-            <tr>
-                <td></td>
-                <td></td>
-                <td>{{ doc.vars.value.infoPj }}</td>
-                <td>{{ doc.vars.value.name }}</td>
-                <td class="actions">
-
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
     </table>
 </div>

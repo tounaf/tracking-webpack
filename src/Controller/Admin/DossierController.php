@@ -154,7 +154,7 @@ class DossierController extends Controller
 
 
     /**
-     * @Route("/dossier/render/download/{id}", name="download_dossier",  methods={"GET", "POST"})
+     * @Route("/dossier/render/download/{id}", name="download_dossier",  methods={"GET", "POST"}, options={"expose"=true})
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function downloadDossier($id) {
