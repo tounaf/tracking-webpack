@@ -4,8 +4,8 @@
     </div>
     <div class="card-body">
         <div class="form-bloc standard-form form-declaration-litige">
-            {{ form_start(formCloture) }}
-            {% if formCloture is defined %}
+            {{ form_start(formCloture, {'attr':{'id':'cloture-form'}}) }}
+            {#{% if formCloture is defined %}#}
                 <div class="row same-height m-b-30">
                     <div class="col-md-6">
                         <div class="card card-custom-2 m-0">
@@ -102,11 +102,17 @@
                     </div>
                 </div>
 
+            {{ form_end(formCloture,{'render_rest': false}) }}
+            {% if cloture is defined and cloture.id is not null %}
+                {% include 'cloture/pjform.html.twig' with {'cloture': cloture, 'formPj': formPj}%}
+            {% endif %}
+            {% include 'cloture/list_pj.html.twig' %}
+
             <div class="btns-group text-right">
-                <button type="submit" class="btn btn-success">{{ 'label.save'|trans }}</button>
+                <button type="submit" id="button-cloture-form" class="btn btn-success">{{ 'label.save'|trans }}</button>
             </div>
         </div>
-        {% endif %}
-        {{ form_end(formCloture,{'render_rest': false}) }}
+        {#{% endif %}#}
+        {#{{ form_end(formCloture,{'render_rest': false}) }}#}
     </div>
 </div>

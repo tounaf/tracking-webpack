@@ -3,11 +3,12 @@
 namespace App\Entity;
 
 use App\Annotation\TrackableClass;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClotureRepository")
- * @TrackableClass()
  */
 class Cloture
 {
@@ -19,7 +20,7 @@ class Cloture
     private $id;
 
     /**
-     * @ORM\Column(type="date",  nullable=true)
+     * @ORM\Column(type="datetime",  nullable=true)
      */
     private $dateCloture;
 
@@ -108,16 +109,35 @@ class Cloture
      */
     private $DeviseAuxiliaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PjCloture", mappedBy="cloture", cascade={"persist"})
+     */
+    private $pjClotures;
+
+    public function __construct()
+    {
+        $this->pjClotures = new ArrayCollection();
+        $this->dateCloture = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDateCloture(): ?\DateTimeInterface
+    /**
+     * @return \DateTime|null
+     */
+    public function getDateCloture()
     {
         return $this->dateCloture;
     }
 
+
+    /**
+     * @param \DateTime $dateCloture
+     * @return Cloture
+     */
     public function setDateCloture(\DateTimeInterface $dateCloture): self
     {
         $this->dateCloture = $dateCloture;
@@ -328,6 +348,50 @@ class Cloture
 
         return $this;
     }
+
+    /**
+     * @return Collection|PjCloture[]
+     */
+    public function getPjClotures(): Collection
+    {
+        return $this->pjClotures;
+    }
+    public function addPjCloture(PjCloture $pjCloture): self
+    {
+        if (!$this->pjClotures->contains($pjCloture)) {
+            $this->pjClotures[] = $pjCloture;
+            $pjCloture->setCloture($this);
+        }
+
+        return $this;
+    }
+    public function removePjCloture(PjCloture $pjCloture): self
+    {
+        if ($this->pjClotures->contains($pjCloture)) {
+            $this->pjClotures->removeElement($pjCloture);
+            // set the owning side to null (unless already changed)
+            if ($pjCloture->getCloture() === $this) {
+                $pjCloture->setCloture(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUploadRootDir()
+    {
+        // On retourne le chemin relatif vers l'image pour notre code PHP
+        // Image location (PHP)
+        return $this->getUploadDir();
+    }
+
+    public function getUploadDir()
+    {
+        // Upload directory
+        return 'public/uploads';
+        // This means /web/uploads/documents/
+    }
+
 
     
 }

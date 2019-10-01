@@ -755,6 +755,10 @@
                 <source>deviseGain</source>
                 <target>CLOTURE > DEVISE GAIN/CONDAMNATION</target>
             </trans-unit>
+            <trans-unit id="163">
+                <source>label.infoPj</source>
+                <target>INFOS PIECES JOINTES</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

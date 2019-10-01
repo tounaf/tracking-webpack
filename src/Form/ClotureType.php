@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,15 +26,15 @@ class ClotureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateCloture',DateType::class,[
-                    'widget' => 'single_text',
-                    'format' => 'dd/MM/yyyy',
-                    'model_timezone' => 'UTC',
-                    'view_timezone' => 'UTC',
-                    'required' => false,
-                    'label' => 'DATE DE CLÔTURE',
-                    'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
-            ])
+            ->add('dateCloture', DateTimeType::class, array(
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'model_timezone' => 'UTC',
+                'view_timezone' => 'UTC',
+                'required' => false,
+                'label' => 'DATE DE CLÔTURE',
+                'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
+            ))
             ->add('juridiction',TextType::class,[
                 'label'=> 'JURIDICTION',
                 'required' =>false
@@ -80,7 +81,6 @@ class ClotureType extends AbstractType
 
                 ],
                 'required' => true,
-
             ])
             ->add('montantGainCondamn',null,[
                 'label'=>'MONTANT',
@@ -116,7 +116,6 @@ class ClotureType extends AbstractType
                 'class' => Devise::class,
                 'required' => false
             ])*/
-
             ->add('deviseGain', EntityType::class, array(
                 'class' => 'App\Entity\Devise',
                 'label' =>  $this->trans->trans('label.devise'),
@@ -149,6 +148,15 @@ class ClotureType extends AbstractType
                 'query_builder' => function(EntityRepository $repository) {
                     return $repository->getDevise();}
             ])
+            ->add('pjClotures', CollectionType::class, array(
+                'entry_type'   		=> PjClotureType::class,
+                'prototype'			=> true,
+                'allow_add'			=> true,
+                'allow_delete'		=> true,
+                'by_reference' 		=> false,
+                'required'			=> false,
+                'label'			=> false,
+            ));
         ;
     }
 

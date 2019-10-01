@@ -39,7 +39,7 @@ export default class Fonction {
     }
 
     static isFormaNumber(str) {
-        var regex = /[0-9]/;
+        var regex = /^[1-9][0-9]/;
         return regex.test(str);
     }
 }

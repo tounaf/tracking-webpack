@@ -83,7 +83,9 @@ class AuxiliairesController extends Controller
             'data' => $listIntervenant,
         ));
         return $response;
-    }/**
+    }
+
+    /**
      *
      * @Route("/getListAuxiliaire", name="liste_auxiliaire",  options={"expose"=true})
      * @param Request $request

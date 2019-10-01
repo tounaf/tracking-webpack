@@ -8,6 +8,7 @@ parameters:
     router.request_context.host: '%env(string:HOST)%'
     router.request_context.scheme: '%env(string:SCHEME)%'
     File_directory: '%kernel.project_dir%/public/pieces_jointes/litige/'
+    upload_directory: '%kernel.project_dir%/public/uploads'
 
 services:
     # default configuration for services in *this* file
@@ -41,9 +42,6 @@ services:
     trackable.reader:
         class: App\Annotation\TrackableReader
         arguments: ['@annotations.reader']
-
-
-
 
     uploaderfichier:
         class: App\Service\FileUploader
