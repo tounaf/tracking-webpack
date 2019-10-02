@@ -1,6 +1,6 @@
 <div class="card-body">
     <div class="form-bloc standard-form form-declaration-litige">
-        {{ form_start(form_intervenant) }}
+        {{ form_start(form_intervenant, {'attr':{'id':'form-edit-intervenant'}}) }}
         <div class="row same-height m-b-30">
             <div class="col-md-6">
                 <div class="card card-custom-2 m-0">
@@ -67,12 +67,14 @@
                             <div class="col-xl-2">
                                 {{ form_row(form_intervenant.deviseResteInt) }}
                             </div>
+                            <div class="col-xl-2">
+                                {{ form_row(form_intervenant.statutIntervenant) }}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        {{ form_end(form_intervenant, {'render_rest': false}) }}
     </div>
 </div>
 

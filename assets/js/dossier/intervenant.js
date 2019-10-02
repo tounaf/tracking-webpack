@@ -8,6 +8,10 @@ require('../jquery.ajaxloader');
 var main = $('#avocat-list');
 
 $(document).ready(function () {
+    $("#edit-intervenant").click(function (e) {
+        e.preventDefault();
+        $("#form-edit-intervenant").submit();
+    })
     var table = $('#avocat-list').DataTable({
         "processing": true,
         "serverSide": true,

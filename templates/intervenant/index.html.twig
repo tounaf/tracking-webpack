@@ -3,7 +3,9 @@
     <div class="card-header">
         Les intervenants
     </div>
+    {% if intervenant is defined and intervenant.id is not null %}
     {% include "/intervenant/_current-form.html.twig" %}
+    {% endif %}
 
     <div class="listing-bloc relative-bloc">
 
@@ -45,4 +47,12 @@
         </div>
     </div>
 </div>
+
+{% if intervenant is defined and intervenant.id is not null %}
+    <div class="btns-group text-right">
+        <button type="submit" id="edit-intervenant" class="btn btn-danger">Enregistrer</button>
+    </div>
+{% endif %}
+{# end form of the current-form#}
+{{ form_end(form_intervenant, {'render_rest': false}) }}
 {% include 'intervenant/modal_intervenant.html.twig' %}
