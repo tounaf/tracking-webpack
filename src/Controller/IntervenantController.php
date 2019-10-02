@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * @Route("/intervenant")
+ * @Route("/admin/dossier/intervenant")
  */
 class IntervenantController extends Controller
 {

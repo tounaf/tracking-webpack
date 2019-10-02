@@ -15,6 +15,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
 
+/**
+ * Class AuxiliairesController
+ * @package App\Controller
+ * @Route("/admin/dossier")
+ */
 class AuxiliairesController extends Controller
 {
     /**

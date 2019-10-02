@@ -13,7 +13,6 @@ use App\Form\DossierSearchType;
 use App\Form\DossierType;
 use App\Form\SubDossierType;
 use App\Repository\DossierRepository;
-use mysql_xdevapi\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -102,7 +101,7 @@ class DossierController extends Controller
     }
 
     /**
-     * @Route("/sub-dossier/delete/{id}", name="delete_sub_dossier", options={"expose"=true})
+     * @Route("/dossier/sub-dossier/delete/{id}", name="delete_sub_dossier", options={"expose"=true})
      * @param Request $request
      * @param SubDossier|null $subDossier
      */

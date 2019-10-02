@@ -207,6 +207,7 @@ class FosUser extends BasUser
      */
     public function setRoleUser()
     {
+        $this->roles = [];
         if ($this->profile){
             $this->addRole(
                 $this->profile?$this->profile->getCode():'');

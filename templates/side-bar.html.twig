@@ -18,6 +18,7 @@
                 </li>
             </ul>
         </li>
+        {% if app.user.hasRole("ROLE_SUPERADMIN") or app.user.hasRole("ROLE_ADMIN") %}
         <li class="nav-item nav-dropdown">
             <a class="nav-link nav-dropdown-toggle" href="javascript:;"><i class="icon-cog"></i><span>Administration</span></a>
             <ul class="nav-dropdown-items">
@@ -78,6 +79,7 @@
                 </li>
             </ul>
         </li>
+        {% endif %}
     </ul>
 </nav>
 {#<button class="sidebar-minimizer brand-minimizer" type="button"></button>#}
