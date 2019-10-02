@@ -190,32 +190,32 @@ class DossierController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dossier = new Dossier();
-        $PjDossier = new PjDossier();
         $form = $this->createForm(DossierType::class, $dossier, array(
             'action' => $this->generateUrl('create_dossier')
         ))->handleRequest($request);
-        $directory = $this->get('kernel')->getProjectDir() . $dossier->getPathUpload();
 
         if ($form->isSubmitted()) {
-            $entityObjSelected = $form->get('piecesJointes')->getData();
-            $libelleSelected = $entityObjSelected->getLibelle() ?? '';
-            $dossier->setLibelle($libelleSelected);
             $dateLitige = $request->get('dossier')['dateLitige'];
             $echeance = $request->get('dossier')['echeance'];
             $alert = $request->get('dossier')['alerteDate'];
             $dossier->setAlerteDate(new \DateTime($alert))->setDateLitige(new \DateTime($dateLitige))->setEcheance(new \DateTime($echeance));
-            $file = $form['File']->getData() ?? '';
-            $oInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle'=>$libelleSelected));
 
-            $dossier->setDirectory($directory);
-            if ($file instanceof UploadedFile){
-                $this->get('uploaderfichier')->upload($file);
-                $PjDossier->setInformationPj($oInfoPj);
-                $PjDossier->setFilename($file->getClientOriginalName());
-                $this->savePersistObj($em, $PjDossier);
-            }else{
-                $PjDossier->setInformationPj($oInfoPj);
-                $this->savePersistObj($em, $PjDossier);
+            $dossier->setDirectory($dossier->getPathUpload());
+            $entityObjSelected = $form->get('piecesJointes')->getData();
+            $file = $form['File']->getData() ?? '';
+            if($entityObjSelected != null){
+                $objPjDossier = new PjDossier();
+                $libelleSelected = $entityObjSelected->getLibelle();
+                $dossier->setLibelle($libelleSelected);
+
+                $dataInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle' => $libelleSelected));
+                $objPjDossier->setInformationPj($dataInfoPj);
+                if ($file instanceof UploadedFile) {
+                    $this->get('uploaderfichier')->upload($file);
+                    $objPjDossier->setFilename($file->getClientOriginalName());
+                }
+                $objPjDossier->setDossier($dossier);
+                $this->savePersistObj($em, $objPjDossier);
             }
             try {
                 $this->savePersistObj($em, $dossier);

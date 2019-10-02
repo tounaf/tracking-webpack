@@ -107,6 +107,7 @@ class AuxiliairesRepository extends ServiceEntityRepository
                           ON tp.`id` = a.`prestation_id` 
                       WHERE a.`dossier_id` =' . $idDossier . ' 
                       GROUP BY tp.`id`)';
+        $sql .= ' AND aux.dossier_id ='.$idDossier;
         if (!$count) {
             if (isset($this->column[$extraParams['orderBy']]) && isset($extraParams['order'])) {
 
