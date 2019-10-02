@@ -6,6 +6,7 @@ use App\Entity\Dossier;
 use App\Entity\Intervenant;
 use App\Form\IntervenantType;
 use App\Repository\IntervenantRepository;
+use Hoa\Exception\Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,7 +28,8 @@ class IntervenantController extends Controller
      */
     private $translator;
     private $session;
-    private $id ;
+    private $id;
+
     /**
      * UtilisateurController constructor.
      * @param TranslatorInterface $translator
@@ -45,13 +47,16 @@ class IntervenantController extends Controller
     public function index(Request $request, Dossier $dossier = null)
     {
 //        $idDossier = $this->get('session')->get('id');
-        $intervenantLatest = $this->getDoctrine()->getRepository(Intervenant::class)->findLatestIntervenant($dossier->getId());
-        if (count($intervenantLatest) > 0) {
-            $intervenant = $this->getDoctrine()->getRepository(Intervenant::class)->find($intervenantLatest[0]['id']);
-        } else {
-            $intervenant = new Intervenant();
-        }
-        $form = $this->createForm(IntervenantType::class, $intervenant);
+            $intervenantLatest = $this->getDoctrine()->getRepository(Intervenant::class)->findLatestIntervenant($dossier->getId());
+            if (count($intervenantLatest) > 0) {
+                $intervenant = $this->getDoctrine()->getRepository(Intervenant::class)->find($intervenantLatest[0]['id']);
+                $form = $this->createForm(IntervenantType::class, $intervenant, array(
+                    'action' => $this->generateUrl('intervenant_edit', array('id' => $intervenant->getId()))
+                ));
+            } else {
+                $intervenant = new Intervenant();
+                $form = $this->createForm(IntervenantType::class, $intervenant);
+            }
         return $this->render('intervenant/index.html.twig', [
             'intervenant' => $intervenant,
             'form_intervenant' => $form->createView(),
@@ -86,8 +91,8 @@ class IntervenantController extends Controller
             'orderBy' => $orderBy,
             'order' => $order,
         );
-        $listIntervenant = $this->getDoctrine()->getRepository(Intervenant::class)->getListIntervenant($extraParams,$this->id, false);
-        $nbrRecords = $this->getDoctrine()->getRepository(Intervenant::class)->getListIntervenant($extraParams,$this->id, true);
+        $listIntervenant = $this->getDoctrine()->getRepository(Intervenant::class)->getListIntervenant($extraParams, $this->id, false);
+        $nbrRecords = $this->getDoctrine()->getRepository(Intervenant::class)->getListIntervenant($extraParams, $this->id, true);
         $response->setData(array(
             'draw' => (int)$draw,
             'recordsTotal' => (int)$nbrRecords[0]['record'],
@@ -124,12 +129,15 @@ class IntervenantController extends Controller
                 } catch (\Exception $exception) {
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.delete.error'));
                 }
-                return $this->redirectToRoute('render_edit_dossier', array('id' => $this->id, 'currentTab' => 'intervenant'));            }
-            if($request->isXmlHttpRequest()){
-            return $this->render('Admin/_delete_form_user.html.twig', array(
-                'form_delete' => $form->createView()
-            ));}
-            else{ throw new NotFoundHttpException();}
+                return $this->redirectToRoute('render_edit_dossier', array('id' => $this->id, 'currentTab' => 'intervenant'));
+            }
+            if ($request->isXmlHttpRequest()) {
+                return $this->render('Admin/_delete_form_user.html.twig', array(
+                    'form_delete' => $form->createView()
+                ));
+            } else {
+                throw new NotFoundHttpException();
+            }
         } else {
             $response->setData(array(
                 'message' => $this->translator->trans('label.not.found'),
@@ -163,14 +171,13 @@ class IntervenantController extends Controller
         ];
 
         if ($form->isSubmitted() && $form->isValid()) {
-            try{
+            try {
                 $entityManager = $this->getDoctrine()->getManager();
                 $intervenant->setDossier($dossier);
                 $entityManager->persist($intervenant);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
-            }
-            catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.error.create'));
                 $message['message'] = $exception->getMessage();
                 $message['status'] = 500;
@@ -180,54 +187,51 @@ class IntervenantController extends Controller
             return $response->setData($message);
         }
 
-        if($request->isXmlHttpRequest()){
+        if ($request->isXmlHttpRequest()) {
             return $this->render('intervenant/_form.html.twig', array(
                 'form' => $form->createView(),
             ));
-        }else{
+        } else {
             // return new JsonResponse(array('status' => 'Error'),400);
             throw new NotFoundHttpException();
         }
     }
+
     /**
      * @param Request $request
      * @Route("/{id}/edit", name="intervenant_edit", options={"expose"=true}, methods={"GET","POST"})
-     * @ParamConverter("nature", class="App\Entity\Intervenant")
-     * @param Intervenant|null $nature
+     * @ParamConverter("intervenant", class="App\Entity\Intervenant")
+     * @param Intervenant|null $intervenant
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function edit(Request $request, Intervenant $intervenant = null)
     {
         $id = $request->get('id');
         $response = new JsonResponse();
-        if($intervenant){
-
+        if ($intervenant) {
             $form = $this->createForm(IntervenantType::class, $intervenant, [
                 'method' => 'POST',
                 'action' => $this->generateUrl('intervenant_edit', ['id' => $id])
             ])->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid())
-            {
-                try{
+            if ($form->isSubmitted()) {
+                try {
                     $this->getDoctrine()->getManager()->flush();
                     $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success'));
-                }catch (\Exception $exception)
-                {
+                } catch (\Exception $exception) {
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.edit.error'));
                 }
-                return $this->redirectToRoute('render_edit_dossier',array('id' => $this->id, 'currentTab' => 'intervenant'));
+                return $this->redirectToRoute('render_edit_dossier', array('id' => $this->id, 'currentTab' => 'intervenant'));
             }
-            if($request->isXmlHttpRequest()){
+            if ($request->isXmlHttpRequest()) {
                 return $this->render('intervenant/_form.html.twig', array(
                     'form' => $form->createView(),
                 ));
-            }else{
+            } else {
                 // return new JsonResponse(array('status' => 'Error'),400);
                 throw new NotFoundHttpException();
             }
-        }
-        else {
+        } else {
             $response->setData(array(
                 'message' => $this->translator->trans('label.not.found'),
                 'status' => 403,

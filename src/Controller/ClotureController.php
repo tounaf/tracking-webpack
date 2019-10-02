@@ -83,13 +83,8 @@ class ClotureController extends Controller
               $entityManager = $this->getDoctrine()->getManager();
               $cloture->setDateCloture($date);
               $cloture->setDossier($dossier);
-              if (!$dossierExist){
-                  $entityManager->persist($cloture);
-                  $entityManager->flush();
-              }
-              else{
-                  $entityManager->flush();
-              }
+              $entityManager->persist($dossier);
+              $entityManager->flush();
               $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
               $this->session->set('idCloture',$cloture->getId());
           } catch (Exception $exception){
@@ -227,7 +222,7 @@ class ClotureController extends Controller
         );
         $idCloture = !is_null($this->session->get('idCloture'))?$this->session->get('idCloture'):0;
         $listIntervenant = $this->getDoctrine()->getRepository(PjCloture::class)->listPjCloture($extraParams, $idCloture, false);
-        $nbrRecords = $this->getDoctrine()->getRepository(PjCloture::class)->listPjCloture($extraParams, $this->id, true);
+        $nbrRecords = $this->getDoctrine()->getRepository(PjCloture::class)->listPjCloture($extraParams, $idCloture, true);
         $response->setData(array(
             'draw' => (int)$draw,
             'recordsTotal' => (int)$nbrRecords[0]['record'],
