@@ -69,7 +69,7 @@ class IntervenantController extends Controller
     public function downloadPjIntervenant($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $oPjIntervenant = $em->getRepository(PjIntervenant::class)->find($id);
+        $oPjIntervenant = $em->getRepository(PjIntervenant::class)->findOneBy(array('intervenant' => $id));
         return $this->get('uploaderfichier')->downFilePjIntervenant($oPjIntervenant->getFilename());
     }
 
