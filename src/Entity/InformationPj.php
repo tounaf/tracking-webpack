@@ -60,11 +60,23 @@ class InformationPj
      */
     private $pjDossiers;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PjIntervenant", mappedBy="informationPj", orphanRemoval=true)
+     */
+    private $pjIntervenants;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PjAuxiliaires", mappedBy="informationPj")
+     */
+    private $pjAuxiliaires;
+
     public function __construct()
     {
         $this->dossiers = new ArrayCollection();
         $this->pjClotures = new ArrayCollection();
         $this->pjDossiers = new ArrayCollection();
+        $this->pjIntervenants = new ArrayCollection();
+        $this->pjAuxiliaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -235,6 +247,68 @@ class InformationPj
     public function __toString()
     {
         return (string)$this->getLibelle();
+    }
+
+    /**
+     * @return Collection|PjIntervenant[]
+     */
+    public function getPjIntervenants(): Collection
+    {
+        return $this->pjIntervenants;
+    }
+
+    public function addPjIntervenant(PjIntervenant $pjIntervenant): self
+    {
+        if (!$this->pjIntervenants->contains($pjIntervenant)) {
+            $this->pjIntervenants[] = $pjIntervenant;
+            $pjIntervenant->setInformationPj($this);
+        }
+
+        return $this;
+    }
+
+    public function removePjIntervenant(PjIntervenant $pjIntervenant): self
+    {
+        if ($this->pjIntervenants->contains($pjIntervenant)) {
+            $this->pjIntervenants->removeElement($pjIntervenant);
+            // set the owning side to null (unless already changed)
+            if ($pjIntervenant->getInformationPj() === $this) {
+                $pjIntervenant->setInformationPj(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PjAuxiliaires[]
+     */
+    public function getPjAuxiliaires(): Collection
+    {
+        return $this->pjAuxiliaires;
+    }
+
+    public function addPjAuxiliaire(PjAuxiliaires $pjAuxiliaire): self
+    {
+        if (!$this->pjAuxiliaires->contains($pjAuxiliaire)) {
+            $this->pjAuxiliaires[] = $pjAuxiliaire;
+            $pjAuxiliaire->setInformationPj($this);
+        }
+
+        return $this;
+    }
+
+    public function removePjAuxiliaire(PjAuxiliaires $pjAuxiliaire): self
+    {
+        if ($this->pjAuxiliaires->contains($pjAuxiliaire)) {
+            $this->pjAuxiliaires->removeElement($pjAuxiliaire);
+            // set the owning side to null (unless already changed)
+            if ($pjAuxiliaire->getInformationPj() === $this) {
+                $pjAuxiliaire->setInformationPj(null);
+            }
+        }
+
+        return $this;
     }
 
 }

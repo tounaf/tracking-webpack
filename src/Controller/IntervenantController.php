@@ -165,6 +165,7 @@ class IntervenantController extends Controller
     public function new(Request $request, Dossier $dossier = null)
     {
         $intervenant = new Intervenant();
+        $pjIntervenant = new PjIntervenant();
         $form = $this->createForm(IntervenantType::class, $intervenant, [
             'method' => 'POST',
             'action' => $this->generateUrl('intervenant_post_new', array('id' => $request->get('id')))
@@ -178,9 +179,32 @@ class IntervenantController extends Controller
         ];
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $intervenant->setDossier($dossier);
+
+
+            $entityObjSelected = $form->get('piecesJointes')->getData();
+            $libelleSelected = $entityObjSelected->getLibelle() ?? '';
+
+            $file = $form['File']->getData() ?? '';
+
+            $oInfoPj = $entityManager->getRepository(InformationPj::class)->findOneBy(array('libelle'=>$libelleSelected));
+            if ($file instanceof UploadedFile){
+                $this->get('uploaderfichier')->upload($file);
+                $pjIntervenant->setFilename($file->getClientOriginalName());
+                $pjIntervenant->setInformationPj($oInfoPj);
+                $pjIntervenant->setIntervenant($intervenant);
+                $pjIntervenant->setDossier($dossier);
+                $entityManager->persist($pjIntervenant);
+                $entityManager->flush();
+            }else{
+                $pjIntervenant->setInformationPj($oInfoPj);
+                $pjIntervenant->setIntervenant($intervenant);
+                $entityManager->persist($pjIntervenant);
+                $entityManager->flush();
+            }
+
             try{
-                $entityManager = $this->getDoctrine()->getManager();
-                $intervenant->setDossier($dossier);
                 $entityManager->persist($intervenant);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
