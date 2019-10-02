@@ -1,13 +1,16 @@
 <?php
 
 namespace App\Controller;
-
+use App\Service\FileUploader;
 use App\Entity\Dossier;
+use App\Entity\InformationPj;
 use App\Entity\Intervenant;
+use App\Entity\PjIntervenant;
 use App\Form\IntervenantType;
 use App\Repository\IntervenantRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -58,6 +61,18 @@ class IntervenantController extends Controller
             'dossier' => $dossier
         ]);
     }
+
+    /**
+     * @Route("/dossier/render/download/{id}", name="download_pjintervenant",  methods={"GET", "POST"}, options={"expose"=true})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function downloadPjIntervenant($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $oPjIntervenant = $em->getRepository(PjIntervenant::class)->find($id);
+        return $this->get('uploaderfichier')->downFilePjIntervenant($oPjIntervenant->getFilename());
+    }
+
 
     /**
      *
@@ -199,9 +214,10 @@ class IntervenantController extends Controller
     public function edit(Request $request, Intervenant $intervenant = null)
     {
         $id = $request->get('id');
+        $em = $this->getDoctrine()->getManager();
+        $oPjintervenant = $em->getRepository(PjIntervenant::class)->findOneBy(array('intervenant'=>$id));
         $response = new JsonResponse();
         if($intervenant){
-
             $form = $this->createForm(IntervenantType::class, $intervenant, [
                 'method' => 'POST',
                 'action' => $this->generateUrl('intervenant_edit', ['id' => $id])
@@ -209,8 +225,14 @@ class IntervenantController extends Controller
 
             if ($form->isSubmitted() && $form->isValid())
             {
+                $files = $form['File']->getData() ?? '';
+                    if($files instanceof UploadedFile){
+                        $oPjintervenant->setFilename($files->getClientOriginalName());
+                        $this->get('uploaderfichier')->upload($files);
+                        $em->persist($oPjintervenant);
+                    }
                 try{
-                    $this->getDoctrine()->getManager()->flush();
+                    $em->flush();
                     $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success'));
                 }catch (\Exception $exception)
                 {
@@ -223,7 +245,6 @@ class IntervenantController extends Controller
                     'form' => $form->createView(),
                 ));
             }else{
-                // return new JsonResponse(array('status' => 'Error'),400);
                 throw new NotFoundHttpException();
             }
         }

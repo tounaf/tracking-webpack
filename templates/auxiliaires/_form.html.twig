@@ -37,6 +37,19 @@
                                 {{ form_row(formAuxi.fonction) }}
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-group file-form">
+                                {{ form_label(formAuxi.piecesJointes) }}
+                                <div class="file-field">
+                                    <div class="select-typefile">
+                                        {{ form_widget(formAuxi.piecesJointes) }}
+                                    </div>
+                                    <div class="load-file">
+                                        <a href=""  class="loadLink" > {{ form_row(formAuxi.File) }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -71,6 +84,19 @@
                             </div>
                             <div class="form-group col-xl-2">
                                 {{ form_row(formAuxi.deviseAuxiReste) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group file-form">
+                                {{ form_label(formAuxi.piecesJointes) }}
+                                <div class="file-field">
+                                    <div class="select-typefile">
+                                        {{ form_widget(formAuxi.piecesJointesAux) }}
+                                    </div>
+                                    <div class="load-file">
+                                        <a href=""  class="loadLink" > {{ form_row(formAuxi.FileAux) }}</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">

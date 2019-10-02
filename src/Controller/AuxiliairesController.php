@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Auxiliaires;
 use App\Entity\Dossier;
+use App\Entity\PjAuxiliaires;
 use App\Form\AuxiliairesType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

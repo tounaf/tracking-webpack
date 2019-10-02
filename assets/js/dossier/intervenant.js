@@ -25,6 +25,13 @@ $(document).ready(function () {
             {"data": "payer",},
             {"data": "reste_payer",},
             {"data": "devise",},
+            {"data": "filename",
+                "render": function (data, type, row) {
+                    var data = '<a href="'+Routing.generate('download_pjintervenant',{'id':row.id }) +'"> fichier: '+row.filename+'</a>';
+                    return data;
+                },
+
+            },
             {"data": "statuts",},
             {
                 "targets": -1,

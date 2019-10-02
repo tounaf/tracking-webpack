@@ -201,8 +201,6 @@ class DossierController extends Controller
             $dossier->setAlerteDate(new \DateTime($alert))->setDateLitige(new \DateTime($dateLitige))->setEcheance(new \DateTime($echeance));
             $file = $form['File']->getData() ?? '';
             $oInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle'=>$libelleSelected));
-
-            $dossier->setDirectory($directory);
             if ($file instanceof UploadedFile){
                 $this->get('uploaderfichier')->upload($file);
                 $PjDossier->setInformationPj($oInfoPj);

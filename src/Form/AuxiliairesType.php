@@ -5,11 +5,13 @@ namespace App\Form;
 use App\Entity\Auxiliaires;
 use App\Entity\Devise;
 use App\Entity\FosUser;
+use App\Entity\InformationPj;
 use App\Entity\TypePrestation;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -43,6 +45,24 @@ class AuxiliairesType extends AbstractType
             ))
             ->add('statutIntervenant')
             ->add('fonction')
+            ->add('piecesJointes', EntityType::class, array(
+                'class' => InformationPj::class,
+                'choice_label' => 'libelle',
+//                'data_class' =>
+                'mapped' => false
+            ))
+            ->add('File', FileType::class,[
+                'label' => 'insérer pièces jointes',
+                'attr' => ['class' => 'file'],
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+                // make it optional so you don't have to re-upload the PDF file
+                // everytime you edit the Product details
+                'required' => false,
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+            ])
+
             ->add('nomPrenom',null,[
                 'label' => 'NOM & PRENOM :',
             ])
@@ -80,6 +100,24 @@ class AuxiliairesType extends AbstractType
                 'query_builder' => function(EntityRepository $repository) {
                     return $repository->getDevise();
                 }))
+            ->add('piecesJointesAux', EntityType::class, array(
+                'class' => InformationPj::class,
+                'choice_label' => 'libelle',
+//                'data_class' =>
+                'mapped' => false
+            ))
+            ->add('FileAux', FileType::class,[
+                'label' => 'insérer pièces jointes',
+               /* 'attr' => ['class' => 'file'],*/
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+                // make it optional so you don't have to re-upload the PDF file
+                // everytime you edit the Product details
+                'required' => false,
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+            ])
+
             ->add('prestation',EntityType::class, array(
                 'label' => $this->trans->trans('label.titre.typePrestation'),
                 'class' => TypePrestation::class,
