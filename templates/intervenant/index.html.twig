@@ -4,46 +4,47 @@
         Les intervenants
     </div>
     {% if intervenant is defined and intervenant.id is not null %}
-    {% include "/intervenant/_current-form.html.twig" %}
+        {% include "/intervenant/_current-form.html.twig" %}
     {% endif %}
 
-    <div class="listing-bloc relative-bloc">
+    <div class="card-body">
+        <div class="listing-bloc relative-bloc">
 
-        <div class="row">
-            <div class="col-xl-8">
-                LES AVOCATS INTERVENUS SUR L'AFFAIRE <br>
-                <button id="modalCreateIntervenant" class="btn badge-success" data-dossier="{{ dossier.id }}"
-                        data-route="intervenant_new"
-                        data-title="{{ 'label.title.ajout'|trans }}"><a class="text-light fa fa-plus-circle"
-                                                                        href="#">Ajouter</a></button>
-            </div>
-            <div class="col-xl-4">
-                <div id="" class="btn btn-ps pull-right adjust">
+            <div class="row">
+                <div class="col-xl-8">
+                    LES AVOCATS INTERVENUS SUR L'AFFAIRE <br>
+                    <button id="modalCreateIntervenant" class="btn btn-success" data-dossier="{{ dossier.id }}"
+                            data-route="intervenant_new"
+                            data-title="{{ 'label.title.ajout'|trans }}"> <i class="icon-plus-circle"></i><span>Ajouter</span></button>
+                </div>
+                <div class="col-xl-4">
+                    <div id="" class="btn btn-ps pull-right adjust">
 
+                    </div>
+                </div>
+                <div class="btn-group" role="group" aria-label="Button group">
+                    <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
                 </div>
             </div>
-            <div class="btn-group" role="group" aria-label="Button group">
-                <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
+            <div class="table-responsive">
+                <table id="avocat-list" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>{{ 'column.nameUser'|trans }}</th>
+                        <th>{{ 'column.namePrestation'|trans }}</th>
+                        <th>{{ 'column.nameConvenu'|trans }}</th>
+                        <th>{{ 'column.namePayer'|trans }}</th>
+                        <th>{{ 'column.nameReste'|trans }}</th>
+                        <th>{{ 'column.nameDevise'|trans }}</th>
+                        <th>{{ 'column.nameStatIntervenant'|trans }}</th>
+                        <th class="actions">{{ 'column.actions'|trans }}</th>
+                        {#<th>{{ 'column.actions'|trans }}</th>#}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
-        </div>
-        <div class="table-responsive">
-            <table id="avocat-list" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>{{ 'column.nameUser'|trans }}</th>
-                    <th>{{ 'column.namePrestation'|trans }}</th>
-                    <th>{{ 'column.nameConvenu'|trans }}</th>
-                    <th>{{ 'column.namePayer'|trans }}</th>
-                    <th>{{ 'column.nameReste'|trans }}</th>
-                    <th>{{ 'column.nameDevise'|trans }}</th>
-                    <th>{{ 'column.nameStatIntervenant'|trans }}</th>
-                    <th class="actions">{{ 'column.actions'|trans }}</th>
-                    {#<th>{{ 'column.actions'|trans }}</th>#}
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
