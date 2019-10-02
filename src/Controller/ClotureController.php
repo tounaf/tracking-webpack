@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * @Route("/cloture")
+ * @Route("/admin/dossier/cloture")
  */
 class ClotureController extends Controller
 {
