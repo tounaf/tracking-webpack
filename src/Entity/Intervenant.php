@@ -87,6 +87,12 @@ class Intervenant
      */
     private $prefixPhone;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PjIntervenant", mappedBy="intervenant")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $pjIntervenants;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -256,6 +262,18 @@ class Intervenant
     public function setPrefixPhone(string $prefixPhone): self
     {
         $this->prefixPhone = $prefixPhone;
+
+        return $this;
+    }
+
+    public function getpjIntervenants(): ?PjIntervenant
+    {
+        return $this->pjIntervenants;
+    }
+
+    public function setpjIntervenants(?PjIntervenant $pjIntervenants): self
+    {
+        $this->pjIntervenants = $pjIntervenants;
 
         return $this;
     }

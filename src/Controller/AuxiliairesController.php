@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Auxiliaires;
 use App\Entity\Dossier;
+use App\Entity\InformationPj;
+use App\Entity\PjAuxiliaires;
 use App\Form\AuxiliairesType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -129,6 +132,17 @@ class AuxiliairesController extends Controller
     }
 
     /**
+     * @Route("/dossier/render/download/{id}", name="download_pjauxiliaire",  methods={"GET", "POST"}, options={"expose"=true})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function downloadPjauxiliaire($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $oPjIntervenant = $em->getRepository(PjAuxiliaires::class)->findOneBy(array('auxiliaire' => $id));
+        return $this->get('uploaderfichier')->downFilePjIntervenant($oPjIntervenant->getFilename());
+    }
+
+    /**
      *
      * @Route("/{id}/delete", name="auxiliaires_delete", methods={"DELETE","GET"}, options={"expose"=true})
      * @param Request $request
@@ -139,6 +153,8 @@ class AuxiliairesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $id = $request->get('id');
+        $oPjauxiliaire = $em->getRepository(PjAuxiliaires::class)->findOneBy(array('auxiliaire' => $id));
+
         $response = new JsonResponse();
         if ($auxiliaires) {
 
@@ -149,6 +165,8 @@ class AuxiliairesController extends Controller
             ))->handleRequest($request);
             if ($form->isSubmitted()) {
                 try {
+                    $this->get('uploaderfichier')->deleteFile($this->get('uploaderfichier')->getTargetDirectory(),$oPjauxiliaire->getFilename());
+                    $em->remove($oPjauxiliaire);
                     $em->remove($auxiliaires);
                     $em->flush();
                     $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.delete.success'));
@@ -180,7 +198,10 @@ class AuxiliairesController extends Controller
      */
     public function new(Request $request, Dossier $dossier = null)
     {
+        $em = $this->getDoctrine()->getManager();
+        $dossier = $em->getRepository(Dossier::class)->find($this->id);
         $auxiliaires = new Auxiliaires();
+        $auxiliaires->setDossier($dossier);
         $form = $this->createForm(AuxiliairesType::class, $auxiliaires, [
             'method' => 'POST',
             'action' => $this->generateUrl('auxiliaires_new')
@@ -192,12 +213,25 @@ class AuxiliairesController extends Controller
             'type' => 'success'
         ];
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['FileAux']->getData() ?? '';
+            $entityObjSelected = $form->get('piecesJointesAux')->getData();
+            $libelleSelected = $entityObjSelected->getLibelle() ?? '';
+            $oPjauxiliaires = new PjAuxiliaires();
+            if($libelleSelected){
+                $oInfopj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle' => $libelleSelected));
+                $oPjauxiliaires->setInformationPj($oInfopj);
+                $oPjauxiliaires->setDossier($dossier);
+                $oPjauxiliaires->setAuxiliaire($auxiliaires);
+            }
+            if($file instanceof UploadedFile){
+                $filename = $this->get('uploaderfichier')->upload($file);
+                $oPjauxiliaires->setFilename($filename);
+            }
+
             try {
-                $entityManager = $this->getDoctrine()->getManager();
-                $dossier = $entityManager->getRepository(Dossier::class)->find($this->id);
-                $auxiliaires->setDossier($dossier);
-                $entityManager->persist($auxiliaires);
-                $entityManager->flush();
+                $em->persist($oPjauxiliaires);
+                $em->persist($auxiliaires);
+                $em->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
             } catch (\Exception $exception) {
                 $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.error.create'));
@@ -228,6 +262,8 @@ class AuxiliairesController extends Controller
     public function edit(Request $request, Auxiliaires $auxiliaires = null)
     {
         $id = $request->get('id');
+        $em = $this->getDoctrine()->getManager();
+        $oPjAuxiliaires = $em->getRepository(PjAuxiliaires::class)->findOneBy(array('auxiliaire'=>$id));
         $response = new JsonResponse();
         if ($auxiliaires) {
             $form = $this->createForm(AuxiliairesType::class, $auxiliaires, [
@@ -235,8 +271,14 @@ class AuxiliairesController extends Controller
                 'action' => $this->generateUrl('auxiliaires_edit', ['id' => $id])
             ])->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
+                $files = $form['FileAux']->getData() ?? '';
+                if($files instanceof UploadedFile){
+                    $filename = $this->get('uploaderfichier')->upload($files);
+                    $oPjAuxiliaires->setFilename($filename);
+                }
                 try {
-                    $this->getDoctrine()->getManager()->flush();
+                    $em->persist($oPjAuxiliaires);
+                    $em->flush();
                     $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success'));
                 } catch (\Exception $exception) {
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.edit.error'));

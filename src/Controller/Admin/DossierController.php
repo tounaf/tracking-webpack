@@ -211,8 +211,8 @@ class DossierController extends Controller
                 $dataInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle' => $libelleSelected));
                 $objPjDossier->setInformationPj($dataInfoPj);
                 if ($file instanceof UploadedFile) {
-                    $this->get('uploaderfichier')->upload($file);
-                    $objPjDossier->setFilename($file->getClientOriginalName());
+                    $filename = $this->get('uploaderfichier')->upload($file);
+                    $objPjDossier->setFilename($filename);
                 }
                 $objPjDossier->setDossier($dossier);
                 $this->savePersistObj($em, $objPjDossier);
@@ -265,8 +265,8 @@ class DossierController extends Controller
                     $dataInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle' => $libelleSelected));
                     $objPjDossier->setInformationPj($dataInfoPj);
                     if ($file instanceof UploadedFile) {
-                        $this->get('uploaderfichier')->upload($file);
-                        $objPjDossier->setFilename($file->getClientOriginalName());
+                        $filename = $this->get('uploaderfichier')->upload($file);
+                        $objPjDossier->setFilename($filename);
                     }
                     $objPjDossier->setDossier($dossier);
                     $this->savePersistObj($em, $objPjDossier);
@@ -279,7 +279,6 @@ class DossierController extends Controller
                     $em->flush();
                     $this->session->getFlashBag()->add('success', $this->trans->trans('label.edit.success'));
                 } catch (\Exception $exception) {
-                    dump($exception->getMessage());die;
                     $this->session->getFlashBag()->add('danger', $this->trans->trans('label.edit.error'));
                 }
             }

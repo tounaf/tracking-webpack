@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Annotation\TrackableClass;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -89,6 +91,16 @@ class Auxiliaires
      * @ORM\Column(type="string", length=5, nullable=true)
      */
     private $prefixPhone;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PjAuxiliaires", mappedBy="auxiliaire")
+     */
+    private $pjAuxiliaires;
+
+    public function __construct()
+    {
+        $this->pjAuxiliaires = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -271,6 +283,37 @@ class Auxiliaires
     public function setPrefixPhone(?string $prefixPhone): self
     {
         $this->prefixPhone = $prefixPhone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PjAuxiliaires[]
+     */
+    public function getPjAuxiliaires(): Collection
+    {
+        return $this->pjAuxiliaires;
+    }
+
+    public function addPjAuxiliaire(PjAuxiliaires $pjAuxiliaire): self
+    {
+        if (!$this->pjAuxiliaires->contains($pjAuxiliaire)) {
+            $this->pjAuxiliaires[] = $pjAuxiliaire;
+            $pjAuxiliaire->setAuxiliaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removePjAuxiliaire(PjAuxiliaires $pjAuxiliaire): self
+    {
+        if ($this->pjAuxiliaires->contains($pjAuxiliaire)) {
+            $this->pjAuxiliaires->removeElement($pjAuxiliaire);
+            // set the owning side to null (unless already changed)
+            if ($pjAuxiliaire->getAuxiliaire() === $this) {
+                $pjAuxiliaire->setAuxiliaire(null);
+            }
+        }
 
         return $this;
     }

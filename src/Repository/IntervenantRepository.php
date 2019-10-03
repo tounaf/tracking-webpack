@@ -62,11 +62,13 @@ class IntervenantRepository extends ServiceEntityRepository
                         CONCAT(i.`reste_payer`," ",(SELECT d.code FROM devise d WHERE d.id = i.`devise_reste_int_id` )) AS reste_payer,
                     i.`statut_intervenant` AS statuts,
                     d.`code` AS devise,
-                    p.`libelle` AS prestation
+                    p.`libelle` AS prestation,
+                    pj.`filename` AS filename
                ';
         $sql .= '  FROM intervenant i ';
         $sql .=' INNER JOIN `devise` AS d ON d.`id` = i.`devise_conv_int_id` ';
         $sql .=' INNER JOIN type_prestation p ON p.`id` = i.`prestation_id` ';
+        $sql .=' INNER JOIN pj_intervenant pj ON i.`id` = pj.`intervenant_id` ';
         $sql .=' WHERE i.dossier_id = '.$idDossier;
         if (!$count) {
             if (isset($this->column[$extraParams['orderBy']]) && isset($extraParams['order'])) {

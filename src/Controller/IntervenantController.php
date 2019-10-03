@@ -1,14 +1,18 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\PjAuxiliaires;
+use App\Service\FileUploader;
 use App\Entity\Dossier;
+use App\Entity\InformationPj;
 use App\Entity\Intervenant;
+use App\Entity\PjIntervenant;
 use App\Form\IntervenantType;
 use App\Repository\IntervenantRepository;
 use Hoa\Exception\Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,6 +69,24 @@ class IntervenantController extends Controller
     }
 
     /**
+     * @Route("/dossier/render/download/{id}", name="download_pjintervenant",  methods={"GET", "POST"}, options={"expose"=true})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function downloadPjIntervenant($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $oPjIntervenant = $em->getRepository(PjIntervenant::class)->findOneBy(array('intervenant' => $id));
+        if($oPjIntervenant){
+            return $this->get('uploaderfichier')->downFilePjIntervenant($oPjIntervenant->getFilename());
+        }else{
+            $oPjauxiliaires = $em->getRepository(PjAuxiliaires::class)->find($id);
+            return $this->get('uploaderfichier')->downFilePjIntervenant($oPjauxiliaires->getFilename());
+        }
+
+    }
+
+
+    /**
      *
      * @Route("/getListAvocat", name="liste_avocat",  options={"expose"=true})
      * @param Request $request
@@ -113,9 +135,9 @@ class IntervenantController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $id = $request->get('id');
+        $oPjintervenant = $em->getRepository(PjIntervenant::class)->findOneBy(array('intervenant'=>$id));
         $response = new JsonResponse();
         if ($intervenant) {
-
             $form = $this->createForm(IntervenantType::class, $intervenant, array(
                 "remove_field" => true,
                 "method" => "DELETE",
@@ -123,6 +145,8 @@ class IntervenantController extends Controller
             ))->handleRequest($request);
             if ($form->isSubmitted()) {
                 try {
+                    $this->get('uploaderfichier')->deleteFile($this->get('uploaderfichier')->getTargetDirectory(),$oPjintervenant->getFilename());
+                    $em->remove($oPjintervenant);
                     $em->remove($intervenant);
                     $em->flush();
                     $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.delete.success'));
@@ -158,6 +182,7 @@ class IntervenantController extends Controller
     public function new(Request $request, Dossier $dossier = null)
     {
         $intervenant = new Intervenant();
+        $pjIntervenant = new PjIntervenant();
         $form = $this->createForm(IntervenantType::class, $intervenant, [
             'method' => 'POST',
             'action' => $this->generateUrl('intervenant_post_new', array('id' => $request->get('id')))
@@ -171,13 +196,32 @@ class IntervenantController extends Controller
         ];
 
         if ($form->isSubmitted() && $form->isValid()) {
-            try {
-                $entityManager = $this->getDoctrine()->getManager();
-                $intervenant->setDossier($dossier);
+            $entityManager = $this->getDoctrine()->getManager();
+            $intervenant->setDossier($dossier);
+            $entityObjSelected = $form->get('piecesJointes')->getData();
+            $libelleSelected = $entityObjSelected->getLibelle() ?? '';
+            $file = $form['File']->getData() ?? '';
+            if ($file instanceof UploadedFile){
+                $filename = $this->get('uploaderfichier')->upload($file);
+                $pjIntervenant->setFilename($filename);
+
+            }
+            $oInfoPj = $entityManager->getRepository(InformationPj::class)->findOneBy(array('libelle'=>$libelleSelected));
+            if ($file instanceof UploadedFile){
+                $this->get('uploaderfichier')->upload($file);
+                $pjIntervenant->setFilename($file->getClientOriginalName());
+
+            }
+            $pjIntervenant->setInformationPj($oInfoPj);
+            $pjIntervenant->setIntervenant($intervenant);
+            $pjIntervenant->setDossier($dossier);
+            try{
+                $entityManager->persist($pjIntervenant);
                 $entityManager->persist($intervenant);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
-            } catch (\Exception $exception) {
+            }
+            catch (\Exception $exception){
                 $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.error.create'));
                 $message['message'] = $exception->getMessage();
                 $message['status'] = 500;
@@ -207,6 +251,8 @@ class IntervenantController extends Controller
     public function edit(Request $request, Intervenant $intervenant = null)
     {
         $id = $request->get('id');
+        $em = $this->getDoctrine()->getManager();
+        $oPjintervenant = $em->getRepository(PjIntervenant::class)->findOneBy(array('intervenant'=>$id));
         $response = new JsonResponse();
         if ($intervenant) {
             $form = $this->createForm(IntervenantType::class, $intervenant, [
@@ -214,16 +260,24 @@ class IntervenantController extends Controller
                 'action' => $this->generateUrl('intervenant_edit', ['id' => $id])
             ])->handleRequest($request);
 
-            if ($form->isSubmitted()) {
-                try {
-                    $this->getDoctrine()->getManager()->flush();
+            if ($form->isSubmitted())
+            {
+                $files = $form['File']->getData() ?? '';
+                    if($files instanceof UploadedFile){
+                        $filename = $this->get('uploaderfichier')->upload($files);
+                        $oPjintervenant->setFilename($filename);
+                    }
+                try{
+                    $em->persist($oPjintervenant);
+                    $em->flush();
                     $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success'));
-                } catch (\Exception $exception) {
+                }catch (\Exception $exception)
+                {
                     $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.edit.error'));
                 }
-                return $this->redirectToRoute('render_edit_dossier', array('id' => $this->id, 'currentTab' => 'intervenant'));
+                return $this->redirectToRoute('render_edit_dossier',array('id' => $this->id, 'currentTab' => 'intervenant'));
             }
-            if ($request->isXmlHttpRequest()) {
+            if($request->isXmlHttpRequest()){
                 return $this->render('intervenant/_form.html.twig', array(
                     'form' => $form->createView(),
                 ));

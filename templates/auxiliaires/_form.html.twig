@@ -74,6 +74,19 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="form-group file-form">
+                                {{ form_label(formAuxi.piecesJointesAux) }}
+                                <div class="file-field">
+                                    <div class="select-typefile">
+                                        {{ form_widget(formAuxi.piecesJointesAux) }}
+                                    </div>
+                                    <div class="load-file">
+                                        <a href=""  class="loadLink" > {{ form_row(formAuxi.FileAux) }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-xl-6" hidden>
                                 {{ form_row(formAuxi.statutIntervenant,{'attr': {'class': 'auxiStatut'}}) }}
                             </div>

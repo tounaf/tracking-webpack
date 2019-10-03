@@ -13,25 +13,51 @@ class FileUploader{
         $this->targetDirectory = $targetDirectory;
     }
 
-    public function upload(UploadedFile $file){
+    public function upload(UploadedFile $file)
+    {
         $fileName = $file->getClientOriginalName();
+        $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+        $fileName = sha1(uniqid()).'.'.$ext;
         try{
-           $file->move($this->getTargetDirectory(), $fileName);
+            $file->move($this->getTargetDirectory(), $fileName);
+            return $fileName;
         }
         catch (FileException $e){
             return new Response('Upload failed !');
         }
-        return;
+
     }
 
-    public function getTargetDirectory(){
+    public function getTargetDirectory()
+    {
         return $this->targetDirectory;
     }
 
-    public function deleteFile($directoryFile, $fileName){
-        if(!empty($directoryFile)){
+    public function deleteFile($directoryFile, $fileName)
+    {
+        if(!empty($directoryFile))
+        {
             $fs = new Filesystem();
-            return $fs->remove($directoryFile, $fileName);
+            return $fs->remove($directoryFile.$fileName, $fileName);
         }
+    }
+
+    public function downFilePjIntervenant($filename)
+    {
+        if($filename)
+        {
+            $response = new \Symfony\Component\HttpFoundation\Response();
+            $response->headers->set('Content-type', 'application/octet-stream');
+            $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', $filename ));
+            $response->setContent(file_get_contents($this->targetDirectory.$filename));
+            $response->setStatusCode(200);
+            $response->headers->set('Content-Transfer-Encoding', 'binary');
+            $response->headers->set('Pragma', 'no-cache');
+            $response->headers->set('Expires', '0');
+            return $response;
+        }else{
+            return false;
+        }
+
     }
 }
