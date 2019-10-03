@@ -202,9 +202,9 @@ class DossierController extends Controller
             $file = $form['File']->getData() ?? '';
             $oInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle'=>$libelleSelected));
             if ($file instanceof UploadedFile){
-                $this->get('uploaderfichier')->upload($file);
+                $filename = $this->get('uploaderfichier')->upload($file);
+                $PjDossier->setFilename($filename);
                 $PjDossier->setInformationPj($oInfoPj);
-                $PjDossier->setFilename($file->getClientOriginalName());
                 $this->savePersistObj($em, $PjDossier);
             }else{
                 $PjDossier->setInformationPj($oInfoPj);
@@ -260,8 +260,8 @@ class DossierController extends Controller
                 $dataInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle' => $libelleSelected));
                 $objPjDossier->setInformationPj($dataInfoPj);
                 if ($file instanceof UploadedFile) {
-                    $this->get('uploaderfichier')->upload($file);
-                    $objPjDossier->setFilename($file->getClientOriginalName());
+                    $filename = $this->get('uploaderfichier')->upload($file);
+                    $objPjDossier->setFilename($filename);
                 }
                 $objPjDossier->setDossier($dossier);
                 try {

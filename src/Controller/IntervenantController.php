@@ -193,6 +193,11 @@ class IntervenantController extends Controller
             $entityObjSelected = $form->get('piecesJointes')->getData();
             $libelleSelected = $entityObjSelected->getLibelle() ?? '';
             $file = $form['File']->getData() ?? '';
+            if ($file instanceof UploadedFile){
+                $filename = $this->get('uploaderfichier')->upload($file);
+                $pjIntervenant->setFilename($filename);
+
+            }
             $oInfoPj = $entityManager->getRepository(InformationPj::class)->findOneBy(array('libelle'=>$libelleSelected));
             if ($file instanceof UploadedFile){
                 $this->get('uploaderfichier')->upload($file);
@@ -250,8 +255,8 @@ class IntervenantController extends Controller
             {
                 $files = $form['File']->getData() ?? '';
                     if($files instanceof UploadedFile){
-                        $this->get('uploaderfichier')->upload($files);
-                        $oPjintervenant->setFilename($files->getClientOriginalName());
+                        $filename = $this->get('uploaderfichier')->upload($files);
+                        $oPjintervenant->setFilename($filename);
                     }
                 try{
                     $em->persist($oPjintervenant);

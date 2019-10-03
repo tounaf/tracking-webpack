@@ -16,8 +16,11 @@ class FileUploader{
     public function upload(UploadedFile $file)
     {
         $fileName = $file->getClientOriginalName();
+        $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+        $fileName = sha1(uniqid()).'.'.$ext;
         try{
-           return $file->move($this->getTargetDirectory(), $fileName);
+            $file->move($this->getTargetDirectory(), $fileName);
+            return $fileName;
         }
         catch (FileException $e){
             return new Response('Upload failed !');
