@@ -23,7 +23,7 @@ class FileUploader{
             return $fileName;
         }
         catch (FileException $e){
-            return new Response('Upload failed !');
+            return new \Symfony\Flex\Response('Upload failed !');
         }
 
     }

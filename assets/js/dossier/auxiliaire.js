@@ -24,7 +24,6 @@ $(document).ready(function () {
             {"data": "convenu", "orderable":true},
             {"data": "payer", "orderable":true},
             {"data": "reste_payer", "orderable":true},
-            {"data": "devise", "orderable":true},
             {
                 "data": "filename",
                 "render": function (data, type, row) {
@@ -92,7 +91,6 @@ $(document).ready(function () {
             {"data": "convenu"},
             {"data": "payer"},
             {"data": "reste_payer"},
-            {"data": "devise"},
             {
                 "data": "filename",
                 "render": function (data, type, row) {
