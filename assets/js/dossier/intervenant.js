@@ -27,7 +27,12 @@ $(document).ready(function () {
             {"data": "devise",},
             {"data": "filename",
                 "render": function (data, type, row) {
-                    var data = '<a href="'+Routing.generate('download_pjintervenant',{'id':row.id }) +'"> fichier: '+row.filename+'</a>';
+                    if(data != null){
+                        var data = '<a href="'+Routing.generate('download_pjintervenant',{'id':row.id }) +'"> fichier: '+row.filename+'</a>';
+                    }
+                    else{
+                        var data = 'pas de fichier joint';
+                    }
                     return data;
                 },
 

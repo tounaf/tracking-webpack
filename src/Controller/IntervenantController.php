@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\PjAuxiliaires;
 use App\Service\FileUploader;
 use App\Entity\Dossier;
 use App\Entity\InformationPj;
@@ -70,7 +71,13 @@ class IntervenantController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $oPjIntervenant = $em->getRepository(PjIntervenant::class)->findOneBy(array('intervenant' => $id));
-        return $this->get('uploaderfichier')->downFilePjIntervenant($oPjIntervenant->getFilename());
+        if($oPjIntervenant){
+            return $this->get('uploaderfichier')->downFilePjIntervenant($oPjIntervenant->getFilename());
+        }else{
+            $oPjauxiliaires = $em->getRepository(PjAuxiliaires::class)->find($id);
+            return $this->get('uploaderfichier')->downFilePjIntervenant($oPjauxiliaires->getFilename());
+        }
+
     }
 
 
@@ -123,9 +130,9 @@ class IntervenantController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $id = $request->get('id');
+        $oPjintervenant = $em->getRepository(PjIntervenant::class)->findOneBy(array('intervenant'=>$id));
         $response = new JsonResponse();
         if ($intervenant) {
-
             $form = $this->createForm(IntervenantType::class, $intervenant, array(
                 "remove_field" => true,
                 "method" => "DELETE",
@@ -133,6 +140,8 @@ class IntervenantController extends Controller
             ))->handleRequest($request);
             if ($form->isSubmitted()) {
                 try {
+                    $this->get('uploaderfichier')->deleteFile($this->get('uploaderfichier')->getTargetDirectory(),$oPjintervenant->getFilename());
+                    $em->remove($oPjintervenant);
                     $em->remove($intervenant);
                     $em->flush();
                     $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.delete.success'));
@@ -181,30 +190,20 @@ class IntervenantController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $intervenant->setDossier($dossier);
-
-
             $entityObjSelected = $form->get('piecesJointes')->getData();
             $libelleSelected = $entityObjSelected->getLibelle() ?? '';
-
             $file = $form['File']->getData() ?? '';
-
             $oInfoPj = $entityManager->getRepository(InformationPj::class)->findOneBy(array('libelle'=>$libelleSelected));
             if ($file instanceof UploadedFile){
                 $this->get('uploaderfichier')->upload($file);
                 $pjIntervenant->setFilename($file->getClientOriginalName());
-                $pjIntervenant->setInformationPj($oInfoPj);
-                $pjIntervenant->setIntervenant($intervenant);
-                $pjIntervenant->setDossier($dossier);
-                $entityManager->persist($pjIntervenant);
-                $entityManager->flush();
-            }else{
-                $pjIntervenant->setInformationPj($oInfoPj);
-                $pjIntervenant->setIntervenant($intervenant);
-                $entityManager->persist($pjIntervenant);
-                $entityManager->flush();
-            }
 
+            }
+            $pjIntervenant->setInformationPj($oInfoPj);
+            $pjIntervenant->setIntervenant($intervenant);
+            $pjIntervenant->setDossier($dossier);
             try{
+                $entityManager->persist($pjIntervenant);
                 $entityManager->persist($intervenant);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
@@ -251,11 +250,11 @@ class IntervenantController extends Controller
             {
                 $files = $form['File']->getData() ?? '';
                     if($files instanceof UploadedFile){
-                        $oPjintervenant->setFilename($files->getClientOriginalName());
                         $this->get('uploaderfichier')->upload($files);
-                        $em->persist($oPjintervenant);
+                        $oPjintervenant->setFilename($files->getClientOriginalName());
                     }
                 try{
+                    $em->persist($oPjintervenant);
                     $em->flush();
                     $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success'));
                 }catch (\Exception $exception)

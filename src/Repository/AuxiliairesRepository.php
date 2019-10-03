@@ -47,7 +47,10 @@ class AuxiliairesRepository extends ServiceEntityRepository
                     
                     (
                      SELECT p.libelle FROM `type_prestation` p WHERE p.id = aux.prestation_id
-                  ) AS prestation
+                  ) AS prestation,
+                   (
+                     SELECT pj.filename FROM `pj_auxiliaires` pj WHERE pj.auxiliaire_id = aux.id
+                  ) AS filename
                ';
         $sql .= '  FROM auxiliaires aux ';
         $sql .= ' WHERE aux.id IN 
@@ -88,7 +91,10 @@ class AuxiliairesRepository extends ServiceEntityRepository
                     
                     (
                      SELECT p.libelle FROM `type_prestation` p WHERE p.id = aux.prestation_id
-                  ) AS prestation
+                  ) AS prestation,
+                   (
+                     SELECT pj.filename FROM `pj_auxiliaires` pj WHERE pj.auxiliaire_id = aux.id
+                  ) AS filename
                ';
         $sql .= '  FROM auxiliaires aux ';
         $sql .= ' WHERE aux.id NOT IN 

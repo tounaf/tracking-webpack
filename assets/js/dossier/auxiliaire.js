@@ -25,6 +25,19 @@ $(document).ready(function () {
             {"data": "payer", "orderable":true},
             {"data": "reste_payer", "orderable":true},
             {"data": "devise", "orderable":true},
+            {
+                "data": "filename",
+                "render": function (data, type, row) {
+                    if(data != null){
+                        var data = '<a href="'+Routing.generate('download_pjauxiliaire',{'id':row.id }) +'"> fichier: '+row.filename+'</a>';
+                    }
+                    else{
+                        var data = 'pas de fichier joint';
+                    }
+                    return data;
+                },
+                "orderable":true
+            },
             {"data": "statuts", "orderable":true},
             {
                 "targets": -1,
@@ -80,6 +93,18 @@ $(document).ready(function () {
             {"data": "payer"},
             {"data": "reste_payer"},
             {"data": "devise"},
+            {
+                "data": "filename",
+                "render": function (data, type, row) {
+                    if(data != null){
+                        var data = '<a href="'+Routing.generate('download_pjintervenant',{'id':row.id }) +'"> fichier: '+row.filename+'</a>';
+                    }
+                    else{
+                        var data = 'pas de fichier joint';
+                    }
+                    return data;
+                }
+            },
             {"data": "statuts"},
             {
                 "targets": -1,

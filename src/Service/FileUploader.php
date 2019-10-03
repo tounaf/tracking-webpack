@@ -17,12 +17,12 @@ class FileUploader{
     {
         $fileName = $file->getClientOriginalName();
         try{
-           $file->move($this->getTargetDirectory(), $fileName);
+           return $file->move($this->getTargetDirectory(), $fileName);
         }
         catch (FileException $e){
             return new Response('Upload failed !');
         }
-        return;
+
     }
 
     public function getTargetDirectory()
@@ -35,7 +35,7 @@ class FileUploader{
         if(!empty($directoryFile))
         {
             $fs = new Filesystem();
-            return $fs->remove($directoryFile, $fileName);
+            return $fs->remove($directoryFile.$fileName, $fileName);
         }
     }
 
