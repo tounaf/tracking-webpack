@@ -9,6 +9,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Annotation\TrackableClass;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DossierRepository")
  * @ORM\HasLifecycleCallbacks()
@@ -178,8 +179,12 @@ class Dossier
         $this->histories = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->pjDossiers = new ArrayCollection();
-        !is_null($_userCharge)?$this->userEnCharge = $_userCharge:'';
-        !is_null($_societe)?$this->raisonSocial = $_societe:'';
+        if ($_userCharge) {
+            $this->userEnCharge = $_userCharge;
+        }
+        if ($_societe) {
+            $this->raisonSocial = $_societe;
+        }
     }
 
 
@@ -561,7 +566,7 @@ class Dossier
      */
     public function setNumerDosseier()
     {
-        $this->referenceDossier = $this->raisonSocial?$this->raisonSocial->getLibele().'-'.str_pad($this->id,4,'0',STR_PAD_LEFT ):str_pad($this->id,4,'0',STR_PAD_LEFT );
+        $this->referenceDossier = $this->raisonSocial ? $this->raisonSocial->getLibele() . '-' . str_pad($this->id, 4, '0', STR_PAD_LEFT) : str_pad($this->id, 4, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -655,6 +660,7 @@ class Dossier
         }
         return $this;
     }
+
     public function removeSubDossier(SubDossier $subDossier): self
     {
         if ($this->subDossiers->contains($subDossier)) {
