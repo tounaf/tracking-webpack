@@ -178,8 +178,8 @@ class Dossier
         $this->histories = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->pjDossiers = new ArrayCollection();
-        $this->userEnCharge = $_userCharge;
-        $this->raisonSocial = $_societe;
+        !is_null($_userCharge)?$this->userEnCharge = $_userCharge:'';
+        !is_null($_societe)?$this->raisonSocial = $_societe:'';
     }
 
 
