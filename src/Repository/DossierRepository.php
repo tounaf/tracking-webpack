@@ -29,10 +29,10 @@ class DossierRepository extends ServiceEntityRepository
 
     public function checkConditionProfile($user, $sqlWhere){
         if($user->getProfile()->getCode() == 'ROLE_JURISTE'){
-            $sqlWhere[] = " us.id =".$user->getId(). " AND pf.code = 'ROLE_JURISTE'";
+            $sqlWhere[] = " r.id =".$user->getSociete()->getId(). " AND pf.code = 'ROLE_JURISTE'";
         }
         if($user->getProfile()->getCode() == 'ROLE_ADMIN'){
-            $sqlWhere[] = " us.id =".$user->getId(). " AND pf.code = 'ROLE_ADMIN'";
+            $sqlWhere[] = " r.id =".$user->getSociete()->getId();
         }
         if($user->getProfile()->getCode() == 'ROLE_SUPERADMIN'){
             return $sqlWhere;
@@ -77,8 +77,8 @@ class DossierRepository extends ServiceEntityRepository
         $sql .=' INNER JOIN `categorie_litige` AS c ON c.`id` = d.`categorie_id` ';
         $sql .=' INNER JOIN societe r ON r.`id` = d.`raison_social_id` ';
         $sql .=' INNER JOIN statut s ON s.`id` = d.`statut_id` ';
-        $sql .=' INNER JOIN user us ON d.`id` = us.`id` ';
-        $sql .=' INNER JOIN profil pf ON pf.`id` = us.`id` ';
+        $sql .=' INNER JOIN user us ON d.`user_en_charge_id` = us.`id` ';
+        $sql .=' INNER JOIN profil pf ON pf.`id` = us.`profile_id` ';
 
         $sqlWhere = [];
         if ($data) {
