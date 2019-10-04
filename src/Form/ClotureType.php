@@ -148,15 +148,6 @@ class ClotureType extends AbstractType
                 'query_builder' => function(EntityRepository $repository) {
                     return $repository->getDevise();}
             ])
-            ->add('pjClotures', CollectionType::class, array(
-                'entry_type'   		=> PjClotureType::class,
-                'prototype'			=> true,
-                'allow_add'			=> true,
-                'allow_delete'		=> true,
-                'by_reference' 		=> false,
-                'required'			=> false,
-                'label'			=> false,
-            ));
         ;
     }
 
