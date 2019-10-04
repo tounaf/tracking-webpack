@@ -13,6 +13,7 @@ use App\Form\DossierSearchType;
 use App\Form\DossierType;
 use App\Form\SubDossierType;
 use App\Repository\DossierRepository;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -344,8 +345,9 @@ class DossierController extends Controller
 
             $dossier = new DossierSearch();
         }
-        $listDossier = $this->getDoctrine()->getRepository(Dossier::class)->ajaxlistDossier($dossier, $extraParams,false, true);
-        $nbrRecords = $this->getDoctrine()->getRepository(Dossier::class)->ajaxlistDossier($dossier, $extraParams, true);
+
+        $listDossier = $this->getDoctrine()->getRepository(Dossier::class)->ajaxlistDossier($dossier, $extraParams,false, $this->getUser());
+        $nbrRecords = $this->getDoctrine()->getRepository(Dossier::class)->ajaxlistDossier($dossier, $extraParams, true , $this->getUser());
         $response->setData(array(
             'draw' => (int)$draw,
             'recordsTotal' => (int)$nbrRecords[0]['record'],
