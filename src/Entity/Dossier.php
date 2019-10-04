@@ -168,7 +168,7 @@ class Dossier
      */
     private $pjDossiers;
 
-    public function __construct()
+    public function __construct($_userCharge = null, $_societe = null)
     {
         $this->piecesJointes = new ArrayCollection();
         $this->subDossiers = new ArrayCollection();
@@ -178,6 +178,8 @@ class Dossier
         $this->histories = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->pjDossiers = new ArrayCollection();
+        $this->userEnCharge = $_userCharge;
+        $this->raisonSocial = $_societe;
     }
 
 

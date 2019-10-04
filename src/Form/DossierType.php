@@ -11,6 +11,7 @@ use App\Entity\PjDossier;
 use App\Entity\Societe;
 use App\Entity\Statut;
 use App\Entity\StatutsPersMorale;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -20,6 +21,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -27,24 +30,41 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class DossierType extends AbstractType
 {
     private $trans;
-    public function __construct(TranslatorInterface $translator)
+    private $auth;
+    private $user;
+    public function __construct(TranslatorInterface $translator, AuthorizationCheckerInterface $checker, Security $security)
     {
         $this->trans = $translator;
+        $this->auth = $checker;
+       $userCharge = $this->user = $security->getUser();
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
 //            societe
-            ->add('userEnCharge',null, array(
+            /*->add('userEnCharge',null, array(
                 'label' => $this->trans->trans('label.personne.en.charge'),
                 'required' => true
-            ))
+            ))*/
+
+            ->add('userEnCharge', EntityType::class, array(
+                'class' => 'App\Entity\FosUser',
+                'label' => $this->trans->trans('label.personne.en.charge'),
+                'required' => true,
+                //'placeholder' => $this->user->getName(),
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->getUserCharge($this->user);
+                }))
+
             ->add('raisonSocial', EntityType::class, array(
+                'class' => 'App\Entity\Societe',
                 'label' => $this->trans->trans('label.raison.social'),
-                'class' => Societe::class,
-                'choice_label' =>'libele'
-            ))
+                'required' => true,
+                //'placeholder' => $this->user->getName(),
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->getSocietecharge($this->user);
+                }))
             //partie adverse
             ->add('nomPartieAdverse', null, array(
                 'label' => $this->trans->trans('label.nom'),
@@ -52,7 +72,7 @@ class DossierType extends AbstractType
             ))
             ->add('statutPartiAdverse', ChoiceType::class, array(
                 'label' => $this->trans->trans('label.statut'),
-                'placeholder' => 'Veuillez selectionnner',
+                'placeholder' =>  $this->trans->trans('label.veuillezS'),
                 'choices' => [
                     'Persone physique' => 'Personne physique',
                     'Personne morale' => 'Personne morale'
@@ -62,7 +82,7 @@ class DossierType extends AbstractType
                 'label' => $this->trans->trans('label.form'),
                 'class' => StatutsPersMorale::class,
                 'required' => false,
-                'placeholder' => 'Veuillez selectionner',
+                'placeholder' =>  $this->trans->trans('label.veuillezS'),
                 'choice_label' => 'libelle'
             ))
 //            ->add('partieAdverse', PartiAdverseType::class, array(
@@ -75,11 +95,12 @@ class DossierType extends AbstractType
             ))
 
             //litige
-            ->add('categorie', EntityType::class, array(
-                'class' => CategorieLitige::class,
-                'choice_label' => 'libelle'
-            ))
-
+            ->add('categorie', null, [
+                'label'=> 'CATEGORIE',
+                'placeholder' =>  $this->trans->trans('label.veuillezS'),
+               'required'=>true,
+               // 'choice_label' => 'libelle'
+            ])
             ->add('dateLitige', DateTimeType::class, array(
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
@@ -93,11 +114,10 @@ class DossierType extends AbstractType
             ->add('nomDossier', null, array(
                 'label' => $this->trans->trans('label.nom.dossier')
             ))
-            ->add('statut', EntityType::class, array(
-                'label' => $this->trans->trans('label.statut'),
-                'class' => Statut::class,
-                'choice_label' => 'libele'
-            ))
+            ->add('statut', null, [
+                'placeholder' =>  $this->trans->trans('label.veuillezS'),
+                'required'=>true,
+            ])
             ->add('sensLitige', null, array(
                 'label' => $this->trans->trans('label.sens.litige')
             ))

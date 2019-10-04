@@ -9,10 +9,16 @@
 namespace App\Repository;
 
 
-use Doctrine\ORM\EntityRepository;
+use App\Entity\FosUser;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
-class FosUserRepository extends EntityRepository
+class FosUserRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, FosUser::class);
+    }
     /**
      * @param null $user
      * @return mixed
@@ -34,5 +40,41 @@ class FosUserRepository extends EntityRepository
         }
         $list = $query->getQuery()->getResult();
         return $list;
+
+    }
+
+    public function getUserCharge($userC = null){
+        $societeId = $userC->getSociete()?$userC->getSociete()->getId():'';
+        $userId = $userC->getId();
+     $query = $this->createQueryBuilder('u');
+        $query->andWhere('u.actif = true')
+//            ->andWhere('u.id = :id')
+            ->innerJoin('u.societe','s')
+            ->andWhere('s.id = :soc')
+            ->orderBy('u.id','DESC')
+//            ->setParameter('uid', $userId)
+//            ->setParameter('id', $userId)
+            ->setParameter('soc', $societeId);
+    return $query;
+    }
+
+    /**
+     * @param null $userC
+     * @return \Doctrine\ORM\QueryBuilder
+     * getSociete
+     */
+    public function getSocieteUser($userC = null){
+        $societeId = $userC->getSociete()?$userC->getSociete()->getId():'';
+        $userId = $userC->getId();
+     $query = $this->createQueryBuilder('u');
+        $query->andWhere('u.actif = true')
+//            ->andWhere('u.id = :id')
+            ->innerJoin('u.societe','s')
+            ->andWhere('s.id = :soc')
+            ->orderBy('u.id','DESC')
+//            ->setParameter('uid', $userId)
+//            ->setParameter('id', $userId)
+            ->setParameter('soc', $societeId);
+    return $query;
     }
 }
