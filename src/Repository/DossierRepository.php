@@ -27,7 +27,7 @@ class DossierRepository extends ServiceEntityRepository
         parent::__construct($registry, Dossier::class);
     }
 
-    public function checkConditionProfile($user){
+    public function checkConditionProfile($user, $sqlWhere){
         if($user->getProfile()->getCode() == 'ROLE_JURISTE'){
             $sqlWhere[] = " us.id =".$user->getId(). " AND pf.code = 'ROLE_JURISTE'";
         }
@@ -35,13 +35,13 @@ class DossierRepository extends ServiceEntityRepository
             $sqlWhere[] = " us.id =".$user->getId(). " AND pf.code = 'ROLE_ADMIN'";
         }
         if($user->getProfile()->getCode() == 'ROLE_SUPERADMIN'){
-            $sqlWhere[] = " 1";
+            return $sqlWhere;
         }
         return $sqlWhere;
     }
 
-    public function  checkDataSearch($data){
-        $sqlWhere = [];
+    public function  checkDataSearch($data, $sqlWhere){
+
         if ($data->getNom() != '') {
             $sqlWhere[] = " d.`nom_dossier` LIKE '%".addslashes($data->getNom())."%'";
         }
@@ -82,12 +82,9 @@ class DossierRepository extends ServiceEntityRepository
 
         $sqlWhere = [];
         if ($data) {
-            $this->checkDataSearch($data);
-            if (count($sqlWhere)> 0) {
-                $sql .= ' WHERE '. implode(' AND ', $sqlWhere);
-            }
+            $sqlWhere = $this->checkDataSearch($data, $sqlWhere);
         }
-        $sqlWhere = $this->checkConditionProfile($user);
+        $sqlWhere = $this->checkConditionProfile($user, $sqlWhere);
         if (count($sqlWhere)> 0) {
             $sql .= ' WHERE '. implode(' AND ', $sqlWhere);
         }
