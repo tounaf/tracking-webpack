@@ -215,8 +215,8 @@ class DossierController extends Controller
                 $dataInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle' => $libelleSelected));
                 $objPjDossier->setInformationPj($dataInfoPj);
                 if ($file instanceof UploadedFile) {
-                    $filename = $this->get('uploaderfichier')->upload($file);
-                    $objPjDossier->setFilename($filename);
+                    $this->get('uploaderfichier')->upload($file);
+                    $objPjDossier->setFilename($file->getClientOriginalName());
                 }
                 $objPjDossier->setDossier($dossier);
                 $this->savePersistObj($em, $objPjDossier);
@@ -269,8 +269,8 @@ class DossierController extends Controller
                     $dataInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle' => $libelleSelected));
                     $objPjDossier->setInformationPj($dataInfoPj);
                     if ($file instanceof UploadedFile) {
-                        $filename = $this->get('uploaderfichier')->upload($file);
-                        $objPjDossier->setFilename($filename);
+                         $this->get('uploaderfichier')->upload($file);
+                        $objPjDossier->setFilename($file->getClientOriginalName());
                     }
                     $objPjDossier->setDossier($dossier);
                     $this->savePersistObj($em, $objPjDossier);

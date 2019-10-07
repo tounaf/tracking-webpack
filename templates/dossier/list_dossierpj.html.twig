@@ -20,7 +20,7 @@
                         <td>{{ pj.createdAt|date('d/m/Y') }}</td>
                         <td>{{ pj.InformationPj.libelle}}</td>
                         {% if pj.fileName is not null %}
-                        <td><a href="{{   path('download_dossier',{'id':pj.id })}}">Download fichier: {{ pj.fileName }}</a> </td>
+                        <td><a href="{{   path('download_dossier',{'id':pj.id })}}"> {{ pj.fileName }}</a> </td>
                         {% else %}
                             <td>Pas de fichier joints </td>
                         {%  endif %}

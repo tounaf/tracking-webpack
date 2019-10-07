@@ -19,8 +19,7 @@ class FileUploader{
         $ext = pathinfo($fileName, PATHINFO_EXTENSION);
         $fileName = sha1(uniqid()).'.'.$ext;
         try{
-            $file->move($this->getTargetDirectory(), $fileName);
-            return $fileName;
+             return $file->move($this->getTargetDirectory(), $fileName);
         }
         catch (FileException $e){
             return new \Symfony\Flex\Response('Upload failed !');

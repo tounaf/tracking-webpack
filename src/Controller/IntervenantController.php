@@ -145,7 +145,9 @@ class IntervenantController extends Controller
             ))->handleRequest($request);
             if ($form->isSubmitted()) {
                 try {
-                    $this->get('uploaderfichier')->deleteFile($this->get('uploaderfichier')->getTargetDirectory(),$oPjintervenant->getFilename());
+                    if($oPjintervenant){
+                        $this->get('uploaderfichier')->deleteFile($this->get('uploaderfichier')->getTargetDirectory(),$oPjintervenant->getFilename());
+                    }
                     $em->remove($oPjintervenant);
                     $em->remove($intervenant);
                     $em->flush();
@@ -202,8 +204,8 @@ class IntervenantController extends Controller
             $libelleSelected = $entityObjSelected->getLibelle() ?? '';
             $file = $form['File']->getData() ?? '';
             if ($file instanceof UploadedFile){
-                $filename = $this->get('uploaderfichier')->upload($file);
-                $pjIntervenant->setFilename($filename);
+                $this->get('uploaderfichier')->upload($file);
+                $pjIntervenant->setFilename($file->getClientOriginalName());
 
             }
             $oInfoPj = $entityManager->getRepository(InformationPj::class)->findOneBy(array('libelle'=>$libelleSelected));
@@ -259,8 +261,8 @@ class IntervenantController extends Controller
             {
                 $files = $form['File']->getData() ?? '';
                     if($files instanceof UploadedFile){
-                        $filename = $this->get('uploaderfichier')->upload($files);
-                        $oPjintervenant->setFilename($filename);
+                        $this->get('uploaderfichier')->upload($files);
+                        $oPjintervenant->setFilename($files->getClientOriginalName());
                     }
                 try{
                     $em->persist($oPjintervenant);

@@ -224,8 +224,8 @@ class AuxiliairesController extends Controller
                 $oPjauxiliaires->setAuxiliaire($auxiliaires);
             }
             if($file instanceof UploadedFile){
-                $filename = $this->get('uploaderfichier')->upload($file);
-                $oPjauxiliaires->setFilename($filename);
+              $this->get('uploaderfichier')->upload($file);
+              $oPjauxiliaires->setFilename($file->getClientOriginalName());
             }
 
             try {
@@ -273,8 +273,8 @@ class AuxiliairesController extends Controller
             if ($form->isSubmitted() && $form->isValid()) {
                 $files = $form['FileAux']->getData() ?? '';
                 if($files instanceof UploadedFile){
-                    $filename = $this->get('uploaderfichier')->upload($files);
-                    $oPjAuxiliaires->setFilename($filename);
+                    $this->get('uploaderfichier')->upload($files);
+                    $oPjAuxiliaires->setFilename($files->getClientOriginalName());
                 }
                 try {
                     $em->persist($oPjAuxiliaires);
