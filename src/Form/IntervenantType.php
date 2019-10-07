@@ -29,18 +29,18 @@ class IntervenantType extends AbstractType
         $builder
             ->add('convenu',null, array(
                 'label' => $this->trans->trans('label.convenu'),
-                'required'=>true,
+                'required'=>false,
                 'attr' => array('maxlength' => 15,),
             ))
             ->add('payer',null, array(
                 'label' => $this->trans->trans('label.payer'),
-                'required'=>true,
+                'required'=>false,
                 'attr' => array('maxlength' => 15,),
 
             ))
             ->add('restePayer',null, array(
                 'label' => $this->trans->trans('label.restePayer'),
-                'required'=>true,
+                'required'=>false,
                 'attr' => array('maxlength' => 15,),
 
             ))
@@ -70,20 +70,22 @@ class IntervenantType extends AbstractType
                     return $repository->getDevise();
                 }))
             ->add('prestation',EntityType::class, array(
+                'placeholder' =>  $this->trans->trans('label.veuillezS'),
                 'label' => $this->trans->trans('label.typePrestation'),
                 'class' => TypePrestation::class,
+                'required'=>false,
                 'choice_label' => 'libelle'))
             ->add('nomPrenom',null,[
-                'label' => 'NOM & PRENOM :',
+                'label' => 'NOM & PRENOM ',
                 ])
             ->add('adresse')
             ->add('telephone', null, array(
                 'required' => true,
                 'attr' => array('maxlength' => 10, 'minlength' => 7),
-                'label' => $this->trans->trans('label.tel')
+                'label' => $this->trans->trans('TELEPHONE')
             ))
             ->add('email', EmailType::class, array(
-                'label' => $this->trans->trans('label.email'),
+                'label' => $this->trans->trans('EMAIL'),
                 'required' => true
             ))
             ->add('prefixPhone', null, array(
@@ -92,6 +94,8 @@ class IntervenantType extends AbstractType
             ))
             ->add('piecesJointes', EntityType::class, array(
                 'class' => InformationPj::class,
+                'placeholder' =>  $this->trans->trans('label.veuillezS'),
+                'required'=>false,
                 'choice_label' => 'libelle',
 //                'data_class' =>
                 'mapped' => false

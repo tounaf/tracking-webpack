@@ -29,18 +29,18 @@ class AuxiliairesType extends AbstractType
         $builder
             ->add('convenu',null, array(
                 'label' => $this->trans->trans('label.convenu'),
-                'required'=>true,
+                'required'=>false,
                 'attr' => array('maxlength' => 15,),
             ))
             ->add('payer',null, array(
                 'label' => $this->trans->trans('label.payer'),
-                'required'=>true,
+                'required'=>false,
                 'attr' => array('maxlength' => 15,),
 
             ))
             ->add('restePayer',null, array(
                 'label' => $this->trans->trans('label.restePayer'),
-                'required'=>true,
+                'required'=>false,
                 'attr' => array('maxlength' => 15,),
             ))
             ->add('statutIntervenant')
@@ -48,16 +48,16 @@ class AuxiliairesType extends AbstractType
 
 
             ->add('nomPrenom',null,[
-                'label' => 'NOM & PRENOM :',
+                'label' => 'NOM & PRENOM',
             ])
             ->add('adresse')
             ->add('telephone', null, array(
                 'required' => true,
                 'attr' => array('maxlength' => 10, 'minlength' => 7),
-                'label' => $this->trans->trans('label.tel')
+                'label' => $this->trans->trans('TELEPHONE')
             ))
             ->add('email', EmailType::class, array(
-                'label' => $this->trans->trans('label.email'),
+                'label' => $this->trans->trans('EMAIL'),
                 'required' => true
             ))
             ->add('deviseAuxiConv', EntityType::class, array(
@@ -86,12 +86,14 @@ class AuxiliairesType extends AbstractType
                 }))
             ->add('piecesJointesAux', EntityType::class, array(
                 'class' => InformationPj::class,
+                'placeholder' =>  $this->trans->trans('label.veuillezS'),
+                'required'=>false,
                 'choice_label' => 'libelle',
 //                'data_class' =>
                 'mapped' => false
             ))
             ->add('FileAux', FileType::class,[
-                'label' => 'insérer pièces jointes',
+                'label' => 'insï¿½rer piï¿½ces jointes',
                /* 'attr' => ['class' => 'file'],*/
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
@@ -103,6 +105,7 @@ class AuxiliairesType extends AbstractType
             ])
 
             ->add('prestation',EntityType::class, array(
+                'placeholder' =>  $this->trans->trans('label.veuillezS'),
                 'label' => $this->trans->trans('label.titre.typePrestation'),
                 'class' => TypePrestation::class,
                 'choice_label' => 'libelle'))

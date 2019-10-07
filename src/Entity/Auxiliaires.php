@@ -53,17 +53,17 @@ class Auxiliaires
     private $prestation;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $convenu;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $payer;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $restePayer;
 
