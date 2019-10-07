@@ -41,32 +41,22 @@ class SocieteRepository extends ServiceEntityRepository
         $query->setParameter('id',$user->getSociete()->getId());
         return $query;
     }
-    // /**
-    //  * @return Societe[] Returns an array of Societe objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Societe
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+    /**
+     * @param null $userC
+     * @return \Doctrine\ORM\QueryBuilder
+     * getSociete
+     */
+    public function getSocietecharge($userC = null){
+        $societeId = $userC->getSociete()?$userC->getSociete()->getId():'';
+        $userId = $userC->getId();
+        $query = $this->createQueryBuilder('u');
+        $query->andWhere('u.enable = true')
+//            ->andWhere('u.id = :id')
+            ->andWhere('u.id = :soc')
+//            ->setParameter('uid', $userId)
+//            ->setParameter('id', $userId)
+            ->setParameter('soc', $societeId);
+        return $query;
     }
-    */
 }

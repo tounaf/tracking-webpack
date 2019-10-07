@@ -763,6 +763,10 @@
                 <source>column.pJ</source>
                 <target>Pièces jointes</target>
             </trans-unit>
+            <trans-unit id="165">
+                <source>label.veuillezS</source>
+                <target>Veuillez sélectionner</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

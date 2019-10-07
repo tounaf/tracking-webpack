@@ -190,7 +190,10 @@ class DossierController extends Controller
     public function createDossier(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dossier = new Dossier();
+        $currentUser = $this->getUser();
+        $curr = $this->getUser()->getSociete();
+        $dossier = new Dossier($currentUser,$curr);
+        $PjDossier = new PjDossier();
         $form = $this->createForm(DossierType::class, $dossier, array(
             'action' => $this->generateUrl('create_dossier')
         ))->handleRequest($request);
