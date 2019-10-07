@@ -91,7 +91,8 @@ class DossierType extends AbstractType
 
             //resume fait
             ->add('resumeFait', TextareaType::class, array(
-                'label' => $this->trans->trans('label.resume.fait')
+                'label' => $this->trans->trans('label.resume.fait'),
+                'required' => false,
             ))
 
             //litige
@@ -118,18 +119,28 @@ class DossierType extends AbstractType
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),
                 'required'=>true,
             ])
-            ->add('sensLitige', null, array(
-                'label' => $this->trans->trans('label.sens.litige')
+            ->add('sensLitige', ChoiceType::class, array(
+                'label' => $this->trans->trans('label.sens.litige'),
+                'placeholder' =>  $this->trans->trans('label.veuillezS'),
+                'required'=> false,
+                'choices' => [
+                    'Positif' => 'Positif',
+                    'Négatif' => 'Négatif'
+                ]
             ))
             ->add('montant', null, array(
                 'label' => $this->trans->trans('label.montant')
             ))
-            ->add('devise', EntityType::class, array(
-                'class' => Devise::class,
-                'label' => $this->trans->trans('label.devise'),
-                'choice_label' => 'code'
-            ))
+            ->add('devise', EntityType::class, [
+                'class' => 'App\Entity\Devise',
+                'label' =>  $this->trans->trans('label.devise'),
+                // 'choice_label' => 'ch',
+                'required' => true,
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->getDevise();}
+            ])
             ->add('etapeSuivante', EntityType::class, array(
+                'placeholder' =>  $this->trans->trans('label.veuillezS'),
                 'class' => EtapeSuivante::class,
                 'choice_label' => 'libelle'
             ))
