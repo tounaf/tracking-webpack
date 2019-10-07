@@ -30,18 +30,18 @@ class IntervenantType extends AbstractType
             ->add('convenu',null, array(
                 'label' => $this->trans->trans('label.convenu'),
                 'required'=>false,
-                'attr' => array('maxlength' => 15,),
+                'attr' => array('maxlength' => 15,'class'=>'money'),
             ))
             ->add('payer',null, array(
                 'label' => $this->trans->trans('label.payer'),
                 'required'=>false,
-                'attr' => array('maxlength' => 15,),
+                'attr' => array('maxlength' => 15,'class'=>'money'),
 
             ))
             ->add('restePayer',null, array(
                 'label' => $this->trans->trans('label.restePayer'),
                 'required'=>false,
-                'attr' => array('maxlength' => 15,),
+                'attr' => array('maxlength' => 15,'class'=>'money'),
 
             ))
             ->add('statutIntervenant')

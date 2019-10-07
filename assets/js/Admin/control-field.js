@@ -62,8 +62,22 @@ $('body').on('blur','#fos_user_phoneNumber, .phoneNumber',function () {
         $(this).removeClass('error-input invalid');
         $("#phoneFormatInvalid").remove();
     }
+})/**
+ * control Money
+ */
+$('body').on('keyup','.money',function () {
+    var money = $(this).val();
+    if (!Fonction.ismoneyValid(money)) {
+        $("#phoneFormatInvalid").remove();
+        $(this).addClass('error-input invalid');
+        $(this).parent().append("<small id='phoneFormatInvalid' class='form-text error-text'>Veuillez saisir un nombre</small>");
+        $('#saveCreateUser').attr('disabled','disabled');
+    } else {
+        $(this).removeClass('error-input invalid');
+        $("#phoneFormatInvalid").remove();
+        $('#saveCreateUser').attr('disabled',false);
+    }
 })
-
 $(document).on('keyup','#fos_user_prefixPhone, .prefixPhoneNumber', function () {
     var phonePrefix = $(this).val();
     if (!Fonction.prefixPhoneNumber(phonePrefix)) {

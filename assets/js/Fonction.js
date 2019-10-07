@@ -42,4 +42,8 @@ export default class Fonction {
         var regex = /^[1-9][0-9]/;
         return regex.test(str);
     }
+    static ismoneyValid(str) {
+        var regex = /^[0-9]/;
+        return regex.test(str);
+    }
 }
