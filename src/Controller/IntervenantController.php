@@ -207,11 +207,6 @@ class IntervenantController extends Controller
 
             }
             $oInfoPj = $entityManager->getRepository(InformationPj::class)->findOneBy(array('libelle'=>$libelleSelected));
-            if ($file instanceof UploadedFile){
-                $this->get('uploaderfichier')->upload($file);
-                $pjIntervenant->setFilename($file->getClientOriginalName());
-
-            }
             $pjIntervenant->setInformationPj($oInfoPj);
             $pjIntervenant->setIntervenant($intervenant);
             $pjIntervenant->setDossier($dossier);
