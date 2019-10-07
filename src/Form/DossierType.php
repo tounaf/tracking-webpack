@@ -124,11 +124,14 @@ class DossierType extends AbstractType
             ->add('montant', null, array(
                 'label' => $this->trans->trans('label.montant')
             ))
-            ->add('devise', EntityType::class, array(
-                'class' => Devise::class,
-                'label' => $this->trans->trans('label.devise'),
-                'choice_label' => 'code'
-            ))
+            ->add('devise', EntityType::class, [
+                'class' => 'App\Entity\Devise',
+                'label' =>  $this->trans->trans('label.devise'),
+                // 'choice_label' => 'ch',
+                'required' => true,
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->getDevise();}
+            ])
             ->add('etapeSuivante', EntityType::class, array(
                 'class' => EtapeSuivante::class,
                 'choice_label' => 'libelle'
