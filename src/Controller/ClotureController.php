@@ -83,9 +83,16 @@ class ClotureController extends Controller
               $entityManager = $this->getDoctrine()->getManager();
               $cloture->setDateCloture($date);
               $cloture->setDossier($dossier);
-              $entityManager->persist($dossier);
-              $entityManager->flush();
-              $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
+              if (!$dossierExist){
+                  $entityManager->persist($cloture);
+                  $entityManager->flush();
+                  $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
+              }
+              else{
+                  $entityManager->flush();
+                  $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success'));
+              }
+
               $this->session->set('idCloture',$cloture->getId());
           } catch (Exception $exception){
               $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.create.error'));
@@ -98,72 +105,6 @@ class ClotureController extends Controller
             'formPj' => $formCloture->createView()
         ]);
     }
-
-    /**
-     * @param Request $request
-     * @param Cloture $cloture
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("/pj-cloture-edit/{id}/edit", name="pj_cloture_edit")
-     */
-    public function editAction(Request $request, cloture $cloture)
-    {
-        // Set up required variables
-        $this->initialise();
-
-        // Build the form
-        $form = $this->get('form.factory')->create(ClotureType::class, $cloture);
-
-        if ($request->isMethod('POST'))
-        {
-            $form->handleRequest($request);
-            // Check form data is valid
-            if ($form->isValid())
-            {
-                // Save data to database
-                $this->entityManager->persist($cloture);
-                $this->entityManager->flush();
-
-                // Inform user
-                $flashBag = $this->translator->trans('folder_edit_success', array(), 'flash');
-                $request->getSession()->getFlashBag()->add('notice', $flashBag);
-
-                // Redirect to view page
-                return $this->redirectToRoute('pj_cloture_view', array(
-                    'id'	=>	$cloture->getId(),
-                ));
-            }
-        }
-        // If we are here it means that either
-        //	- request is GET (user has just landed on the page and has not filled the form)
-        //	- request is POST (form has invalid data)
-
-        return $this->render(
-            'pj_cloture/edit.html.twig',
-            array (
-                'form'		=>	$form->createView(),
-                'cloture'	=>	$cloture
-            )
-        );
-    }
-
-    /**
-     * @param Request $request
-     * @param Cloture $cloture
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/pj-cloture/{id}/view", name="pj_cloture_view")
-     */
-    public function viewAction(Request $request, Cloture $cloture)
-    {
-        // Set up required variables
-        $this->initialise();
-        return $this->render(
-            'pj_cloture/view.html.twig',
-            array (
-                'cloture'	=>	$cloture,
-            )
-        );
-    }
-
     /**
      * @Route("/file/render", name="upload_file_render", options={"expose"=true}, methods={"POST"})
      * @Route("/file/upload", name="upload_file", options={"expose"=true}, methods={"POST"})

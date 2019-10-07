@@ -105,9 +105,8 @@
             {{ form_end(formCloture,{'render_rest': false}) }}
             {% if cloture is defined and cloture.id is not null %}
                 {% include 'cloture/pjform.html.twig' with {'cloture': cloture, 'formPj': formPj}%}
-            {% endif %}
             {% include 'cloture/list_pj.html.twig' %}
-
+            {% endif %}
         </div>
         {#{% endif %}#}
         {#{{ form_end(formCloture,{'render_rest': false}) }}#}
