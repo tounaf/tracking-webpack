@@ -104,12 +104,14 @@
 
             {{ form_end(formCloture,{'render_rest': false}) }}
             {% if cloture is defined and cloture.id is not null %}
+                <input type="text" value="{{ cloture.id }}" id="idcloture" hidden>
                 {% include 'cloture/pjform.html.twig' with {'cloture': cloture, 'formPj': formPj}%}
-            {% include 'cloture/list_pj.html.twig' %}
+            {% include 'cloture/list_pj.html.twig' with {'data-idCloture': cloture.id,} %}
             {% endif %}
         </div>
         {#{% endif %}#}
         {#{{ form_end(formCloture,{'render_rest': false}) }}#}
+        <br>
         <div class="btns-group text-right">
             <button type="submit" id="button-cloture-form" class="btn btn-danger">{{ 'label.save'|trans }}</button>
         </div>

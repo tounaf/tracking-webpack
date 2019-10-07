@@ -93,7 +93,7 @@ class ClotureController extends Controller
                   $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success'));
               }
 
-              $this->session->set('idCloture',$cloture->getId());
+/*              $this->session->set('idCloture',$cloture->getId());*/
           } catch (Exception $exception){
               $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.create.error'));
           }
@@ -136,13 +136,14 @@ class ClotureController extends Controller
 
     /**
      *
-     * @Route("/list-pj", name="liste_pj_cloture",  options={"expose"=true})
+     * @Route("/list-pj/{id}", name="liste_pj_cloture",  options={"expose"=true})
      * @param Request $request
      * @return JsonResponse
      * @throws
      */
     public function ajaxlistPj(Request $request)
     {
+        $idCloture = $request->get('id');
         $response = new JsonResponse();
         $draw = $request->get('draw');
         $length = $request->get('length');
@@ -161,7 +162,6 @@ class ClotureController extends Controller
             'orderBy' => $orderBy,
             'order' => $order,
         );
-        $idCloture = !is_null($this->session->get('idCloture'))?$this->session->get('idCloture'):0;
         $listIntervenant = $this->getDoctrine()->getRepository(PjCloture::class)->listPjCloture($extraParams, $idCloture, false);
         $nbrRecords = $this->getDoctrine()->getRepository(PjCloture::class)->listPjCloture($extraParams, $idCloture, true);
         $response->setData(array(

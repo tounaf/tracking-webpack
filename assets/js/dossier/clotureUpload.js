@@ -110,6 +110,8 @@ $(document).ready(function(){
         $("#cloture-form").submit();
     })
 
+   // var idd = $(this).data('idcloture');
+    var idcloture = $('#idcloture').val();
     /**
      * list pj cloture
      */
@@ -119,7 +121,7 @@ $(document).ready(function(){
         "searching": false,
         "paging": true,
         "ajax": {
-            "url": Routing.generate('liste_pj_cloture'),
+            "url": Routing.generate('liste_pj_cloture',{'id':idcloture}),
             "type": "POST"
         },
         "sAjaxDataProp": "data",
