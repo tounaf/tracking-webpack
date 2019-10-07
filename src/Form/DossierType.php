@@ -91,7 +91,8 @@ class DossierType extends AbstractType
 
             //resume fait
             ->add('resumeFait', TextareaType::class, array(
-                'label' => $this->trans->trans('label.resume.fait')
+                'label' => $this->trans->trans('label.resume.fait'),
+                'required' => false,
             ))
 
             //litige
