@@ -121,7 +121,7 @@
                         {{ include('dossier/sub_dossier/sub_dossier_list.html.twig') }}
                     </div>
                 </div>
-
+            {% if dossier is defined and dossier.id is not null %}
                 <div class="card card-custom-2">
                     <div class="card-body">
                         <div class="row">
@@ -144,10 +144,11 @@
                 </div>
 
             {% include 'dossier/list_dossierpj.html.twig' %}
+            {% endif %}
                 <div class="btns-group text-right">
                     <button type="submit" class="btn btn-danger">Enregistrer</button>
                 </div>
             </div>
-            {{ form_end(form) }}
+            {{ form_end(form,{'render_rest': false}) }}
         </div>
     </div>

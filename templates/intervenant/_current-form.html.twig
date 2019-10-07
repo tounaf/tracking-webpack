@@ -62,13 +62,13 @@
                                 {{ form_row(form_intervenant.devisePayerInt) }}
                             </div>
                             <div class="col-xl-4">
-                                {{ form_row(form_intervenant.restePayer) }}
+                                {{ form_row(form_intervenant.restePayer,{'attr': {'class': 'currentReste'}}) }}
                             </div>
                             <div class="col-xl-2">
                                 {{ form_row(form_intervenant.deviseResteInt) }}
                             </div>
-                            <div class="col-xl-2">
-                                {{ form_row(form_intervenant.statutIntervenant) }}
+                            <div class="col-xl-2" hidden>
+                                {{ form_row(form_intervenant.statutIntervenant,{'attr': {'class': 'intervenantStatutCurr'}}) }}
                             </div>
                         </div>
                     </div>

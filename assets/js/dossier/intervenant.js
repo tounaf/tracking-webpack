@@ -145,7 +145,6 @@ function removeClassStartingWith(node, begin) {
         return (className.match ( new RegExp("\\b"+begin+"\\S+", "g") ) || []).join(' ');
     });
 }
-
 /**
  * get form on create
  */
@@ -180,6 +179,18 @@ $(' body #modalIntervenant').on('blur keyup mouseout', '#intervenant_restePayer'
         $(".intervenantStatut").val("Autres");
     }
 });
+$(' body').on('blur keyup mouseout', '.currentReste', function(event){
+    event.preventDefault();
+    var convenu = $("body .currentReste").val();
+    if (convenu != 0){
+        $(".intervenantStatutCurr").val("A Payer");
+    } else if (convenu == 0){
+        $(".intervenantStatutCurr").val("Soldé");
+    }
+    else{
+        $(".intervenantStatutCurr").val("Autres");
+    }
+});
 
 /**
  *  after change on select devise, displaying devise on another devise
@@ -193,18 +204,6 @@ $('body').on('change', '#intervenant_deviseConvInt', function(e){
         $( "#devise2" ).val( str );
         $( "#devise1" ).val( str );
     }).trigger("change");
-
-//after loading modal, chargement du devise selon le type par defaut
-/*$("#modalIntervenant").on('shown.bs.modal', function(){
-    var str = "";
-    $( "#intervenant_devise option:selected" ).each(function() {
-        str += $( this ).text() + " ";
-    });
-    $( "#indevise2" ).val( str );
-    $( "#devise1" ).val( str );
-});*/
-
-
 /**
  * get form edit
  */
