@@ -28,7 +28,6 @@ $(document).ready(function () {
             {"data": "convenu",},
             {"data": "payer",},
             {"data": "reste_payer",},
-            {"data": "devise",},
             {"data": "filename",
                 "render": function (data, type, row) {
                     if(data != null){
