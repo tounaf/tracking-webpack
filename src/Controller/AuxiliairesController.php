@@ -215,17 +215,29 @@ class AuxiliairesController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form['FileAux']->getData() ?? '';
             $entityObjSelected = $form->get('piecesJointesAux')->getData();
-            $libelleSelected = $entityObjSelected->getLibelle() ?? '';
-            $oPjauxiliaires = new PjAuxiliaires();
-            if($libelleSelected){
-                $oInfopj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle' => $libelleSelected));
-                $oPjauxiliaires->setInformationPj($oInfopj);
-                $oPjauxiliaires->setDossier($dossier);
-                $oPjauxiliaires->setAuxiliaire($auxiliaires);
-            }
-            if($file instanceof UploadedFile){
-                $filename = $this->get('uploaderfichier')->upload($file);
-                $oPjauxiliaires->setFilename($filename);
+            if($entityObjSelected != null)
+            {
+                $libelleSelected = $entityObjSelected->getLibelle() ?? '';
+                $oPjauxiliaires = new PjAuxiliaires();
+                if($libelleSelected){
+                    $oInfopj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle' => $libelleSelected));
+                    $oPjauxiliaires->setInformationPj($oInfopj);
+                    $oPjauxiliaires->setDossier($dossier);
+                    $oPjauxiliaires->setAuxiliaire($auxiliaires);
+                }
+                if($file instanceof UploadedFile){
+                    if($this->get('uploaderfichier')->checkfileUpload($file->getClientOriginalName()))
+                    {
+                        $filename = $this->get('uploaderfichier')->upload($file);
+                        $oPjauxiliaires->setFilename($filename);
+                    }
+                    else
+                    {
+                        $this->get('uploaderfichier')->upload($file);
+                        $oPjauxiliaires->setFilename($file->getClientOriginalName());
+                    }
+                }
+                $em->persist($oPjauxiliaires);
             }
 
             try {
@@ -264,6 +276,13 @@ class AuxiliairesController extends Controller
         $id = $request->get('id');
         $em = $this->getDoctrine()->getManager();
         $oPjAuxiliaires = $em->getRepository(PjAuxiliaires::class)->findOneBy(array('auxiliaire'=>$id));
+
+        if($oPjAuxiliaires == null){
+            $oPjAuxiliaires = new PjAuxiliaires();
+            $oPjAuxiliaires->setAuxiliaire($auxiliaires);
+            $oPjAuxiliaires->setDossier($auxiliaires->getDossier());
+
+        }
         $response = new JsonResponse();
         if ($auxiliaires) {
             $form = $this->createForm(AuxiliairesType::class, $auxiliaires, [
@@ -272,12 +291,29 @@ class AuxiliairesController extends Controller
             ])->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $files = $form['FileAux']->getData() ?? '';
+                $entityObjSelected = $form->get('piecesJointesAux')->getData();
+                if($entityObjSelected != null)
+                {
+                    $libelleSelected = $entityObjSelected->getLibelle() ?? '';
+                    $oInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle'=>$libelleSelected));
+                    $oPjAuxiliaires->setInformationPj($oInfoPj);
+                }
+
                 if($files instanceof UploadedFile){
-                    $filename = $this->get('uploaderfichier')->upload($files);
-                    $oPjAuxiliaires->setFilename($filename);
+                    if($this->get('uploaderfichier')->checkfileUpload($files->getClientOriginalName()))
+                    {
+                        $filename = $this->get('uploaderfichier')->upload($files);
+                        $oPjAuxiliaires->setFilename($filename);
+                    }
+                    else
+                        {
+                            $this->get('uploaderfichier')->upload($files);
+                            $oPjAuxiliaires->setFilename($files->getClientOriginalName());
+                        }
                 }
                 try {
                     $em->persist($oPjAuxiliaires);
+                    $em->persist($auxiliaires);
                     $em->flush();
                     $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success'));
                 } catch (\Exception $exception) {

@@ -79,7 +79,7 @@ class IntervenantController extends Controller
         if($oPjIntervenant){
             return $this->get('uploaderfichier')->downFilePjIntervenant($oPjIntervenant->getFilename());
         }else{
-            $oPjauxiliaires = $em->getRepository(PjAuxiliaires::class)->find($id);
+            $oPjauxiliaires = $em->getRepository(PjAuxiliaires::class)->findOneBy(array('auxiliaire'=>$id));
             return $this->get('uploaderfichier')->downFilePjIntervenant($oPjauxiliaires->getFilename());
         }
 
@@ -145,7 +145,9 @@ class IntervenantController extends Controller
             ))->handleRequest($request);
             if ($form->isSubmitted()) {
                 try {
-                    $this->get('uploaderfichier')->deleteFile($this->get('uploaderfichier')->getTargetDirectory(),$oPjintervenant->getFilename());
+                    if($oPjintervenant){
+                        $this->get('uploaderfichier')->deleteFile($this->get('uploaderfichier')->getTargetDirectory(),$oPjintervenant->getFilename());
+                    }
                     $em->remove($oPjintervenant);
                     $em->remove($intervenant);
                     $em->flush();
@@ -199,22 +201,29 @@ class IntervenantController extends Controller
             $entityManager = $this->getDoctrine()->getManager();
             $intervenant->setDossier($dossier);
             $entityObjSelected = $form->get('piecesJointes')->getData();
-            $libelleSelected = $entityObjSelected->getLibelle() ?? '';
-            $file = $form['File']->getData() ?? '';
-            if ($file instanceof UploadedFile){
-                $filename = $this->get('uploaderfichier')->upload($file);
-                $pjIntervenant->setFilename($filename);
 
+            $file = $form['File']->getData() ?? '';
+            if($entityObjSelected != null)
+            {
+                $libelleSelected = $entityObjSelected->getLibelle() ?? '';
+
+            if ($file instanceof UploadedFile){
+                if($this->get('uploaderfichier')->checkfileUpload($file->getClientOriginalName()))
+                {
+                    $filename = $this->get('uploaderfichier')->upload($file);
+                    $pjIntervenant->setFilename($filename);
+                }
+                else {
+                        $this->get('uploaderfichier')->upload($file);
+                        $pjIntervenant->setFilename($file->getClientOriginalName());
+                    }
             }
             $oInfoPj = $entityManager->getRepository(InformationPj::class)->findOneBy(array('libelle'=>$libelleSelected));
-            if ($file instanceof UploadedFile){
-                $this->get('uploaderfichier')->upload($file);
-                $pjIntervenant->setFilename($file->getClientOriginalName());
-
-            }
             $pjIntervenant->setInformationPj($oInfoPj);
             $pjIntervenant->setIntervenant($intervenant);
             $pjIntervenant->setDossier($dossier);
+            $entityManager->persist($pjIntervenant);
+            }
             try{
                 $entityManager->persist($pjIntervenant);
                 $entityManager->persist($intervenant);
@@ -253,6 +262,11 @@ class IntervenantController extends Controller
         $id = $request->get('id');
         $em = $this->getDoctrine()->getManager();
         $oPjintervenant = $em->getRepository(PjIntervenant::class)->findOneBy(array('intervenant'=>$id));
+
+        if($oPjintervenant == null){
+            $oPjintervenant = new PjIntervenant();
+            $oPjintervenant->setIntervenant($intervenant);
+        }
         $response = new JsonResponse();
         if ($intervenant) {
             $form = $this->createForm(IntervenantType::class, $intervenant, [
@@ -264,8 +278,15 @@ class IntervenantController extends Controller
             {
                 $files = $form['File']->getData() ?? '';
                     if($files instanceof UploadedFile){
-                        $filename = $this->get('uploaderfichier')->upload($files);
-                        $oPjintervenant->setFilename($filename);
+                        if($this->get('uploaderfichier')->checkfileUpload($files->getClientOriginalName()))
+                        {
+                            $filename = $this->get('uploaderfichier')->upload($files);
+                            $oPjintervenant->setFilename($filename);
+                        }else
+                            {
+                                $this->get('uploaderfichier')->upload($files);
+                                $oPjintervenant->setFilename($files->getClientOriginalName());
+                            }
                     }
                 try{
                     $em->persist($oPjintervenant);

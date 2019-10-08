@@ -28,7 +28,7 @@ $(document).ready(function () {
                 "data": "filename",
                 "render": function (data, type, row) {
                     if(data != null){
-                        var data = '<a href="'+Routing.generate('download_pjauxiliaire',{'id':row.id }) +'"> fichier: '+row.filename+'</a>';
+                        var data = '<a href="'+Routing.generate('download_pjauxiliaire',{'id':row.id }) +'">'+row.filename+'</a>';
                     }
                     else{
                         var data = 'pas de fichier joint';

@@ -33,7 +33,7 @@ class AuxiliairesRepository extends ServiceEntityRepository
         parent::__construct($registry, Auxiliaires::class);
     }
 
-    public function getListAuxiliairesActuel($extraParams, $idDossier, $count = false)
+    public function getListAuxiliairesActuel($extraParams, int $idDossier, $count = false)
     {
         $sql = $count ? ' SELECT COUNT(aux.`id`) AS record ' : 'SELECT 
                     aux.`id`,
@@ -80,7 +80,7 @@ class AuxiliairesRepository extends ServiceEntityRepository
     }
 
 
-    public function getListAuxiliaires($extraParams, $idDossier, $count = false)
+    public function getListAuxiliaires($extraParams, int $idDossier, $count = false)
     {
         $sql = $count ? ' SELECT COUNT(aux.`id`) AS record ' : 'SELECT 
                     aux.`id`,
