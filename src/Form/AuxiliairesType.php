@@ -85,7 +85,7 @@ class AuxiliairesType extends AbstractType
                     return $repository->getDevise();
                 }))
             ->add('piecesJointesAux', EntityType::class, array(
-                'placeholder' =>'Veuillez s�lectionner',
+                'placeholder' =>'Veuillez sélectionner',
                 'required' => false ,
                 'class' => InformationPj::class,
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),
@@ -95,7 +95,7 @@ class AuxiliairesType extends AbstractType
                 'mapped' => false
             ))
             ->add('FileAux', FileType::class,[
-                'label' => 'ins�rer pi�ces jointes',
+                'label' => 'insérer pièces jointes',
                /* 'attr' => ['class' => 'file'],*/
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
