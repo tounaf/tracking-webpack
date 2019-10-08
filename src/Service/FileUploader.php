@@ -17,8 +17,6 @@ class FileUploader{
     public function upload(UploadedFile $file)
     {
         $fileName = $file->getClientOriginalName();
-        $ext = pathinfo($fileName, PATHINFO_EXTENSION);
-        $fileName = sha1(uniqid()).'.'.$ext;
         try{
             if($this->checkfileUpload($fileName)){
                 $file->move($this->getTargetDirectory(), $this->renamefileUpload($fileName));

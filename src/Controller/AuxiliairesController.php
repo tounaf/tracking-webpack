@@ -241,7 +241,6 @@ class AuxiliairesController extends Controller
             }
 
             try {
-                $em->persist($oPjauxiliaires);
                 $em->persist($auxiliaires);
                 $em->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
