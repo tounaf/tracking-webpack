@@ -225,7 +225,7 @@ class IntervenantController extends Controller
             $entityManager->persist($pjIntervenant);
             }
             try{
-                $entityManager->persist($pjIntervenant);
+
                 $entityManager->persist($intervenant);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
