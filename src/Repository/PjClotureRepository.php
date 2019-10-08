@@ -31,7 +31,7 @@ class PjClotureRepository extends ServiceEntityRepository
         parent::__construct($registry, PjCloture::class);
     }
 
-    public function listPjCloture($extraParams, $id, $count = false)
+    public function listPjCloture($extraParams, int $id, $count = false)
     {
 
         $sql =$count?' SELECT COUNT(pc.`id`) AS record ' : 'SELECT 
