@@ -90,7 +90,6 @@ class DossierRepository extends ServiceEntityRepository
         }
         if (!$count) {
             if (isset($this->column[$extraParams['orderBy']]) && isset($extraParams['order'])) {
-
                 $sql .= ' ORDER BY '.$this->column[$extraParams['orderBy']] .' '. $extraParams['order'];
             }
             if (isset($extraParams['start']) && isset($extraParams['length'])) {
@@ -104,64 +103,12 @@ class DossierRepository extends ServiceEntityRepository
         return $result;
 
     }
-//listing dossier with Pj
-    public function getAllDossier(){
-        $sql = "SELECT  D.id, D.`date_litige`,infoPj.`libelle`,infoPj.`filename` FROM dossier AS D LEFT JOIN dossier_information_pj AS di ON D.id = di.`dossier_id`
-                LEFT JOIN information_pj AS infoPj ON infoPj.`id` = di.`information_pj_id`";
-        $qb = $this->getEntityManager()->getConnection()->prepare($sql);
-        $qb->execute();
-        $result = $qb->fetchAll();
-        return $result;
-    }
-
-    public function getDossierById($id){
-        /*$sql = "SELECT  * FROM dossier AS D LEFT JOIN dossier_information_pj AS di ON D.id = di.`dossier_id`
-                LEFT JOIN information_pj AS infoPj ON infoPj.`id` = di.`information_pj_id`
-                WHERE D.`id` =".$id;*/
-        $sql = "SELECT  D.id, D.`date_litige`,infoPj.`libelle`,infoPj.`filename` FROM dossier AS D LEFT JOIN dossier_information_pj AS di ON D.id = di.`dossier_id`
-                LEFT JOIN information_pj AS infoPj ON infoPj.`id` = di.`information_pj_id`
-                LEFT JOIN sub_dossier AS sd ON sd.id = D.id
-                WHERE D.`id` =".$id;
-        $qb = $this->getEntityManager()->getConnection()->prepare($sql);
-        $qb->execute();
-        $result = $qb->fetchAll();
-        return $result;
-    }
-
-    public function getDataInfoPjByDossierId($dossierId)
-    {
-        $sql = "SELECT  D.id id_dossier, infoPj.id id_infoPj, infoPj.`libelle`, infoPj.`filename` 
-                FROM dossier AS D LEFT JOIN dossier_information_pj AS di ON D.id = di.`dossier_id`
-                LEFT JOIN information_pj AS infoPj ON infoPj.`id` = di.`information_pj_id`
-                WHERE D.`id` =".$dossierId;
-        $qb = $this->getEntityManager()->getConnection()->prepare($sql);
-        $qb->execute();
-        $result = $qb->fetchAll();
-        return $result;
-    }
 
 
-    public function getInfoPjByDossierId($dossierId){
-        $sql = "SELECT * FROM dossier_information_pj where dossier_id =".$dossierId;
-        $qb = $this->getEntityManager()->getConnection()->prepare($sql);
-        $qb->execute();
-        $result = $qb->fetchAll();
-        return $result;
-    }
 
-    public function getDataDossierInfoPj($dossierId){
-        $data = $this->getInfoPjByDossierId($dossierId);
-        $dataDossier = array();
-        if(!empty($data) && is_array($data)){
-            foreach($data as $value){
-                $dataDossier = array(
-                    'dossier_id' => $value['dossier_id'],
-                    'information_pj_id' => $value['information_pj_id']
-                );
-            }
-            return $dataDossier;
-        }
-    }
+
+
+
 
 
 

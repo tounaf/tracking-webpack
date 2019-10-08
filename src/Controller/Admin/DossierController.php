@@ -168,15 +168,7 @@ class DossierController extends Controller
             $fileName = $PjDossier->getName() ;
         }
         if($fileName){
-            $response = new Response();
-            $response->headers->set('Content-type', 'application/octet-stream');
-            $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', $fileName ));
-            $response->setContent(file_get_contents($this->get('uploaderfichier')->getTargetDirectory().$fileName));
-            $response->setStatusCode(200);
-            $response->headers->set('Content-Transfer-Encoding', 'binary');
-            $response->headers->set('Pragma', 'no-cache');
-            $response->headers->set('Expires', '0');
-            return $response;
+            return $this->get('uploaderfichier')->downFilePjIntervenant($fileName);
         }
     }
 
@@ -265,12 +257,19 @@ class DossierController extends Controller
                     $objPjDossier = new PjDossier();
                     $libelleSelected = $entityObjSelected->getLibelle();
                     $dossier->setLibelle($libelleSelected);
-
                     $dataInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle' => $libelleSelected));
                     $objPjDossier->setInformationPj($dataInfoPj);
                     if ($file instanceof UploadedFile) {
-                         $this->get('uploaderfichier')->upload($file);
-                        $objPjDossier->setFilename($file->getClientOriginalName());
+                        if($this->get('uploaderfichier')->checkfileUpload($file->getClientOriginalName()))
+                        {
+                            $filename = $this->get('uploaderfichier')->upload($file);
+                            $objPjDossier->setFilename($filename);
+                        }
+                        else
+                        {
+                            $this->get('uploaderfichier')->upload($file);
+                            $objPjDossier->setFilename($file->getClientOriginalName());
+                        }
                     }
                     $objPjDossier->setDossier($dossier);
                     $this->savePersistObj($em, $objPjDossier);

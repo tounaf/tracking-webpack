@@ -85,6 +85,8 @@ class AuxiliairesType extends AbstractType
                     return $repository->getDevise();
                 }))
             ->add('piecesJointesAux', EntityType::class, array(
+                'placeholder' =>'Veuillez sélectionner',
+                'required' => false ,
                 'class' => InformationPj::class,
                 'choice_label' => 'libelle',
 //                'data_class' =>

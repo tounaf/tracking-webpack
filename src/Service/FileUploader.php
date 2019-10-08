@@ -2,6 +2,7 @@
 namespace App\Service;
 use http\Env\Response;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -19,7 +20,13 @@ class FileUploader{
         $ext = pathinfo($fileName, PATHINFO_EXTENSION);
         $fileName = sha1(uniqid()).'.'.$ext;
         try{
-             return $file->move($this->getTargetDirectory(), $fileName);
+            if($this->checkfileUpload($fileName)){
+                $file->move($this->getTargetDirectory(), $this->renamefileUpload($fileName));
+                return $this->renamefileUpload($fileName);
+            }else{
+                return $file->move($this->getTargetDirectory(), $fileName);
+            }
+
         }
         catch (FileException $e){
             return new \Symfony\Flex\Response('Upload failed !');
@@ -30,6 +37,33 @@ class FileUploader{
     public function getTargetDirectory()
     {
         return $this->targetDirectory;
+    }
+
+    public function renamefileUpload($filename){
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $sansext = str_replace($ext,'', $filename);
+        $sansext = str_replace('.','', $sansext);
+        $filename = $sansext.date("Y-m-d").'.'.$ext;
+        return $filename;
+    }
+
+    public function checkfileUpload($filename){
+        if(in_array($filename, $this->listFileUpload()))
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
+    public function listFileUpload(){
+        $finder = new Finder();
+        $finder->files()->in($this->getTargetDirectory());
+        $listFichier = array();
+        foreach($finder as $file){
+            array_push($listFichier, $file->getFilename());
+        }
+        return $listFichier;
     }
 
     public function deleteFile($directoryFile, $fileName)
@@ -43,7 +77,8 @@ class FileUploader{
 
     public function downFilePjIntervenant($filename)
     {
-        if($filename)
+
+        if($this->checkfileUpload($filename))
         {
             $response = new \Symfony\Component\HttpFoundation\Response();
             $response->headers->set('Content-type', 'application/octet-stream');

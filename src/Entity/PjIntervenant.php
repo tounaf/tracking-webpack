@@ -30,13 +30,13 @@ class PjIntervenant
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Dossier", inversedBy="pjIntervenants")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $dossier;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\InformationPj", inversedBy="pjIntervenants")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $informationPj;
 
