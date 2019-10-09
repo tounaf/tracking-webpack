@@ -73,11 +73,11 @@ $(document).ready(function () {
         "autoWidth": false,
         responsive: true,
         columnDefs: [
-          { "width": "12.5%", "targets": 0, orderable: true },
-          { "width": "50%", "targets": 1, orderable: true},
-          { "width": "12.5%", "targets": 2, orderable: true},
-          { "width": "12.5%", "targets": 3, orderable: true},
-          { "width": "10%", "targets": 4, orderable: true},
+          { "width": "18%", "targets": 0, orderable: true },
+          { "width": "27.5%", "targets": 1, orderable: true},
+          { "width": "26.5%", "targets": 2, orderable: true},
+          { "width": "26.5%", "targets": 3, orderable: true},
+          { "width": "26.5%", "targets": 4, orderable: true},
         ]
     });
 
