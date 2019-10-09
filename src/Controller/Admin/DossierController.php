@@ -25,6 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+
 /**
  * Class DossierController
  * @package App\Controller\Admin
@@ -168,7 +169,7 @@ class DossierController extends Controller
             $fileName = $PjDossier->getName() ;
         }
         if($fileName){
-            return $this->get('uploaderfichier')->downFilePjIntervenant($fileName);
+            return $this->get('uploaderfichier')->downFilePj($fileName);
         }
     }
 
@@ -196,7 +197,7 @@ class DossierController extends Controller
             $alert = $request->get('dossier')['alerteDate'];
             $dossier->setAlerteDate(new \DateTime($alert))->setDateLitige(new \DateTime($dateLitige))->setEcheance(new \DateTime($echeance));
 
-            $dossier->setDirectory($dossier->getPathUpload());
+            /*$dossier->setDirectory($dossier->getPathUpload());*/
             $entityObjSelected = $form->get('piecesJointes')->getData();
             $file = $form['File']->getData() ?? '';
             if($entityObjSelected != null){
@@ -231,6 +232,15 @@ class DossierController extends Controller
             'form' => $form->createView(),
         ));
 
+    }
+
+    /**
+     * @Route("/fileiniupload", name="get_fileuploadMax", options={"expose"=true})
+     */
+    public function getIniUpload()
+    {
+        $uploadmaxsize = floatval(substr_replace(ini_get('upload_max_filesize') ,"", -1));
+        return $this->json($uploadmaxsize);
     }
 
     /**

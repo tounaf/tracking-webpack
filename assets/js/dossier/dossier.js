@@ -142,5 +142,26 @@ $(document).ready(function () {
         }
 
     })
+    $("#errorupload").hide();
+    $('input[type="file"]').change(function () {
+        var inputfile = this;
+        $.ajax({
+            url : Routing.generate('get_fileuploadMax'),
+            async: false,
+            success : function(response){
+               /* var taille = inputfile.files[0].size;
+                var tailleOctet = (taille/1024)/1024;*/
+               if(((inputfile.files[0].size)/1024)/1024 > response){
+                   $('#errorupload').show();
+                   return;
+               }else{
+                   $("#errorupload").hide();
+               }
+            }
+        });
+       /*console.log(((this.files[0].size)/1024)/1024)*/
+    });
+    //Pj
+
 
 });
