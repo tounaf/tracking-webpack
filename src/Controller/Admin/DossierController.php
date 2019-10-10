@@ -169,7 +169,7 @@ class DossierController extends Controller
             $fileName = $PjDossier->getName() ;
         }
         if($fileName){
-            return $this->get('uploaderfichier')->downFilePj($fileName);
+            return $this->get('uploaderfichier')->downFilePjIntervenant($fileName);
         }
     }
 
@@ -195,9 +195,6 @@ class DossierController extends Controller
             $dateLitige = $request->get('dossier')['dateLitige'];
             $echeance = $request->get('dossier')['echeance'];
             $alert = $request->get('dossier')['alerteDate'];
-            $dossier->setAlerteDate(new \DateTime($alert))->setDateLitige(new \DateTime($dateLitige))->setEcheance(new \DateTime($echeance));
-
-            /*$dossier->setDirectory($dossier->getPathUpload());*/
             $entityObjSelected = $form->get('piecesJointes')->getData();
             $file = $form['File']->getData() ?? '';
             if($entityObjSelected != null){

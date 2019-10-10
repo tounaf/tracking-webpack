@@ -38,8 +38,22 @@ $('#btn-dismiss').click(function (e) {
     $('#flash').fadeToggle("slow");
 })
 $(document).ready(function() {
+    $.fn.datepicker.dates['fr'] = {
+        days: ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
+        daysShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
+        daysMin: ["d", "l", "ma", "me", "j", "v", "s"],
+        months: ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+        monthsShort: ["janv.", "févr.", "mars", "avril", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."],
+        today: "Aujourd'hui",
+        monthsTitle: "Mois",
+        clear: "Effacer",
+        weekStart: 1,
+        format: "dd/mm/yyyy"
+    };
     $('.js-datepicker').datepicker({
-        dateFormat: 'yy/mm/dd'
+        language: 'fr',
+        uiLibrary: 'bootstrap4',
+        format: 'dd/mm/yyyy'
     });
     //$('body .phone-num').mobilePhoneNumber({allowPhoneWithoutPrefix: '+1'});
 });
