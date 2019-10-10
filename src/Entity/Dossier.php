@@ -169,7 +169,8 @@ class Dossier
      */
     private $pjDossiers;
 
-    public function __construct($_userCharge = null, $_societe = null)
+    private $ccmpt;
+    public function __construct($_userCharge=null,$_societe=null)
     {
         $this->piecesJointes = new ArrayCollection();
         $this->subDossiers = new ArrayCollection();
@@ -179,12 +180,13 @@ class Dossier
         $this->histories = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->pjDossiers = new ArrayCollection();
-        if ($_userCharge) {
+       if ($_userCharge) {
             $this->userEnCharge = $_userCharge;
         }
         if ($_societe) {
             $this->raisonSocial = $_societe;
         }
+
     }
 
 
@@ -210,8 +212,8 @@ class Dossier
      */
     public function setReferenceDossier($referenceDossier): self
     {
-        $this->referenceDossier = $referenceDossier;
-
+        $ref = $referenceDossier+1;
+        $this->referenceDossier = $this->raisonSocial ? $this->raisonSocial->getTrigramme() . '-' . str_pad((string)$ref, 4, '0', STR_PAD_LEFT) : str_pad($this->id, 4, '0', STR_PAD_LEFT);
         return $this;
     }
 
@@ -559,15 +561,22 @@ class Dossier
         return $this;
     }
 
-    /**
+/*    /**
      * @ORM\PrePersist()
-     * @ORM\PreFlush()
-     * @ORM\PostPersist()
-     */
+
     public function setNumerDosseier()
     {
-        $this->referenceDossier = $this->raisonSocial ? $this->raisonSocial->getLibele() . '-' . str_pad($this->id, 4, '0', STR_PAD_LEFT) : str_pad($this->id, 4, '0', STR_PAD_LEFT);
-    }
+       // $d = $this->count
+        //dump($count);die();
+        $aa = 0;
+        if (empty($this->ccmpt)){
+            $aa = 1;
+        }
+        else{
+            $aa=$this->ccmpt+1;
+        }
+        $this->referenceDossier = $this->raisonSocial ? $this->raisonSocial->getTrigramme() . '-' . str_pad((string)$aa, 4, '0', STR_PAD_LEFT) : str_pad($this->id, 4, '0', STR_PAD_LEFT);
+    }*/
 
     /**
      * @return Collection|InformationPj[]
@@ -673,6 +682,7 @@ class Dossier
 
         return $this;
     }
+
 
     /**
      * @return mixed

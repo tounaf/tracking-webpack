@@ -104,6 +104,15 @@ class DossierRepository extends ServiceEntityRepository
 
     }
 
+    public function getCountRefDossier($soc){
+        return $this->createQueryBuilder('d')
+            ->select('COUNT(d.id)')
+            ->andWhere('d.raisonSocial= :soc')
+            ->setParameter('soc',$soc)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 
 
 

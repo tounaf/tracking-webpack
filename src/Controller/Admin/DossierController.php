@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Cloture;
 use App\Entity\PjCloture;
 use App\Service\FileUploader;
 use App\Entity\Dossier;
@@ -182,20 +183,26 @@ class DossierController extends Controller
     public function createDossier(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
         $currentUser = $this->getUser();
         $curr = $this->getUser()->getSociete();
         $dossier = new Dossier($currentUser,$curr);
         $PjDossier = new PjDossier();
+
+
         $form = $this->createForm(DossierType::class, $dossier, array(
             'action' => $this->generateUrl('create_dossier')
         ))->handleRequest($request);
 
         if ($form->isSubmitted()) {
+            $countREf = $em->getRepository(Dossier::class)->getCountRefDossier($form['raisonSocial']->getData());
+            $dossier->setReferenceDossier($countREf);
+            $cloture = new  Cloture();
+            $cloture->setDossier($dossier);
             $dateLitige = $request->get('dossier')['dateLitige'];
             $echeance = $request->get('dossier')['echeance'];
             $alert = $request->get('dossier')['alerteDate'];
             $dossier->setAlerteDate(new \DateTime($alert))->setDateLitige(new \DateTime($dateLitige))->setEcheance(new \DateTime($echeance));
-
             $dossier->setDirectory($dossier->getPathUpload());
             $entityObjSelected = $form->get('piecesJointes')->getData();
             $file = $form['File']->getData() ?? '';
@@ -219,12 +226,14 @@ class DossierController extends Controller
                     $subDossier->setDossier($dossier);
                     $em->persist($subDossier);
                 }
+                $em->persist($dossier);
+                $em->persist($cloture);
                 $em->flush();
                 $this->session->getFlashBag()->add('success',$this->trans->trans('label.create.success'));
             } catch (\Exception $exception) {
+                $this->$exception->getMessage();
                 $this->session->getFlashBag()->add('danger',$this->trans->trans('label.create.error'));
             }
-
             return $this->redirectToRoute('render_edit_dossier', array('id' =>$dossier->getId(),'currentTab' => 'declaration'));
         }
         return $this->render('dossier/form.html.twig', array(
