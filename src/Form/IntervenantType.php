@@ -90,7 +90,8 @@ class IntervenantType extends AbstractType
             ))
             ->add('prefixPhone', null, array(
                 'required' => true,
-                'attr' => ['maxlength' => 4]
+
+                'attr' => ['maxlength' => 4, 'placeholder' =>  '+261']
             ))
             ->add('piecesJointes', EntityType::class, array(
                 'class' => InformationPj::class,

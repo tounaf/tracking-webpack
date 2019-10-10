@@ -113,7 +113,7 @@ class AuxiliairesType extends AbstractType
                 'choice_label' => 'libelle'))
             ->add('prefixPhone', null, array(
                 'required' => true,
-                'attr' => ['maxlength' => 4]
+                'attr' => ['maxlength' => 4, 'placeholder' =>  '+261']
             ))
         ;
         if ($options['remove_field']) {

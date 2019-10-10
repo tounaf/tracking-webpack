@@ -78,7 +78,17 @@ $('body').on('keyup','.money',function () {
         $('#saveCreateUser').attr('disabled',false);
     }
 })
-$(document).on('keyup','#fos_user_prefixPhone, .prefixPhoneNumber', function () {
+
+/**
+ * control foramt phone
+ */
+$(document).on('keyup','#fos_user_phoneNumber ,.phoneNumber', function () {
+    var regex = new RegExp("(\\d{9}).");
+    this.value = this.value.replace(/^0+|[^0-9]/,'');
+    this.value = this.value.replace(regex,"$1");
+})
+
+$(document).on('keyup', '.prefixPhoneNumber', function () {
     var phonePrefix = $(this).val();
     if (!Fonction.prefixPhoneNumber(phonePrefix)) {
         $("#prefixPhoneFormatInvalid").remove();
