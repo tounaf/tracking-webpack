@@ -51,12 +51,18 @@ class SocieteRepository extends ServiceEntityRepository
         $societeId = $userC->getSociete()?$userC->getSociete()->getId():'';
         $userId = $userC->getId();
         $query = $this->createQueryBuilder('u');
-        $query->andWhere('u.enable = true')
+        $query->andWhere('u.enable = true');
 //            ->andWhere('u.id = :id')
+        if ($userC->hasRole('ROLE_SUPERADMIN')){
+                    return $query;
+                }
+                else{
+            $query
             ->andWhere('u.id = :soc')
 //            ->setParameter('uid', $userId)
 //            ->setParameter('id', $userId)
             ->setParameter('soc', $societeId);
         return $query;
+                }
     }
 }

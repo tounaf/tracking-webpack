@@ -4,8 +4,7 @@ require('datatables.net-bs4/css/dataTables.bootstrap4.min.css');
 require('datatables.net-bs4');
 require('../jquery.ajaxloader');
 
-
-var main = $('#avocat-list');
+var main = $('.main');
 
 $(document).ready(function () {
     $("#edit-intervenant").click(function (e) {
@@ -78,7 +77,7 @@ $(document).ready(function () {
         },
         "autoWidth": false,
         responsive: true,
-       /*columnDefs: [
+       columnDefs: [
             {"targets": 0, orderable: true },
             {"targets": 1, orderable: true},
             {"targets": 2, orderable: true},
@@ -87,7 +86,7 @@ $(document).ready(function () {
             {"targets": 5, orderable: true},
             {"targets": 6, orderable: true},
             {"targets": 7, orderable: true},
-        ]*/
+        ]
     });
     function editRow(data, type, row) {
         data = ' <button  data-target="#modalIntervenant" data-title="MODIFICATION" data-route="intervenant_edit" class="btn-edit edit-intervenant"  data-id="'+row.id+'" type="button"><i class="icon-edit"></i></button>\n' +
@@ -98,7 +97,7 @@ $(document).ready(function () {
 $('body').on('click', '.remove-intervenant', function (e) {
     //    var id = table.row(this).id();
     e.preventDefault();
- //   main.ajaxloader('show');
+   main.ajaxloader('show');
     var route = $(this).data('route');
     var id = $(this).data('id');
     var title = $(this).data('title');
@@ -150,7 +149,7 @@ function removeClassStartingWith(node, begin) {
  */
 $('body').on('click', '#modalCreateIntervenant', function (e) {
     e.preventDefault();
- //   main.ajaxloader('show');
+    main.ajaxloader('show');
     var route = $(this).data('route');
     var title = $(this).data('title');
     var dossierId = $(this).data('dossier');
@@ -163,7 +162,7 @@ $('body').on('click', '#modalCreateIntervenant', function (e) {
         elt.addClass('text-danger').text(title);
         $('.modal-body').show();
         $('#modalIntervenant').modal('show');
-        //main.ajaxloader('hide');
+        main.ajaxloader('hide');
     })
 });
 
@@ -210,7 +209,7 @@ $('body').on('change', '#intervenant_deviseConvInt', function(e){
 $('body').on('click', '.edit-intervenant', function (e) {
     e.preventDefault();
 
-   // main.ajaxloader('show');
+    main.ajaxloader('show');
     var id = $(this).data('id');
     var route = $(this).data('route');
     var title = $(this).data('title');
@@ -235,7 +234,7 @@ $('body').on('click', '.edit-intervenant', function (e) {
             $("#exampleModalLongTitle").addClass('text-danger').text(title);
             $('.modal-body').html(response);
             $('#modalIntervenant').modal('show');
-     //       main.ajaxloader('hide');
+           main.ajaxloader('hide');
         }
     })
 })

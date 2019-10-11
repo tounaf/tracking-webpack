@@ -47,15 +47,18 @@ class FosUserRepository extends ServiceEntityRepository
         $societeId = $userC->getSociete()?$userC->getSociete()->getId():'';
         $userId = $userC->getId();
      $query = $this->createQueryBuilder('u');
-        $query->andWhere('u.actif = true')
+        $query->andWhere('u.actif = true');
 //            ->andWhere('u.id = :id')
+        if ($userC->hasRole('ROLE_SUPERADMIN')){
+                    return $query;
+                }
+                else{
+            $query
             ->innerJoin('u.societe','s')
             ->andWhere('s.id = :soc')
             ->orderBy('u.id','DESC')
-//            ->setParameter('uid', $userId)
-//            ->setParameter('id', $userId)
             ->setParameter('soc', $societeId);
-    return $query;
+    return $query;  }
     }
 
     /**
@@ -69,6 +72,7 @@ class FosUserRepository extends ServiceEntityRepository
      $query = $this->createQueryBuilder('u');
         $query->andWhere('u.actif = true')
 //            ->andWhere('u.id = :id')
+
             ->innerJoin('u.societe','s')
             ->andWhere('s.id = :soc')
             ->orderBy('u.id','DESC')

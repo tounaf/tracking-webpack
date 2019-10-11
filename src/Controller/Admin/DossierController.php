@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Cloture;
 use App\Entity\PjCloture;
 use App\Service\FileUploader;
 use App\Entity\Dossier;
@@ -24,7 +25,6 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 
 /**
  * Class DossierController
@@ -192,6 +192,10 @@ class DossierController extends Controller
         ))->handleRequest($request);
 
         if ($form->isSubmitted()) {
+            $countREf = $em->getRepository(Dossier::class)->getCountRefDossier($form['raisonSocial']->getData());
+            $dossier->setReferenceDossier($countREf);
+            $cloture = new  Cloture();
+            $cloture->setDossier($dossier);
             $dateLitige = $request->get('dossier')['dateLitige'];
             $echeance = $request->get('dossier')['echeance'];
             $alert = $request->get('dossier')['alerteDate'];
@@ -217,12 +221,14 @@ class DossierController extends Controller
                     $subDossier->setDossier($dossier);
                     $em->persist($subDossier);
                 }
+                $em->persist($dossier);
+                $em->persist($cloture);
                 $em->flush();
                 $this->session->getFlashBag()->add('success',$this->trans->trans('label.create.success'));
             } catch (\Exception $exception) {
+                $this->$exception->getMessage();
                 $this->session->getFlashBag()->add('danger',$this->trans->trans('label.create.error'));
             }
-
             return $this->redirectToRoute('render_edit_dossier', array('id' =>$dossier->getId(),'currentTab' => 'declaration'));
         }
         return $this->render('dossier/form.html.twig', array(

@@ -6,7 +6,8 @@
         <th>Date d'ajout dossier</th>
         <th>InformationPj</th>
         <th>Liens d'accès</th>
-        <th>Actions</th>
+        {% if app.user.hasRole("ROLE_SUPERADMIN") or app.user.hasRole("ROLE_ADMIN") %}  <th class="actions">{{ 'Action'|trans }}</th>
+        {% endif %}
 
     </tr>
     </thead>
@@ -24,7 +25,9 @@
                         {% else %}
                             <td>Pas de fichier joints </td>
                         {%  endif %}
+                        {% if app.user.hasRole("ROLE_SUPERADMIN") or app.user.hasRole("ROLE_ADMIN") %}
                         <td><a href="{{ path('delete_pj', {'id':pj.id})}}"><i class="icon-trash"></i></a> </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
                 {% endif %}

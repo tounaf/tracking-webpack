@@ -5,7 +5,7 @@ require('datatables.net-bs4');
 require('../jquery.ajaxloader');
 
 
-var main = $('#auxiliaires-list');
+var main = $('.main');
 
 $(document).ready(function () {
     var table = $('#auxiliaires-listActuel').DataTable({
@@ -149,6 +149,7 @@ $(document).ready(function () {
 });
 $('body').on('click', '.btn-removeAuxi', function (e) {
     e.preventDefault();
+    main.ajaxloader('show');
     var route = $(this).data('route');
     var id = $(this).data('id');
     var title = $(this).data('title');
@@ -196,7 +197,7 @@ function removeClassStartingWith(node, begin) {
  */
 $('body').on('click', '#modalCreateAuxi', function (e) {
     e.preventDefault();
-    //   main.ajaxloader('show');
+    main.ajaxloader('show');
     var route = $(this).data('route');
     var title = $(this).data('title');
     var dossierId = $(this).data('dossier');
@@ -208,7 +209,7 @@ $('body').on('click', '#modalCreateAuxi', function (e) {
         elt.addClass('text-danger').text(title);
         $('.modal-body').show();
         $('#modalAuxi').modal('show');
-        //main.ajaxloader('hide');
+        main.ajaxloader('hide');
     })
 });
 
@@ -254,6 +255,7 @@ $("#modalAuxi").on('shown.bs.modal', function(){
  */
 $('body').on('click', '.btn-editAuxi', function (e) {
     e.preventDefault();
+    main.ajaxloader('show');
     var id = $(this).data('id');
     var route = $(this).data('route');
     var title = $(this).data('title');
@@ -278,7 +280,7 @@ $('body').on('click', '.btn-editAuxi', function (e) {
             $("#exampleModalLongTitle").addClass('text-danger').text(title);
             $('.modal-body').html(response);
             $('#modalAuxi').modal('show');
-            //       main.ajaxloader('hide');
+            main.ajaxloader('hide');
         }
     })
 })
