@@ -117,7 +117,6 @@ class Cloture
     public function __construct()
     {
         $this->pjClotures = new ArrayCollection();
-        $this->dateCloture = new \DateTime();
     }
 
     public function getId(): ?int
