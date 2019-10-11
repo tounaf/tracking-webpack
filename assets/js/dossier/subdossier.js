@@ -4,7 +4,9 @@ import Routing from "../Routing";
 
 require('datatables.net-bs4/css/dataTables.bootstrap4.min.css');
 require('datatables.net-bs4');
+require('../Fonction');
 
+var main = $('.main');
 $('#listSubdossier').DataTable({
     searching : false,
     destroy : true,
@@ -41,7 +43,16 @@ $('#listSubdossier').DataTable({
           
         ]
 });
-
+/**
+ * supprimer des class
+ * @param node
+ * @param begin
+ */
+function removeClassStartingWith(node, begin) {
+    node.removeClass (function (index, className) {
+        return (className.match ( new RegExp("\\b"+begin+"\\S+", "g") ) || []).join(' ');
+    });
+}
 $(document).ready(function () {
 
     var $collectionHolder;
@@ -50,7 +61,7 @@ $(document).ready(function () {
     var $addTagButton = $('<button type="button" class="add_tag_link">Add a tag</button>');
     var $newLinkLi = $('<li></li>').append($addTagButton);
 
-    jQuery(document).ready(function() {
+    jQuery(document).ready(function () {
         // Get the ul that holds the collection of tags
         $collectionHolder = $('ul.tags');
 
@@ -61,7 +72,7 @@ $(document).ready(function () {
         // index when inserting a new item (e.g. 2)
         $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
-        $addTagButton.on('click', function(e) {
+        $addTagButton.on('click', function (e) {
             // add a new tag form (see next code block)
             addTagForm($collectionHolder, $newLinkLi);
         });
@@ -75,7 +86,7 @@ $(document).ready(function () {
     var index = $container.find(':input').length;
 
     // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
-    $('#addSubDossier').click(function(e) {
+    $('#addSubDossier').click(function (e) {
         addSubDossier($container);
         e.preventDefault(); // évite qu'un # apparaisse dans l'URL
         return false;
@@ -86,7 +97,7 @@ $(document).ready(function () {
         addSubDossier($container);
     } else {
         // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
-        $container.children('div').each(function() {
+        $container.children('div').each(function () {
             addDeleteLink($(this));
         });
     }
@@ -98,8 +109,8 @@ $(document).ready(function () {
         // - le texte "__name__" qu'il contient par le numéro du champ
         if ($container.length) {
             var template = $container.attr('data-prototype')
-                .replace(/__name__label__/g, 'Catégorie n°' + (index+1))
-                .replace(/__name__/g,        index)
+                .replace(/__name__label__/g, 'Catégorie n°' + (index + 1))
+                .replace(/__name__/g, index)
             ;
             // On crée un objet jquery qui contient ce template
             var $prototype = $(template);
@@ -127,7 +138,7 @@ $(document).ready(function () {
         $prototype.append($deleteLink);
 
         // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
-        $deleteLink.click(function(e) {
+        $deleteLink.click(function (e) {
             $prototype.remove();
 
             e.preventDefault(); // évite qu'un # apparaisse dans l'URL
@@ -135,13 +146,13 @@ $(document).ready(function () {
         });
     }
 
-    $('body').on('click','#formSubDossier', function (e) {
+    $('body').on('click', '#formSubDossier', function (e) {
         e.preventDefault();
         $(this).ajaxloader('show');
         var id = $("#idSubDossier").val();
         var data = $(this).serialize();
-        var url = Routing.generate('search_dossier',{id: id}, true)
-        $.post(url, data,function (data) {
+        var url = Routing.generate('search_dossier', {id: id}, true)
+        $.post(url, data, function (data) {
 
                 $('#listSubdossier').DataTable().ajax.reload()
                 $("#formSearchDossier").ajaxloader('hide');
@@ -153,5 +164,26 @@ $(document).ready(function () {
     $('input[id^="dossier_subDossiers"]').parent().children(0).hide();
     $('input[id^="dossier_subDossiers"]').hide();
 
-
+    /**
+     * get form on create
+     */
+    $('body').on('click', '#modalCreateSubDossier', function (e) {
+        e.preventDefault();
+        main.ajaxloader('show');
+        var route = $(this).data('route');
+        var title = $(this).data('title');
+        var dossierId = $(this).data('dossier');
+        console.log("route" + route + "title" + title + "dosssId" + dossierId);
+           var url = Routing.generate(route, {id: dossierId},true);
+            // var convenu = $('#intervenant_convenu').val();
+            $.get(url,function (response) {
+                var elt = $('#exampleModalLongTitle');
+                removeClassStartingWith(elt, 'alert');
+                $('.modal-body').html(response);
+                elt.addClass('text-danger').text(title);
+                $('.modal-body').show();
+                $('#modalCreateSub').modal('show');
+                main.ajaxloader('hide');
+            })
+    })
 })

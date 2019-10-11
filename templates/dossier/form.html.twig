@@ -110,18 +110,19 @@
                     </div>
                 </div>
 
+            {% if dossier is defined and dossier.id is not null %}
                 <div class="card card-custom-2 m-b-30">
                     <div class="card-body">
-                        <div class="subdossier-bloc">
-                            {{ form_row(form.subDossiers) }}
-                            <button id="addSubDossier" class="btn btn-success btn-ajouter" data-title="{{ 'label.edit.create'|trans }}" data-route="create_subdossier"><i class="icon-plus-circle"></i><span>Ajouter</span></button>
+                        <div class="subdossier-bloc">{#
+                            {{ form_row(form.subDossiers) }}#}
+                            {#<button id="addSubDossier" class="btn btn-success btn-ajouter" data-title="{{ 'label.edit.create'|trans }}" data-route="create_subdossier"><i class="icon-plus-circle"></i><span>Ajouter</span></button>#}
+                            <button id="modalCreateSubDossier" class="btn btn-success" data-dossier="{{ dossier.id }}" data-route="subDossier_new" data-title="{{ 'AJOUT'|trans }}"> <i class="icon-plus-circle"></i><span>Ajouter</span></button>
                         </div>
-
                         {{ include('dossier/modal_add_sub_dossier.html.twig') }}
                         {{ include('dossier/sub_dossier/sub_dossier_list.html.twig') }}
                     </div>
                 </div>
-            {% if dossier is defined and dossier.id is not null %}
+
                 <div class="card card-custom-2">
                     <div class="card-body">
                         <div class="row">
@@ -155,3 +156,4 @@
             {{ form_end(form,{'render_rest': false}) }}
         </div>
     </div>
+{{ include('dossier/sub_dossier/modalCreateSubD.html.twig') }}

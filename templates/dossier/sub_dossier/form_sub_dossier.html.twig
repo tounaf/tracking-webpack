@@ -9,10 +9,10 @@
                         {% if idSubDossier is defined %}
                             <input type="hidden" value="{{ idSubDossier }}" id="idSubDossier">
                         {% endif %}
-                        <div class="pull-right adjust text-right offset-10">
+                        <div class="btns-group">
+                            <input type="button" data-dismiss="modal" id="cancel" class="btn btn-default" value="{{ 'label.cancel'|trans }}"/>
                             <button type="submit" id="createSubDossier" class="btn btn-danger">Enregistrer</button>
                         </div>
                     </div>
-
     </div>
 {{ form_end(form_subdossier) }}

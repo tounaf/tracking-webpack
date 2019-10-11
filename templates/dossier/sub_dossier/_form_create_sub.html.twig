@@ -1,0 +1,16 @@
+<div class="form-bloc standard-form form-declaration-litige">
+{{ form_start(form) }}
+    <div class="row same-height m-b-30">
+        <div class="col-md-6">
+            {{ form_row(form.numeroSubDossier) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.libelle) }}
+        </div>
+    </div>
+    <div class="btns-group">
+        <input type="button" data-dismiss="modal" id="cancel" class="btn btn-default" value="{{ 'label.cancel'|trans }}"/>
+        <input type="submit" id="saveCreateUser" class="btn btn-danger" value="{{ 'label.save'|trans }}"/>
+    </div>
+    {{ form_end(form) }}
+</div>

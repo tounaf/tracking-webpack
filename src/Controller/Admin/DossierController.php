@@ -407,10 +407,10 @@ class DossierController extends Controller
 
                 $em->persist($entite);
                 $em->flush();
-                $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
+                $this->get('session')->getFlashBag()->add('success', $this->trans->trans('label.create.success'));
                 return $this->redirectToRoute('list_fonction');
             } catch (\Exception $exception) {
-                $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.create.error'));
+                $this->get('session')->getFlashBag()->add('danger', $this->trans->trans('label.create.error'));
                 return $this->redirectToRoute('list_fonction');
                 $message['message'] = $exception->getMessage();
                 $message['status'] = 500;
@@ -420,11 +420,62 @@ class DossierController extends Controller
         }
 
         return $this->render('dossier/sub_dossier/form_sub_dossier.html.twig', array(
-            'form_subdossier' => $form->createView(),
-            'title' => 'fetra'
+            'form' => $form->createView(),
+            'title' => 'christian'
         ));
     }
 
+    /**
+     *
+     * @Route("/new_subDossier/{id}", name="subDossier_new", methods={"GET","POST"}, options={"expose"=true})
+     *
+     * @Route("/new_subDossier/{id}", name="subDossier_post_new", methods={"POST"})
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function newSubDossier(Request $request, Dossier $dossier = null)
+    {
+        $id =$request->get('id');
+        $subDossier = new SubDossier();
+        $form = $this->createForm(SubDossierType::class, $subDossier, [
+            'method' => 'POST',
+            'action' => $this->generateUrl('subDossier_post_new', array('id' => $request->get('id')))
+        ])->handleRequest($request);
+
+        $response = new JsonResponse();
+        $message = [
+            'status' => 200,
+            'message' => $this->trans->trans('label.create.success'),
+            'type' => 'success'
+        ];
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $subDossier->setDossier($dossier);
+            try{
+                $entityManager->persist($subDossier);
+                $entityManager->flush();
+                $this->get('session')->getFlashBag()->add('success', $this->trans->trans('label.create.success'));
+            }
+            catch (\Exception $exception){
+                $this->get('session')->getFlashBag()->add('danger', $this->trans->trans('label.error.create'));
+                $message['message'] = $exception->getMessage();
+                $message['status'] = 500;
+                $message['type'] = 'danger';
+            }
+            return $this->redirectToRoute('render_edit_dossier', array('id' => $id,
+                'dossier' => $dossier,
+                'currentTab' => 'declaration'));
+            return $response->setData($message);
+        }
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->render('dossier/sub_dossier/_form_create_sub.html.twig', array(
+                'form' => $form->createView(),
+            ));
+        } else {
+            // return new JsonResponse(array('status' => 'Error'),400);
+            throw new NotFoundHttpException();
+        }
+    }
     /**
      * @Route("/dossier/sub-dossier/edit/{id}", name="edit_sub_dossier", methods={"GET", "POST"}, options={"expose"=true})
      * @param Dossier $dossier
@@ -455,17 +506,26 @@ class DossierController extends Controller
                 } catch (\Exception $exception) {
                     $this->session->getFlashBag()->add('danger', $this->trans->trans('label.edit.error'));
                 }
-                return new JsonResponse(array(
+                return $this->redirectToRoute('render_edit_dossier', array('id' => $id,
+                    'dossier' => $dossier,
+                    'currentTab' => 'declaration'));
+               /* return new JsonResponse(array(
                     'message' => $this->trans->trans('label.edit.success'),
                     'type' => 'success',
                     'statut' => '200'
-                )) ;
+                )) ;*/
             }
-            return $this->render('dossier/sub_dossier/form_sub_dossier.html.twig', array(
-                'form_subdossier' => $form->createView(),
-                'title' => 'fetra',
-                'idSubDossier' => $dossier->getId()
-            ));
+
+            if ($request->isXmlHttpRequest()) {
+                return $this->render('dossier/sub_dossier/form_sub_dossier.html.twig', array(
+                    'form_subdossier' => $form->createView(),
+                    'title' => 'fetra',
+                    'idSubDossier' => $dossier->getId()
+                ));
+            } else {
+                // return new JsonResponse(array('status' => 'Error'),400);
+                throw new NotFoundHttpException();
+            }
         }
         $response->setData(array(
             'message' => $this->trans->trans('label.not.found'),

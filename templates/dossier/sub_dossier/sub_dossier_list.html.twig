@@ -3,7 +3,7 @@
         <thead>
             <th><span>Numéro dossier</span></th>
             <th><span>Libellé</span></th>
-            {% if app.user.hasRole("ROLE_SUPERADMIN") or app.user.hasRole("ROLE_ADMIN") %}  <th><span>Actions</span></th> {% endif %}
+             <th><span>Actions</span></th>
         </thead>
         <tbody>
             {% if dossier is defined %}
@@ -13,8 +13,7 @@
                         <td>{{ subDossier.libelle }}</td>
                         <td class="actions">
                             <button  data-target="" data-title="{{ 'label.edit.create'|trans }}" data-route="edit_sub_dossier" class="btn-edit" data-id="{{ subDossier.id }}" type="button"><i class="icon-edit"></i></button>
-                            {% if app.user.hasRole("ROLE_SUPERADMIN") or app.user.hasRole("ROLE_ADMIN") %}   <button  data-target="" data-title="{{ 'label.delete'|trans }}" data-route="delete_sub_dossier" class="btn-remove" data-id="{{ subDossier.id }}" type="button"><i class="icon-trash"></i></button>
-                            {% endif %}
+                            <button  data-target="" data-title="{{ 'label.delete'|trans }}" data-route="delete_sub_dossier" class="btn-remove" data-id="{{ subDossier.id }}" type="button"><i class="icon-trash"></i></button>
                         </td>
                     </tr>
                 {% endfor %}
