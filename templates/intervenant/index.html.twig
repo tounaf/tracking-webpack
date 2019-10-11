@@ -8,6 +8,17 @@
     {% endif %}
 
     <div class="card-body">
+        <div>
+            <div class="js-user-rating" data-is-authenticated="{{ app.user ? 'true' : 'false' }}">
+                <!-- ... -->
+            </div>
+            {% if app.user is not null %}
+                {% for role in app.user.roles if role == 'ROLE_JURISTE' %}
+                   <button id="roolesJury" data-rolesJury="{{ role }}" style="display: none;">{{ role }}</button>
+                {% endfor %}
+            {% endif %}
+          {#  pp.user.hasRole("ROLE_SUPERADMIN")#}
+        </div>
         <div class="listing-bloc relative-bloc">
 
             <div class="row">
@@ -37,9 +48,11 @@
                         <th>{{ 'column.nameReste'|trans }}</th>
                         <th>{{ 'column.pJ'|trans }}</th>
                         <th>{{ 'column.nameStatIntervenant'|trans }}</th>
-                        {#{% if app.user.hasRole("ROLE_SUPERADMIN") or app.user.hasRole("ROLE_ADMIN") %}  <th class="actions">{{ 'column.actions'|trans }}</th>
-                        {% endif %}#}
+                        {% if app.user.hasRole("ROLE_JURISTE") %}
+                        <th class="actions">{{ 'Action'|trans }}</th>
+                            {% else %}
                         <th>{{ 'column.actions'|trans }}</th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tbody>
