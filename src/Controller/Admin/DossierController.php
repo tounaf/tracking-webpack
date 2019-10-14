@@ -158,9 +158,14 @@ class DossierController extends Controller
             'method' => 'POST',
             'action' => $this->generateUrl('uploaddossier_file')
         ))->handleRequest($request);
-        $filename = $_FILES['file']['name'];
-        $tmpFilename = $_FILES['file']['tmp_name'];
-        $this->get('uploaderfichier')->uploadSimpleFile($filename, $tmpFilename);
+        if(!empty($_FILES)){
+            $filename = $_FILES['file']['name'];
+            $tmpFilename = $_FILES['file']['tmp_name'];
+            if($this->get('uploaderfichier')->checkfileUpload($filename)){
+                $filename = $this->get('uploaderfichier')->renamefileUpload($filename);
+            }
+            $this->get('uploaderfichier')->uploadSimpleFile($filename, $tmpFilename);
+        }
         if ($form->isSubmitted() || $request->getMethod() == "POST") {
             $dossier = $em->getRepository(Dossier::class)->find($idDossier);
             $pjDossier->setDossier($dossier);
