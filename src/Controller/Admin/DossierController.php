@@ -106,6 +106,83 @@ class DossierController extends Controller
         ));
     }
 
+    /**
+     *
+     * @Route("/listdossier-pj/{id}", name="liste_pj_dossier",  options={"expose"=true})
+     * @param Request $request
+     * @return JsonResponse
+     * @throws
+     */
+    public function ajaxlistPj(Request $request)
+    {
+        $idDossier = $request->get('id');
+        $response = new JsonResponse();
+        $draw = $request->get('draw');
+        $length = $request->get('length');
+        $start = $request->get('start');
+        $search = $request->get('search');
+        $filters = [
+            'query' => $search['value'],
+        ];
+        $vOrder = $request->get('order');
+        $orderBy = $vOrder[0]['column'];
+        $order = $vOrder[0]['dir'];
+        $extraParams = array(
+            'filters' => $filters,
+            'start' => $start,
+            'length' => $length,
+            'orderBy' => $orderBy,
+            'order' => $order,
+        );
+        $listPjD = $this->getDoctrine()->getRepository(PjDossier::class)->listPjDossier($extraParams, $idDossier, false);
+        $nbrRecords = $this->getDoctrine()->getRepository(PjDossier::class)->listPjDossier($extraParams, $idDossier, true);
+        $response->setData(array(
+            'draw' => (int)$draw,
+            'recordsTotal' => (int)$nbrRecords[0]['record'],
+            'recordsFiltered' => (int)$nbrRecords[0]['record'],
+            'data' => $listPjD,
+        ));
+        return $response;
+    }
+
+    /**
+     *  @Route("/filedossier/upload/", name="uploaddossier_filerender", options={"expose"=true}, methods={"POST"})
+     * @Route("/filedossier/upload/", name="uploaddossier_file", options={"expose"=true}, methods={"POST"})
+     */
+    public function savepjinf(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $idDossier = $request->get('id');
+        $infoPjId = $request->get('pj_dossier_infoPj');
+        $infoPj = $em->getRepository(InformationPj::class)->find($infoPjId);
+        $pjDossier = new PjDossier();
+        $form = $this->createForm(PjDossierType::class, $pjDossier, array(
+            'method' => 'POST',
+            'action' => $this->generateUrl('uploaddossier_file')
+        ))->handleRequest($request);
+        $filename = $_FILES['file']['name'];
+        $tmpFilename = $_FILES['file']['tmp_name'];
+        $this->get('uploaderfichier')->uploadSimpleFile($filename, $tmpFilename);
+        if ($form->isSubmitted() || $request->getMethod() == "POST") {
+            $dossier = $em->getRepository(Dossier::class)->find($idDossier);
+            $pjDossier->setDossier($dossier);
+            if($infoPj){
+                $pjDossier->setInformationPj($infoPj);
+            }
+            $pjDossier->setFilename($filename);
+            $em->persist($pjDossier);
+            $em->flush();
+            return new JsonResponse(array(
+                'message' => 'upload termineé',
+                'statut' => 200
+            ));
+        }
+        return $this->render('dossier/pjform.html.twig', array(
+            'formPj' => $form->createView()
+        ));
+    }
+
+
     private function createDeleteForm($subDossier)
     {
         return $this->createFormBuilder()
@@ -141,7 +218,7 @@ class DossierController extends Controller
     }
 
     /**
-     * @Route("/dossier/render/deletepj/{id}", name="delete_pj",  methods={"GET", "POST"})
+     * @Route("/dossier/render/deletepj/{id}", name="delete_pj",  methods={"GET", "POST"}, options={"expose"=true})
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deletepj($id){
@@ -274,30 +351,6 @@ class DossierController extends Controller
             ))->handleRequest($request);
             if ($form->isSubmitted()) {
                 $em = $this->getDoctrine()->getManager();
-                $dossier->setDirectory($dossier->getPathUpload());
-                $entityObjSelected = $form->get('piecesJointes')->getData();
-                $file = $form['File']->getData() ?? '';
-                if($entityObjSelected != null){
-                    $objPjDossier = new PjDossier();
-                    $libelleSelected = $entityObjSelected->getLibelle();
-                    $dossier->setLibelle($libelleSelected);
-                    $dataInfoPj = $em->getRepository(InformationPj::class)->findOneBy(array('libelle' => $libelleSelected));
-                    $objPjDossier->setInformationPj($dataInfoPj);
-                    if ($file instanceof UploadedFile) {
-                        if($this->get('uploaderfichier')->checkfileUpload($file->getClientOriginalName()))
-                        {
-                            $filename = $this->get('uploaderfichier')->upload($file);
-                            $objPjDossier->setFilename($filename);
-                        }
-                        else
-                        {
-                            $this->get('uploaderfichier')->upload($file);
-                            $objPjDossier->setFilename($file->getClientOriginalName());
-                        }
-                    }
-                    $objPjDossier->setDossier($dossier);
-                    $this->savePersistObj($em, $objPjDossier);
-                }
                 try {
                     foreach ($dossier->getSubDossiers() as $subDossier) {
                         $subDossier->setDossier($dossier);
