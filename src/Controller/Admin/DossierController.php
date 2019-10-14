@@ -67,8 +67,6 @@ class DossierController extends Controller
         ));
     }
 
-
-
     /**
      *
      * @Route("/dossier/render/edit/{id}/{currentTab}", name="render_edit_dossier", options={"expose"=true})

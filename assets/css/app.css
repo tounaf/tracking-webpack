@@ -33,7 +33,7 @@
     color: #C80F2D;
 }
 
-#dossier_File{
+#pj_dossier_File, #pj_cloture_file{
     display: none;
 }
 
