@@ -1,0 +1,22 @@
+{{ form_start(formPj, {'attr':{'id':'form-pj-dossier'}}) }}
+<div class="card card-custom-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group file-form">
+                    {{ form_label(formPj.infoPj) }}
+                    <div class="file-field">
+                        <div class="select-typefile">
+                            {{ form_widget(formPj.infoPj) }}
+                        </div>
+                        <input type="hidden" value="{% if dossier is defined %}{{ dossier.id }}{% endif %}" id="dossier-id">
+                        <div class="load-file">
+                            <div class="loadLink"> {{ form_row(formPj.File) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form_end(formPj) }}
