@@ -14,6 +14,13 @@ class FileUploader{
         $this->targetDirectory = $targetDirectory;
     }
 
+    public function uploadSimpleFile($filename, $tmpName){
+
+
+        return move_uploaded_file($tmpName, $this->getTargetDirectory().$filename);
+
+    }
+
     public function upload(UploadedFile $file)
     {
         $fileName = $file->getClientOriginalName();
@@ -41,7 +48,7 @@ class FileUploader{
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
         $sansext = str_replace($ext,'', $filename);
         $sansext = str_replace('.','', $sansext);
-        $filename = $sansext.date("Y-m-d").'.'.$ext;
+        $filename = $sansext.date("Y-m-d-h-i-s").'.'.$ext;
         return $filename;
     }
 

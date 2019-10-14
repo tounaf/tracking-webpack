@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Cloture;
 use App\Entity\PjCloture;
+use App\Form\PjDossierType;
 use App\Service\FileUploader;
 use App\Entity\Dossier;
 use App\Entity\DossierSearch;
@@ -75,19 +76,31 @@ class DossierController extends Controller
      */
     public function renderEditDossier(Dossier $dossier = null, Request $request)
     {
-        $id = $request->get('id');
+
         $currentTab = $request->get('currentTab');
+        $id = $request->get('id');
+        $formDossier = $this->createForm(PjDossierType::class, new PjDossier(), array(
+            'action' => $this->generateUrl('upload_file'),
+            'method' => 'POST'
+        ));
         if ($dossier) {
+            $formDossier = $this->createForm(PjDossierType::class, new PjDossier(), array(
+                'action' => $this->generateUrl('uploaddossier_file', array('id' => $id)),
+                'method' => 'POST'
+            ));
+
             $form = $this->createForm(DossierType::class, $dossier, array(
                 'method' => 'POST',
                 'action' => $this->generateUrl('edit_dossier', array(
                     'id' => $id
                 ))
             ));
+
             $this->get('session')->set('id', $id);
         }
         return $this->render('dossier/dossier.html.twig', array(
             'form' => $form->createView(),
+            'formPj' => $formDossier->createView(),
             'dossier' => $dossier,
             'currentTab' =>$currentTab,
         ));
@@ -257,10 +270,8 @@ class DossierController extends Controller
         if ($dossier instanceof Dossier) {
             $form = $this->createForm(DossierType::class, $dossier, array(
                 'method' => 'POST',
-                'action' => 'edit_dossier'
-            ))->handleRequest($request)
-            ;
-
+                'action' => $this->generateUrl('edit_dossier', array('id'=>$id))
+            ))->handleRequest($request);
             if ($form->isSubmitted()) {
                 $em = $this->getDoctrine()->getManager();
                 $dossier->setDirectory($dossier->getPathUpload());
@@ -288,7 +299,7 @@ class DossierController extends Controller
                     $this->savePersistObj($em, $objPjDossier);
                 }
                 try {
-                    foreach ($dossier->getSubDossiers() as $subDossier){
+                    foreach ($dossier->getSubDossiers() as $subDossier) {
                         $subDossier->setDossier($dossier);
                         $this->savePersistObj($em, $subDossier);
                     }
@@ -297,11 +308,13 @@ class DossierController extends Controller
                 } catch (\Exception $exception) {
                     $this->session->getFlashBag()->add('danger', $this->trans->trans('label.edit.error'));
                 }
+
             }
         }
 
 
-        return $this->redirectToRoute('render_edit_dossier', array('id' => $id,
+
+       return $this->redirectToRoute('render_edit_dossier', array('id' => $id,
             'dossier' => $dossier,
             'currentTab' => 'declaration'));
     }

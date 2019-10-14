@@ -4,7 +4,8 @@
     </div>
     <div class="card-body">
         <div class="form-bloc standard-form form-declaration-litige">
-            {{ form_start(form)  }}
+            {#{{ form_start(form)  }}#}
+            {{ form_start(form, {'attr':{'id':'dossier-for'}}) }}
                 <div class="row same-height m-b-30">
                     <div class="col-md-6">
                         <div class="card card-custom-2 m-0">
@@ -122,36 +123,19 @@
                     </div>
                 </div>
             {% if dossier is defined and dossier.id is not null %}
-                <div class="card card-custom-2">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group file-form">
-                                    {{ form_label(form.piecesJointes) }}
-                                    <div class="file-field">
-                                        <div class="select-typefile">
-                                            {{ form_widget(form.piecesJointes) }}
-                                        </div>
-                                        <div class="load-file">
-                                            <a href=""  class="loadLink"> {{ form_row(form.File) }}</a>
-                                            <div >
-                                                <span id="errorupload" >Le fichier est trop volumineux</span>
-                                            </div>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {{ form_end(form,{'render_rest': false}) }}
 
-            {% include 'dossier/list_dossierpj.html.twig' %}
+                {% if dossier is defined and dossier.id is not null %}
+                    <input type="text" value="{{ dossier.id }}" id="iddossier" hidden>
+                    {% include 'dossier/pjform.html.twig' with {'dossier': dossier, 'formPj': formPj}%}
+                    {% include 'dossier/list_pj.html.twig' with {'data-idDossier': dossier.id,} %}
+                {% endif %}
             {% endif %}
                 <div class="btns-group text-right">
-                    <button type="submit" class="btn btn-danger">Enregistrer</button>
+                    <button type="submit" id="button-dossier-for" class="btn btn-danger">Enregistrer</button>
                 </div>
             </div>
-            {{ form_end(form,{'render_rest': false}) }}
+
         </div>
     </div>
