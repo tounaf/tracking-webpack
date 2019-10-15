@@ -38,6 +38,8 @@ class PjDossier
      */
     private $informationPj;
 
+    private $infoPj;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -89,6 +91,18 @@ class PjDossier
     public function setInformationPj(?InformationPj $informationPj): self
     {
         $this->informationPj = $informationPj;
+
+        return $this;
+    }
+
+    public function getInfoPj(): ?InformationPj
+    {
+        return $this->infoPj;
+    }
+
+    public function setInfoPj(?InformationPj $infoPj): self
+    {
+        $this->infoPj = $infoPj;
 
         return $this;
     }
