@@ -195,7 +195,7 @@ class DossierType extends AbstractType
                 'choice_label' => 'libelle',
                 'required' => false,
                 'placeholder' =>'Veuillez selectionner',
-//                'data_class' =>
+
                 'mapped' => false
             ))
         ;

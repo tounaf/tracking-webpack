@@ -162,7 +162,7 @@ $(document).ready(function(){
             {
                 "data": "edit",
                 "render": function (data, type, row) {
-                        var data = '<a href="'+Routing.generate('download_dossier',{'id':row.id }) +'">'+row.lien+'</a>';
+                        var data = '<a href="'+Routing.generate('download_dossier',{'id':row.id }) +'">'+ row.lien+'</a>';
                         return data;
                 }
             },
