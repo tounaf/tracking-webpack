@@ -80,10 +80,9 @@ class ClotureController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $datecloture = $request->get('cloture')['dateCloture'];
-            $date = new \DateTime($datecloture);
+            /*$date = new \DateTime($datecloture);*/
           try{
               $entityManager = $this->getDoctrine()->getManager();
-              $cloture->setDateCloture($date);
               $cloture->setDossier($dossier);
               if (!$dossierExist){
                   $entityManager->persist($cloture);

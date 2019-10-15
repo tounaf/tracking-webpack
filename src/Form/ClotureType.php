@@ -33,7 +33,7 @@ class ClotureType extends AbstractType
                 'format' => 'dd/MM/yyyy',
                 'model_timezone' => 'UTC',
                 'view_timezone' => 'UTC',
-                'required' => false,
+                'required' => true,
                 'label' => 'DATE DE CLÔTURE',
                 'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
             ))

@@ -102,12 +102,20 @@ $(document).ready(function(){
         })
     })
 
-    /**
+   /* /!**
      * declencher la submission du formulaire cloture
-     */
+     *!/
     $("#button-cloture-form").click(function (e) {
         e.preventDefault();
         $("#cloture-form").submit();
+    })
+*/
+    /**
+     * declencher la submission du formulaire cloture
+     */
+    $("#button-cloture-form").click(function () {
+
+        $("#submitCloture").trigger("click");
     })
 
    // var idd = $(this).data('idcloture');
