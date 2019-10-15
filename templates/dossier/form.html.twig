@@ -1,115 +1,114 @@
 <div class="card custom-card">
     <div class="card-header">
-       <h2>Enregistrement d'un litige</h2>
+        <h2>Enregistrement d'un litige</h2>
     </div>
     <div class="card-body">
         <div class="form-bloc standard-form form-declaration-litige">
             {#{{ form_start(form)  }}#}
             {{ form_start(form, {'attr':{'id':'dossier-for'}}) }}
-                <div class="row same-height m-b-30">
-                    <div class="col-md-6">
-                        <div class="card card-custom-2 m-0">
-                            <div class="card-header">
-                                <h3>Société</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-xl-6">
-                                        {{ form_row(form.userEnCharge) }}
-                                    </div>
-                                    <div class="col-xl-6 noMargin-xl-form-group">
-                                        {{ form_row(form.raisonSocial) }}
-                                    </div>
-                                </div>
-                            </div>
+            <div class="row same-height m-b-30">
+                <div class="col-md-6">
+                    <div class="card card-custom-2 m-0">
+                        <div class="card-header">
+                            <h3>Société</h3>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card card-custom-2 m-0">
-                            <div class="card-header">
-                                <h3>Partie Adverse</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-xl-6">
-                                        {{ form_row(form.nomPartieAdverse) }}
-                                    </div>
-                                    <div class="col-xl-6">
-                                        {{ form_row(form.statutPartiAdverse) }}
-                                    </div>
-                                    <div class="col-xl-6 noMargin-xl-form-group">
-                                        {{ form_row(form.formePartieAdverse) }}
-                                    </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    {{ form_row(form.userEnCharge) }}
+                                </div>
+                                <div class="col-xl-6 noMargin-xl-form-group">
+                                    {{ form_row(form.raisonSocial) }}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="card card-custom-2 m-b-30">
-                    <div class="card-header">
-                        <h3>Litige</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row same-height">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-xl-6">
-                                        {{ form_row(form.categorie) }}
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <div class="form-group date-form">
-                                            {{ form_label(form.dateLitige) }}
-                                            {{ form_widget(form.dateLitige) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        {{ form_row(form.nomDossier) }}
-                                    </div>
-                                    <div class="col-xl-6">
-                                        {{ form_row(form.statut) }}
-                                    </div>
-                                    <div class="col-xl-6">
-                                        {{ form_row(form.sensLitige) }}
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <div class="row no-gutters mnt-form">
-                                            <div class="col-8">
-                                                {{ form_row(form.montant) }}
-                                            </div>
-                                            <div class="col-4 devise-col">
-                                                {{ form_row(form.devise) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        {{ form_row(form.etapeSuivante) }}
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <div class="form-group date-form">
-                                            {{ form_label(form.echeance) }}
-                                            {{ form_widget(form.echeance) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6 noMargin-xl-form-group">
-                                        {{ form_row(form.situation) }}
-                                    </div>
-                                    <div class="col-xl-6 noMargin-form-group">
-                                        <div class="form-group date-form">
-                                            {{ form_label(form.alerteDate) }}
-                                            {{ form_widget(form.alerteDate) }}
-                                        </div>
-                                    </div>
+                <div class="col-md-6">
+                    <div class="card card-custom-2 m-0">
+                        <div class="card-header">
+                            <h3>Partie Adverse</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    {{ form_row(form.nomPartieAdverse) }}
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="noMargin-form-group textarea-wrap">
-                                    {{ form_row(form.resumeFait) }}
+                                <div class="col-xl-6">
+                                    {{ form_row(form.statutPartiAdverse) }}
+                                </div>
+                                <div class="col-xl-6 noMargin-xl-form-group">
+                                    {{ form_row(form.formePartieAdverse) }}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="card card-custom-2 m-b-30">
+                <div class="card-header">
+                    <h3>Litige</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row same-height">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    {{ form_row(form.categorie) }}
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="form-group date-form">
+                                        {{ form_label(form.dateLitige) }}
+                                        {{ form_widget(form.dateLitige) }}
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    {{ form_row(form.nomDossier) }}
+                                </div>
+                                <div class="col-xl-6">
+                                    {{ form_row(form.statut) }}
+                                </div>
+                                <div class="col-xl-6">
+                                    {{ form_row(form.sensLitige) }}
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="row no-gutters mnt-form">
+                                        <div class="col-8">
+                                            {{ form_row(form.montant) }}
+                                        </div>
+                                        <div class="col-4 devise-col">
+                                            {{ form_row(form.devise) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    {{ form_row(form.etapeSuivante) }}
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="form-group date-form">
+                                        {{ form_label(form.echeance) }}
+                                        {{ form_widget(form.echeance) }}
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 noMargin-xl-form-group">
+                                    {{ form_row(form.situation) }}
+                                </div>
+                                <div class="col-xl-6 noMargin-form-group">
+                                    <div class="form-group date-form">
+                                        {{ form_label(form.alerteDate) }}
+                                        {{ form_widget(form.alerteDate) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="noMargin-form-group textarea-wrap">
+                                {{ form_row(form.resumeFait) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {{ form_end(form,{'render_rest': false}) }}
             {% if dossier is defined and dossier.id is not null %}
                 <div class="card card-custom-2 m-b-30">
@@ -117,21 +116,22 @@
                         <div class="subdossier-bloc">{#
                             {{ form_row(form.subDossiers) }}#}
                             {#<button id="addSubDossier" class="btn btn-success btn-ajouter" data-title="{{ 'label.edit.create'|trans }}" data-route="create_subdossier"><i class="icon-plus-circle"></i><span>Ajouter</span></button>#}
-                            <button id="modalCreateSubDossier" class="btn btn-success" data-dossier="{{ dossier.id }}" data-route="subDossier_new" data-title="{{ 'AJOUT'|trans }}"> <i class="icon-plus-circle"></i><span>Ajouter</span></button>
+                            <button id="modalCreateSubDossier" class="btn btn-success" data-dossier="{{ dossier.id }}"
+                                    data-route="subDossier_new" data-title="{{ 'AJOUT'|trans }}"><i
+                                        class="icon-plus-circle"></i><span>Ajouter</span></button>
                         </div>
                         {{ include('dossier/modal_add_sub_dossier.html.twig') }}
                         {{ include('dossier/sub_dossier/sub_dossier_list.html.twig') }}
                     </div>
                 </div>
-                    <input type="text" value="{{ dossier.id }}" id="iddossier" hidden>
-                    {% include 'dossier/pjform.html.twig' with {'dossier': dossier, 'formPj': formPj}%}
-                    {% include 'dossier/list_pj.html.twig' with {'data-idDossier': dossier.id,} %}
+                <input type="text" value="{{ dossier.id }}" id="iddossier" hidden>
+                {% include 'dossier/pjform.html.twig' with {'dossier': dossier, 'formPj': formPj} %}
+                {% include 'dossier/list_pj.html.twig' with {'data-idDossier': dossier.id,} %}
             {% endif %}
-                <div class="btns-group text-right">
-                    <button type="submit" id="button-dossier-for" class="btn btn-danger">Enregistrer</button>
-                </div>
+            <div class="btns-group text-right">
+                <button type="submit" id="button-dossier-for" class="btn btn-danger">Enregistrer</button>
             </div>
-
         </div>
     </div>
+</div>
 {{ include('dossier/sub_dossier/modalCreateSubD.html.twig') }}
