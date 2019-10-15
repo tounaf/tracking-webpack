@@ -101,7 +101,9 @@
                         </div>
                     </div>
                 </div>
-
+            <div style="display: none">
+                <button type="submit" id="submitCloture" class="btn btn-danger">{{ 'label.save'|trans }}</button>
+            </div>
             {{ form_end(formCloture,{'render_rest': false}) }}
             {% if cloture is defined and cloture.id is not null %}
                 <input type="text" value="{{ cloture.id }}" id="idcloture" hidden>
@@ -113,7 +115,7 @@
         {#{{ form_end(formCloture,{'render_rest': false}) }}#}
         <br>
         <div class="btns-group text-right">
-            <button type="submit" id="button-cloture-form" class="btn btn-danger">{{ 'label.save'|trans }}</button>
+            <button type="button" id="button-cloture-form" class="btn btn-danger">{{ 'label.save'|trans }}</button>
         </div>
     </div>
 </div>
