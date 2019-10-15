@@ -132,7 +132,7 @@ $(document).ready(function(){
      */
     $("#button-dossier-for").click(function (e) {
         e.preventDefault();
-        $("#dossier-for").submit();
+        $("#button-dossier-submit").trigger("click");
     })
 
     // var idd = $(this).data('idcloture');

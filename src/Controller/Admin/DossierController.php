@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -607,7 +608,7 @@ class DossierController extends Controller
 
     /**
      * @param Request $request
-     * @Route("/{id}/edit", name="edit_sub_dossier", options={"expose"=true}, methods={"GET","POST"})
+     * @Route("/sub-dossier/edit/{id}", name="edit_sub_dossier", requirements={"id"="\d+"}, options={"expose"=true}, methods={"GET","POST"})
      * @ParamConverter("subdossier", class="App\Entity\SubDossier")
      * @param SubDossier|null $subDossier
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -615,7 +616,7 @@ class DossierController extends Controller
     public function editSubD(Request $request, SubDossier $subDossier = null)
     {
         $id = $request->get('id');
-       $idDossier = $this->session->get('id');
+        $idDossier = $this->session->get('id');
         $em = $this->getDoctrine()->getManager();
 
         $response = new JsonResponse();

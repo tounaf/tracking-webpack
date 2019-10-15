@@ -125,6 +125,9 @@
                     </div>
                 </div>
             {% endif %}
+            <div style="display: none">
+                <button type="submit" id="button-dossier-submit">Enregistrer</button>
+            </div>
             {{ form_end(form,{'render_rest': false}) }}
             {% if dossier is defined and dossier.id is not null %}
                 <input type="text" value="{{ dossier.id }}" id="iddossier" hidden>
@@ -132,7 +135,7 @@
                 {% include 'dossier/list_pj.html.twig' with {'data-idDossier': dossier.id,} %}
             {% endif %}
              <div class="btns-group text-right">
-                <button type="submit" id="button-dossier-for" class="btn btn-danger">Enregistrer</button>
+                <button type="button" id="button-dossier-for" class="btn btn-danger">Enregistrer</button>
             </div>
         </div>
     </div>
