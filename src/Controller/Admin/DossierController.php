@@ -16,6 +16,7 @@ use App\Form\DossierType;
 use App\Form\SubDossierType;
 use App\Repository\DossierRepository;
 use phpDocumentor\Reflection\Types\This;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -543,14 +544,13 @@ class DossierController extends Controller
         }
     }
     /**
-     * @Route("/dossier/sub-dossier/edit/{id}", name="edit_sub_dossier", methods={"GET", "POST"}, options={"expose"=true})
+     * @Route("/dossier/sub-dossier/edit/{id}", name="edit_sub_dossierS", methods={"GET", "POST"}, options={"expose"=true})
      * @param Dossier $dossier
      * @return \Symfony\Component\HttpFoundation\Response
-     */
+
     public function editSubDossier(SubDossier $dossier = null, Request $request)
     {
         $id =$request->get('id');
-
         $response = new JsonResponse();
         if ($dossier instanceof SubDossier && $request->isXmlHttpRequest()) {
             $form = $this->createForm(SubDossierType::class, $dossier, array(
@@ -579,7 +579,7 @@ class DossierController extends Controller
                     'message' => $this->trans->trans('label.edit.success'),
                     'type' => 'success',
                     'statut' => '200'
-                )) ;*/
+                )) ;
             }
 
             if ($request->isXmlHttpRequest()) {
@@ -599,6 +599,56 @@ class DossierController extends Controller
             'type' => 'danger'
         ));
         return $response;
+    }*/
+
+
+    /**
+     * @param Request $request
+     * @Route("/{id}/edit", name="edit_sub_dossier", options={"expose"=true}, methods={"GET","POST"})
+     * @ParamConverter("subdossier", class="App\Entity\SubDossier")
+     * @param SubDossier|null $subDossier
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function editSubD(Request $request, SubDossier $subDossier = null)
+    {
+        $id = $request->get('id');
+       $idDossier = $this->session->get('id');
+        $em = $this->getDoctrine()->getManager();
+
+        $response = new JsonResponse();
+        if ($subDossier) {
+            $form = $this->createForm(SubDossierType::class, $subDossier, [
+                'method' => 'POST',
+                'action' => $this->generateUrl('edit_sub_dossier', ['id' => $id])
+            ])->handleRequest($request);
+            if ($form->isSubmitted())
+            {
+                try{
+                    $em->flush();
+                    $this->get('session')->getFlashBag()->add('success', $this->trans->trans('label.edit.success'));
+                }catch (\Exception $exception)
+                {
+                    $this->$exception->getMessage();die();
+                    $this->get('session')->getFlashBag()->add('danger', $this->trans->trans('label.edit.error'));
+                }
+                return $this->redirectToRoute('render_edit_dossier',array('id' => $idDossier, 'currentTab' => 'declaration'));
+            }
+            if($request->isXmlHttpRequest()){
+                return $this->render('dossier/sub_dossier/_form_create_sub.html.twig', array(
+                    'form' => $form->createView(),
+                ));
+            } else {
+                // return new JsonResponse(array('status' => 'Error'),400);
+                throw new NotFoundHttpException();
+            }
+        } else {
+            $response->setData(array(
+                'message' => $this->translator->trans('label.not.found'),
+                'status' => 403,
+                'type' => 'danger'
+            ));
+            return $response;
+        }
     }
 
     protected  function savePersistObj($em, $obj){

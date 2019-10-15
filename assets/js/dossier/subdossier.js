@@ -147,6 +147,7 @@ $(document).ready(function () {
     }
 
     $('body').on('click', '#formSubDossier', function (e) {
+        console.log("formsub");
         e.preventDefault();
         $(this).ajaxloader('show');
         var id = $("#idSubDossier").val();
@@ -164,26 +165,64 @@ $(document).ready(function () {
     $('input[id^="dossier_subDossiers"]').parent().children(0).hide();
     $('input[id^="dossier_subDossiers"]').hide();
 
-    /**
-     * get form on create
-     */
-    $('body').on('click', '#modalCreateSubDossier', function (e) {
-        e.preventDefault();
-        main.ajaxloader('show');
-        var route = $(this).data('route');
-        var title = $(this).data('title');
-        var dossierId = $(this).data('dossier');
-        console.log("route" + route + "title" + title + "dosssId" + dossierId);
-           var url = Routing.generate(route, {id: dossierId},true);
-            // var convenu = $('#intervenant_convenu').val();
-            $.get(url,function (response) {
-                var elt = $('#exampleModalLongTitle');
-                removeClassStartingWith(elt, 'alert');
-                $('.modal-body').html(response);
-                elt.addClass('text-danger').text(title);
-                $('.modal-body').show();
-                $('#modalCreateSub').modal('show');
-                main.ajaxloader('hide');
-            })
+})
+/**
+ * get form on create
+ */
+$('body').on('click', '#createSubDossier', function (e) {
+    console.log("modalCreate");
+    e.preventDefault();
+    main.ajaxloader('show');
+    var route = $(this).data('route');
+    var title = $(this).data('title');
+    var dossierId = $(this).data('dossier');
+    console.log("route" + route + "title" + title + "dosssId" + dossierId);
+    var url = Routing.generate(route, {id: dossierId},true);
+    // var convenu = $('#intervenant_convenu').val();
+    $.get(url,function (response) {
+        var elt = $('#exampleModalLongTitle');
+        removeClassStartingWith(elt, 'alert');
+        $('.modal-body').html(response);
+        elt.addClass('text-danger').text(title);
+        $('.modal-body').show();
+        $('#modalCreateSub').modal('show');
+        main.ajaxloader('hide');
+    })
+})
+
+
+/**
+ * get form edit
+ */
+$('body').on('click', '.edit_subD', function (e) {
+    e.preventDefault();
+console.log("edit");
+    main.ajaxloader('show');
+    var id = $(this).data('id');
+    var route = $(this).data('route');
+    var title = $(this).data('title');
+    var url = Routing.generate(route,{'id':id}, true)
+    $.get(url,function (response) {
+        var elt = $('#exampleModalLongTitle');
+        if (response.status == 403) {
+            $('.modal-body').hide();
+            $('#modalCreateSub').modal('show');
+            elt.removeClass('text-danger').addClass('alert alert-'+response.type).text(response.message);
+            setTimeout(function(){// wait for 5 secs(2)
+                elt.text("La page va se raffraichir");
+            }, 1000);
+            setTimeout(function(){// wait for 5 secs(2)
+                location.reload(); // then reload the page.(3)
+            }, 3000);
+            main.ajaxloader('hide');
+            return false;
+        } else {
+            removeClassStartingWith(elt, 'alert');
+            $('.modal-body').show();
+            $("#exampleModalLongTitle").addClass('text-danger').text(title);
+            $('.modal-body').html(response);
+            $('#modalCreateSub').modal('show');
+            main.ajaxloader('hide');
+        }
     })
 })

@@ -109,26 +109,29 @@
                     </div>
                 </div>
             </div>
-            {{ form_end(form,{'render_rest': false}) }}
+
             {% if dossier is defined and dossier.id is not null %}
                 <div class="card card-custom-2 m-b-30">
                     <div class="card-body">
                         <div class="subdossier-bloc">{#
                             {{ form_row(form.subDossiers) }}#}
                             {#<button id="addSubDossier" class="btn btn-success btn-ajouter" data-title="{{ 'label.edit.create'|trans }}" data-route="create_subdossier"><i class="icon-plus-circle"></i><span>Ajouter</span></button>#}
-                            <button id="modalCreateSubDossier" class="btn btn-success" data-dossier="{{ dossier.id }}"
+                            <button id="createSubDossier" class="btn btn-success" data-dossier="{{ dossier.id }}"
                                     data-route="subDossier_new" data-title="{{ 'AJOUT'|trans }}"><i
                                         class="icon-plus-circle"></i><span>Ajouter</span></button>
                         </div>
-                        {{ include('dossier/modal_add_sub_dossier.html.twig') }}
+                       {# {{ include('dossier/modal_add_sub_dossier.html.twig') }}#}
                         {{ include('dossier/sub_dossier/sub_dossier_list.html.twig') }}
                     </div>
                 </div>
+            {% endif %}
+            {% if dossier is defined and dossier.id is not null %}
+                {{ form_end(form,{'render_rest': false}) }}
                 <input type="text" value="{{ dossier.id }}" id="iddossier" hidden>
                 {% include 'dossier/pjform.html.twig' with {'dossier': dossier, 'formPj': formPj} %}
                 {% include 'dossier/list_pj.html.twig' with {'data-idDossier': dossier.id,} %}
             {% endif %}
-            <div class="btns-group text-right">
+             <div class="btns-group text-right">
                 <button type="submit" id="button-dossier-for" class="btn btn-danger">Enregistrer</button>
             </div>
         </div>
