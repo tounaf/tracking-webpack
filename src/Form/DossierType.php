@@ -122,7 +122,7 @@ class DossierType extends AbstractType
             ->add('sensLitige', ChoiceType::class, array(
                 'label' => $this->trans->trans('label.sens.litige'),
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),
-                'required'=> false,
+                'required'=> true,
                 'choices' => [
                     'Positif' => 'Positif',
                     'Négatif' => 'Négatif'
