@@ -122,7 +122,7 @@ class DossierType extends AbstractType
             ->add('sensLitige', ChoiceType::class, array(
                 'label' => $this->trans->trans('label.sens.litige'),
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),
-                'required'=> false,
+                'required'=> true,
                 'choices' => [
                     'Positif' => 'Positif',
                     'Négatif' => 'Négatif'
@@ -178,6 +178,26 @@ class DossierType extends AbstractType
                 'attr' => array('class' => 'my-selector',)
                 )
             )
+        //   //PJ Field to add file in pj
+          ->add('File', FileType::class,[
+                'label' => 'insérer pièces jointes',
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+                // make it optional so you don't have to re-upload the PDF file
+                // everytime you edit the Product details
+                'required' => false,
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+            ])
+
+            ->add('piecesJointes', EntityType::class, array(
+                'class' => InformationPj::class,
+                'choice_label' => 'libelle',
+                'required' => false,
+                'placeholder' =>'Veuillez selectionner',
+
+                'mapped' => false
+            ))
         ;
     }
 

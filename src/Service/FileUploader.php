@@ -15,10 +15,7 @@ class FileUploader{
     }
 
     public function uploadSimpleFile($filename, $tmpName){
-
-
         return move_uploaded_file($tmpName, $this->getTargetDirectory().$filename);
-
     }
 
     public function upload(UploadedFile $file)
@@ -82,7 +79,6 @@ class FileUploader{
 
     public function downFilePjIntervenant($filename)
     {
-
         if($this->checkfileUpload($filename))
         {
             $response = new \Symfony\Component\HttpFoundation\Response();
