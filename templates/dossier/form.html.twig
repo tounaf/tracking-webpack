@@ -125,8 +125,8 @@
                     </div>
                 </div>
             {% endif %}
+            {{ form_end(form,{'render_rest': false}) }}
             {% if dossier is defined and dossier.id is not null %}
-                {{ form_end(form,{'render_rest': false}) }}
                 <input type="text" value="{{ dossier.id }}" id="iddossier" hidden>
                 {% include 'dossier/pjform.html.twig' with {'dossier': dossier, 'formPj': formPj} %}
                 {% include 'dossier/list_pj.html.twig' with {'data-idDossier': dossier.id,} %}
