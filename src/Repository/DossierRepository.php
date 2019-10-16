@@ -119,6 +119,24 @@ class DossierRepository extends ServiceEntityRepository
 
 
 
+    /**
+     * @return mixed
+     */
+    public function getEmailUserEnCharge()
+    {
+        $currentDate = new \DateTime();
+        $query = $this->createQueryBuilder('d');
+        $query
+           // ->select('u.email','u.lastname', 'd.id','d.referenceDossier','d.raisonSocial','d.nomDossier','d.nomPartieAdverse','d.echeance','d.etapeSuivante')
+            ->select('u.email','d.referenceDossier','s.libele','d.nomDossier','d.nomPartieAdverse','d.echeance','etp.libelle')
+            ->innerJoin('d.userEnCharge','u')
+            ->innerJoin('d.raisonSocial','s')
+            ->innerJoin('d.etapeSuivante','etp')
+            ->andWhere('d.alerteDate = :now')
+            ->setParameter('now', $currentDate->format('Y-m-d'));
+        return $query->getQuery()->getResult();
+    }
+
 
 
 }
