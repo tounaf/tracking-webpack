@@ -8,6 +8,7 @@
 
 namespace App\Service;
 
+use Hoa\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class MailerService
@@ -50,7 +51,29 @@ class MailerService
             ->setBody($body, 'text/html')
             ->setTo($email)
             ->setReplyTo($fromEmail);
-      return  $mailer->send($message);
+
+        return  $mailer->send($message);
+
+    }
+
+    /**
+     * @param $subject
+     * @param $email
+     * @param $template
+     * @return int
+     */
+    public function sendNotification($subject, $email, $template)
+    {
+        $fromEmail = $this->container->getParameter('fos_user.registration.confirmation.from_email');
+        $message = new \Swift_Message('Notification');
+        $mailer = new \Swift_Mailer(new \Swift_SmtpTransport($this->container->getParameter('host_mailer')));
+        $message
+            ->setSubject($subject)
+            ->setFrom($fromEmail)
+            ->setBody($template, 'text/html')
+            ->setTo($email)
+            ->setReplyTo($fromEmail);
+        $mailer->send($message);
 
     }
 }
