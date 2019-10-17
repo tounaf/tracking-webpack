@@ -8,28 +8,25 @@
 <table id="listTransfer" class="dataTable table table-striped">
     <thead>
     <tr>
-        <th>Dossier</th>
+
         <th>Notification actuelle</th>
         <th>Transférer à</th>
-        <th>Mail de transfert</th>
+
         <th>Date début</th>
         <th>Date Fin</th>
     </tr>
     </thead>
     <tbody>
+
     {% if dataTransfer is defined %}
         {% if dataTransfer is not null %}
             {% for dataTransfer in dataTransfer  %}
-            {% for data in dataTransfer.usertransfer.dossiers  %}
                 <tr>
-                    <td>{{ data.nomDossier  }}</td>
-                    <td>{{ dataTransfer.usernotif.name }}</td>
-                    <td>{{ dataTransfer.usertransfer.name }}</td>
-                    <td> {{ dataTransfer.usertransfer.email }}</td>
+                    <td>{{ dataTransfer.usernotif.name }} {{ dataTransfer.usernotif.lastname }}</td>
+                    <td>{{ dataTransfer.usertransfer.name }} {{ dataTransfer.usertransfer.lastname }}</td>
                     <td>{{ dataTransfer.datedebut|date('d-m-Y H:i:s') }} </td>
                     <td>{{ dataTransfer.datefin|date('d-m-Y H:i:s') }} </td>
                 </tr>
-            {% endfor %}
             {% endfor %}
         {% endif %}
     {% endif %}
