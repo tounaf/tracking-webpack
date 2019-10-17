@@ -41,11 +41,6 @@ class SendNotificationCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $oDossiers = $this->em->getRepository(Dossier::class)->getEmailUserEnCharge();
-        $context = $this->container->get('router')->getContext();
-        $context->setHost($this->container->getParameter('router.request_context.host'));
-        $context->setBaseUrl($this->container->getParameter('router.request_context.base_url'));
-        $context->setScheme($this->container->getParameter('router.request_context.scheme'));
-
         $io = new SymfonyStyle($input, $output);
         $output->writeln('Envoi  à :');
         foreach ($oDossiers as $dossier) {

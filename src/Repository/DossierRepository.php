@@ -145,6 +145,23 @@ class DossierRepository extends ServiceEntityRepository
                            WHERE created_at <=  DATE_SUB(NOW(),INTERVAL 10 DAY) AND d.id 
                            NOT IN (SELECT dossier_id FROM history WHERE created_at <=  DATE_SUB(NOW(),INTERVAL 10 DAY))";
         return $this->getEntityManager()->getConnection()->executeQuery($query)->fetchAll();
+    }/**
+     * send notification mailing when dossier in history no updated
+     * @return mixed
+     */
+    public function getUserEnChargDssrHisNoUpdt()
+    {
+        $query = "SELECT h.id AS history_id,us.email, d.nom_dossier AS nomDossier,d.reference_dossier AS referenceDossier,s.libele AS libele,d.nom_partie_adverse AS nomPartieAdverse,d.echeance AS echeance,etp.libelle AS libelle
+                        FROM history h 
+                        INNER JOIN dossier d ON d.id=h.dossier_id 
+                        INNER JOIN  `user` us ON d.user_en_charge_id = us.id
+                        INNER JOIN societe s ON d.raison_social_id=s.id
+                        INNER JOIN etape_suivante etp ON d.etape_suivante_id=etp.id
+                        WHERE h.created_at <=  DATE_SUB(NOW(),INTERVAL 10 DAY) 
+                        GROUP BY h.dossier_id";
+                        /*WHERE h.created_at =  DATE_SUB(CURRENT_DATE,INTERVAL 10 DAY)
+                        GROUP BY h.dossier_id";*/
+        return $this->getEntityManager()->getConnection()->executeQuery($query)->fetchAll();
     }
 
 

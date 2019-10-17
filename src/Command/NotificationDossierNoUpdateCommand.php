@@ -39,12 +39,10 @@ class NotificationDossierNoUpdateCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $oDossiersNoUpdt = $this->em->getRepository(Dossier::class)->getUserEnChargDssrNoUpdt();
-        $context = $this->container->get('router')->getContext();
-        $context->setHost($this->container->getParameter('router.request_context.host'));
-        $context->setBaseUrl($this->container->getParameter('router.request_context.base_url'));
-        $context->setScheme($this->container->getParameter('router.request_context.scheme'));
+
+        //history no updated dans 10jours
+        $oDosNoUpdtHis = $this->em->getRepository(Dossier::class)->getUserEnChargDssrHisNoUpdt();
         $io = new SymfonyStyle($input, $output);
-/*        $arg1 = $input->getArgument('arg1');*/
         $output->writeln('Envoi  à :');
         foreach ($oDossiersNoUpdt as $dossier) {
             $output->writeln($dossier['email']);
@@ -68,6 +66,30 @@ class NotificationDossierNoUpdateCommand extends Command
             }
 
         }
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+
+        //history no updated dans 10jrs
+        foreach ($oDosNoUpdtHis as $dosHis) {
+            $output->writeln($dosHis['email']);
+            $template = $this->container->get('templating')->render('dossier/mail_notification.html.twig', array(
+                'reference' => $dosHis['referenceDossier'],
+                'nomDossier' => $dosHis['nomDossier'],
+                'societe' => $dosHis['libele'],
+                'nomPartieAdverse' => $dosHis['nomPartieAdverse'],
+                'echeance' => $dosHis['echeance'],
+                'etapeSuivante' => $dosHis['libelle'],
+                'dossierNoUpdt' =>'dossierNoupdt',
+                'application_name' => 'LITIGE',
+                'dossier'=>$dosHis
+            ));
+            try {
+                $this->serviceMailer->sendNotification('Notification litige',$dossier['email'], $template);
+                $io->success('envoi reussi');
+            } catch (\Exception $exception) {
+                $io->$exception;die();
+                $io->warning('Erreur d\'envoi ');
+            }
+
+        }
+        $io->success('Envoi Terminé.');
     }
 }
