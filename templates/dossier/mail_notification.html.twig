@@ -1,9 +1,10 @@
 {% trans_default_domain 'FOSUserBundle' %}
 {% block body_text %}
     {% autoescape 'html' %}
-        <div style="float: left">
+        <div style="float:left; text-align-all: left ">
         <p> Le dossier {{ nomDossier }} n° {{ reference }} opposant {{ societe }}
         à {{ nomPartieAdverse }} passera le {{ echeance|date("d/m/Y") }} {{ etapeSuivante }}.
+        </p>
        <p>Ci-après le lien pour vous connecter : {{ url('fos_user_security_login') }} </p>
         <br/>
         <p>Cordialement,</p>
