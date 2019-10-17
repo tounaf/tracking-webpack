@@ -2,11 +2,14 @@
 {% block body_text %}
     {% autoescape 'html' %}
         <div style="float:left; text-align-all: left ">
-        <p> Le dossier {{ nomDossier }} n° {{ reference }} opposant {{ societe }}
-        à {{ nomPartieAdverse }} passera le {{ echeance|date("d/m/Y") }} {{ etapeSuivante }}.
+        <p> Le dossier {{ nomDossier }} n° {{ reference }} opposant {{ societe }} à {{ nomPartieAdverse }} passera le {{ echeance|date("d/m/Y") }} {{ etapeSuivante }}.
         </p>
        <p>Ci-après le lien pour vous connecter : {{ url('fos_user_security_login') }} </p>
         <br/>
+            {% if dossierNoUpdt is defined %}
+                <p>Veuillez mettre à jour la date de la prochaine échéance pour un meilleur suivi du dossier.
+            </p>
+            {% endif %}
         <p>Cordialement,</p>
         <br />
         Ce courrier est généré de manière automatique, veuillez ne pas y répondre.

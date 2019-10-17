@@ -113,12 +113,6 @@ class DossierRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-
-
-
-
-
-
     /**
      * @return mixed
      */
@@ -135,6 +129,22 @@ class DossierRepository extends ServiceEntityRepository
             ->andWhere('d.alerteDate = :now')
             ->setParameter('now', $currentDate->format('Y-m-d'));
         return $query->getQuery()->getResult();
+    }
+
+
+    /**
+     * send notification mailing when dossier no updated in create
+     * @return mixed
+     */
+    public function getUserEnChargDssrNoUpdt()
+    {
+        $query = "SELECT us.email, d.nom_dossier as nomDossier,d.reference_dossier as referenceDossier,s.libele as libele,d.nom_partie_adverse as nomPartieAdverse,d.echeance as echeance,etp.libelle as libelle FROM dossier d
+                          INNER JOIN  `user` us ON d.user_en_charge_id = us.id
+                          INNER JOIN societe s ON d.raison_social_id=s.id
+                          INNER JOIN etape_suivante etp ON d.etape_suivante_id=etp.id
+                           WHERE created_at <=  DATE_SUB(NOW(),INTERVAL 10 DAY) AND d.id 
+                           NOT IN (SELECT dossier_id FROM history WHERE created_at <=  DATE_SUB(NOW(),INTERVAL 10 DAY))";
+        return $this->getEntityManager()->getConnection()->executeQuery($query)->fetchAll();
     }
 
 
