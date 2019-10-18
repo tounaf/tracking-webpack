@@ -137,7 +137,7 @@ class Cloture
      * @param \DateTime $dateCloture
      * @return Cloture
      */
-    public function setDateCloture(\DateTimeInterface $dateCloture): self
+    public function setDateCloture(\DateTimeInterface $dateCloture=null): self
     {
         $this->dateCloture = $dateCloture;
 
