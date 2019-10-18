@@ -33,20 +33,6 @@ $(document).ready(function () {
             {"data": "categorie"},
             {"data": "entite"},
             {"data": "statut"},
-            /*{ "targets": -1,
-                "data": "edit",
-                "orderable": false,
-                "defaultContent": "",
-                "className": 'text-center',
-                "render": editRow
-            },*/
-            /* { "targets": -1,
-                 "data": "delete",
-                 "orderable": false,
-                 "defaultContent": "",
-                 "className": 'text-center',
-                 "render": deleteRender
-             }*/
         ],
         bLengthChange: false,
         info: false,
