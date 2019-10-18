@@ -4,8 +4,8 @@ import Routing from "../Routing";
 require('../bootstrap.datepicker.1.6.min');
 $(document).ready(function () {
     //Add option null selected
-    $("#transfertnotification_usernotif").prepend("<option value='' selected='selected'></option>");
-    $("#transfertnotification_usertransfer").prepend("<option value='' selected='selected'></option>");
+    $("#transfertnotification_usernotif").prepend("<option value='' selected='selected'>veuillez séléctionner</option>");
+    $("#transfertnotification_usertransfer").prepend("<option value='' selected='selected'>veuillez séléctionner</option>");
     //Control data selected
     $('select').on('change', function(event ) {
         var prevValue = $(this).data('previous');
