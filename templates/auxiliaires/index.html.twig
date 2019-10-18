@@ -1,10 +1,13 @@
 {% include '_flash.html.twig' %}
 <div class="card custom-card">
+    <div class="card-header">
+        <h2>Autres auxiliaires étant intervenus sur l'affaire</h2>
+    </div>
     <div class="card-body">
         <div class="listing-bloc relative-bloc">
             <div class="row">
                 <div class="col-xl-8">
-                    AUXILIAIRES INTERVENUS SUR L'AFFAIRE <br>
+                    {#AUTRES AUIXILIAIRES ETANT INTERVENUS SUR L'AFFAIRE#}<br>
                     <button id="modalCreateAuxi" class="btn btn-success" data-dossier="" data-route="auxiliaires_new"
                             data-title="{{ 'AJOUT'|trans }}"> <i class="icon-plus-circle"></i><span>Ajouter</span></button>
                 </div>

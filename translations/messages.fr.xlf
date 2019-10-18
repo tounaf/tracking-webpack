@@ -757,7 +757,7 @@
             </trans-unit>
             <trans-unit id="163">
                 <source>label.infoPj</source>
-                <target>INFOS PIECES JOINTES</target>
+                <target>INFO PJ</target>
             </trans-unit>
             <trans-unit id="164">
                 <source>column.pJ</source>

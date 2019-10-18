@@ -48,7 +48,7 @@ class AuxiliairesType extends AbstractType
 
 
             ->add('nomPrenom',null,[
-                'label' => 'NOM & PRENOM',
+                'label' => 'PRENOM & NOM',
             ])
             ->add('adresse')
             ->add('telephone', null, array(
@@ -90,7 +90,7 @@ class AuxiliairesType extends AbstractType
                 'class' => InformationPj::class,
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),
                 'required'=>false,
-                'choice_label' => 'libelle',
+                'label' => $this->trans->trans('label.infoPj'),
 //                'data_class' =>
                 'mapped' => false
             ))
