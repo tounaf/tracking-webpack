@@ -5,6 +5,7 @@ require('datatables.net-bs4');
 require('./subdossier');
 require('./clotureUpload');
 require('./dossierUpload');
+require('./tranfernotification');
 
 $(document).ready(function () {
     $('#listDossier').DataTable({
