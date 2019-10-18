@@ -156,8 +156,16 @@ class DossierType extends AbstractType
                 'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
 
             ))
-            ->add('situation', null, array(
-                'label' => $this->trans->trans('label.situation')
+            ->add('situation', ChoiceType::class, array(
+                'label' => $this->trans->trans('Instance'),
+                'placeholder' =>  $this->trans->trans('label.veuillezS'),
+                'choices' => [
+                    'Devant le président du tribunal' => 'Devant le président du tribunal',
+                    'En première instance' => 'En première instance',
+                    'En appel' => 'En appel',
+                    'En cassation' => 'En cassation',
+                    'En arbitrage' => 'En arbitrage',
+                ]
             ))
             ->add('alerteDate', DateTimeType::class, array(
                 'widget' => 'single_text',
