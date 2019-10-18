@@ -40,3 +40,6 @@
 label[for='dossier_formePartieAdverse'], #dossier_formePartieAdverse {
     display: none;
 }
+.form-control-file{
+    font-size: small;
+}
