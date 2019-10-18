@@ -78,8 +78,18 @@ $(document).ready(function(){
     /**
      * trigger submit when file selected
      */
+    var maxupload;
+    $('#errorupload').hide();
     $("#form-pj-dossier").on("submit", function () {
        // e.preventDefault();
+        $.ajax({
+            url : Routing.generate('get_fileuploadMax'),
+            async: false,
+            success : function(response){
+                maxupload = response;
+
+            }
+        });
        var fd = new FormData();
        var files = $('#pj_dossier_File')[0].files[0];
         var id = $("#dossier-id").val();
