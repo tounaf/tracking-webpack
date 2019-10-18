@@ -28,10 +28,10 @@ class DossierRepository extends ServiceEntityRepository
     }
 
     public function checkConditionProfile($user, $sqlWhere){
-        if($user->getProfile()->getCode() == 'ROLE_JURISTE'){
+        /*if($user->getProfile()->getCode() == 'ROLE_JURISTE'){
             $sqlWhere[] = " r.id =".$user->getSociete()->getId(). " AND pf.code = 'ROLE_JURISTE'";
-        }
-        if($user->getProfile()->getCode() == 'ROLE_ADMIN'){
+        }*/
+        if(($user->getProfile()->getCode() == 'ROLE_ADMIN')||($user->getProfile()->getCode() == 'ROLE_JURISTE')){
             $sqlWhere[] = " r.id =".$user->getSociete()->getId();
         }
         if($user->getProfile()->getCode() == 'ROLE_SUPERADMIN'){
