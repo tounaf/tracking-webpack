@@ -117,10 +117,27 @@ class DossierRepository extends ServiceEntityRepository
      * @return mixed
      */
     public function getEmailUserEnCharge()
-    {
-        $currentDate = new \DateTime();
+    {#alerte date
+        $query=" SELECT 
+                      d.`user_en_charge_id`, d.nom_dossier AS nomDossier,d.reference_dossier AS referenceDossier,s.libele AS libele,d.nom_partie_adverse AS nomPartieAdverse,
+                      d.echeance AS echeance,etp.libelle AS libelle,
+                      d.id,
+                      IF (CURRENT_DATE() BETWEEN t.`datedebut` AND t.datefin, t.`usertransfer_id`, t.`usernotif_id`) test,
+                      (SELECT email FROM `user` WHERE id=test) AS email
+                    FROM
+                      dossier d 
+                      LEFT JOIN transfertnotification t 
+                        ON d.user_en_charge_id = t.usernotif_id #And CURRENT_DATE() BETWEEN t.`datedebut` and t.datefin
+                          INNER JOIN  `user` us ON d.user_en_charge_id = us.id
+                          INNER JOIN societe s ON d.raison_social_id=s.id
+                          INNER JOIN etape_suivante etp ON d.etape_suivante_id=etp.id
+                    WHERE DATE(d.alerte_date) = CURRENT_DATE() 
+                    GROUP BY d.`id`";
+        return $this->getEntityManager()->getConnection()->executeQuery($query)->fetchAll();
+      /*  $currentDate = new \DateTime();
         $query = $this->createQueryBuilder('d');
         $query
+
            // ->select('u.email','u.lastname', 'd.id','d.referenceDossier','d.raisonSocial','d.nomDossier','d.nomPartieAdverse','d.echeance','d.etapeSuivante')
             ->select('u.email','d.referenceDossier','s.libele','d.nomDossier','d.nomPartieAdverse','d.echeance','etp.libelle')
             ->innerJoin('d.userEnCharge','u')
@@ -128,7 +145,7 @@ class DossierRepository extends ServiceEntityRepository
             ->innerJoin('d.etapeSuivante','etp')
             ->andWhere('d.alerteDate = :now')
             ->setParameter('now', $currentDate->format('Y-m-d'));
-        return $query->getQuery()->getResult();
+        return $query->getQuery()->getResult();*/
     }
 
 
@@ -145,7 +162,8 @@ class DossierRepository extends ServiceEntityRepository
                            WHERE created_at <=  DATE_SUB(NOW(),INTERVAL 10 DAY) AND d.id 
                            NOT IN (SELECT dossier_id FROM history WHERE created_at <=  DATE_SUB(NOW(),INTERVAL 10 DAY))";
         return $this->getEntityManager()->getConnection()->executeQuery($query)->fetchAll();
-    }/**
+    }
+    /**
      * send notification mailing when dossier in history no updated
      * @return mixed
      */
@@ -163,7 +181,5 @@ class DossierRepository extends ServiceEntityRepository
                         GROUP BY h.dossier_id";*/
         return $this->getEntityManager()->getConnection()->executeQuery($query)->fetchAll();
     }
-
-
 
 }
