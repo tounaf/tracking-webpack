@@ -1,0 +1,35 @@
+{% if app.user.hasRole("ROLE_SUPERADMIN") or app.user.hasRole("ROLE_ADMIN") %}
+
+<br>
+<div class="card-header">
+    <h2>Historique de transfert de notification de mail</h2>
+</div>
+
+<table id="listTransfer" class="dataTable table table-striped">
+    <thead>
+    <tr>
+
+        <th>Notification actuelle</th>
+        <th>Transférer à</th>
+
+        <th>Date début</th>
+        <th>Date Fin</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% if dataTransfer is defined %}
+        {% if dataTransfer is not null %}
+            {% for dataTransfer in dataTransfer  %}
+                <tr>
+                    <td>{{ dataTransfer.usernotif.name }} {{ dataTransfer.usernotif.lastname }}</td>
+                    <td>{{ dataTransfer.usertransfer.name }} {{ dataTransfer.usertransfer.lastname }}</td>
+                    <td>{{ dataTransfer.datedebut|date('d-m-Y H:i:s') }} </td>
+                    <td>{{ dataTransfer.datefin|date('d-m-Y H:i:s') }} </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+    </tbody>
+</table>
+{% endif %}
