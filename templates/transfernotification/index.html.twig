@@ -1,0 +1,68 @@
+{% extends 'dashboard/dashboard.html.twig' %}
+
+{% block title %} Notification de transfert de mail {% endblock %}
+
+{% block wrapper %}
+    <div class="card custom-card">
+        <div class="card-header">
+            <h2>Transfert de notification de mail</h2>
+        </div>
+        <div class="card-body">
+            {% include '_flash.html.twig' %}
+            <div class="form-bloc standard-form form-declaration-litige">
+                {#{{ form_start(form)  }}#}
+                {{ form_start(form, {'attr':{'id':'transfernotification'}}) }}
+                <div class="row same-height m-b-30">
+                    <div class="col-md-6">
+                        <div class="card card-custom-2 m-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        {{ form_row(form.usernotif) }}
+                                    </div>
+                                    <div class="col-xl-6">
+                                        {{ form_row(form.usertransfer) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-custom-2 m-b-30">
+                    <div class="card-body">
+                        <div class="row same-height">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <span id="errordate"  style="color: #C80F2D; font-size: 12px; float: right">
+                                            Le date de fin ne doit pas être inférieur à la date de debut de notification.
+                                        </span>
+                                        <div class="form-group date-form">
+                                            {{ form_label(form.datedebut) }}
+                                            {{ form_widget(form.datedebut) }}
+                                        </div>
+                                        <div class="form-group date-form">
+                                            {{ form_label(form.datefin) }}
+                                            {{ form_widget(form.datefin) }}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="btns-group text-right">
+                    <button type="submit" id="button-transfer" class="btn btn-danger">Enregistrer</button>
+                </div>
+                {{ form_end(form) }}
+                <div>
+                    {{ include('transfernotification/list_transfermail.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
