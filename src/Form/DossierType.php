@@ -122,13 +122,14 @@ class DossierType extends AbstractType
             ->add('sensLitige', ChoiceType::class, array(
                 'label' => $this->trans->trans('label.sens.litige'),
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),
-                'required'=> true,
+                'required'=> false,
                 'choices' => [
                     'Positif' => 'Positif',
                     'Négatif' => 'Négatif'
                 ]
             ))
             ->add('montant', null, array(
+                'required'=>true,
                 'label' => $this->trans->trans('label.montant')
             ))
             ->add('devise', EntityType::class, [
@@ -163,7 +164,7 @@ class DossierType extends AbstractType
                 'format' => 'dd/MM/yyyy',
                 'model_timezone' => 'UTC',
                 'view_timezone' => 'UTC',
-                'required' => true,
+                'required' => false,
 
                 'label' => $this->trans->trans('label.alert'),
                 'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
