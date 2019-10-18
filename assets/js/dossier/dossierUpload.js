@@ -92,9 +92,19 @@ $(document).ready(function(){
         });
        var fd = new FormData();
        var files = $('#pj_dossier_File')[0].files[0];
-        var id = $("#dossier-id").val();
-        var idPj = $("#pj_dossier_infoPj").val();
+       var id = $("#dossier-id").val();
+       var idPj = $("#pj_dossier_infoPj").val();
+       if(files){
+           var taille = $('#pj_dossier_File')[0].files[0].size;
+           var tailleOctet = (taille/1024)/1024;
+           if(tailleOctet > maxupload){
+               $('#errorupload').show();
+               return false;
+           }else{
+               $('#errorupload').hide();
+           }
 
+       }
         fd.append('file', files);
         fd.append('pj_dossier_infoPj', idPj);
         $.ajax({
