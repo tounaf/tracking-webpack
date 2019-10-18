@@ -3,7 +3,7 @@ fos_user:
     user_class: App\Entity\FosUser
     firewall_name: main
     from_email:
-        address: 'no-reply@fetra.com'
+        address: 'suivi.litiges@axian-group.com'
         sender_name: 'litige'
     service:                               # this lines
         mailer: fos_user.mailer.twig_swift
