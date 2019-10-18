@@ -58,7 +58,7 @@ class AuxiliairesType extends AbstractType
             ))
             ->add('email', EmailType::class, array(
                 'label' => $this->trans->trans('EMAIL'),
-                'required' => true
+                'required' => false
             ))
             ->add('deviseAuxiConv', EntityType::class, array(
                 'class' => 'App\Entity\Devise',

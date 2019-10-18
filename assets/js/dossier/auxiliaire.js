@@ -218,11 +218,12 @@ $('#modalAuxi').on('blur keyup mouseout', '#auxiliaires_restePayer', function(ev
     var convenu = $("#modalAuxi #auxiliaires_restePayer").val();
     if (convenu != 0){
         $(".auxiStatut").val("A Payer");
-    } else if (convenu == 0){
+    }
+    else if (convenu === 0){
         $(".auxiStatut").val("Soldé");
     }
     else{
-        $(".auxiStatut").val("Autres");
+        $(".auxiStatut").val("");
     }
 });
 
