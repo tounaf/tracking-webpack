@@ -87,7 +87,6 @@ $(document).ready(function(){
             async: false,
             success : function(response){
                 maxupload = response;
-
             }
         });
        var fd = new FormData();
