@@ -12,6 +12,7 @@ $('#listSubdossier').DataTable({
     destroy : true,
     bLengthChange: false,
     info: false,
+    pageLength: 10,
     language: {
         processing:     "Traitement en cours...",
         search:         "Rechercher&nbsp;:",

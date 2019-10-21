@@ -133,7 +133,7 @@ $(document).ready(function(){
             "type": "POST"
         },
         "sAjaxDataProp": "data",
-        "pageLength": 5,
+        "pageLength": 10,
         "orderable": true,
         "columns": [
             {

@@ -5,6 +5,7 @@ $(document).ready(function () {
         destroy : true,
         bLengthChange: false,
         info: false,
+        pageLength: 50,
         language: {
             searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
@@ -44,6 +45,7 @@ $(document).ready(function () {
         destroy : true,
         bLengthChange: false,
         info: false,
+        pageLength: 50,
         language: {
             searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
@@ -82,6 +84,7 @@ $(document).ready(function () {
         destroy : true,
         bLengthChange: false,
         info: false,
+        pageLength: 50,
         language: {
             searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
@@ -121,6 +124,7 @@ $(document).ready(function () {
         destroy : true,
         bLengthChange: false,
         info: false,
+        pageLength: 50,
         language: {
             searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
@@ -159,6 +163,7 @@ $(document).ready(function () {
         destroy : true,
         bLengthChange: false,
         info: false,
+        pageLength: 50,
         language: {
             searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
@@ -197,6 +202,7 @@ $(document).ready(function () {
         destroy : true,
         bLengthChange: false,
         info: false,
+        pageLength: 50,
         language: {
             searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
@@ -235,6 +241,7 @@ $(document).ready(function () {
         destroy : true,
         bLengthChange: false,
         info: false,
+        pageLength: 50,
         language: {
             searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
@@ -273,6 +280,7 @@ $(document).ready(function () {
         destroy : true,
         bLengthChange: false,
         info: false,
+        pageLength: 50,
         language: {
             searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
@@ -311,6 +319,7 @@ $(document).ready(function () {
         destroy : true,
         bLengthChange: false,
         info: false,
+        pageLength: 50,
         language: {
             searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
@@ -351,6 +360,7 @@ $(document).ready(function () {
         destroy : true,
         bLengthChange: false,
         info: false,
+        pageLength: 50,
         language: {
             searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
@@ -389,6 +399,7 @@ $(document).ready(function () {
         destroy : true,
         bLengthChange: false,
         info: false,
+        pageLength: 50,
         language: {
             searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
@@ -428,6 +439,7 @@ $(document).ready(function () {
         destroy : true,
         bLengthChange: false,
         info: false,
+        pageLength: 50,
         language: {
             searchPlaceholder: "Votre recherche",
             processing:     "Traitement en cours...",
@@ -506,6 +518,7 @@ $(document).ready(function () {
         destroy : true,
         bLengthChange: false,
         info: false,
+        pageLength: 50,
         language: {
             processing:     "Traitement en cours...",
             search:         "Rechercher&nbsp;:",
