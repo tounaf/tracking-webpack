@@ -5,7 +5,11 @@
         <th><span>Date d'ajout dossier</span></th>
         <th><span>Information PJ</span></th>
         <th><span>Lien d'accès</span></th>
+        {% if app.user.hasRole("ROLE_SUPERADMIN") or app.user.hasRole("ROLE_ADMIN") %}
         <th><span>Action</span></th>
+            {% else %}
+                <th></th>
+        {% endif %}
         </thead>
     </table>
 </div>

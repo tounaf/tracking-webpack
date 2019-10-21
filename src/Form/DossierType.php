@@ -50,6 +50,7 @@ class DossierType extends AbstractType
 
             ->add('userEnCharge', EntityType::class, array(
                 'class' => 'App\Entity\FosUser',
+                'group_by' =>'societe.libele',
                 'label' => $this->trans->trans('label.personne.en.charge'),
                 'required' => true,
                 //'placeholder' => $this->user->getName(),
@@ -122,13 +123,14 @@ class DossierType extends AbstractType
             ->add('sensLitige', ChoiceType::class, array(
                 'label' => $this->trans->trans('label.sens.litige'),
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),
-                'required'=> true,
+                'required'=> false,
                 'choices' => [
                     'Positif' => 'Positif',
                     'Négatif' => 'Négatif'
                 ]
             ))
             ->add('montant', null, array(
+                'required'=>true,
                 'label' => $this->trans->trans('label.montant')
             ))
             ->add('devise', EntityType::class, [
@@ -155,15 +157,23 @@ class DossierType extends AbstractType
                 'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
 
             ))
-            ->add('situation', null, array(
-                'label' => $this->trans->trans('label.situation')
+            ->add('situation', ChoiceType::class, array(
+                'label' => $this->trans->trans('Instance'),
+                'placeholder' =>  $this->trans->trans('label.veuillezS'),
+                'choices' => [
+                    'Devant le président du tribunal' => 'Devant le président du tribunal',
+                    'En première instance' => 'En première instance',
+                    'En appel' => 'En appel',
+                    'En cassation' => 'En cassation',
+                    'En arbitrage' => 'En arbitrage',
+                ]
             ))
             ->add('alerteDate', DateTimeType::class, array(
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
                 'model_timezone' => 'UTC',
                 'view_timezone' => 'UTC',
-                'required' => true,
+                'required' => false,
 
                 'label' => $this->trans->trans('label.alert'),
                 'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],

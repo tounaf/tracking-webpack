@@ -30,7 +30,7 @@ class Auxiliaires
     private $adresse;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50,nullable=true)
      */
     private $email;
 
@@ -73,7 +73,7 @@ class Auxiliaires
     private $fonction;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50,nullable=true)
      */
     private $statutIntervenant;
 

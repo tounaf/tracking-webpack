@@ -135,6 +135,7 @@ $(document).ready(function(){
         $("#button-dossier-submit").trigger("click");
     })
 
+    var roleJury = $('#roolesJury').attr('data-rolesJury');
     // var idd = $(this).data('idcloture');
     var iddossier = $('#iddossier').val();
     /**
@@ -172,8 +173,10 @@ $(document).ready(function(){
                 "defaultContent": "",
                 "className": 'text-center',
                 "render": function (data, type, row) {
+                    if(!roleJury) {
                         var data = '<a href="' + Routing.generate('delete_pj', {'id': row.id}) + '" class="text-danger"><i class="icon-trash"></i></a>';
                         return data;
+                    }
                 }
             },
         ],

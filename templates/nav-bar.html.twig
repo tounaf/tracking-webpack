@@ -29,7 +29,7 @@
 
             <!-- user connecté -->
             <p class="user-infos">
-                <span class="user">{% if app.user.name is not null %} {{ app.user.name }} {% else %} {{ app.user.email }}{% endif %}</span>
+                <span class="user">{% if app.user.name is defined and app.user.name is not null %} {{ app.user.name }} {% else %} {{ app.user.email }}{% endif %}</span>
                 <a href="{{ path('fos_user_security_logout') }}" title="Déconnexion"><i class="icon-signout"></i></a>
             </p>
             <!-- /user connecté -->

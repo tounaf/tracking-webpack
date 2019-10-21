@@ -16,6 +16,11 @@ use Symfony\Component\Validator\Constraints\File;
 
 class PjDossierType extends AbstractType
 {
+    private $trans;
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->trans = $translator;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -36,7 +41,7 @@ class PjDossierType extends AbstractType
                 // in the associated entity, so you can use the PHP constraint classes
             )
             ->add('infoPj',EntityType::class, array(
-                'label' => 'infoPj',
+                'label' => $this->trans->trans('label.infoPj'),
                 'class' => InformationPj::class,
                 'choice_label' => 'libelle'))
 

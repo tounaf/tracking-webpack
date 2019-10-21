@@ -76,7 +76,7 @@ class IntervenantType extends AbstractType
                 'required'=>false,
                 'choice_label' => 'libelle'))
             ->add('nomPrenom',null,[
-                'label' => 'NOM & PRENOM ',
+                'label' => 'PRENOM & NOM',
                 ])
             ->add('adresse')
             ->add('telephone', null, array(
@@ -97,7 +97,7 @@ class IntervenantType extends AbstractType
                 'class' => InformationPj::class,
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),
                 'required'=>false,
-                'choice_label' => 'libelle',
+                'label' => $this->trans->trans('label.infoPj'),
 //                'data_class' =>
                 'mapped' => false
             ))

@@ -28,13 +28,12 @@ class DossierRepository extends ServiceEntityRepository
         parent::__construct($registry, Dossier::class);
     }
 
-    public function checkConditionProfile($user, $sqlWhere)
-    {
-        if ($user->getProfile()->getCode() == 'ROLE_JURISTE') {
-            $sqlWhere[] = " r.id =" . $user->getSociete()->getId() . " AND pf.code = 'ROLE_JURISTE'";
-        }
-        if ($user->getProfile()->getCode() == 'ROLE_ADMIN') {
-            $sqlWhere[] = " r.id =" . $user->getSociete()->getId();
+    public function checkConditionProfile($user, $sqlWhere){
+        /*if($user->getProfile()->getCode() == 'ROLE_JURISTE'){
+            $sqlWhere[] = " r.id =".$user->getSociete()->getId(). " AND pf.code = 'ROLE_JURISTE'";
+        }*/
+        if(($user->getProfile()->getCode() == 'ROLE_ADMIN')||($user->getProfile()->getCode() == 'ROLE_JURISTE')){
+            $sqlWhere[] = " r.id =".$user->getSociete()->getId();
         }
         if ($user->getProfile()->getCode() == 'ROLE_SUPERADMIN') {
             return $sqlWhere;
@@ -139,18 +138,7 @@ class DossierRepository extends ServiceEntityRepository
                     WHERE DATE(d.alerte_date) = CURRENT_DATE() 
                     GROUP BY d.`id`";
         return $this->getEntityManager()->getConnection()->executeQuery($query)->fetchAll();
-        /*  $currentDate = new \DateTime();
-          $query = $this->createQueryBuilder('d');
-          $query
 
-             // ->select('u.email','u.lastname', 'd.id','d.referenceDossier','d.raisonSocial','d.nomDossier','d.nomPartieAdverse','d.echeance','d.etapeSuivante')
-              ->select('u.email','d.referenceDossier','s.libele','d.nomDossier','d.nomPartieAdverse','d.echeance','etp.libelle')
-              ->innerJoin('d.userEnCharge','u')
-              ->innerJoin('d.raisonSocial','s')
-              ->innerJoin('d.etapeSuivante','etp')
-              ->andWhere('d.alerteDate = :now')
-              ->setParameter('now', $currentDate->format('Y-m-d'));
-          return $query->getQuery()->getResult();*/
     }
 
 

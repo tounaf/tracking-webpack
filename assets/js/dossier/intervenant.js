@@ -177,11 +177,11 @@ $(' body #modalIntervenant').on('blur keyup mouseout', '#intervenant_restePayer'
     var convenu = $("#modalIntervenant #intervenant_restePayer").val();
     if (convenu != 0){
         $(".intervenantStatut").val("A Payer");
-    } else if (convenu == 0){
+    } else if (convenu === 0){
         $(".intervenantStatut").val("Soldé");
     }
     else{
-        $(".intervenantStatut").val("Autres");
+        $(".intervenantStatut").val("");
     }
 });
 $(' body').on('blur keyup mouseout', '.currentReste', function(event){
@@ -189,11 +189,11 @@ $(' body').on('blur keyup mouseout', '.currentReste', function(event){
     var convenu = $("body .currentReste").val();
     if (convenu != 0){
         $(".intervenantStatutCurr").val("A Payer");
-    } else if (convenu == 0){
+    } else if (convenu === 0){
         $(".intervenantStatutCurr").val("Soldé");
     }
     else{
-        $(".intervenantStatutCurr").val("Autres");
+        $(".intervenantStatutCurr").val("");
     }
 });
 

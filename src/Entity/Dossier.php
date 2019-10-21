@@ -70,7 +70,7 @@ class Dossier
     private $echeance;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $alerteDate;
 
@@ -383,7 +383,7 @@ class Dossier
      * @param \DateTime $alerteDate
      * @return Dossier
      */
-    public function setAlerteDate(\DateTime $alerteDate): self
+    public function setAlerteDate(\DateTime $alerteDate=null): self
     {
         $this->alerteDate = $alerteDate;
 

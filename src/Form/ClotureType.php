@@ -33,7 +33,7 @@ class ClotureType extends AbstractType
                 'format' => 'dd/MM/yyyy',
                 'model_timezone' => 'UTC',
                 'view_timezone' => 'UTC',
-                'required' => true,
+                'required' => false,
                 'label' => 'DATE DE CLÔTURE',
                 'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
             ))
@@ -82,7 +82,8 @@ class ClotureType extends AbstractType
                     'Gain' => 'Gain',
 
                 ],
-                'required' => true,
+                'placeholder'=>false,
+                'required' => false,
             ])
             ->add('montantGainCondamn',null,[
                 'label'=>'MONTANT',

@@ -48,7 +48,7 @@ class AuxiliairesType extends AbstractType
 
 
             ->add('nomPrenom',null,[
-                'label' => 'NOM & PRENOM',
+                'label' => 'PRENOM & NOM',
             ])
             ->add('adresse')
             ->add('telephone', null, array(
@@ -58,7 +58,7 @@ class AuxiliairesType extends AbstractType
             ))
             ->add('email', EmailType::class, array(
                 'label' => $this->trans->trans('EMAIL'),
-                'required' => true
+                'required' => false
             ))
             ->add('deviseAuxiConv', EntityType::class, array(
                 'class' => 'App\Entity\Devise',
@@ -90,7 +90,7 @@ class AuxiliairesType extends AbstractType
                 'class' => InformationPj::class,
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),
                 'required'=>false,
-                'choice_label' => 'libelle',
+                'label' => $this->trans->trans('label.infoPj'),
 //                'data_class' =>
                 'mapped' => false
             ))
