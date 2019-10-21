@@ -12,6 +12,9 @@
                         <input type="hidden" value="{% if dossier is defined %}{{ dossier.id }}{% endif %}" id="dossier-id">
                         <div class="load-file">
                             <div class="loadLink"> {{ form_row(formPj.File) }}</div>
+                            <div >
+                                <span id="errorupload" >Le fichier est trop volumineux</span>
+                            </div>
                         </div>
                     </div>
                 </div>

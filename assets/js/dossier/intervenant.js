@@ -7,6 +7,7 @@ require('../jquery.ajaxloader');
 var main = $('.main');
 $(document).ready(function () {
    // var roleJury = $('#roolesJury').data('rolesJury');
+
     var roleJury = $('#roolesJury').attr('data-rolesJury');
     $("#edit-intervenant").click(function (e) {
         e.preventDefault();
@@ -99,6 +100,24 @@ $(document).ready(function () {
         }
         return data;
     }
+
+//Control upload intervenant
+    $('body #modalIntervenant').on('change', '#intervenant_File', function () {
+        var inputfile = this;
+        $.ajax({
+            url : Routing.generate('get_fileuploadMax'),
+            async: false,
+            success : function(response){
+                if(((inputfile.files[0].size)/1024)/1024 > response){
+                    $('body #modalIntervenant  #errorupload').css('display', 'block');
+                    return false;
+                }else{
+                    $('body #modalIntervenant  #errorupload').css('display', 'none');
+                }
+            }
+        });
+    });
+
 });
 $('body').on('click', '.remove-intervenant', function (e) {
     //    var id = table.row(this).id();
@@ -154,8 +173,10 @@ function removeClassStartingWith(node, begin) {
  * get form on create
  */
 $('body').on('click', '#modalCreateIntervenant', function (e) {
+
     e.preventDefault();
     main.ajaxloader('show');
+    $('span  #errorupload').css('display','none');
     var route = $(this).data('route');
     var title = $(this).data('title');
     var dossierId = $(this).data('dossier');
@@ -168,6 +189,7 @@ $('body').on('click', '#modalCreateIntervenant', function (e) {
         elt.addClass('text-danger').text(title);
         $('.modal-body').show();
         $('#modalIntervenant').modal('show');
+
         main.ajaxloader('hide');
     })
 });
@@ -243,4 +265,6 @@ $('body').on('click', '.edit-intervenant', function (e) {
            main.ajaxloader('hide');
         }
     })
+
+
 })

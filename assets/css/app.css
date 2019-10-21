@@ -36,6 +36,9 @@
 #pj_dossier_File, #pj_cloture_file{
     display: none;
 }
+.form-control-file{
+    font-size: small;
+}
 
 label[for='dossier_formePartieAdverse'], #dossier_formePartieAdverse {
     display: none;
