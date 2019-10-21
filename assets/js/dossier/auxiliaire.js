@@ -226,6 +226,23 @@ $('#modalAuxi').on('blur keyup mouseout', '#auxiliaires_restePayer', function(ev
     }
 });
 
+//Control upload auxiliaire
+$('body #modalAuxi').on('change', '#auxiliaires_FileAux', function () {
+    var inputfile = this;
+    $.ajax({
+        url : Routing.generate('get_fileuploadMax'),
+        async: false,
+        success : function(response){
+            if(((inputfile.files[0].size)/1024)/1024 > response){
+                $('body #modalAuxi  #errorupload').css('display', 'block');
+                return false;
+            }else{
+                $('body #modalAuxi  #errorupload').css('display', 'none');
+            }
+        }
+    });
+});
+
 /**
  *  after change on select devise, displaying devise on another devie
  */
@@ -283,6 +300,8 @@ $('body').on('click', '.btn-editAuxi', function (e) {
             main.ajaxloader('hide');
         }
     })
+
+
 })
 
 

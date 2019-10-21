@@ -81,7 +81,10 @@
                                         {{ form_widget(formAuxi.piecesJointesAux) }}
                                     </div>
                                     <div class="load-file">
-                                        <a href=""  class="loadLink" > {{ form_row(formAuxi.FileAux) }}</a>
+                                        <div class="loadLink" > {{ form_row(formAuxi.FileAux) }}</div>
+                                        <div >
+                                            <span id="errorupload" style="display: none">Le fichier est trop volumineux</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
