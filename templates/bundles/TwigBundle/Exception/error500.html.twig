@@ -2,13 +2,9 @@
 
 {% block error %}
     <center>
-       <h1 class="text-danger"> <i class="fa fa-warning text-red"></i> Erreur Technique a été survenue:  </h1>
-        <p class="lead">
-        <h1>La page que vous recherchez est temporairement indisponible.</h1>
-        </p>
-
+       <h1 class="text-danger"> <i class="fa fa-warning text-red"></i> Erreur Technique:  </h1>
         <p>
-        <h2> Veuillez actualiser cette page dans quelques instant ou <i><a href="#">Revenir dans la page d'accueil</a></i></h2>
+         <i><a href="{{ path('dashboard') }}">Revenir dans la page d'accueil</a></i>.
         </p>
     </center>
 {%  endblock%}
