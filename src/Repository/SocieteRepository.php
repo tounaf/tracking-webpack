@@ -24,21 +24,20 @@ class SocieteRepository extends ServiceEntityRepository
      * @param FosUser $user
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getSocieteByRole(FosUser $user) {
+    public function getSocieteByRole(FosUser $user)
+    {
         $query = $this->createQueryBuilder('s');
         $query->andWhere('s.enable = true');
-        if ($user->hasRole('ROLE_SUPERADMIN')){
+        if ($user->hasRole('ROLE_SUPERADMIN')) {
             return $query;
-        } elseif($user->hasRole('ROLE_ADMIN')) {
+        } elseif ($user->hasRole('ROLE_ADMIN')) {
+            $query
+                ->andWhere('s.id = :id');
+        } elseif ($user->hasRole('ROLE_JURISTE')) {
             $query
                 ->andWhere('s.id = :id');
         }
-        elseif ($user->hasRole('ROLE_JURISTE')) {
-            $query
-                ->andWhere('s.id = :id')
-                ;
-        }
-        $query->setParameter('id',$user->getSociete()->getId());
+        $query->setParameter('id', $user->getSociete()->getId());
         return $query;
     }
 
@@ -47,22 +46,24 @@ class SocieteRepository extends ServiceEntityRepository
      * @return \Doctrine\ORM\QueryBuilder
      * getSociete
      */
-    public function getSocietecharge($userC = null){
-        $societeId = $userC->getSociete()?$userC->getSociete()->getId():'';
-        $userId = $userC->getId();
-        $query = $this->createQueryBuilder('u');
-        $query->andWhere('u.enable = true');
+    public function getSocietecharge($userC = null)
+    {
+        if ($userC) {
+            $societeId = $userC->getSociete() ? $userC->getSociete()->getId() : '';
+            $userId = $userC->getId();
+            $query = $this->createQueryBuilder('u');
+            $query->andWhere('u.enable = true');
 //            ->andWhere('u.id = :id')
-        if ($userC->hasRole('ROLE_SUPERADMIN')){
-                    return $query;
-                }
-                else{
-            $query
-            ->andWhere('u.id = :soc')
+            if ($userC->hasRole('ROLE_SUPERADMIN')) {
+                return $query;
+            } else {
+                $query
+                    ->andWhere('u.id = :soc')
 //            ->setParameter('uid', $userId)
 //            ->setParameter('id', $userId)
-            ->setParameter('soc', $societeId);
-        return $query;
-                }
+                    ->setParameter('soc', $societeId);
+                return $query;
+            }
+        }
     }
 }
