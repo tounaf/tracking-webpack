@@ -121,7 +121,7 @@ class DossierRepository extends ServiceEntityRepository
      * date d'alerte du dossier d personne en charge
      */
     public function getEmailUserEnCharge()
-    {#alerte date
+    {
         $query = " SELECT 
                       d.`user_en_charge_id`, d.id as id, d.nom_dossier AS nomDossier,d.reference_dossier AS referenceDossier,s.libele AS libele,d.nom_partie_adverse AS nomPartieAdverse,
                       d.echeance AS echeance,etp.libelle AS libelle,

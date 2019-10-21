@@ -23,7 +23,7 @@ security:
                 always_use_default_target_path: true
                 csrf_token_generator: security.csrf.token_manager
                 login_path: /login
-                use_forward: false
+                use_forward: true
                 use_referer: true
                 check_path: /login_check
                 default_target_path: /admin/dossier/dashboard
@@ -48,5 +48,5 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
-         #- { path: ^/admin/dossier, roles: [ROLE_JURISTE,ROLE_ADMIN] }
-         #- { path: ^/admin, roles: [ROLE_SUPERADMIN,ROLE_ADMIN] }
+         - { path: ^/admin/dossier, roles: [ROLE_JURISTE,ROLE_ADMIN] }
+         - { path: ^/admin, roles: [ROLE_SUPERADMIN,ROLE_ADMIN] }
