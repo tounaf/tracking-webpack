@@ -50,6 +50,7 @@ class DossierType extends AbstractType
 
             ->add('userEnCharge', EntityType::class, array(
                 'class' => 'App\Entity\FosUser',
+                'group_by' =>'societe.libele',
                 'label' => $this->trans->trans('label.personne.en.charge'),
                 'required' => true,
                 //'placeholder' => $this->user->getName(),

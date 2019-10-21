@@ -19,13 +19,14 @@ class FosUserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, FosUser::class);
     }
+
     /**
      * @param null $user
      * @return mixed
      */
     public function listUserBySociete($user = null, $isAdmin = false)
     {
-        $societeId = $user->getSociete()?$user->getSociete()->getId():'';
+        $societeId = $user->getSociete() ? $user->getSociete()->getId() : '';
         $query = $this->createQueryBuilder('u');
         $query
             ->andWhere('u.id <> :currentUserId')
@@ -33,32 +34,34 @@ class FosUserRepository extends ServiceEntityRepository
         if (!$isAdmin) {
 
             $query
-                ->innerJoin('u.societe' ,'s')
+                ->innerJoin('u.societe', 's')
                 ->andWhere('s.id = :id')
-                ->setParameter('id', $societeId)
-            ;
+                ->setParameter('id', $societeId);
         }
         $list = $query->getQuery()->getResult();
         return $list;
 
     }
 
-    public function getUserCharge($userC = null){
-        $societeId = $userC->getSociete()?$userC->getSociete()->getId():'';
-        $userId = $userC->getId();
-     $query = $this->createQueryBuilder('u');
-        $query->andWhere('u.actif = true');
+    public function getUserCharge($userC = null)
+    {
+        if ($userC) {
+            $societeId = $userC->getSociete() ? $userC->getSociete()->getId() : '';
+            $userId = $userC->getId();
+            $query = $this->createQueryBuilder('u');
+            $query->andWhere('u.actif = true')
+                ->orderBy("u.name", 'ASC');
 //            ->andWhere('u.id = :id')
-        if ($userC->hasRole('ROLE_SUPERADMIN')){
-                    return $query;
-                }
-                else{
-            $query
-            ->innerJoin('u.societe','s')
-            ->andWhere('s.id = :soc')
-            ->orderBy('u.id','DESC')
-            ->setParameter('soc', $societeId);
-    return $query;  }
+            if ($userC->hasRole('ROLE_SUPERADMIN')) {
+                return $query;
+            } else {
+                $query
+                    ->innerJoin('u.societe', 's')
+                    ->andWhere('s.id = :soc')
+                    ->setParameter('soc', $societeId);
+                return $query;
+            }
+        }
     }
 
     /**
@@ -66,19 +69,20 @@ class FosUserRepository extends ServiceEntityRepository
      * @return \Doctrine\ORM\QueryBuilder
      * getSociete
      */
-    public function getSocieteUser($userC = null){
-        $societeId = $userC->getSociete()?$userC->getSociete()->getId():'';
+    public function getSocieteUser($userC = null)
+    {
+        $societeId = $userC->getSociete() ? $userC->getSociete()->getId() : '';
         $userId = $userC->getId();
-     $query = $this->createQueryBuilder('u');
+        $query = $this->createQueryBuilder('u');
         $query->andWhere('u.actif = true')
 //            ->andWhere('u.id = :id')
 
-            ->innerJoin('u.societe','s')
+            ->innerJoin('u.societe', 's')
             ->andWhere('s.id = :soc')
-            ->orderBy('u.id','DESC')
+            ->orderBy('u.id', 'DESC')
 //            ->setParameter('uid', $userId)
 //            ->setParameter('id', $userId)
             ->setParameter('soc', $societeId);
-    return $query;
+        return $query;
     }
 }
