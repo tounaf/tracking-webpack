@@ -22,13 +22,17 @@ class TransfertnotificationType extends AbstractType
             ->add('usernotif',EntityType::class, array(
                 'label'=>'Notification actuelle',
                 'class' => FosUser::class,
-                'choice_label' => 'name',
+                'choice_label' => function ($usernotif) {
+                    return $usernotif->getName() . ' ' . $usernotif->getLastname();
+                },
                 'required' => true,
                 ))
             ->add('usertransfer', EntityType::class, array(
                 'label'=>'Transférer à',
                 'class' => FosUser::class,
-                'choice_label' => 'name',
+                'choice_label' => function ($usertransfer) {
+                    return $usertransfer->getName() . ' ' . $usertransfer->getLastname();
+                },
                 'required' => true,
                 ))
             ->add('datedebut', DateTimeType::class, array(
