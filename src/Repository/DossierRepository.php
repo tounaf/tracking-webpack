@@ -123,7 +123,7 @@ class DossierRepository extends ServiceEntityRepository
     public function getEmailUserEnCharge()
     {#alerte date
         $query = " SELECT 
-                      d.`user_en_charge_id`, d.nom_dossier AS nomDossier,d.reference_dossier AS referenceDossier,s.libele AS libele,d.nom_partie_adverse AS nomPartieAdverse,
+                      d.`user_en_charge_id`, d.id as id, d.nom_dossier AS nomDossier,d.reference_dossier AS referenceDossier,s.libele AS libele,d.nom_partie_adverse AS nomPartieAdverse,
                       d.echeance AS echeance,etp.libelle AS libelle,
                       d.id,
                       IF (CURRENT_DATE() BETWEEN t.`datedebut` AND t.datefin, t.`usertransfer_id`,d.`user_en_charge_id`) test,
@@ -148,7 +148,7 @@ class DossierRepository extends ServiceEntityRepository
      */
     public function getUserEnChargDssrNoUpdt()
     {
-        $query = "SELECT d.`user_en_charge_id`,d.`created_at`, d.nom_dossier AS nomDossier,d.reference_dossier AS referenceDossier,s.libele AS libele,
+        $query = "SELECT d.id AS id,d.`user_en_charge_id`,d.`created_at`, d.nom_dossier AS nomDossier,d.reference_dossier AS referenceDossier,s.libele AS libele,
                           d.nom_partie_adverse AS nomPartieAdverse, d.echeance AS echeance,etp.libelle AS libelle, IF (CURRENT_DATE() BETWEEN t.`datedebut` AND t.datefin, t.`usertransfer_id`,d.`user_en_charge_id`) test,
                           (SELECT email FROM `user` WHERE id=test) AS email 
                           FROM dossier d 

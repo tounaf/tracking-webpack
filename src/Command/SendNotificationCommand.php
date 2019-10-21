@@ -52,6 +52,7 @@ class SendNotificationCommand extends Command
                 'nomPartieAdverse' => $dossier['nomPartieAdverse'],
                 'echeance' => $dossier['echeance'],
                 'etapeSuivante' => $dossier['libelle'],
+                'id' => $dossier['id'],
                 'application_name' => 'LITIGE',
                 'dossier'=>$oDossiers
             ));
