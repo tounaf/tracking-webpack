@@ -97,10 +97,10 @@ class TransfernotificationController extends Controller
     public function checkDataNotif($request, $em){
         $dataTransfer = $this->getDataTransfer($em);
         $dataRequest = $request->get('transfertnotification');
-        if(is_array($dataTransfer) && is_array($dataRequest)){
+        if(!empty($dataTransfer) && is_array($dataRequest)){
             foreach ($dataTransfer as $dataTransfer){
                 if($this->compareDatetime($dataTransfer, $dataRequest) && in_array($dataTransfer->getUsertransfer()->getId(), $dataRequest)){
-                    $this->get('session')->getFlashBag()->add('danger', 'Veuillez notifié cette personne à une date debut après cette date ' .$this->formatDatetransfer($dataTransfer->getDatefin()) );
+                    $this->get('session')->getFlashBag()->add('danger', 'Veuillez notifié cette personne à une date d2but après cette date ' .$this->formatDatetransfer($dataTransfer->getDatefin()) );
                     return true;
                 }
                 if(in_array($dataTransfer->getUsertransfer()->getId(), $dataRequest)
@@ -108,7 +108,7 @@ class TransfernotificationController extends Controller
                     || in_array($this->formatDatetransfer($dataTransfer->getDatefin()), $dataRequest)
                 )
                 {
-                    $this->get('session')->getFlashBag()->add('danger', 'cette personne a été déjà notifié à ces dates');
+                    $this->get('session')->getFlashBag()->add('danger', 'cette personne a été déjà notifié à ces dates !');
                     return true;
                 }
             }

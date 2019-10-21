@@ -81,7 +81,7 @@ $(document).ready(function(){
     var maxupload;
     $('#errorupload').hide();
     $("#form-pj-dossier").on("submit", function () {
-       // e.preventDefault();
+        // e.preventDefault();
         $.ajax({
             url : Routing.generate('get_fileuploadMax'),
             async: false,
@@ -89,21 +89,21 @@ $(document).ready(function(){
                 maxupload = response;
             }
         });
-       var fd = new FormData();
-       var files = $('#pj_dossier_File')[0].files[0];
-       var id = $("#dossier-id").val();
-       var idPj = $("#pj_dossier_infoPj").val();
-       if(files){
-           var taille = $('#pj_dossier_File')[0].files[0].size;
-           var tailleOctet = (taille/1024)/1024;
-           if(tailleOctet > maxupload){
-               $('#errorupload').show();
-               return false;
-           }else{
-               $('#errorupload').hide();
-           }
+        var fd = new FormData();
+        var files = $('#pj_dossier_File')[0].files[0];
+        var id = $("#dossier-id").val();
+        var idPj = $("#pj_dossier_infoPj").val();
+        if(files){
+            var taille = $('#pj_dossier_File')[0].files[0].size;
+            var tailleOctet = (taille/1024)/1024;
+            if(tailleOctet > maxupload){
+                $('#errorupload').show();
+                return false;
+            }else{
+                $('#errorupload').hide();
+            }
 
-       }
+        }
         fd.append('file', files);
         fd.append('pj_dossier_infoPj', idPj);
         $.ajax({
@@ -141,7 +141,7 @@ $(document).ready(function(){
             async: true,
             data: formData,
             success: function (response) {
-                    $('#listPjdossier').DataTable().ajax.reload(originalJsonData,true)
+                $('#listPjdossier').DataTable().ajax.reload(originalJsonData,true)
             }
         })
     })
@@ -170,7 +170,7 @@ $(document).ready(function(){
             "type": "POST"
         },
         "sAjaxDataProp": "data",
-        "pageLength": 10,
+        "pageLength": 5,
         "orderable": true,
 
         "columns": [
@@ -182,8 +182,8 @@ $(document).ready(function(){
             {
                 "data": "edit",
                 "render": function (data, type, row) {
-                        var data = '<a href="'+Routing.generate('download_dossier',{'id':row.id }) +'">'+ row.lien+'</a>';
-                        return data;
+                    var data = '<a href="'+Routing.generate('download_dossier',{'id':row.id }) +'">'+ row.lien+'</a>';
+                    return data;
                 }
             },
             { "targets": -1,

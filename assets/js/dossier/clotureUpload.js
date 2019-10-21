@@ -81,8 +81,30 @@ $(document).ready(function(){
     /**
      * submit form pj-info
      */
+    var maxupload;
+    $('#erroruploadcloture').hide();
     $("#form-pj-cloture").submit(function (e) {
+        var inputfile = this;
         e.preventDefault();
+        $.ajax({
+            url : Routing.generate('get_fileuploadMax'),
+            async: false,
+            success : function(response){
+                maxupload = response;
+            }
+        });
+        var files = $('#pj_cloture_file')[0].files[0];
+        if(files){
+            var taille = $('#pj_cloture_file')[0].files[0].size;
+            var tailleOctet = (taille/1024)/1024;
+            if(tailleOctet > maxupload){
+                $('#erroruploadcloture').show();
+                return false;
+            }else{
+                $('#erroruploadcloture').hide();
+            }
+
+        }
         var formData = new FormData($("#form-pj-cloture")[0]);
         var id = $("#cloture-id").val();
         var url = Routing.generate('upload_file', {id: id}, true);
@@ -102,14 +124,14 @@ $(document).ready(function(){
         })
     })
 
-   /* /!**
-     * declencher la submission du formulaire cloture
-     *!/
-    $("#button-cloture-form").click(function (e) {
-        e.preventDefault();
-        $("#cloture-form").submit();
-    })
-*/
+    /* /!**
+      * declencher la submission du formulaire cloture
+      *!/
+     $("#button-cloture-form").click(function (e) {
+         e.preventDefault();
+         $("#cloture-form").submit();
+     })
+ */
     /**
      * declencher la submission du formulaire cloture
      */
@@ -118,7 +140,7 @@ $(document).ready(function(){
         $("#submitCloture").trigger("click");
     })
 
-   // var idd = $(this).data('idcloture');
+    // var idd = $(this).data('idcloture');
     var idcloture = $('#idcloture').val();
     /**
      * list pj cloture
@@ -133,7 +155,7 @@ $(document).ready(function(){
             "type": "POST"
         },
         "sAjaxDataProp": "data",
-        "pageLength": 10,
+        "pageLength": 5,
         "orderable": true,
         "columns": [
             {
@@ -144,7 +166,7 @@ $(document).ready(function(){
             {
                 "data": "edit",
                 "render": function (data, type, row) {
-                    var data = '<a href="'+Routing.generate('download_dossier',{'id':row.id }) +'">Download fichier: '+row.lien+'</a>';
+                    var data = '<a href="'+Routing.generate('download_dossier',{'id':row.id }) +'">'+row.lien+'</a>';
                     return data;
                 }
             },

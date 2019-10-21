@@ -16,7 +16,7 @@ $(document).ready(function () {
             "type" : "POST"
         },
         "sAjaxDataProp": "data",
-        "pageLength": 50,
+        "pageLength": 10,
         "orderable": false,
         "columns": [
             {"data": "nomPrenom", "orderable":true},
@@ -83,7 +83,7 @@ $(document).ready(function () {
             "type" : "POST"
         },
         "sAjaxDataProp": "data",
-        "pageLength":50,
+        "pageLength": 10,
         "orderable": true,
         "columns": [
             {"data": "nomPrenom"},

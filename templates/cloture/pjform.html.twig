@@ -11,8 +11,10 @@
                         </div>
                         <input type="hidden" value="{% if cloture is defined %}{{ cloture.id }}{% endif %}" id="cloture-id">
                         <div class="load-file">
-                            <!--<a href="" class="loadLink">insérer pièces jointes</a>-->
-                            <a href="" class="loadLink"> {{ form_row(formPj.file) }}</a>
+                            <div class="loadLink"> {{ form_row(formPj.file) }}</div>
+                            <div>
+                                <span id="erroruploadcloture">Le fichier est trop volumineux</span>
+                            </div>
                         </div>
                     </div>
                 </div>
