@@ -50,6 +50,7 @@ class NotificationDossierNoUpdateCommand extends Command
                 'nomPartieAdverse' => $dossier['nomPartieAdverse'],
                 'echeance' => $dossier['echeance'],
                 'etapeSuivante' => $dossier['libelle'],
+                'id' => $dossier['id'],
                 'dossierNoUpdt' =>'dossierNoupdt',
                 'application_name' => 'LITIGE',
                 'dossier'=>$oDossiersNoUpdt
