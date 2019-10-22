@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\CategorieLitige;
 use App\Form\CategorieLitigeType;
 use App\Repository\CategorieLitigeRepository;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,6 +72,10 @@ class CategorieLitigeController extends Controller
                 $entityManager->persist($categorieLitige);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
+                return $this->redirectToRoute('categorie_litige_index');
+            }
+            catch (DBALException $ex){
+                $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
                 return $this->redirectToRoute('categorie_litige_index');
             }
             catch (\Exception $exception){

@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\NatureDecision;
 use App\Form\NatureDecisionType;
 use App\Repository\NatureDecisionRepository;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,6 +73,10 @@ class NatureDecisionController extends Controller
                 $entityManager->persist($nature);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
+                return $this->redirectToRoute('nature_decision_index');
+            }
+            catch (DBALException $ex){
+                $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
                 return $this->redirectToRoute('nature_decision_index');
             }
             catch (\Exception $exception){

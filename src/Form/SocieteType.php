@@ -25,7 +25,7 @@ class SocieteType extends AbstractType
                 'attr' => ['class' => 'input-entite-name']
             ))
             ->add('trigramme', null, array(
-                'label' => $this->trans->trans('Acronyme :'),
+                'label' => $this->trans->trans('Acronyme * :'),
                 'required' => true,
                 'attr' => array('maxlength' => 3,'class' => 'input-entite-name')
             ))

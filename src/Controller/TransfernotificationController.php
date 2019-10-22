@@ -60,6 +60,9 @@ class TransfernotificationController extends Controller
                     $em->flush();
                     $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.edit.success'));
                 }
+            }catch (DBALException $ex){
+                $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
+                return $this->redirectToRoute('transfernotification');
             }
             catch (\Exception $exception){
                 $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.edit.error'));

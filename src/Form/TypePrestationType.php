@@ -22,7 +22,7 @@ class TypePrestationType extends AbstractType
     {
         $builder
             ->add('libelle', TextType::class,[
-                'label'=> $this->trans->trans('Type de prestation :'),
+                'label'=> $this->trans->trans('Type de prestation * :'),
                 'required' => true,
                 'attr'=> ['requiredMessage' => 'Veuillez renseigner ce champs s\'il vous plait'],
             ])

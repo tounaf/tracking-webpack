@@ -20,7 +20,7 @@ class TransfertnotificationType extends AbstractType
         $builder
 
             ->add('usernotif',EntityType::class, array(
-                'label'=>'Notification actuelle',
+                'label'=>'Notification actuelle *',
                 'class' => FosUser::class,
                 'choice_label' => function ($usernotif) {
                     return $usernotif->getName() . ' ' . $usernotif->getLastname();
@@ -28,7 +28,7 @@ class TransfertnotificationType extends AbstractType
                 'required' => true,
                 ))
             ->add('usertransfer', EntityType::class, array(
-                'label'=>'Transférer à',
+                'label'=>'Transférer à *',
                 'class' => FosUser::class,
                 'choice_label' => function ($usertransfer) {
                     return $usertransfer->getName() . ' ' . $usertransfer->getLastname();
@@ -42,7 +42,7 @@ class TransfertnotificationType extends AbstractType
                 'view_timezone' => 'UTC',
                 'required' => true,
 
-                'label' => 'date début',
+                'label' => 'date début *',
                 'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
             ))
             ->add('datefin', DateTimeType::class, array(
@@ -52,7 +52,7 @@ class TransfertnotificationType extends AbstractType
                 'view_timezone' => 'UTC',
                 'required' => true,
 
-                'label' => 'date fin',
+                'label' => 'date fin *',
                 'attr' => ['class' => 'js-datepicker','data-provide' => 'datepicker'],
             ))
         ;

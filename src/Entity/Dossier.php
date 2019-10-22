@@ -326,7 +326,7 @@ class Dossier
      * @param \DateTime $dateLitige
      * @return Dossier
      */
-    public function setDateLitige(\DateTime $dateLitige): self
+    public function setDateLitige(\DateTime $dateLitige=null): self
     {
         $this->dateLitige = $dateLitige;
 
@@ -364,7 +364,7 @@ class Dossier
      * @param \DateTime $echeance
      * @return Dossier
      */
-    public function setEcheance(\DateTime $echeance): self
+    public function setEcheance(\DateTime $echeance=null): self
     {
         $this->echeance = $echeance;
 

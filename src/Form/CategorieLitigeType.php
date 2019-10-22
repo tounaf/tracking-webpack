@@ -30,7 +30,7 @@ class CategorieLitigeType extends AbstractType
     {
         $builder
             ->add('libelle', TextType::class,[
-                'label'=> $this->trans->trans('Catégorie litige :'),
+                'label'=> $this->trans->trans('Catégorie litige * :'),
                 'required' => true,
                 'attr'=> ['requiredMessage' => 'Veuillez renseigner ce champs s\'il vous plait'],
             ])

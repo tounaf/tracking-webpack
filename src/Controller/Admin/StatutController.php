@@ -11,6 +11,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Statut;
 use App\Form\StatutType;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -78,7 +79,11 @@ class StatutController extends Controller
                 $em->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
                 return $this->redirectToRoute('list_statut');
-            } catch (\Exception $exception) {
+            }catch (DBALException $ex){
+                $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
+                return $this->redirectToRoute('list_statut');
+            }
+            catch (\Exception $exception) {
                 $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.create.error'));
                 return $this->redirectToRoute('list_statut');
                 $message['message'] = $exception->getMessage();

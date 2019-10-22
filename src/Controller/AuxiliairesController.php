@@ -7,6 +7,7 @@ use App\Entity\Dossier;
 use App\Entity\InformationPj;
 use App\Entity\PjAuxiliaires;
 use App\Form\AuxiliairesType;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -244,7 +245,12 @@ class AuxiliairesController extends Controller
                 $em->persist($auxiliaires);
                 $em->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
-            } catch (\Exception $exception) {
+            }
+            catch (DBALException $ex){
+                $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
+                return $this->redirectToRoute('auxiliaires');
+            }
+            catch (\Exception $exception) {
                 $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.error.create'));
                 $message['message'] = $exception->getMessage();
                 $message['status'] = 500;

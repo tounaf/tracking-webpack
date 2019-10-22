@@ -22,7 +22,7 @@ class StatutsPersMoraleType extends AbstractType
     {
         $builder
             ->add('libelle', TextType::class,[
-                'label'=> $this->trans->trans('Personne Morale :'),
+                'label'=> $this->trans->trans('Personne Morale * :'),
                 'required' => true,
                 'attr'=> ['requiredMessage' => 'Veuillez renseigner ce champs s\'il vous plait'],
             ])

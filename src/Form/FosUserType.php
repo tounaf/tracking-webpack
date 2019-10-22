@@ -68,7 +68,7 @@ class FosUserType extends AbstractType
             ))
             ->add('profile', EntityType::class, array(
                 'class' => Profil::class,
-                'label' => 'PROFIL :',
+                'label' => 'PROFIL *:',
                 'choice_label' => 'libele',
                 'attr' => array('class' => 'custom-select'),
                 'required' => true,

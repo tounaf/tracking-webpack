@@ -16,6 +16,7 @@ use App\Form\DossierType;
 use App\Form\SubDossierType;
 use App\Repository\DossierRepository;
 use phpDocumentor\Reflection\Types\This;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
@@ -320,9 +321,13 @@ class DossierController extends Controller
                 $em->persist($cloture);
                 $em->flush();
                 $this->session->getFlashBag()->add('success',$this->trans->trans('label.create.success'));
-            } catch (\Exception $exception) {
-                $this->$exception->getMessage();
+            }catch (DBALException $ex){
+                $this->session->getFlashBag()->add('danger',$this->trans->trans('label.champs.obli'));
+                return $this->redirectToRoute('render_create_dossier');
+            }
+            catch (\Exception $exception) {
                 $this->session->getFlashBag()->add('danger',$this->trans->trans('label.create.error'));
+                return $this->redirectToRoute('render_create_dossier');
             }
             return $this->redirectToRoute('render_edit_dossier', array('id' =>$dossier->getId(),'currentTab' => 'declaration'));
         }

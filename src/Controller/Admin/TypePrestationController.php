@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\TypePrestation;
 use App\Form\TypePrestationType;
 use App\Repository\TypePrestationRepository;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,6 +72,10 @@ class TypePrestationController extends Controller
                 $entityManager->persist($typePrestation);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
+                return $this->redirectToRoute('type_prestation_index');
+            }
+            catch (DBALException $ex){
+                $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
                 return $this->redirectToRoute('type_prestation_index');
             }
             catch (\Exception $exception){

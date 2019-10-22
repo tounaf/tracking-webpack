@@ -98,7 +98,7 @@ class DossierType extends AbstractType
 
             //litige
             ->add('categorie', null, [
-                'label'=> 'CATEGORIE',
+                'label'=> 'CATEGORIE *',
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),
                'required'=>true,
                // 'choice_label' => 'libelle'
@@ -117,6 +117,7 @@ class DossierType extends AbstractType
                 'label' => $this->trans->trans('label.nom.dossier')
             ))
             ->add('statut', null, [
+                'label' => $this->trans->trans('label.statut'),
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),
                 'required'=>true,
             ])
@@ -142,6 +143,7 @@ class DossierType extends AbstractType
                     return $repository->getDevise();}
             ])
             ->add('etapeSuivante', EntityType::class, array(
+                'label' => $this->trans->trans('ETAPE SUIVANTE *'),
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),
                 'class' => EtapeSuivante::class,
                 'choice_label' => 'libelle'
@@ -158,7 +160,7 @@ class DossierType extends AbstractType
 
             ))
             ->add('situation', ChoiceType::class, array(
-                'label' => $this->trans->trans('Instance'),
+                'label' => $this->trans->trans('Instance *'),
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),
                 'choices' => [
                     'Devant le président du tribunal' => 'Devant le président du tribunal',

@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Devise;
 use App\Form\DeviseType;
 use App\Repository\DeviseRepository;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -70,6 +71,9 @@ class DeviseController extends Controller
                 $entityManager->persist($devise);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
+                return $this->redirectToRoute('devise_index');
+            } catch (DBALException $ex){
+                $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
                 return $this->redirectToRoute('devise_index');
             }
             catch (\Exception $exception){

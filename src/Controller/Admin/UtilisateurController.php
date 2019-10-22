@@ -12,6 +12,7 @@ use App\Entity\FosUser;
 use App\Form\FosUserType;
 use App\Service\MailerService;
 use App\Utils\Fonctions;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -87,6 +88,9 @@ class UtilisateurController extends Controller
                 $em->flush();
                 $mailerService->sendMail($user->getEmail(), $newPassword, $user->getName(), $subject, true);
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
+                return $this->redirectToRoute('list_user');
+            }catch (DBALException $ex){
+                $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
                 return $this->redirectToRoute('list_user');
             } catch (\Exception $exception) {
                 $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.create.error'));
