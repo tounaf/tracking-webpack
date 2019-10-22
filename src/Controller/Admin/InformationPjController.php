@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\InformationPj;
 use App\Form\InformationPjType;
 use App\Repository\InformationPjRepository;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,6 +72,10 @@ class InformationPjController extends Controller
                 $entityManager->persist($info);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
+                return $this->redirectToRoute('information_pj_index');
+            }
+            catch (DBALException $ex){
+                $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
                 return $this->redirectToRoute('information_pj_index');
             }
             catch (\Exception $exception){

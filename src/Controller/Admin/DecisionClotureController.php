@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\DecisionCloture;
 use App\Form\DecisionClotureType;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -71,7 +72,13 @@ class DecisionClotureController extends Controller
                 $em->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
                 return $this->redirectToRoute('list_decision_cloture');
-            } catch (\Exception $exception) {
+            }
+            catch (DBALException $ex){
+                $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
+                return $this->redirectToRoute('list_decision_cloture');
+            }
+
+            catch (\Exception $exception) {
                 $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.create.error'));
                 return $this->redirectToRoute('list_decision_cloture');
                 $message['message'] = $exception->getMessage();

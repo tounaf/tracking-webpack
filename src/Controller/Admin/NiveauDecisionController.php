@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\NiveauDecision;
 use App\Form\NiveauDecisionType;
 use App\Repository\NiveauDecisionRepository;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,6 +73,10 @@ class NiveauDecisionController extends Controller
                 $entityManager->persist($niveau);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
+                return $this->redirectToRoute('niveau_decision_index');
+            }
+            catch (DBALException $ex){
+                $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
                 return $this->redirectToRoute('niveau_decision_index');
             }
             catch (\Exception $exception){

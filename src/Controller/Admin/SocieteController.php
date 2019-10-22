@@ -11,6 +11,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Societe;
 use App\Form\SocieteType;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -78,7 +79,12 @@ class SocieteController extends Controller
                 $em->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
                 return $this->redirectToRoute('list_societe');
-            } catch (\Exception $exception) {
+            }
+            catch (DBALException $ex){
+                $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
+                return $this->redirectToRoute('list_societe');
+            }
+            catch (\Exception $exception) {
                 $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.create.error'));
                 return $this->redirectToRoute('list_societe');
                 $message['message'] = $exception->getMessage();

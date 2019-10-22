@@ -9,6 +9,7 @@ use App\Entity\Intervenant;
 use App\Entity\PjIntervenant;
 use App\Form\IntervenantType;
 use App\Repository\IntervenantRepository;
+use Doctrine\DBAL\DBALException;
 use Hoa\Exception\Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -229,6 +230,10 @@ class IntervenantController extends Controller
                 $entityManager->persist($intervenant);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
+            }
+            catch (DBALException $ex){
+                $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
+                return $this->redirectToRoute('intervenant_index');
             }
             catch (\Exception $exception){
                 $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.error.create'));

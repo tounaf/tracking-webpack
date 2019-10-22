@@ -95,7 +95,10 @@ class ClotureController extends Controller
               }
 
 /*              $this->session->set('idCloture',$cloture->getId());*/
-          } catch (Exception $exception){
+          }catch (DBALException $ex){
+              $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
+          }
+          catch (Exception $exception){
               $this->get('session')->getFlashBag()->add('danger', $this->translator->trans('label.create.error'));
           }
             return $this->redirectToRoute('render_edit_dossier', array('id' => $this->id, 'currentTab' => 'cloture'));

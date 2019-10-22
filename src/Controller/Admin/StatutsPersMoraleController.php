@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\StatutsPersMorale;
 use App\Form\StatutsPersMoraleType;
 use App\Repository\StatutsPersMoraleRepository;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,6 +72,10 @@ class StatutsPersMoraleController extends Controller
                 $entityManager->persist($statutsPersMorale);
                 $entityManager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->translator->trans('label.create.success'));
+                return $this->redirectToRoute('statuts_pers_morale_index');
+            }
+            catch (DBALException $ex){
+                $this->get('session')->getFlashBag()->add('danger',$this->translator->trans('label.champs.obli'));
                 return $this->redirectToRoute('statuts_pers_morale_index');
             }
             catch (\Exception $exception){
