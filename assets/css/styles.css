@@ -2890,7 +2890,7 @@ button:focus { outline: none; }
 .dataTable .btn-edit i { color: #5CB85C; }
 .dataTable .btn-remove i { color: #C80F2D; }
 
-table.dataTable thead .sorting:before, table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:before, table.dataTable thead .sorting_desc_disabled:after { display: none; }
+table.dataTable thead .sorting:before, table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:before, table.dataTable thead .sorting_desc_disabled:after { display: none !important; }
 table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting { padding-right: 15px; }
 table.dataTable th.dataTables_empty, table.dataTable td.dataTables_empty { color: #878786; font-size: 14px; }
 
@@ -2968,7 +2968,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination { margin: 0; }
 .sidebar .nav-link { color: #fff; display: flex; flex-wrap: nowrap; font-size: 14px; padding: 5px 15px; }
 .sidebar .nav-link i { font-size: 14px; line-height: 20px; margin-right: 10px; text-align: right; width: 20px; }
 .sidebar .nav-link.active { background-color: #961023; }
-.sidebar .nav-dropdown-toggle:before { background: none; content: "\eac8"; display: block; font-family: IcoFont; font-style: normal; font-size: 14px; position: absolute; top: 5px; right: 15px; transition: -webkit-transform .3s; transform: rotate(-90deg); transition: transform .3s; transition: transform 0.3s; }
+.sidebar .nav-dropdown-toggle:before { background: none; content: "\e910"; display: block; font-family: icomoon; font-style: normal; font-size: 14px; position: absolute; top: 5px; right: 15px; transition: -webkit-transform .3s; transform: rotate(-90deg); transition: transform .3s; transition: transform 0.3s; }
 .sidebar .nav-dropdown.open { background-color: rgba(0, 0, 0, 0.15); }
 .sidebar .nav-dropdown.open > .nav-dropdown-toggle::before { transform: rotate(0deg); }
 .sidebar .nav-dropdown-items .nav-item:after { display: none; }
