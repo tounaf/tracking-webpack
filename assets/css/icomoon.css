@@ -1,14 +1,15 @@
 @font-face {
   font-family:  'icomoon';
-  src:          url('../fonts/icomoon/icomoon.eot?no2rd0');
-  src:          url('../fonts/icomoon/icomoon.eot?no2rd0#iefix') format('embedded-opentype'),
-                url('../fonts/icomoon/icomoon.ttf?no2rd0') format('truetype'),
-                url('../fonts/icomoon/icomoon.woff?no2rd0') format('woff'),
-                url('../fonts/icomoon/icomoon.svg?no2rd0#icomoon') format('svg');
+  src:          url('../fonts/icomoon/icomoon.eot?m48eh3');
+  src:          url('../fonts/icomoon/icomoon.eot?m48eh3#iefix') format('embedded-opentype'),
+                url('../fonts/icomoon/icomoon.ttf?m48eh3') format('truetype'),
+                url('../fonts/icomoon/icomoon.woff?m48eh3') format('woff'),
+                url('../fonts/icomoon/icomoon.svg?m48eh3#icomoon') format('svg');
   font-weight:  normal;
   font-style:   normal;
   font-display: block;
 }
+
 
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
@@ -72,4 +73,7 @@
 }
 .icon-users-cog:before {
   content: "\e90f";
+}
+.icon-thin-down:before {
+  content: "\e910";
 }
