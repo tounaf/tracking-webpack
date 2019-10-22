@@ -632,7 +632,7 @@ table {
             .sorting_desc, .sorting_asc_disabled, 
             .sorting_desc_disabled {
                 &:before, &:after {
-                 display: none;
+                 display: none !important;
                 }
             }
             >tr {
