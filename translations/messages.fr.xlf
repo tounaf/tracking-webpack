@@ -4,7 +4,7 @@
         <body>
              <trans-unit id="7">
                 <source>label.email</source>
-                <target>Email :</target>
+                <target>Email * :</target>
             </trans-unit>
 
              <trans-unit id="8">
@@ -242,11 +242,11 @@
             </trans-unit>
             <trans-unit id="55">
                 <source>label.nom</source>
-                <target>Nom :</target>
+                <target>Nom * :</target>
             </trans-unit>
             <trans-unit id="56">
                 <source>label.prenom</source>
-                <target>Prénom :</target>
+                <target>Prénom * :</target>
             </trans-unit>
             <trans-unit id="57">
                 <source>label.tel</source>
@@ -284,7 +284,7 @@
             </trans-unit>
             <trans-unit id="65">
                 <source>label.statut</source>
-                <target>Statut :</target>
+                <target>Statut * :</target>
             </trans-unit>
 
             <trans-unit id="66">
@@ -293,11 +293,11 @@
             </trans-unit>
             <trans-unit id="67">
                 <source>label.code</source>
-                <target>CODE :</target>
+                <target>CODE * :</target>
             </trans-unit>
             <trans-unit id="68">
                 <source>column.societe</source>
-                <target>SOCIÉTÉ</target>
+                <target>SOCIÉTÉ * </target>
             </trans-unit>
 
             <trans-unit id="69">
@@ -318,18 +318,18 @@
             </trans-unit>
             <trans-unit id="73">
                 <source>label.personne.en.charge</source>
-                <target>PERSONNE EN CHARGE DU DOSSIER</target>
+                <target>PERSONNE EN CHARGE DU DOSSIER *</target>
             </trans-unit>
 
             <trans-unit id="74">
                 <source>label.raison.social</source>
-                <target>RAISON SOCIALE</target>
+                <target>RAISON SOCIALE *</target>
             </trans-unit>
 
 
             <trans-unit id="75">
                 <source>label.statut</source>
-                <target>STATUT</target>
+                <target>STATUT *</target>
             </trans-unit>
 
 
@@ -340,12 +340,12 @@
 
             <trans-unit id="77">
                 <source>label.date.litige</source>
-                <target>DATE LITIGE</target>
+                <target>DATE LITIGE *</target>
             </trans-unit>
 
             <trans-unit id="78">
                 <source>label.nom.dossier</source>
-                <target>NOM DOSSIER</target>
+                <target>NOM DOSSIER *</target>
             </trans-unit>
 
             <trans-unit id="79">
@@ -355,7 +355,7 @@
 
             <trans-unit id="80">
                 <source>label.montant</source>
-                <target>MONTANT</target>
+                <target>MONTANT *</target>
             </trans-unit>
 
             <trans-unit id="81">
@@ -365,7 +365,7 @@
 
             <trans-unit id="82">
                     <source>label.echeance</source>
-                <target>ECHEANCE</target>
+                <target>ECHEANCE *</target>
             </trans-unit>
 
             <trans-unit id="83">
@@ -440,7 +440,7 @@
 
             <trans-unit id="98">
                 <source>echeance</source>
-                <target>LITIGE > ECHEANCE</target>
+                <target>LITIGE > ECHEANCE *</target>
             </trans-unit>
 
             <trans-unit id="99">
@@ -767,6 +767,10 @@
                 <source>label.veuillezS</source>
                 <target>Veuillez sélectionner</target>
             </trans-unit>
+            <trans-unit id="166">
+                <source>label.error.create</source>
+                <target>Erreur lors de la création</target>
+             </trans-unit>
         </body>
     </file>
 </xliff>

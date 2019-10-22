@@ -48,16 +48,18 @@ class AuxiliairesType extends AbstractType
 
 
             ->add('nomPrenom',null,[
-                'label' => 'PRENOM & NOM',
+                'label' => 'PRENOM & NOM *',
             ])
-            ->add('adresse')
+            ->add('adresse',null,[
+                'label' => 'Adresse *',
+            ])
             ->add('telephone', null, array(
                 'required' => true,
                 'attr' => array('maxlength' => 10, 'minlength' => 7),
-                'label' => $this->trans->trans('TELEPHONE')
+                'label' => $this->trans->trans('TELEPHONE *')
             ))
             ->add('email', EmailType::class, array(
-                'label' => $this->trans->trans('EMAIL'),
+                'label' => $this->trans->trans('EMAIL * '),
                 'required' => false
             ))
             ->add('deviseAuxiConv', EntityType::class, array(

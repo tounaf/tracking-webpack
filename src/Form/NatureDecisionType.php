@@ -22,7 +22,7 @@ class NatureDecisionType extends AbstractType
     {
         $builder
             ->add('libelle', TextType::class, [
-                'label' => $this->trans->trans('Nature de décision de justice :'),
+                'label' => $this->trans->trans('Nature de décision de justice * :'),
                 'required' => true,
                 'attr' => ['requiredMessage' => 'Veuillez renseigner ce champs s\'il vous plait'],
             ])

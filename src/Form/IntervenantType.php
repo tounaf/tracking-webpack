@@ -76,21 +76,22 @@ class IntervenantType extends AbstractType
                 'required'=>false,
                 'choice_label' => 'libelle'))
             ->add('nomPrenom',null,[
-                'label' => 'PRENOM & NOM',
+                'label' => 'PRENOM & NOM * ',
                 ])
-            ->add('adresse')
+            ->add('adresse',null,[
+                'label' => 'Adresse *',
+            ])
             ->add('telephone', null, array(
                 'required' => true,
                 'attr' => array('maxlength' => 10, 'minlength' => 7),
-                'label' => $this->trans->trans('TELEPHONE')
+                'label' => $this->trans->trans('TELEPHONE * ')
             ))
             ->add('email', EmailType::class, array(
-                'label' => $this->trans->trans('EMAIL'),
+                'label' => $this->trans->trans('EMAIL * '),
                 'required' => true
             ))
             ->add('prefixPhone', null, array(
                 'required' => true,
-
                 'attr' => ['maxlength' => 4, 'placeholder' =>  '+261']
             ))
             ->add('piecesJointes', EntityType::class, array(
