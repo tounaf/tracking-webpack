@@ -164,6 +164,7 @@ class DossierType extends AbstractType
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),
                 'choices' => [
                     'Devant le président du tribunal' => 'Devant le président du tribunal',
+                    'En référé' => 'En référé',
                     'En première instance' => 'En première instance',
                     'En appel' => 'En appel',
                     'En cassation' => 'En cassation',
