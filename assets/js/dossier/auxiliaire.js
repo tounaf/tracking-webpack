@@ -74,6 +74,16 @@ $(document).ready(function () {
                 sortDescending: ": activer pour trier la colonne par ordre décroissant"
             }
         },
+        columnDefs: [
+            { "width": "12.5%","targets": 0, orderable: true },
+            { "width": "12.5%", "targets": 1, orderable: true},
+            { "width": "14.5%", "targets": 2, orderable: true},
+            { "width": "12.5%", "targets": 3, orderable: true},
+            { "width": "12.5%","targets": 4, orderable: true},
+            { "width": "12.5%","targets": 5, orderable: true},
+            { "width": "12.5%","targets": 6, orderable: true},
+            { "width": "10.5%","targets": 7, orderable: true},
+        ]
     });
     var table = $('#auxiliaires-list').DataTable({
         "processing": true,
@@ -140,6 +150,17 @@ $(document).ready(function () {
                 sortDescending: ": activer pour trier la colonne par ordre décroissant"
             }
         },
+        columnDefs: [
+            { "width": "12.5%","targets": 0, orderable: true },
+            { "width": "12.5%", "targets": 1, orderable: true},
+            { "width": "14.5%", "targets": 2, orderable: true},
+            { "width": "12.5%", "targets": 3, orderable: true},
+            { "width": "12.5%","targets": 4, orderable: true},
+            { "width": "12.5%","targets": 5, orderable: true},
+            { "width": "12.5%","targets": 6, orderable: true},
+            { "width": "10.5%","targets": 7, orderable: true},
+        ]
+
     });
     function editRow(data, type, row) {
         data = ' <button  data-target="#modalAuxi" data-title="MODIFICATION" data-route="auxiliaires_edit" class="btn-editAuxi" data-id="'+row.id+'" type="button"><i class="icon-edit"></i></button>\n' +

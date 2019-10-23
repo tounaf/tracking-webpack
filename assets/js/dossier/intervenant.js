@@ -80,14 +80,14 @@ $(document).ready(function () {
         "autoWidth": false,
         responsive: true,
        columnDefs: [
-            {"targets": 0, orderable: true },
-            {"targets": 1, orderable: true},
-            {"targets": 2, orderable: true},
-            {"targets": 3, orderable: true},
-            {"targets": 4, orderable: true},
-            {"targets": 5, orderable: true},
-            {"targets": 6, orderable: true},
-            {"targets": 7, orderable: true},
+            { "width": "12.5%","targets": 0, orderable: true },
+            { "width": "12.5%", "targets": 1, orderable: true},
+            { "width": "14.5%", "targets": 2, orderable: true},
+            { "width": "12.5%", "targets": 3, orderable: true},
+            { "width": "12.5%","targets": 4, orderable: true},
+            { "width": "12.5%","targets": 5, orderable: true},
+            { "width": "12.5%","targets": 6, orderable: true},
+            { "width": "10.5%","targets": 7, orderable: true},
         ]
     });
     function editRow(data, type, row) {
