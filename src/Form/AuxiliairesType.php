@@ -44,7 +44,9 @@ class AuxiliairesType extends AbstractType
                 'attr' => array('maxlength' => 15,'class'=>'money'),
             ))
             ->add('statutIntervenant')
-            ->add('fonction')
+            ->add('fonction',null,[
+                'label' => 'FONCTION *',
+            ])
 
 
             ->add('nomPrenom',null,[
@@ -59,7 +61,7 @@ class AuxiliairesType extends AbstractType
                 'label' => $this->trans->trans('TELEPHONE *')
             ))
             ->add('email', EmailType::class, array(
-                'label' => $this->trans->trans('EMAIL * '),
+                'label' => $this->trans->trans('EMAIL '),
                 'required' => false
             ))
             ->add('deviseAuxiConv', EntityType::class, array(

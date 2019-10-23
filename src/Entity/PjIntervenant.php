@@ -42,7 +42,7 @@ class PjIntervenant
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Intervenant", inversedBy="pjIntervenants", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $intervenant;
 

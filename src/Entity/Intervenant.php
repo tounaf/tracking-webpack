@@ -127,7 +127,7 @@ class Intervenant
         return $this->convenu;
     }
 
-    public function setConvenu(int $convenu): self
+    public function setConvenu(?int $convenu): self
     {
         $this->convenu = $convenu;
 
@@ -139,7 +139,7 @@ class Intervenant
         return $this->payer;
     }
 
-    public function setPayer(int $payer): self
+    public function setPayer(?int $payer): self
     {
         $this->payer = $payer;
 
@@ -151,7 +151,7 @@ class Intervenant
         return $this->restePayer;
     }
 
-    public function setRestePayer(int $restePayer): self
+    public function setRestePayer(?int $restePayer): self
     {
         $this->restePayer = $restePayer;
 
@@ -163,7 +163,7 @@ class Intervenant
         return $this->statutIntervenant;
     }
 
-    public function setStatutIntervenant(string $statutIntervenant): self
+    public function setStatutIntervenant(?string $statutIntervenant): self
     {
         $this->statutIntervenant = $statutIntervenant;
 

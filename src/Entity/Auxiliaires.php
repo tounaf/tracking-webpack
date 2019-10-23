@@ -30,7 +30,7 @@ class Auxiliaires
     private $adresse;
 
     /**
-     * @ORM\Column(type="string", length=50,nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $email;
 
@@ -148,7 +148,7 @@ class Auxiliaires
         return $this->convenu;
     }
 
-    public function setConvenu(int $convenu): self
+    public function setConvenu(?int $convenu): self
     {
         $this->convenu = $convenu;
 
@@ -160,7 +160,7 @@ class Auxiliaires
         return $this->payer;
     }
 
-    public function setPayer(int $payer): self
+    public function setPayer(?int $payer): self
     {
         $this->payer = $payer;
 
@@ -172,7 +172,7 @@ class Auxiliaires
         return $this->restePayer;
     }
 
-    public function setRestePayer(int $restePayer): self
+    public function setRestePayer(?int $restePayer): self
     {
         $this->restePayer = $restePayer;
 
@@ -196,7 +196,7 @@ class Auxiliaires
         return $this->statutIntervenant;
     }
 
-    public function setStatutIntervenant(string $statutIntervenant): self
+    public function setStatutIntervenant(?string $statutIntervenant): self
     {
         $this->statutIntervenant = $statutIntervenant;
 
@@ -232,7 +232,7 @@ class Auxiliaires
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 

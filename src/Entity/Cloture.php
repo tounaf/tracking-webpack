@@ -197,7 +197,7 @@ class Cloture
         return $this->sensDecision;
     }
 
-    public function setSensDecision(string $sensDecision): self
+    public function setSensDecision(?string $sensDecision): self
     {
         $this->sensDecision = $sensDecision;
 
@@ -209,7 +209,7 @@ class Cloture
         return $this->risque;
     }
 
-    public function setRisque(string $risque): self
+    public function setRisque(?string $risque): self
     {
         $this->risque = $risque;
 
@@ -281,7 +281,7 @@ class Cloture
         return $this->montantIntervenant;
     }
 
-    public function setMontantIntervenant(int $montantIntervenant): self
+    public function setMontantIntervenant(?int $montantIntervenant): self
     {
         $this->montantIntervenant = $montantIntervenant;
 
@@ -293,7 +293,7 @@ class Cloture
         return $this->montantAuxiliaires;
     }
 
-    public function setMontantAuxiliaires(int $montantAuxiliaires): self
+    public function setMontantAuxiliaires(?int $montantAuxiliaires): self
     {
         $this->montantAuxiliaires = $montantAuxiliaires;
 

@@ -34,13 +34,13 @@ class PjAuxiliaires
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\InformationPj", inversedBy="pjAuxiliaires")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $informationPj;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Auxiliaires", inversedBy="pjAuxiliaires")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $auxiliaire;
 

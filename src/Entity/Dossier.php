@@ -345,7 +345,7 @@ class Dossier
      * @param string $sensLitige
      * @return Dossier
      */
-    public function setSensLitige(string $sensLitige): self
+    public function setSensLitige(?string $sensLitige): self
     {
         $this->sensLitige = $sensLitige;
 
