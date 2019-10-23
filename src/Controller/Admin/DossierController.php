@@ -147,8 +147,8 @@ class DossierController extends Controller
     }
 
     /**
-     *  @Route("/filedossier/upload/", name="uploaddossier_filerender", options={"expose"=true}, methods={"POST"})
-     * @Route("/filedossier/upload/", name="uploaddossier_file", options={"expose"=true}, methods={"POST"})
+     *  @Route("/dossier/filedossier/upload/", name="uploaddossier_filerender", options={"expose"=true}, methods={"POST"})
+     * @Route("/dossier/filedossier/upload/", name="uploaddossier_file", options={"expose"=true}, methods={"POST"})
      */
     public function savepjinf(Request $request)
     {
