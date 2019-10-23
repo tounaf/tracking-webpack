@@ -109,7 +109,7 @@ class DossierController extends Controller
 
     /**
      *
-     * @Route("/listdossier-pj/{id}", name="liste_pj_dossier",  options={"expose"=true})
+     * @Route("/dossier/listdossier-pj/{id}", name="liste_pj_dossier",  options={"expose"=true})
      * @param Request $request
      * @return JsonResponse
      * @throws
