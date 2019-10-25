@@ -61,7 +61,7 @@ class FosUserType extends AbstractType
                 'choice_label' => 'libele',
                 'attr' => array('class' => 'custom-select'),
                 'required' => true,
-                'placeholder' => $this->trans->trans('label.choice.societe'),
+                'placeholder' => $this->trans->trans('label.veuillezS'),
                 'query_builder' => function(EntityRepository $repository) {
                     return $repository->getSocieteByRole($this->user);
                 }
@@ -72,7 +72,7 @@ class FosUserType extends AbstractType
                 'choice_label' => 'libele',
                 'attr' => array('class' => 'custom-select'),
                 'required' => true,
-                'placeholder' => $this->trans->trans('label.choose.fonction'),
+                'placeholder' => $this->trans->trans('label.veuillezS'),
                 'query_builder' => function(EntityRepository $repository) {
                     return $repository->getProfileByAdmin($this->auth->isGranted(('ROLE_SUPERADMIN')),$this->auth->isGranted(('ROLE_ADMIN')),$this->auth->isGranted(('ROLE_JURISTE')));
                 }
