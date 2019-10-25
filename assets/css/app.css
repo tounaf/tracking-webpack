@@ -46,3 +46,8 @@ label[for='dossier_formePartieAdverse'], #dossier_formePartieAdverse {
 .form-control-file{
     font-size: small;
 }
+
+.form-check {
+    margin-bottom: 3%;
+    overflow: visible!important;
+}
