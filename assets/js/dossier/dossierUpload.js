@@ -226,11 +226,11 @@ $(document).ready(function(){
         "autoWidth": false,
         responsive: true,
         columnDefs: [
-            { "width": "26.5%", "targets": 0, orderable: true },
-            { "width": "26.5%", "targets": 1, orderable: true},
-            { "width": "26.5%", "targets": 2, orderable: true},
-            { "width": "26.5%", "targets": 3, orderable: false},
-            { "width": "26.5%", "targets": 4, orderable: false},
+            { "width": "7%", "targets": 0, orderable: true },
+            { "width": "29%", "targets": 1, orderable: true},
+            { "width": "29%", "targets": 2, orderable: true},
+            { "width": "29%", "targets": 3, orderable: false},
+            { "width": "6%", "targets": 4, orderable: false},
         ]
     });
 });
