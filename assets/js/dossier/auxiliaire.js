@@ -224,7 +224,7 @@ $('body').on('click', '#modalCreateAuxi', function (e) {
     var dossierId = $(this).data('dossier');
     var url = Routing.generate(route, {id: dossierId},true);
     $.get(url,function (response) {
-        var elt = $('#exampleModalLongTitle');
+        var elt = $('#exampleModalLongTitleA');
         removeClassStartingWith(elt, 'alert');
         $('.modal-body').html(response);
         elt.addClass('text-danger').text(title);
@@ -297,10 +297,11 @@ $('body').on('click', '.btn-editAuxi', function (e) {
     main.ajaxloader('show');
     var id = $(this).data('id');
     var route = $(this).data('route');
-    var title = $(this).data('title');
+    var titl = $(this).data('title');
+    console.log(titl)
     var url = Routing.generate(route,{'id':id})
     $.get(url,function (response) {
-        var elt = $('#exampleModalLongTitle');
+        var elt = $('#exampleModalLongTitleA');
         if (response.status == 403) {
             $('.modal-body').hide();
             $('#modalAuxi').modal('show');
@@ -316,7 +317,7 @@ $('body').on('click', '.btn-editAuxi', function (e) {
         } else {
             removeClassStartingWith(elt, 'alert');
             $('.modal-body').show();
-            $("#exampleModalLongTitle").addClass('text-danger').text(title);
+            $("#exampleModalLongTitleA").addClass('text-danger').text(titl);
             $('.modal-body').html(response);
             $('#modalAuxi').modal('show');
             main.ajaxloader('hide');

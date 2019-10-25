@@ -6,7 +6,6 @@
     {% if intervenant is defined and intervenant.id is not null %}
         {% include "/intervenant/_current-form.html.twig" %}
     {% endif %}
-
     <div class="card-body">
         <div>
             <div class="js-user-rating" data-is-authenticated="{{ app.user ? 'true' : 'false' }}">
@@ -20,21 +19,16 @@
           {#  pp.user.hasRole("ROLE_SUPERADMIN")#}
         </div>
         <div class="listing-bloc relative-bloc">
-
             <div class="row">
-                <div class="col-xl-8">
-                    LES AVOCATS INTERVENUS SUR L'AFFAIRE <br>
+                <div class="col-xl-4">
+                    <div class="card card-custom-2 m-0">
+                        <div class="card-header">
+                            <h3>LES AVOCATS ETANT INTERVENUS SUR L'AFFAIRE </h3>
+                        </div>
+                    </div>
                     <button id="modalCreateIntervenant" class="btn btn-success" data-dossier="{{ dossier.id }}"
                             data-route="intervenant_new"
                             data-title="{{ 'AJOUT'|trans }}"> <i class="icon-plus-circle"></i><span>Ajouter</span></button>
-                </div>
-                <div class="col-xl-4">
-                    <div id="" class="btn btn-ps pull-right adjust">
-
-                    </div>
-                </div>
-                <div class="btn-group" role="group" aria-label="Button group">
-                    <input type="text" class="form-control-lg" placeholder="Recherche ..." id="search_box">
                 </div>
             </div>
             <div class="table-responsive">
@@ -49,9 +43,9 @@
                         <th><span>{{ 'column.pJ'|trans }}</span></th>
                         <th><span>{{ 'column.nameStatIntervenant'|trans }}</span></th>
                         {% if app.user.hasRole("ROLE_JURISTE") %}
-                        <th class="actions"><span>{{ 'Action'|trans }}</span></th>
+                        <th class="actions" ><span>{{ 'Action'|trans }}</span></th>
                             {% else %}
-                        <th><span>{{ 'column.actions'|trans }}</span></th>
+                        <th  class="actions" ><span>{{ 'column.actions'|trans }}</span></th>
                         {% endif %}
                     </tr>
                     </thead>

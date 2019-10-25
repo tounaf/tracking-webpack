@@ -38,9 +38,9 @@ $('#listSubdossier').DataTable({
     "autoWidth": false,
         responsive: true,
         columnDefs: [
-          { "width": "47%", "targets": 0, orderable: true },
-          { "width": "47%", "targets": 1, orderable: true},
-          { "width": "6%", "targets": 2, orderable: false},
+          { "width": "13%", "targets": 0, orderable: true },
+          { "width": "82%", "targets": 1, orderable: true},
+          { "width": "5%", "targets": 2, orderable: false},
           
         ]
 });

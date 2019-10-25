@@ -179,11 +179,12 @@ $('body').on('click', '#modalCreateIntervenant', function (e) {
     $('span  #errorupload').css('display','none');
     var route = $(this).data('route');
     var title = $(this).data('title');
+    console.log(title);
     var dossierId = $(this).data('dossier');
     var url = Routing.generate(route, {id: dossierId},true);
    // var convenu = $('#intervenant_convenu').val();
     $.get(url,function (response) {
-        var elt = $('#exampleModalLongTitle');
+        var elt = $('#exampleModalLongTitl');
         removeClassStartingWith(elt, 'alert');
         $('.modal-body').html(response);
         elt.addClass('text-danger').text(title);
@@ -259,7 +260,7 @@ $('body').on('click', '.edit-intervenant', function (e) {
         } else {
             removeClassStartingWith(elt, 'alert');
             $('.modal-body').show();
-            $("#exampleModalLongTitle").addClass('text-danger').text(title);
+            $("#exampleModalLongTitl").addClass('text-danger').text(title);
             $('.modal-body').html(response);
             $('#modalIntervenant').modal('show');
            main.ajaxloader('hide');
