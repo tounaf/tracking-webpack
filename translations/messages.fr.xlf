@@ -757,7 +757,7 @@
             </trans-unit>
             <trans-unit id="163">
                 <source>label.infoPj</source>
-                <target>INFO PJ</target>
+                <target>INFOS PIECE JOINTE</target>
             </trans-unit>
             <trans-unit id="164">
                 <source>column.pJ</source>
@@ -774,6 +774,10 @@
             <trans-unit id="167">
                 <source>label.champs.obli</source>
                 <target>Veuillez remplir correctement les champs obligatoires.</target>
+             </trans-unit>
+             <trans-unit id="168">
+                 <source>label.File</source>
+                 <target>insérer pièces jointes</target>
              </trans-unit>
         </body>
     </file>

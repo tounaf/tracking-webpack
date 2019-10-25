@@ -33,6 +33,23 @@
     color: #C80F2D;
 }
 
+div .loadLink label.required, div #intervenantlabel .loadLink label, #intervenantlabel label, #auxiliarelabel label{
+    text-transform: lowercase;
+    text-decoration: underline;
+}
+#intervenantlabel, #auxiliarelabel{
+    margin-left: -15px;
+}
+
+/*#titrepj {
+    color: #878786;
+    font-size: 2px !important;
+    font-weight: 700 !important;;
+    line-height: 130% !important;;
+    margin: 0;
+    text-transform: uppercase;
+}*/
+
 #pj_dossier_File, #pj_cloture_file{
     display: none;
 }

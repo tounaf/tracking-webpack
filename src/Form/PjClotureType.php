@@ -33,6 +33,7 @@ class PjClotureType extends AbstractType
                 )])
             ->add('infoPj',EntityType::class, array(
                 'label' => $this->trans->trans('label.infoPj'),
+                'placeholder' => $this->trans->trans('label.veuillezS'),
                 'class' => InformationPj::class,
                 'choice_label' => 'libelle'))
         ;
