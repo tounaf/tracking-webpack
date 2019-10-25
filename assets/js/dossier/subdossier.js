@@ -38,8 +38,8 @@ $('#listSubdossier').DataTable({
     "autoWidth": false,
         responsive: true,
         columnDefs: [
-          { "width": "13%", "targets": 0, orderable: true },
-          { "width": "82%", "targets": 1, orderable: true},
+          { "width": "18%", "targets": 0, orderable: true },
+          { "width": "77%", "targets": 1, orderable: true},
           { "width": "5%", "targets": 2, orderable: false},
           
         ]
