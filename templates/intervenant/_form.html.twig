@@ -69,17 +69,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group file-form">
+                        <div class="form-group file-form col-xl-6">
                             {{ form_label(form.piecesJointes) }}
                             <div class="file-field">
-                                <div class="select-typefile">
+                                <div  class="select-typefile">
                                     {{ form_widget(form.piecesJointes) }}
                                 </div>
-                                <div class="load-file">
-                                    <div  class="loadLink" > {{ form_row(form.File) }}</div>
-                                   <div >
-                                        <span id="errorupload" style="display: none">Le fichier est trop volumineux</span>
-                                    </div>
+                            </div>
+                        </div>
+                        <div class="form-group file-form col-xl-6">
+                            <div class="load-file">
+                                <div id="intervenantlabel" class="loadLink"> {{ form_row(form.File) }}</div>
+                                <div>
+                                    <span id="errorupload" style="display: none">Le fichier est trop volumineux</span>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +97,8 @@
         </div>
     </div>
     <div class="btns-group">
-        <input type="button" data-dismiss="modal" id="cancel" class="btn btn-default" value="{{ 'label.cancel'|trans }}"/>
+        <input type="button" data-dismiss="modal" id="cancel" class="btn btn-default"
+               value="{{ 'label.cancel'|trans }}"/>
         <input type="submit" id="saveCreateUser" class="btn btn-danger" value="{{ 'label.save'|trans }}"/>
     </div>
     {{ form_end(form) }}

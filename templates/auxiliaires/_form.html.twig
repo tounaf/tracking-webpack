@@ -74,20 +74,23 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group file-form">
-                                {{ form_label(formAuxi.piecesJointesAux) }}
-                                <div class="file-field">
-                                    <div class="select-typefile">
-                                        {{ form_widget(formAuxi.piecesJointesAux) }}
+                                <div  class="form-group file-form col-xl-6">
+                                    {{ form_label(formAuxi.piecesJointesAux) }}
+                                    <div class="file-field">
+                                        <div class="select-typefile">
+                                            {{ form_widget(formAuxi.piecesJointesAux) }}
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="form-group file-form col-xl-6">
                                     <div class="load-file">
-                                        <div class="loadLink" > {{ form_row(formAuxi.FileAux) }}</div>
+                                        <div id="auxiliarelabel"class="loadLink" > {{ form_row(formAuxi.FileAux) }}</div>
                                         <div >
                                             <span id="errorupload" style="display: none">Le fichier est trop volumineux</span>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+
                         </div>
                         <div class="row">
                             <div class="col-xl-6" hidden>

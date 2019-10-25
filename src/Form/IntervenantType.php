@@ -103,7 +103,7 @@ class IntervenantType extends AbstractType
                 'mapped' => false
             ))
             ->add('File', FileType::class,[
-                'label' => 'insérer pièces jointes',
+                'label' => $this->trans->trans('label.File'),
                 /*'attr' => ['class' => 'file'],*/
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,

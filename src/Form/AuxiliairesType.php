@@ -89,7 +89,7 @@ class AuxiliairesType extends AbstractType
                     return $repository->getDevise();
                 }))
             ->add('piecesJointesAux', EntityType::class, array(
-                'placeholder' =>'Veuillez sélectionner',
+                'placeholder' => $this->trans->trans('label.veuillezS'),
                 'required' => false ,
                 'class' => InformationPj::class,
                 'placeholder' =>  $this->trans->trans('label.veuillezS'),

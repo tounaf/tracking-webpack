@@ -26,9 +26,10 @@ class PjDossierType extends AbstractType
         $builder
 
             ->add('File', FileType::class,[
-                'label' => 'insérer pièces jointes',
+                'label' => $this->trans->trans('label.File'),
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
+                /*'class' => 'labelpj',*/
 
                 /* "multiple" => true,*/
                 // make it optional so you don't have to re-upload the PDF file
@@ -42,6 +43,7 @@ class PjDossierType extends AbstractType
             )
             ->add('infoPj',EntityType::class, array(
                 'label' => $this->trans->trans('label.infoPj'),
+                'placeholder' => $this->trans->trans('label.veuillezS'),
                 'class' => InformationPj::class,
                 'choice_label' => 'libelle'))
 
