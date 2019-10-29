@@ -86,7 +86,7 @@ class DossierController extends Controller
         ));
         if ($dossier) {
             $formDossier = $this->createForm(PjDossierType::class, new PjDossier(), array(
-                'action' => $this->generateUrl('uploaddossier_file', array('id' => $id)),
+                'action' => $this->generateUrl('uploaddossier_file', array('dossier' => $id)),
                 'method' => 'POST'
             ));
 
@@ -147,19 +147,19 @@ class DossierController extends Controller
     }
 
     /**
-     *  @Route("/dossier/filedossier/upload/", name="uploaddossier_filerender", options={"expose"=true}, methods={"POST"})
-     * @Route("/dossier/filedossier/upload/", name="uploaddossier_file", options={"expose"=true}, methods={"POST"})
+     * @Route("/dossier/filedossier/upload/{dossier}", requirements={"dossier":"\d+"}, name="uploaddossier_filerender", options={"expose"=true}, methods={"POST"})
+     * @Route("/dossier/filedossier/upload/{dossier}", requirements={"dossier":"\d+"}, name="uploaddossier_file", options={"expose"=true}, methods={"POST"})
+     * @ParamConverter("dossier", class="App\Entity\Dossier")
      */
-    public function savepjinf(Request $request)
+    public function savepjinf(Dossier $dossier, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $idDossier = $request->get('id');
         $infoPjId = $request->get('pj_dossier_infoPj');
         $infoPj = $em->getRepository(InformationPj::class)->find($infoPjId);
         $pjDossier = new PjDossier();
         $form = $this->createForm(PjDossierType::class, $pjDossier, array(
             'method' => 'POST',
-            'action' => $this->generateUrl('uploaddossier_file')
+            'action' => $this->generateUrl('uploaddossier_file', array("dossier" => $dossier->getId()))
         ))->handleRequest($request);
         if(!empty($_FILES)){
             $filename = $_FILES['file']['name'];
@@ -170,7 +170,6 @@ class DossierController extends Controller
             $this->get('uploaderfichier')->uploadSimpleFile($filename, $tmpFilename);
         }
         if ($form->isSubmitted() || $request->getMethod() == "POST") {
-            $dossier = $em->getRepository(Dossier::class)->find($idDossier);
             $pjDossier->setDossier($dossier);
             if($infoPj){
                 $pjDossier->setInformationPj($infoPj);

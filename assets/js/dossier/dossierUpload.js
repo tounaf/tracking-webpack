@@ -107,7 +107,7 @@ $(document).ready(function(){
         fd.append('file', files);
         fd.append('pj_dossier_infoPj', idPj);
         $.ajax({
-            url: Routing.generate('uploaddossier_file', {id: id}, true),
+            url: Routing.generate('uploaddossier_file', {dossier: id}, true),
             type: 'POST',
             enctype: 'multipart/form-data',
             data: fd,

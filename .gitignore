@@ -7,6 +7,8 @@
 /var/
 /.idea/
 /vendor/
+/public/uploads/
+/public/pieces_jointes/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
