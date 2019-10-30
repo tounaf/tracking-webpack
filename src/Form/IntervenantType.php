@@ -113,7 +113,7 @@ class IntervenantType extends AbstractType
                 'required' => false,
                 'constraints' => array(
                     new File([
-                        'maxSize' => '24000M',
+                        'maxSize' => '400M',
 
                     ])
                 )

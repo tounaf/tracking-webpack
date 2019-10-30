@@ -30,7 +30,7 @@ class PjClotureType extends AbstractType
 //                'attr' => ['hidden'=> ''],
                 'constraints' => array(
                     new File([
-                        'maxSize' => '24000M',
+                        'maxSize' => '400M',
 
                     ])
                 )])

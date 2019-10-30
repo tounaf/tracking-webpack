@@ -37,7 +37,7 @@ class PjDossierType extends AbstractType
                 'required' => true,
                 'constraints' => array(
                     new File([
-                        'maxSize' => '24000M',
+                        'maxSize' => '400M',
 
                     ])
                 )]
