@@ -4,7 +4,7 @@
 
 
 import Routing from "../user/Routing";
-var main = $('#listSubdossier');
+var main = $('#listPjdossier');
 $('.add_tag').click(function (e) {
     e.preventDefault();
     var filCount = $(this).data('length');
