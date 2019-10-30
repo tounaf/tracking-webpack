@@ -4,6 +4,8 @@
 
 
 import Routing from "../user/Routing";
+var main = $('#listPj');
+
 
 $('.add_tag').click(function (e) {
     e.preventDefault();
@@ -108,7 +110,7 @@ $(document).ready(function(){
         var formData = new FormData($("#form-pj-cloture")[0]);
         var id = $("#cloture-id").val();
         var url = Routing.generate('upload_file', {id: id}, true);
-
+        main.ajaxloader('show');
         $.ajax({
             url: url,
             type: 'POST',
@@ -119,7 +121,8 @@ $(document).ready(function(){
             async: true,
             data: formData,
             success: function (response) {
-                $('#listPj').DataTable().ajax.reload()
+                $('#listPj').DataTable().ajax.reload();
+                main.ajaxloader('hide');
             }
         })
     })

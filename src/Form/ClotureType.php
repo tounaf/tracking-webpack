@@ -44,7 +44,7 @@ class ClotureType extends AbstractType
             ])
             ->add('sensDecision', ChoiceType::class,[
                 'label'=> 'SENS DE LA DECISION DE JUSTICE',
-                'placeholder'=>'Sélectionner',
+                'placeholder'=> $this->trans->trans('label.veuillezS'),
                 'required'=>false,
                 'choices'=>[
                     'Favorable'=>'Favorable',
@@ -53,7 +53,7 @@ class ClotureType extends AbstractType
             ])
             ->add('risque', ChoiceType::class,[
                 'label'=> 'RISQUE',
-                'placeholder'=>'Sélectionner',
+                'placeholder'=> $this->trans->trans('label.veuillezS'),
                 'required'=>false,
                 'choices'=>[
                     'Faible'=>'Faible',
@@ -65,7 +65,7 @@ class ClotureType extends AbstractType
             ])
             ->add('typeCloture', ChoiceType::class,[
                 'label'=> 'TYPES DE CLÔTURE',
-                'placeholder'=>'Sélectionner',
+                'placeholder'=> $this->trans->trans('label.veuillezS'),
                 'required'=>false,
                 'choices'=>[
                     'Amiable'=>'Amiable',
@@ -103,16 +103,16 @@ class ClotureType extends AbstractType
             ])
             ->add('decisionLitige',null,[
                 'label'=> 'DECISION DU LITIGE',
-                'placeholder'=>'Sélectionner',
+                'placeholder'=> $this->trans->trans('label.veuillezS'),
                 'required'=> false,
             ])
             ->add('niveauDecision',null,[
                 'label'=> 'NIVEAU DE LA DECISION DE LITIGE',
-                'placeholder'=>'Sélectionner',
+                'placeholder'=> $this->trans->trans('label.veuillezS'),
                 'required'=> false,])
             ->add('natureDecision',null,[
                 'label'=> 'NATURE DE LA DECISION DE JUSTICE',
-                'placeholder'=>'Sélectionner',
+                'placeholder'=> $this->trans->trans('label.veuillezS'),
                 'required'=> false,])
          /*   ->add('devise', EntityType::class, [
                 'label'=> $this->trans->trans('label.devise'),

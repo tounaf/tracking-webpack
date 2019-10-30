@@ -36,7 +36,10 @@ class PjDossierType extends AbstractType
                 // everytime you edit the Product details
                 'required' => true,
                 'constraints' => array(
-                    new File(),
+                    new File([
+                        'maxSize' => '24000M',
+
+                    ])
                 )]
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes

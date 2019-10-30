@@ -4,7 +4,7 @@
 
 
 import Routing from "../user/Routing";
-
+var main = $('#listSubdossier');
 $('.add_tag').click(function (e) {
     e.preventDefault();
     var filCount = $(this).data('length');
@@ -106,6 +106,7 @@ $(document).ready(function(){
         }
         fd.append('file', files);
         fd.append('pj_dossier_infoPj', idPj);
+        main.ajaxloader('show');
         $.ajax({
             url: Routing.generate('uploaddossier_file', {id: id}, true),
             type: 'POST',
@@ -115,7 +116,8 @@ $(document).ready(function(){
             processData: false,
             async: true,
             success: function(response){
-                $('#listPjdossier').DataTable().ajax.reload()
+                $('#listPjdossier').DataTable().ajax.reload();
+                main.ajaxloader('hide');
             },
         });
         return false;
