@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -106,6 +107,12 @@ class AuxiliairesType extends AbstractType
                 // make it optional so you don't have to re-upload the PDF file
                 // everytime you edit the Product details
                 'required' => false,
+                'constraints' => array(
+                    new File([
+                        'maxSize' => '400M',
+
+                    ])
+                )
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
             ])

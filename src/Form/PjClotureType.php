@@ -29,7 +29,10 @@ class PjClotureType extends AbstractType
                 'required' 	=> true,
 //                'attr' => ['hidden'=> ''],
                 'constraints' => array(
-                    new File(),
+                    new File([
+                        'maxSize' => '400M',
+
+                    ])
                 )])
             ->add('infoPj',EntityType::class, array(
                 'label' => $this->trans->trans('label.infoPj'),
