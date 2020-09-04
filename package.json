@@ -24,7 +24,7 @@
         "font-awesome": "^4.7.0",
         "fos-routing": "0.0.6",
         "jquery": "^3.4.1",
-        "node-sass": "^4.12.0",
+        "node-sass": "^4.13.1",
         "perfect-scrollbar": "^1.4.0",
         "popper.js": "^1.15.0",
         "sass-loader": "^8.0.0",
